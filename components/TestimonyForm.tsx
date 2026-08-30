@@ -11,15 +11,20 @@ import {
   Mail,
   Video,
   Mic,
+  PenLine,
   RefreshCw,
 } from 'lucide-react';
 import { MediaRecorderComponent, MediaType } from './MediaRecorderComponent';
+
+type ShareMode = 'record' | 'write';
+
+const MAX_TEXT_LENGTH = 8000;
 
 interface SubmissionResponse {
   success: boolean;
   message?: string;
   submission_id?: string;
-  media_type?: 'audio' | 'video';
+  media_type?: 'audio' | 'video' | 'text';
   drive_url?: string;
   transcript?: string;
   submitted_at?: string;
@@ -30,6 +35,9 @@ export const TestimonyForm: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [contact, setContact] = useState<string>('');
   const [consent, setConsent] = useState<boolean>(true);
+
+  const [mode, setMode] = useState<ShareMode>('record');
+  const [text, setText] = useState<string>('');
   const [mediaBlob, setMediaBlob] = useState<Blob | null>(null);
   const [mediaType, setMediaType] = useState<MediaType>('audio');
   const [durationSeconds, setDurationSeconds] = useState<number>(0);
@@ -52,6 +60,8 @@ export const TestimonyForm: React.FC = () => {
     setSubmitError(null);
   };
 
+  const hasContent = mode === 'write' ? text.trim().length > 0 : !!mediaBlob;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError(null);
@@ -60,7 +70,11 @@ export const TestimonyForm: React.FC = () => {
       setSubmitError('Please enter your name.');
       return;
     }
-    if (!mediaBlob) {
+    if (mode === 'write' && !text.trim()) {
+      setSubmitError('Please write your testimony before submitting.');
+      return;
+    }
+    if (mode === 'record' && !mediaBlob) {
       setSubmitError('Please record your testimony before submitting.');
       return;
     }
@@ -76,14 +90,18 @@ export const TestimonyForm: React.FC = () => {
       const formData = new FormData();
       formData.append('name', name.trim());
       if (contact.trim()) formData.append('contact', contact.trim());
-      formData.append('mediaType', mediaType);
-      formData.append('duration', durationSeconds.toString());
 
-      const ext = 'webm';
-      const file = new File([mediaBlob], `testimony.${ext}`, {
-        type: mediaBlob.type || (mediaType === 'video' ? 'video/webm' : 'audio/webm'),
-      });
-      formData.append('media', file);
+      if (mode === 'write') {
+        formData.append('mediaType', 'text');
+        formData.append('text', text.trim());
+      } else {
+        formData.append('mediaType', mediaType);
+        formData.append('duration', durationSeconds.toString());
+        const file = new File([mediaBlob as Blob], 'testimony.webm', {
+          type: (mediaBlob as Blob).type || (mediaType === 'video' ? 'video/webm' : 'audio/webm'),
+        });
+        formData.append('media', file);
+      }
 
       const progressTimer = setTimeout(() => {
         setSubmissionStep('Almost done…');
@@ -119,6 +137,8 @@ export const TestimonyForm: React.FC = () => {
   const handleStartAnother = () => {
     setName('');
     setContact('');
+    setText('');
+    setMode('record');
     setMediaBlob(null);
     setDurationSeconds(0);
     setSubmitSuccess(null);
@@ -127,6 +147,7 @@ export const TestimonyForm: React.FC = () => {
 
   // ---------------------------- SUCCESS ----------------------------
   if (submitSuccess) {
+    const kind = submitSuccess.media_type || (mode === 'write' ? 'text' : mediaType);
     return (
       <div className="w-full max-w-xl mx-auto panel rounded-[1.75rem] p-8 sm:p-10 shadow-elevate text-center flex flex-col items-center animate-fade-in">
         <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-gold-500/20 to-royal-600/20 border border-gold-500/40 flex items-center justify-center mb-6">
@@ -151,21 +172,17 @@ export const TestimonyForm: React.FC = () => {
               #{submitSuccess.submission_id}
             </span>
           </div>
-          <div className="flex justify-between items-center text-xs pb-2 border-b border-white/8">
+          <div className="flex justify-between items-center text-xs">
             <span className="text-cream-500 font-medium">Format</span>
             <span className="text-cream-200 font-semibold capitalize flex items-center gap-1.5">
-              {submitSuccess.media_type === 'video' ? (
+              {kind === 'video' ? (
                 <Video className="w-3.5 h-3.5 text-gold-400" />
+              ) : kind === 'text' ? (
+                <PenLine className="w-3.5 h-3.5 text-gold-400" />
               ) : (
                 <Mic className="w-3.5 h-3.5 text-gold-400" />
               )}
-              {submitSuccess.media_type || mediaType} testimony
-            </span>
-          </div>
-          <div className="flex justify-between items-center text-xs">
-            <span className="text-cream-500 font-medium">Received</span>
-            <span className="text-cream-200 font-medium">
-              {submitSuccess.submitted_at || new Date().toLocaleString()}
+              {kind === 'text' ? 'Written' : kind} testimony
             </span>
           </div>
         </div>
@@ -234,14 +251,64 @@ export const TestimonyForm: React.FC = () => {
 
         {/* Step 2 */}
         <div className="space-y-4 pt-1">
-          <StepHeader n={2} title="Record Your Story" hint="Choose voice or video, then speak clearly from your heart." />
-          <MediaRecorderComponent
-            onRecordingComplete={handleRecordingComplete}
-            onReset={handleResetRecording}
-            disabled={isSubmitting}
-            maxAudioSeconds={600}
-            maxVideoSeconds={420}
-          />
+          <StepHeader n={2} title="Share Your Story" hint="Write it out, or record your voice or video — whatever you prefer." />
+
+          {/* Write vs Record toggle */}
+          <div className="flex items-center gap-1.5 p-1 bg-ink-950/60 border border-white/10 rounded-2xl w-full max-w-xs mx-auto">
+            <button
+              type="button"
+              onClick={() => { setMode('write'); setSubmitError(null); }}
+              disabled={isSubmitting}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition cursor-pointer ${
+                mode === 'write'
+                  ? 'bg-gold-sheen text-ink-950 shadow-glow-gold'
+                  : 'text-cream-400 hover:text-cream-100 hover:bg-white/5'
+              }`}
+            >
+              <PenLine className="w-4 h-4" />
+              <span>Write</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => { setMode('record'); setSubmitError(null); }}
+              disabled={isSubmitting}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition cursor-pointer ${
+                mode === 'record'
+                  ? 'bg-gold-sheen text-ink-950 shadow-glow-gold'
+                  : 'text-cream-400 hover:text-cream-100 hover:bg-white/5'
+              }`}
+            >
+              <Mic className="w-4 h-4" />
+              <span>Record</span>
+            </button>
+          </div>
+
+          {mode === 'write' ? (
+            <div>
+              <textarea
+                value={text}
+                onChange={(e) => { setText(e.target.value); setSubmitError(null); }}
+                disabled={isSubmitting}
+                rows={7}
+                maxLength={MAX_TEXT_LENGTH}
+                placeholder="Write your testimony here — share what God has done in your life…"
+                className="w-full px-4 py-3.5 bg-ink-950/60 border border-white/10 rounded-2xl text-cream-100 placeholder-cream-600 text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500/60 transition disabled:opacity-50 resize-y min-h-[168px]"
+              />
+              <div className="flex justify-end mt-1.5">
+                <span className="text-[11px] text-cream-500">
+                  {text.length.toLocaleString()} / {MAX_TEXT_LENGTH.toLocaleString()}
+                </span>
+              </div>
+            </div>
+          ) : (
+            <MediaRecorderComponent
+              onRecordingComplete={handleRecordingComplete}
+              onReset={handleResetRecording}
+              disabled={isSubmitting}
+              maxAudioSeconds={600}
+              maxVideoSeconds={420}
+            />
+          )}
         </div>
 
         {/* Step 3 */}
@@ -256,7 +323,7 @@ export const TestimonyForm: React.FC = () => {
               className="mt-1 w-4 h-4 rounded border-white/20 text-gold-600 focus:ring-gold-500 bg-ink-900 cursor-pointer accent-gold-500"
             />
             <label htmlFor="consent" className="text-xs text-cream-400 leading-relaxed cursor-pointer">
-              By submitting, I understand that my recording and details will be received and reviewed
+              By submitting, I understand that my testimony and details will be received and reviewed
               by the URPN pastoral team.
             </label>
           </div>
@@ -283,7 +350,7 @@ export const TestimonyForm: React.FC = () => {
 
           <button
             type="submit"
-            disabled={isSubmitting || !mediaBlob || !name.trim() || !consent}
+            disabled={isSubmitting || !name.trim() || !consent || !hasContent}
             className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gold-sheen bg-[length:200%_auto] hover:bg-right text-ink-950 font-semibold text-base rounded-2xl shadow-glow-gold transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             {isSubmitting ? (
@@ -299,9 +366,11 @@ export const TestimonyForm: React.FC = () => {
             )}
           </button>
 
-          {!mediaBlob && (
+          {!hasContent && (
             <p className="text-center text-[11px] text-cream-500 font-medium">
-              Record your testimony in Step 2 to enable submission.
+              {mode === 'write'
+                ? 'Write your testimony above to enable submission.'
+                : 'Record your testimony in Step 2 to enable submission.'}
             </p>
           )}
         </div>

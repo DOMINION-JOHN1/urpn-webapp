@@ -50,15 +50,16 @@ export async function POST(req: NextRequest) {
     const contact = formData.get('contact') as string | null;
     const mediaType = (formData.get('mediaType') as string | null) || 'audio';
     const duration = formData.get('duration') as string | null;
+    const text = formData.get('text') as string | null;
     const file = formData.get('media') as File | Blob | null;
 
-    // 1. Validate submission input and file
+    // 1. Validate submission input (and the file, for audio/video)
     const validation = validateTestimonySubmission(
-      { name, contact, mediaType, duration },
+      { name, contact, mediaType, duration, text },
       file
     );
 
-    if (!validation.valid || !validation.data || !file) {
+    if (!validation.valid || !validation.data) {
       console.warn(`[API /api/testimonies] Validation failed for ID ${submissionId}: ${validation.error}`);
       return NextResponse.json(
         {
@@ -70,6 +71,52 @@ export async function POST(req: NextRequest) {
     }
 
     const { name: cleanName, contact: cleanContact, mediaType: cleanMediaType } = validation.data;
+
+    // ---- Written (text) testimony: goes straight to the Sheet, no Drive/transcription ----
+    if (cleanMediaType === 'text') {
+      const { display: submittedAt } = getFormattedTimestamp();
+      const testimonyText = validation.data.text || '';
+      try {
+        await appendTestimonyToSheet({
+          id: submissionId,
+          name: cleanName,
+          contact: cleanContact,
+          mediaType: 'text',
+          fileName: '',
+          driveFileId: '',
+          driveUrl: '',
+          transcript: testimonyText,
+          submittedAt,
+          status: 'Completed',
+        });
+        console.log(`[API /api/testimonies] [${submissionId}] Written testimony saved to Google Sheets.`);
+      } catch (sheetError: any) {
+        console.error(`[API /api/testimonies] [${submissionId}] Sheets save failed for written testimony:`, sheetError);
+        return NextResponse.json(
+          { success: false, error: "We couldn't save your testimony right now. Please try again." },
+          { status: 500 }
+        );
+      }
+      return NextResponse.json(
+        {
+          success: true,
+          message: 'Your testimony has been submitted successfully. Thank you for sharing your story!',
+          submission_id: submissionId,
+          media_type: 'text',
+          transcript: testimonyText,
+          submitted_at: submittedAt,
+        },
+        { status: 200 }
+      );
+    }
+
+    // ---- Audio / video testimony ----
+    if (!file) {
+      return NextResponse.json(
+        { success: false, error: 'Please record your testimony before submitting.' },
+        { status: 400 }
+      );
+    }
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const mimeType = file.type || (cleanMediaType === 'video' ? 'video/webm' : 'audio/webm');

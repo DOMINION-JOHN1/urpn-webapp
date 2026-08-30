@@ -6,7 +6,7 @@ export interface SheetRowData {
   id: string;
   name: string;
   contact?: string;
-  mediaType: 'audio' | 'video';
+  mediaType: 'audio' | 'video' | 'text';
   fileName: string;
   driveFileId: string;
   driveUrl: string;

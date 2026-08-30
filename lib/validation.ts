@@ -5,12 +5,18 @@ export interface ValidationResult {
   error?: string;
 }
 
+export type TestimonyMediaType = 'audio' | 'video' | 'text';
+
 export interface TestimonyPayload {
   name: string;
   contact?: string;
-  mediaType: 'audio' | 'video';
+  mediaType: TestimonyMediaType;
   durationSeconds?: number;
+  text?: string;
 }
+
+const MAX_TEXT_LENGTH = 8000;
+const MIN_TEXT_LENGTH = 2;
 
 const ALLOWED_AUDIO_MIME_TYPES = [
   'audio/webm',
@@ -43,6 +49,7 @@ export function validateTestimonySubmission(
     contact?: string | null;
     mediaType?: string | null;
     duration?: string | null;
+    text?: string | null;
   },
   file: File | Blob | null
 ): { valid: boolean; error?: string; data?: TestimonyPayload } {
@@ -67,12 +74,27 @@ export function validateTestimonySubmission(
 
   // 3. Validate Media Type
   const rawMediaType = fields.mediaType?.toLowerCase() || 'audio';
-  if (rawMediaType !== 'audio' && rawMediaType !== 'video') {
-    return { valid: false, error: 'Invalid media type. Must be audio or video.' };
+  if (rawMediaType !== 'audio' && rawMediaType !== 'video' && rawMediaType !== 'text') {
+    return { valid: false, error: 'Invalid testimony type.' };
   }
-  const mediaType = rawMediaType as 'audio' | 'video';
+  const mediaType = rawMediaType as TestimonyMediaType;
 
-  // 4. Validate File presence
+  // 3b. Written (text) testimony — validate the text, no file required.
+  if (mediaType === 'text') {
+    const text = (fields.text || '').trim();
+    if (text.length < MIN_TEXT_LENGTH) {
+      return { valid: false, error: 'Please write your testimony before submitting.' };
+    }
+    if (text.length > MAX_TEXT_LENGTH) {
+      return {
+        valid: false,
+        error: `Your testimony is a little long (max ${MAX_TEXT_LENGTH.toLocaleString()} characters). Please shorten it slightly.`,
+      };
+    }
+    return { valid: true, data: { name: cleanName, contact: cleanContact, mediaType, text } };
+  }
+
+  // 4. Validate File presence (audio / video)
   if (!file || !(file instanceof Blob)) {
     return { valid: false, error: 'No media file provided. Please record your testimony before submitting.' };
   }
