@@ -62,6 +62,10 @@ export async function uploadTestimonyToDrive(options: {
     requestBody: fileMetadata,
     media,
     fields: 'id, name, webViewLink, webContentLink',
+    // Required so uploads can target a Shared Drive folder. Service accounts
+    // have no personal Drive quota, so the destination folder must live in a
+    // Shared Drive (the drive owns the files, not the service account).
+    supportsAllDrives: true,
   });
 
   const fileId = response.data.id || `file_${submissionId}`;

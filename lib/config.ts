@@ -3,6 +3,11 @@ export interface AppConfig {
     projectId?: string;
     clientEmail?: string;
     privateKey?: string;
+    // OAuth (user delegation) — used for free @gmail.com accounts where a
+    // service account cannot own Drive files (no storage quota).
+    oauthClientId?: string;
+    oauthClientSecret?: string;
+    oauthRefreshToken?: string;
     driveFolderId?: string;
     sheetId?: string;
     sheetName: string;
@@ -86,6 +91,9 @@ export const config: AppConfig = {
       process.env.CLIENT_EMAIL
     )?.trim(),
     privateKey: cleanPrivateKey(rawPrivateKey),
+    oauthClientId: process.env.GOOGLE_OAUTH_CLIENT_ID?.trim(),
+    oauthClientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET?.trim(),
+    oauthRefreshToken: process.env.GOOGLE_OAUTH_REFRESH_TOKEN?.trim(),
     driveFolderId: extractDriveFolderId(rawDriveInput),
     sheetId: extractSheetId(rawSheetInput),
     sheetName: process.env.GOOGLE_SHEET_NAME || 'Submissions',
@@ -108,10 +116,23 @@ export const config: AppConfig = {
   },
 };
 
+/** OAuth (user delegation) creds — the path for free @gmail.com accounts. */
+export function isGoogleOAuthConfigured(): boolean {
+  return Boolean(
+    config.google.oauthClientId &&
+    config.google.oauthClientSecret &&
+    config.google.oauthRefreshToken
+  );
+}
+
+/** Service-account creds — works only with Shared Drives (Workspace). */
+export function isServiceAccountConfigured(): boolean {
+  return Boolean(config.google.clientEmail && config.google.privateKey);
+}
+
 export function isGoogleConfigured(): boolean {
   return Boolean(
-    config.google.clientEmail &&
-    config.google.privateKey &&
+    (isGoogleOAuthConfigured() || isServiceAccountConfigured()) &&
     config.google.driveFolderId &&
     config.google.sheetId
   );
