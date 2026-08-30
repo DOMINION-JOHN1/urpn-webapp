@@ -45,6 +45,18 @@ function extractSheetId(input?: string): string | undefined {
   return trimmed.replace(/^["']|["']$/g, '');
 }
 
+function cleanPrivateKey(key?: string): string | undefined {
+  if (!key) return undefined;
+  let cleaned = key.trim();
+  if (
+    (cleaned.startsWith('"') && cleaned.endsWith('"')) ||
+    (cleaned.startsWith("'") && cleaned.endsWith("'"))
+  ) {
+    cleaned = cleaned.slice(1, -1);
+  }
+  return cleaned.replace(/\\n/g, '\n');
+}
+
 const rawDriveInput =
   process.env.GOOGLE_DRIVE_FOLDER_ID ||
   process.env['Google Drive Folder'] ||
@@ -60,6 +72,11 @@ const rawProjectId =
   process.env.project_id ||
   process.env.PROJECT_ID;
 
+const rawPrivateKey =
+  process.env.GOOGLE_PRIVATE_KEY ||
+  process.env.private_key ||
+  process.env.PRIVATE_KEY;
+
 export const config: AppConfig = {
   google: {
     projectId: rawProjectId?.trim(),
@@ -68,15 +85,7 @@ export const config: AppConfig = {
       process.env.client_email ||
       process.env.CLIENT_EMAIL
     )?.trim(),
-    privateKey: (
-      process.env.GOOGLE_PRIVATE_KEY ||
-      process.env.private_key ||
-      process.env.PRIVATE_KEY
-    )
-      ? (process.env.GOOGLE_PRIVATE_KEY || process.env.private_key || process.env.PRIVATE_KEY)!
-          .replace(/\\n/g, '\n')
-          .replace(/^["']|["']$/g, '')
-      : undefined,
+    privateKey: cleanPrivateKey(rawPrivateKey),
     driveFolderId: extractDriveFolderId(rawDriveInput),
     sheetId: extractSheetId(rawSheetInput),
     sheetName: process.env.GOOGLE_SHEET_NAME || 'Submissions',

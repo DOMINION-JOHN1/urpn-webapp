@@ -5,6 +5,7 @@ import { Flame, HandHeart, Sprout, ArrowRight, Mic, Quote } from 'lucide-react';
 import { MandateSection } from '@/components/MandateSection';
 import { MeetingSchedule } from '@/components/MeetingSchedule';
 import { MinistryGallery } from '@/components/MinistryGallery';
+import { HeroBackdrop } from '@/components/HeroBackdrop';
 
 const PILLARS = [
   {
@@ -31,20 +32,7 @@ export default function HomePage() {
       <section className="relative isolate w-full min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Cinematic background */}
         <div className="absolute inset-0 -z-10">
-          <Image
-            src="/images/urpn-community.png"
-            alt="The URPN church family in worship"
-            fill
-            priority
-            className="object-cover object-center brightness-[1.08] contrast-[1.05] saturate-[1.05]"
-          />
-          {/* Single bottom-weighted gradient: dark under the navbar and the text, photo visible through the middle */}
-          <div className="absolute inset-0 bg-gradient-to-b from-ink-950/80 via-ink-950/35 to-ink-950" />
-          {/* Subtle royal tint */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(124,58,237,0.2),transparent_55%)]" />
-          {/* Royal + gold ambience */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(124,58,237,0.24),transparent_55%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(237,165,30,0.16),transparent_55%)]" />
+          <HeroBackdrop />
         </div>
 
         <div className="max-w-4xl mx-auto text-center px-5 py-20 space-y-8 animate-fade-in">
@@ -72,13 +60,13 @@ export default function HomePage() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-cream-50 leading-[1.02] tracking-tight [text-shadow:_0_2px_24px_rgba(0,0,0,0.6)]">
+          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-cream-50 leading-[1.02] tracking-tight">
             Restoring People, Families
             <span className="block text-gold-sheen">Spheres &amp; Territories</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-cream-200 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed font-light [text-shadow:_0_1px_16px_rgba(0,0,0,0.7)]">
+          <p className="text-cream-300 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed font-light">
             A prophetic altar of intercession and fire — raising a generation that looks like God
             and carries His original blueprint into every sphere of life.
           </p>

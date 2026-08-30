@@ -17,8 +17,8 @@ describe('MediaRecorderComponent UI', () => {
       />
     );
 
-    expect(screen.getByRole('button', { name: /Voice Recording \(10 min\)/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Video Recording \(7 min max\)/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^Voice$/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^Video$/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Start Voice Recording/i })).toBeInTheDocument();
   });
 
@@ -33,10 +33,10 @@ describe('MediaRecorderComponent UI', () => {
       />
     );
 
-    const videoTab = screen.getByRole('button', { name: /Video Recording \(7 min max\)/i });
+    const videoTab = screen.getByRole('button', { name: /^Video$/i });
     fireEvent.click(videoTab);
 
     expect(screen.getByRole('button', { name: /Start Video Recording/i })).toBeInTheDocument();
-    expect(screen.getByText(/Limit: 7 minutes for video testimony/i)).toBeInTheDocument();
+    expect(screen.getByText(/Up to 7 minutes for a video/i)).toBeInTheDocument();
   });
 });
