@@ -14,7 +14,11 @@
 # Production
 /build
 
-# Environment variables
+# TypeScript / Next.js generated files
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment variables (contain secrets — never commit)
 .env
 .env*.local
 .env.development
@@ -22,9 +26,13 @@
 .env.production
 !.env.example
 
-# Service account credentials
+# Secrets & credentials
+# Default-deny ALL .json so a stray Google service-account key can never be
+# committed. Add an explicit "!name.json" line for any safe config you DO
+# want tracked (e.g. a future vercel.json).
 *.json
 !package.json
+!package-lock.json
 !tsconfig.json
 
 # Debug logs
@@ -32,6 +40,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+
+# Deployment
+.vercel
 
 # IDE / OS
 .DS_Store
