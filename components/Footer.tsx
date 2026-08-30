@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="w-full border-t border-gold-500/15 bg-ink-950/70 py-14 px-4 mt-10">
       <div className="max-w-5xl mx-auto flex flex-col items-center text-center space-y-7">
-        <Link href="/" className="inline-block">
+        <Link href="/testimony" className="inline-block">
           <UrpnLogo size="lg" showWordmark />
         </Link>
 
@@ -19,14 +19,6 @@ export const Footer: React.FC = () => {
             Revelation 12:11
           </span>
         </p>
-
-        {/* Quick links */}
-        <nav className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 text-sm text-cream-300">
-          <Link href="/" className="hover:text-gold-300 transition">Home</Link>
-          <Link href="/#mandate" className="hover:text-gold-300 transition">The Ministry</Link>
-          <Link href="/#gatherings" className="hover:text-gold-300 transition">Gatherings</Link>
-          <Link href="/testimony" className="hover:text-gold-300 transition">Share Testimony</Link>
-        </nav>
 
         <div className="flex flex-wrap items-center justify-center gap-5 text-xs font-medium text-cream-500">
           <span className="flex items-center gap-1.5">
