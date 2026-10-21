@@ -1,0 +1,105 @@
+{"timestamp": "2026-10-21T09:04:01.595774+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting scan on /Users/ram/Documents/tech projects/personal projects/urpn"}
+{"timestamp": "2026-10-21T09:04:01.597514+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting full scan pipeline..."}
+{"timestamp": "2026-10-21T09:04:01.604263+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting project discovery..."}
+{"timestamp": "2026-10-21T09:04:01.615788+00:00", "level": "INFO", "name": "provepatch.discovery", "message": "Discovered project profile: {'languages': ['javascript', 'typescript'], 'frameworks': ['react', 'nextjs'], 'package_managers': ['npm'], 'lockfiles': ['package-lock.json'], 'env_files': ['.env', '.env.example', '.env.local']}"}
+{"timestamp": "2026-10-21T09:04:01.616614+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished project discovery in 0.01s"}
+{"timestamp": "2026-10-21T09:04:01.617273+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting scanning phase..."}
+{"timestamp": "2026-10-21T09:04:01.618103+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Starting all parallel scanners..."}
+{"timestamp": "2026-10-21T09:04:01.628028+00:00", "level": "ERROR", "name": "provepatch.scanners", "message": "Command execution failed: [Errno 2] No such file or directory: '/Users/ram/Library/Application Support/provepatch/tools/bin/checkov'"}
+{"timestamp": "2026-10-21T09:04:01.630068+00:00", "level": "ERROR", "name": "provepatch.checkov", "message": "Checkov failed (exit -1): Execution failed: [Errno 2] No such file or directory: '/Users/ram/Library/Application Support/provepatch/tools/bin/checkov'"}
+{"timestamp": "2026-10-21T09:04:01.634301+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'checkov' failed in 0.0s with 0 finding(s)."}
+{"timestamp": "2026-10-21T09:04:02.030695+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'bandit' ok in 0.4s with 0 finding(s)."}
+{"timestamp": "2026-10-21T09:04:03.417480+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'gitleaks' ok in 1.8s with 9 finding(s)."}
+{"timestamp": "2026-10-21T09:04:03.666297+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'trivy' ok in 2.0s with 40 finding(s)."}
+{"timestamp": "2026-10-21T09:04:04.048118+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'osv-scanner' ok in 2.4s with 45 finding(s)."}
+{"timestamp": "2026-10-21T09:04:06.218890+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'syft' ok in 4.6s with 99 finding(s)."}
+{"timestamp": "2026-10-21T09:04:08.295813+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'semgrep' ok in 6.7s with 5 finding(s)."}
+{"timestamp": "2026-10-21T09:04:08.296721+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Finished all parallel scanners in 6.68s"}
+{"timestamp": "2026-10-21T09:04:08.297901+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished scanning phase in 6.68s"}
+{"timestamp": "2026-10-21T09:04:08.299292+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting normalization phase..."}
+{"timestamp": "2026-10-21T09:04:08.308011+00:00", "level": "INFO", "name": "provepatch.normalizer", "message": "Filtered out 4 findings located in excluded environment/build directories."}
+{"timestamp": "2026-10-21T09:04:08.308537+00:00", "level": "INFO", "name": "provepatch.normalizer", "message": "Normalizing 194 raw findings..."}
+{"timestamp": "2026-10-21T09:04:08.309478+00:00", "level": "INFO", "name": "provepatch.normalizer", "message": "Normalization complete. Reduced to 156 unique findings."}
+{"timestamp": "2026-10-21T09:04:08.309940+00:00", "level": "INFO", "name": "provepatch.prioritizer", "message": "Prioritizing 156 findings..."}
+{"timestamp": "2026-10-21T09:04:08.310800+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Normalization complete: 156 findings remaining"}
+{"timestamp": "2026-10-21T09:04:08.311144+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished normalization phase in 0.01s"}
+{"timestamp": "2026-10-21T09:04:08.311853+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting triage phase..."}
+{"timestamp": "2026-10-21T09:04:08.312167+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "No triage model configured. Skipping AI triage."}
+{"timestamp": "2026-10-21T09:04:08.312478+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished triage phase in 0.00s"}
+{"timestamp": "2026-10-21T09:04:08.312988+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting report phase..."}
+{"timestamp": "2026-10-21T09:04:08.465008+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Scan pipeline finished with 156 findings."}
+{"timestamp": "2026-10-21T09:04:08.465772+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished report phase in 0.15s"}
+{"timestamp": "2026-10-21T09:04:08.466559+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished full scan pipeline in 6.87s"}
+{"timestamp": "2026-10-21T09:09:45.156629+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting scan on /Users/ram/Documents/tech projects/personal projects/urpn"}
+{"timestamp": "2026-10-21T09:09:45.158839+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting full scan pipeline..."}
+{"timestamp": "2026-10-21T09:09:45.166762+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting project discovery..."}
+{"timestamp": "2026-10-21T09:09:45.176712+00:00", "level": "INFO", "name": "provepatch.discovery", "message": "Discovered project profile: {'languages': ['javascript', 'typescript'], 'frameworks': ['react', 'nextjs'], 'package_managers': ['npm'], 'lockfiles': ['package-lock.json'], 'env_files': ['.env', '.env.example', '.env.local']}"}
+{"timestamp": "2026-10-21T09:09:45.177568+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished project discovery in 0.01s"}
+{"timestamp": "2026-10-21T09:09:45.178249+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting scanning phase..."}
+{"timestamp": "2026-10-21T09:09:45.178961+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Starting all parallel scanners..."}
+{"timestamp": "2026-10-21T09:09:45.590053+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'bandit' ok in 0.4s with 0 finding(s)."}
+{"timestamp": "2026-10-21T09:09:47.004343+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'gitleaks' ok in 1.8s with 9 finding(s)."}
+{"timestamp": "2026-10-21T09:09:47.370141+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'trivy' ok in 2.1s with 40 finding(s)."}
+{"timestamp": "2026-10-21T09:09:47.600334+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'osv-scanner' ok in 2.4s with 45 finding(s)."}
+{"timestamp": "2026-10-21T09:09:49.776312+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'syft' ok in 4.6s with 99 finding(s)."}
+{"timestamp": "2026-10-21T09:09:50.404555+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'checkov' ok in 5.2s with 1 finding(s)."}
+{"timestamp": "2026-10-21T09:09:53.157429+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'semgrep' ok in 8.0s with 5 finding(s)."}
+{"timestamp": "2026-10-21T09:09:53.158416+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Finished all parallel scanners in 7.98s"}
+{"timestamp": "2026-10-21T09:09:53.159484+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished scanning phase in 7.98s"}
+{"timestamp": "2026-10-21T09:09:53.160527+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting normalization phase..."}
+{"timestamp": "2026-10-21T09:09:53.169284+00:00", "level": "INFO", "name": "provepatch.normalizer", "message": "Filtered out 4 findings located in excluded environment/build directories."}
+{"timestamp": "2026-10-21T09:09:53.170051+00:00", "level": "INFO", "name": "provepatch.normalizer", "message": "Normalizing 195 raw findings..."}
+{"timestamp": "2026-10-21T09:09:53.171179+00:00", "level": "INFO", "name": "provepatch.normalizer", "message": "Normalization complete. Reduced to 157 unique findings."}
+{"timestamp": "2026-10-21T09:09:53.171774+00:00", "level": "INFO", "name": "provepatch.prioritizer", "message": "Prioritizing 157 findings..."}
+{"timestamp": "2026-10-21T09:09:53.172867+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Normalization complete: 157 findings remaining"}
+{"timestamp": "2026-10-21T09:09:53.173305+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished normalization phase in 0.01s"}
+{"timestamp": "2026-10-21T09:09:53.174193+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting triage phase..."}
+{"timestamp": "2026-10-21T09:09:53.174817+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "No triage model configured. Skipping AI triage."}
+{"timestamp": "2026-10-21T09:09:53.175272+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished triage phase in 0.00s"}
+{"timestamp": "2026-10-21T09:09:53.175943+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting report phase..."}
+{"timestamp": "2026-10-21T09:09:53.291808+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Scan pipeline finished with 157 findings."}
+{"timestamp": "2026-10-21T09:09:53.292452+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished report phase in 0.12s"}
+{"timestamp": "2026-10-21T09:09:53.293189+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished full scan pipeline in 8.13s"}
+{"timestamp": "2026-10-21T11:11:54.504987+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting scan on /Users/ram/Documents/tech projects/personal projects/urpn"}
+{"timestamp": "2026-10-21T11:11:54.506000+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting full scan pipeline..."}
+{"timestamp": "2026-10-21T11:11:54.513546+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting project discovery..."}
+{"timestamp": "2026-10-21T11:11:54.524068+00:00", "level": "INFO", "name": "provepatch.discovery", "message": "Discovered project profile: {'languages': ['javascript', 'typescript'], 'frameworks': ['react', 'nextjs'], 'package_managers': ['npm'], 'lockfiles': ['package-lock.json'], 'env_files': ['.env', '.env.example', '.env.local']}"}
+{"timestamp": "2026-10-21T11:11:54.525048+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished project discovery in 0.01s"}
+{"timestamp": "2026-10-21T11:11:54.525817+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting scanning phase..."}
+{"timestamp": "2026-10-21T11:11:54.526654+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Starting all parallel scanners..."}
+{"timestamp": "2026-10-21T11:11:54.973309+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'bandit' ok in 0.4s with 0 finding(s)."}
+{"timestamp": "2026-10-21T11:11:56.380078+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'gitleaks' ok in 1.8s with 9 finding(s)."}
+{"timestamp": "2026-10-21T11:11:56.660374+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'osv-scanner' ok in 2.1s with 45 finding(s)."}
+{"timestamp": "2026-10-21T11:11:56.746831+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'trivy' ok in 2.2s with 40 finding(s)."}
+{"timestamp": "2026-10-21T11:11:59.274765+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'syft' ok in 4.7s with 99 finding(s)."}
+{"timestamp": "2026-10-21T11:12:01.792607+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'semgrep' ok in 7.3s with 5 finding(s)."}
+{"timestamp": "2026-10-21T11:12:14.259108+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Scanner 'checkov' ok in 19.7s with 1 finding(s)."}
+{"timestamp": "2026-10-21T11:12:14.259965+00:00", "level": "INFO", "name": "provepatch.scanners", "message": "Finished all parallel scanners in 19.73s"}
+{"timestamp": "2026-10-21T11:12:14.261054+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished scanning phase in 19.74s"}
+{"timestamp": "2026-10-21T11:12:14.262274+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting normalization phase..."}
+{"timestamp": "2026-10-21T11:12:14.271141+00:00", "level": "INFO", "name": "provepatch.normalizer", "message": "Filtered out 4 findings located in excluded environment/build directories."}
+{"timestamp": "2026-10-21T11:12:14.271862+00:00", "level": "INFO", "name": "provepatch.normalizer", "message": "Normalizing 195 raw findings..."}
+{"timestamp": "2026-10-21T11:12:14.273014+00:00", "level": "INFO", "name": "provepatch.normalizer", "message": "Normalization complete. Reduced to 157 unique findings."}
+{"timestamp": "2026-10-21T11:12:14.273514+00:00", "level": "INFO", "name": "provepatch.prioritizer", "message": "Prioritizing 157 findings..."}
+{"timestamp": "2026-10-21T11:12:14.274446+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Normalization complete: 157 findings remaining"}
+{"timestamp": "2026-10-21T11:12:14.274777+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished normalization phase in 0.01s"}
+{"timestamp": "2026-10-21T11:12:14.275553+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting triage phase..."}
+{"timestamp": "2026-10-21T11:12:14.275881+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "No triage model configured. Skipping AI triage."}
+{"timestamp": "2026-10-21T11:12:14.276180+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished triage phase in 0.00s"}
+{"timestamp": "2026-10-21T11:12:14.276663+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Starting report phase..."}
+{"timestamp": "2026-10-21T11:12:14.393917+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Scan pipeline finished with 157 findings."}
+{"timestamp": "2026-10-21T11:12:14.394689+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished report phase in 0.12s"}
+{"timestamp": "2026-10-21T11:12:14.395669+00:00", "level": "INFO", "name": "provepatch.pipeline", "message": "Finished full scan pipeline in 19.89s"}
+{"timestamp": "2026-10-21T11:12:14.423621+00:00", "level": "INFO", "name": "provepatch.cli.audit", "message": "Audit finished in 19.92s ({'scan': 19.89109612489119, 'prove': 0.0006948750233277678, 'qa': 0.00014175008982419968})"}
+{"timestamp": "2026-10-21T11:12:14.915560+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.921369+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.922170+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.922827+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.923459+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.924067+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.924677+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.925221+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.925818+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.926567+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.927436+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
+{"timestamp": "2026-10-21T11:12:14.928095+00:00", "level": "ERROR", "name": "provepatch.patcher", "message": "No remediation model configured. Cannot generate patch."}
