@@ -25,6 +25,7 @@ import {
   lessonKindLabel,
 } from '@/lib/courses';
 import { EnrollButton } from '@/components/portal/EnrollButton';
+import { DepartmentConditionsAcceptance } from '@/components/portal/DepartmentConditionsAcceptance';
 
 export const dynamic = 'force-dynamic';
 
@@ -171,11 +172,11 @@ export default async function CourseOverviewPage({
   return (
     <div>
       <Link
-        href="/portal/courses"
+        href={course.track === 'workforce' ? '/workforce' : '/portal/courses'}
         className="inline-flex items-center gap-1.5 text-[11.5px] text-cream-500 transition-colors hover:text-cream-50"
       >
         <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
-        All tracks
+        {course.track === 'workforce' ? 'Workforce departments' : 'All leadership tracks'}
       </Link>
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -239,7 +240,19 @@ export default async function CourseOverviewPage({
         </span>
       </div>
 
-      {!overview.enrolled && (
+      {course.conditions.length > 0 && (
+        <div className="mt-6">
+          <DepartmentConditionsAcceptance
+            courseSlug={course.slug}
+            courseTitle={course.shortTitle}
+            conditions={course.conditions}
+            enrolled={overview.enrolled}
+            conditionsAcceptedAt={overview.conditionsAcceptedAt}
+          />
+        </div>
+      )}
+
+      {!overview.enrolled && course.conditions.length === 0 && (
         <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-accent/20 bg-accent/[0.04] p-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-[14px] font-medium text-cream-50">Start this track.</p>

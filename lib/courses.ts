@@ -27,13 +27,29 @@ export type CourseTrack = 'workforce' | 'leadership';
 export type LessonKind = 'video' | 'audio' | 'reading';
 
 export interface LessonMedia {
-  /** File name inside the private `media/` directory. Never a public URL. */
-  file: string;
-  mime: 'video/mp4' | 'audio/mp4';
+  /** File name inside private `media/` directory (e.g. 'media-01.m4a') */
+  file?: string;
+  /** Google Drive file ID (e.g. '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptbfs') */
+  driveFileId?: string;
+  /** Google Drive share link (e.g. 'https://drive.google.com/file/d/.../view') */
+  driveUrl?: string;
+  /** Direct audio stream URL (e.g. Cloud Storage, S3, CDN) */
+  audioUrl?: string;
+  mime?: 'video/mp4' | 'audio/mp4' | 'audio/mpeg' | 'audio/webm' | string;
   /** Authoritative duration used by the server to validate completion. */
   durationSeconds: number;
   /** Public poster image (safe: it is only a still frame). */
   poster?: string;
+}
+
+export function extractDriveFileId(input?: string): string | null {
+  if (!input) return null;
+  const trimmed = input.trim();
+  if (/^[a-zA-Z0-9_-]{25,65}$/.test(trimmed) && !trimmed.includes('.') && !trimmed.includes('/')) {
+    return trimmed;
+  }
+  const match = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || trimmed.match(/id=([a-zA-Z0-9_-]+)/);
+  return match ? match[1] : null;
 }
 
 export interface Lesson {
@@ -776,23 +792,37 @@ const PASTORS: Course = {
 // a certificate. Conditions are acknowledged before enrollment.
 // ===========================================================================
 
-const audioLesson = (
+export const audioLesson = (
   id: string,
   title: string,
-  file: string,
+  fileOrUrl: string,
   summary: string,
   keyPoints: string[],
-  scripture?: { reference: string; text: string }
-): Lesson => ({
-  id,
-  title,
-  kind: 'audio',
-  summary,
-  estimatedMinutes: 1,
-  media: { file, mime: 'audio/mp4', durationSeconds: 45 },
-  keyPoints,
-  scripture,
-});
+  scripture?: { reference: string; text: string },
+  durationSeconds = 45
+): Lesson => {
+  const driveId = extractDriveFileId(fileOrUrl);
+  const isHttp = fileOrUrl.startsWith('http://') || fileOrUrl.startsWith('https://');
+  const isDrive = Boolean(driveId) || fileOrUrl.includes('drive.google.com');
+
+  return {
+    id,
+    title,
+    kind: 'audio',
+    summary,
+    estimatedMinutes: Math.max(1, Math.ceil(durationSeconds / 60)),
+    media: {
+      file: !isDrive && !isHttp ? fileOrUrl : undefined,
+      driveFileId: driveId || undefined,
+      driveUrl: isDrive ? fileOrUrl : undefined,
+      audioUrl: isHttp && !isDrive ? fileOrUrl : undefined,
+      mime: 'audio/mp4',
+      durationSeconds,
+    },
+    keyPoints,
+    scripture,
+  };
+};
 
 const departmentModule = (
   id: string,
@@ -1412,8 +1442,10 @@ export const LEADERSHIP_COURSES: Course[] = [MINISTERS, PASTORS];
 
 export const COURSES: Course[] = [...LEADERSHIP_COURSES, ...WORKFORCE_COURSES];
 
+export const ALL_COURSES: Course[] = [FOUNDATION, ...COURSES];
+
 export function getCourse(slug: string): Course | undefined {
-  return COURSES.find((course) => course.slug === slug);
+  return ALL_COURSES.find((course) => course.slug === slug);
 }
 
 export function getCoursesForRole(role: string): Course[] {

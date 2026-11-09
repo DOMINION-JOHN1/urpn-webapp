@@ -7,7 +7,7 @@ import { getSessionUser } from '@/lib/server/auth';
 import { UrpnLogo } from '@/components/UrpnLogo';
 import { AuthForm } from '@/components/portal/AuthForm';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { COURSES } from '@/lib/courses';
+import { LEADERSHIP_COURSES } from '@/lib/courses';
 
 export const metadata: Metadata = {
   title: 'Worker sign in',
@@ -31,7 +31,6 @@ export default async function LoginPage({
   const user = await getSessionUser();
   if (user) redirect(nextPath);
 
-  const initialMode = searchParams.mode === 'register' ? 'register' : 'signin';
   const showDemo = process.env.SHOW_DEMO_LOGIN !== 'false';
 
   return (
@@ -55,7 +54,7 @@ export default async function LoginPage({
 
         <div className="flex flex-1 items-center py-10">
           <div className="mx-auto w-full max-w-sm lg:mx-0">
-            <AuthForm initialMode={initialMode} showDemo={showDemo} nextPath={nextPath} />
+            <AuthForm initialMode="signin" showDemo={showDemo} nextPath={nextPath} portalType="worker" />
           </div>
         </div>
 
@@ -85,7 +84,7 @@ export default async function LoginPage({
           </p>
 
           <div className="mt-10 space-y-px overflow-hidden rounded-xl border border-line bg-line">
-            {COURSES.map((course, index) => (
+            {LEADERSHIP_COURSES.map((course, index) => (
               <div
                 key={course.slug}
                 className="flex items-center justify-between gap-4 bg-surface/80 px-4 py-3.5"

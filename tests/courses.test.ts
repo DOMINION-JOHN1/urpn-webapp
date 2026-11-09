@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import {
   COURSES,
+  LEADERSHIP_COURSES,
+  WORKFORCE_COURSES,
   getAllLessons,
   getCourse,
   getLessonCount,
@@ -9,20 +11,26 @@ import {
 import { getExamDefinition } from '@/lib/exam-bank';
 
 describe('URPN training catalogue', () => {
-  it('ships the three required tracks in order', () => {
-    expect(COURSES.map((course) => course.slug)).toEqual(['foundation', 'ministers', 'pastors']);
-    expect(COURSES.map((course) => course.title)).toEqual([
-      'URPN Foundation Class',
+  it('ships leadership tracks and workforce departments', () => {
+    expect(LEADERSHIP_COURSES.map((course) => course.slug)).toEqual(['ministers', 'pastors']);
+    expect(LEADERSHIP_COURSES.map((course) => course.title)).toEqual([
       'URPN Ministers Training',
       'URPN Pastors Training',
     ]);
+    expect(WORKFORCE_COURSES.map((course) => course.slug)).toEqual([
+      'media',
+      'technical',
+      'ushering',
+      'protocol',
+      'choir',
+      'welfare',
+      'children',
+    ]);
   });
 
-  it('has unique lesson ids and non-empty modules', () => {
-    const ids = getAllLessons(getCourse('foundation')!);
+  it('has unique lesson ids and non-empty modules across courses', () => {
     const allIds = COURSES.flatMap((course) => getAllLessons(course).map((lesson) => lesson.id));
     expect(new Set(allIds).size).toBe(allIds.length);
-    expect(ids.length).toBeGreaterThan(0);
     for (const course of COURSES) {
       expect(course.modules.length).toBeGreaterThan(0);
       for (const module of course.modules) {
@@ -31,13 +39,15 @@ describe('URPN training catalogue', () => {
     }
   });
 
-  it('gives every streamed lesson a positive duration and private file', () => {
+  it('gives every streamed lesson a positive duration', () => {
     for (const course of COURSES) {
       for (const lesson of getAllLessons(course)) {
         if (lesson.kind === 'reading') continue;
         expect(lesson.media?.durationSeconds).toBeGreaterThan(0);
-        expect(lesson.media?.file).toMatch(/\.(mp4|m4a)$/);
-        expect(lesson.media?.file).not.toContain('..');
+        if (lesson.media?.file) {
+          expect(lesson.media.file).toMatch(/\.(mp4|m4a)$/);
+          expect(lesson.media.file).not.toContain('..');
+        }
       }
     }
   });
@@ -58,8 +68,8 @@ describe('URPN training catalogue', () => {
   });
 
   it('formats media lengths for the UI', () => {
-    const lesson = getAllLessons(getCourse('foundation')!).find(
-      (item) => item.kind === 'video'
+    const lesson = getAllLessons(getCourse('ministers')!).find(
+      (item) => item.kind === 'video' || item.kind === 'audio'
     )!;
     expect(formatLessonDuration(lesson)).toMatch(/sec|min/);
   });

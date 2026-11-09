@@ -13,16 +13,20 @@ export const metadata = { title: 'My training' };
 export default async function CoursesPage() {
   const user = await requireUser();
   const data = await getDashboardData(user.id);
+  const isWorkforce = user.role === 'workforce';
 
   return (
     <div>
-      <p className="mono-label text-gold-300">My training</p>
+      <p className="mono-label text-gold-300">
+        {isWorkforce ? 'Workforce departments' : 'In-House Leadership Training'}
+      </p>
       <h1 className="mt-2 text-[30px] font-semibold leading-[1.1] tracking-[-0.04em] text-cream-50 sm:text-[36px]">
-        Three tracks. One mandate.
+        {isWorkforce ? 'Department Formation Tracks' : 'Leadership Formation'}
       </h1>
       <p className="mt-2 max-w-xl text-[13.5px] leading-relaxed text-cream-400">
-        Begin where you are. Finish every lesson to unlock the final exam. Each track allows one
-        timed attempt and issues a verifiable certificate on passing.
+        {isWorkforce
+          ? 'Seven ministry departments open for service. Review department conditions, listen to the audio modules, pass the timed exam, and receive your certificate.'
+          : 'In-house training for ministers and pastors. Finish every lesson to unlock the final exam. Each track allows one timed attempt and issues a verifiable certificate on passing.'}
       </p>
 
       <div className="mt-8 space-y-3">

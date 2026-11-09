@@ -235,14 +235,21 @@ export default async function PortalDashboardPage() {
             <div>
               <p className="mono-label">Begin here</p>
               <h2 className="mt-2 text-[20px] font-semibold text-cream-50">
-                Start with the Foundation Class.
+                {user.role === 'workforce'
+                  ? 'Join a Ministry Department.'
+                  : 'Start with In-House Ministers Training.'}
               </h2>
               <p className="mt-1 text-[12.5px] text-cream-400">
-                Eight short lessons, one timed exam, and your first certificate.
+                {user.role === 'workforce'
+                  ? 'Review department conditions, listen to the audio modules, and earn your certificate.'
+                  : 'Carrying the mantle, guarding the altar, and ministering with character.'}
               </p>
             </div>
-            <Link href="/portal/courses/foundation" className="btn btn-primary shrink-0">
-              Open Foundation
+            <Link
+              href={user.role === 'workforce' ? '/workforce' : '/portal/courses/ministers'}
+              className="btn btn-primary shrink-0"
+            >
+              {user.role === 'workforce' ? 'Explore departments' : 'Open Ministers Training'}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>

@@ -22,23 +22,19 @@ interface PortalShellProps {
   children: React.ReactNode;
 }
 
-const PRIMARY_NAV = [
-  { href: '/portal', label: 'Overview', icon: LayoutGrid, exact: true },
-  { href: '/portal/courses', label: 'My training', icon: GraduationCap, exact: false },
-  { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
+const LEADERSHIP_TRACKS = [
+  { href: '/portal/courses/ministers', label: 'Ministers Training', code: '201' },
+  { href: '/portal/courses/pastors', label: 'Pastors Training', code: '301' },
 ];
 
-const TRACKS = [
-  { href: '/portal/courses/foundation', label: 'Foundation', code: '101' },
-  { href: '/portal/courses/ministers', label: 'Ministers', code: '201' },
-  { href: '/portal/courses/pastors', label: 'Pastors', code: '301' },
-];
-
-const MOBILE_NAV = [
-  { href: '/portal', label: 'Overview', icon: LayoutGrid, exact: true },
-  { href: '/portal/courses', label: 'Training', icon: BookOpen, exact: false },
-  { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
-  { href: '/', label: 'Website', icon: Globe, exact: false },
+const WORKFORCE_TRACKS = [
+  { href: '/portal/courses/media', label: 'Media', code: 'MED' },
+  { href: '/portal/courses/technical', label: 'Technical', code: 'TEC' },
+  { href: '/portal/courses/ushering', label: 'Ushering', code: 'USH' },
+  { href: '/portal/courses/protocol', label: 'Protocol', code: 'PRO' },
+  { href: '/portal/courses/choir', label: 'Choir', code: 'CHO' },
+  { href: '/portal/courses/welfare', label: 'Welfare', code: 'WEL' },
+  { href: '/portal/courses/children', label: 'Children', code: 'CHI' },
 ];
 
 function initials(name: string) {
@@ -57,19 +53,42 @@ function isActive(pathname: string, href: string, exact: boolean) {
 
 export function PortalShell({ user, children }: PortalShellProps) {
   const pathname = usePathname();
+  const isWorkforce = user.role === 'workforce';
+
+  const tracks = isWorkforce ? WORKFORCE_TRACKS : LEADERSHIP_TRACKS;
+  const tracksTitle = isWorkforce ? 'Departments' : 'Leadership tracks';
+
+  const primaryNav = isWorkforce
+    ? [
+        { href: '/workforce', label: 'Workforce Hub', icon: LayoutGrid, exact: true },
+        { href: '/portal/courses', label: 'Departments', icon: GraduationCap, exact: false },
+        { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
+      ]
+    : [
+        { href: '/portal', label: 'Overview', icon: LayoutGrid, exact: true },
+        { href: '/portal/courses', label: 'Leadership tracks', icon: GraduationCap, exact: false },
+        { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
+      ];
+
+  const mobileNav = [
+    { href: isWorkforce ? '/workforce' : '/portal', label: 'Overview', icon: LayoutGrid, exact: true },
+    { href: '/portal/courses', label: isWorkforce ? 'Departments' : 'Training', icon: BookOpen, exact: false },
+    { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
+    { href: '/', label: 'Website', icon: Globe, exact: false },
+  ];
 
   return (
     <div className="portal-root min-h-[100dvh] bg-canvas lg:grid lg:grid-cols-[248px_minmax(0,1fr)]">
       {/* ---------------------------------------------------------- sidebar */}
       <aside className="sticky top-0 hidden h-[100dvh] flex-col border-r border-line bg-canvas-deep/50 px-4 py-5 lg:flex">
-        <Link href="/portal" aria-label="URPN portal home" className="px-2">
+        <Link href={isWorkforce ? '/workforce' : '/portal'} aria-label="URPN portal home" className="px-2">
           <UrpnLogo size="sm" />
         </Link>
 
         <nav className="mt-8" aria-label="Portal">
           <p className="mono-label px-3 !text-[9px]">Workspace</p>
           <ul className="mt-2 space-y-0.5">
-            {PRIMARY_NAV.map((item) => {
+            {primaryNav.map((item) => {
               const active = isActive(pathname, item.href, item.exact);
               return (
                 <li key={item.href}>
@@ -94,9 +113,9 @@ export function PortalShell({ user, children }: PortalShellProps) {
         </nav>
 
         <nav className="mt-7" aria-label="Training tracks">
-          <p className="mono-label px-3 !text-[9px]">Tracks</p>
+          <p className="mono-label px-3 !text-[9px]">{tracksTitle}</p>
           <ul className="mt-2 space-y-0.5">
-            {TRACKS.map((track) => {
+            {tracks.map((track) => {
               const active = pathname.startsWith(track.href);
               return (
                 <li key={track.href}>
@@ -176,7 +195,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
         aria-label="Portal mobile navigation"
       >
         <div className="safe-bottom mx-auto grid max-w-md grid-cols-4 px-2 pt-1.5">
-          {MOBILE_NAV.map((item) => {
+          {mobileNav.map((item) => {
             const active = isActive(pathname, item.href, item.exact);
             return (
               <Link

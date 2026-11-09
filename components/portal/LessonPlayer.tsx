@@ -336,6 +336,8 @@ export function LessonPlayer({
               }}
               src={lesson.mediaUrl}
               preload="metadata"
+              controlsList="nodownload"
+              onContextMenu={(event) => event.preventDefault()}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
               onPlay={() => setPlaying(true)}

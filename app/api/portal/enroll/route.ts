@@ -10,14 +10,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Please sign in first.' }, { status: 401 });
   }
 
-  let body: { courseId?: string };
+  let body: { courseId?: string; acceptConditions?: boolean };
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
   }
 
-  const result = await enrollInCourse(user.id, body.courseId ?? '');
+  const result = await enrollInCourse(
+    user.id,
+    body.courseId ?? '',
+    Boolean(body.acceptConditions ?? true)
+  );
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: 400 });
   }

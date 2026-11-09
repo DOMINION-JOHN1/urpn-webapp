@@ -10,7 +10,7 @@ import { ThemeToggle } from './ThemeToggle';
 const NAV_LINKS = [
   { href: '/#mandate', label: 'Mandate' },
   { href: '/#gatherings', label: 'Gatherings' },
-  { href: '/#training', label: 'Training' },
+  { href: '/workforce', label: 'Join Workforce' },
   { href: '/testimony', label: 'Testimony' },
 ];
 
@@ -61,9 +61,16 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/portal" className="btn btn-primary btn-sm hidden sm:inline-flex">
-            Worker portal
+          <Link href="/workforce" className="btn btn-primary btn-sm hidden sm:inline-flex">
+            Become a worker
             <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </Link>
+          <Link
+            href="/portal/login"
+            className="btn btn-secondary btn-sm hidden sm:inline-flex"
+            title="In-house staff and leadership portal"
+          >
+            Staff portal 🔒
           </Link>
           <ThemeToggle />
           <button
@@ -97,9 +104,16 @@ export function Navbar() {
               </Link>
             ))}
           </nav>
-          <Link href="/portal" onClick={() => setOpen(false)} className="btn btn-primary mt-6 w-full">
-            Enter worker portal
+          <Link href="/workforce" onClick={() => setOpen(false)} className="btn btn-primary mt-6 w-full">
+            Join the workforce
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <Link
+            href="/portal/login"
+            onClick={() => setOpen(false)}
+            className="btn btn-secondary mt-2 w-full"
+          >
+            Staff portal 🔒
           </Link>
           <Link
             href="/install"
@@ -110,7 +124,7 @@ export function Navbar() {
             Install app
           </Link>
           <p className="mt-6 text-center text-xs leading-relaxed text-cream-500">
-            Training for every worker, minister, and pastor.
+            Workforce formation for every department member.
             <br />
             Install the portal from your browser menu.
           </p>

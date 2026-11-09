@@ -9,9 +9,11 @@ import type {
 import { mutateDb, newId, readDb } from './db';
 import {
   COURSES,
+  ALL_COURSES,
   getCourse,
   getAllLessons,
   getLesson,
+  getCoursesForRole,
   type Course,
   type CourseSlug,
   type Lesson,
@@ -29,6 +31,8 @@ export interface PublicExamQuestion {
 export interface CourseOverview {
   course: Course;
   enrolled: boolean;
+  conditionsAccepted: boolean;
+  conditionsAcceptedAt: string | null;
   completedLessonIds: string[];
   completedCount: number;
   totalLessons: number;
@@ -95,9 +99,15 @@ function courseOverviewFromDb(
     }
   }
 
+  const conditionsAccepted = Boolean(
+    enrollment && (enrollment.conditionsAcceptedAt || course.track === 'leadership')
+  );
+
   return {
     course,
     enrolled: Boolean(enrollment),
+    conditionsAccepted,
+    conditionsAcceptedAt: enrollment?.conditionsAcceptedAt ?? null,
     completedLessonIds: completed,
     completedCount: completed.length,
     totalLessons: lessons.length,
@@ -127,7 +137,11 @@ export async function isEnrolled(userId: string, courseSlug: string): Promise<bo
 
 export async function getDashboardData(userId: string): Promise<DashboardData> {
   const db = await readDb();
-  const courses = COURSES.map((course) => {
+  const user = db.users.find((entry) => entry.id === userId);
+  const role = user?.role ?? 'workforce';
+  const roleCourses = getCoursesForRole(role);
+
+  const courses = roleCourses.map((course) => {
     const overview = courseOverviewFromDb(db, userId, course);
     const enrollment = db.enrollments.find(
       (entry) => entry.userId === userId && entry.courseId === course.slug
@@ -146,7 +160,7 @@ export async function getDashboardData(userId: string): Promise<DashboardData> {
     .sort((a, b) => Date.parse(b.issuedAt) - Date.parse(a.issuedAt))
     .map((certificate) => ({
       certificate,
-      course: COURSES.find((course) => course.slug === certificate.courseId),
+      course: ALL_COURSES.find((course) => course.slug === certificate.courseId),
     }));
 
   // Continue at the first unfinished lesson in the first enrolled track.
@@ -175,7 +189,8 @@ export async function getDashboardData(userId: string): Promise<DashboardData> {
 
 export async function enrollInCourse(
   userId: string,
-  courseSlug: string
+  courseSlug: string,
+  acceptConditions = true
 ): Promise<{ ok: true } | { ok: false; error: string }> {
   const course = getCourse(courseSlug);
   if (!course) return { ok: false, error: 'Course not found.' };
@@ -184,12 +199,18 @@ export async function enrollInCourse(
     const existing = db.enrollments.find(
       (entry) => entry.userId === userId && entry.courseId === course.slug
     );
-    if (existing) return;
+    if (existing) {
+      if (!existing.conditionsAcceptedAt && acceptConditions) {
+        existing.conditionsAcceptedAt = new Date().toISOString();
+      }
+      return;
+    }
     db.enrollments.push({
       id: newId('enr'),
       userId,
       courseId: course.slug,
       enrolledAt: new Date().toISOString(),
+      conditionsAcceptedAt: acceptConditions ? new Date().toISOString() : null,
     });
   });
 
