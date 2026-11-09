@@ -69,3 +69,59 @@ export interface Database {
   attempts: Attempt[];
   certificates: Certificate[];
 }
+
+export interface AdminWorkerEnrollment {
+  courseSlug: string;
+  courseTitle: string;
+  courseCode: string;
+  track: string;
+  enrolledAt: string;
+  conditionsAcceptedAt: string | null;
+  completedCount: number;
+  totalLessons: number;
+  percent: number;
+  status: 'certified' | 'exam_ready' | 'in_progress' | 'not_started';
+  lessons: Array<{
+    id: string;
+    title: string;
+    isCompleted: boolean;
+    completedAt: string | null;
+    positionSeconds: number;
+    notes?: string;
+  }>;
+  attempt: {
+    status: string;
+    score: number | null;
+    passed: boolean | null;
+    submittedAt: string | null;
+  } | null;
+  certificate: {
+    code: string;
+    score: number;
+    issuedAt: string;
+  } | null;
+}
+
+export interface AdminWorkerProgress {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    role: UserRole;
+    createdAt: string;
+  };
+  enrollments: AdminWorkerEnrollment[];
+  totalCompletedLessons: number;
+  lastActiveAt: string | null;
+}
+
+export interface AdminMonitorData {
+  workers: AdminWorkerProgress[];
+  summary: {
+    totalWorkers: number;
+    activeEnrolled: number;
+    completedTracks: number;
+    totalCertificates: number;
+  };
+}

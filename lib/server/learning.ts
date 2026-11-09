@@ -5,6 +5,9 @@ import type {
   Database,
   LessonProgress,
   SubmitReason,
+  AdminMonitorData,
+  AdminWorkerProgress,
+  AdminWorkerEnrollment,
 } from './types';
 import { mutateDb, newId, readDb } from './db';
 import {
@@ -661,4 +664,121 @@ export async function listCertificatesForUser(
       certificate,
       course: ALL_COURSES.find((course) => course.slug === certificate.courseId),
     }));
+}
+
+export async function getAdminProgressData(): Promise<AdminMonitorData> {
+  const db = await readDb();
+
+  const workers: AdminWorkerProgress[] = db.users.map((user) => {
+    const userEnrollments = db.enrollments.filter((e) => e.userId === user.id);
+    const userProgress = db.progress.filter((p) => p.userId === user.id);
+    const userAttempts = db.attempts.filter((a) => a.userId === user.id);
+    const userCertificates = db.certificates.filter((c) => c.userId === user.id);
+
+    let totalCompleted = 0;
+    let latestActivity: string | null = null;
+
+    for (const p of userProgress) {
+      if (p.completedAt) totalCompleted++;
+      if (!latestActivity || Date.parse(p.updatedAt) > Date.parse(latestActivity)) {
+        latestActivity = p.updatedAt;
+      }
+    }
+
+    const enrollmentDetails: AdminWorkerEnrollment[] = userEnrollments.map((enr) => {
+      const course = ALL_COURSES.find((c) => c.slug === enr.courseId);
+      const allLessons = course ? getAllLessons(course) : [];
+      const courseProgress = userProgress.filter((p) => p.courseId === enr.courseId);
+      const progressMap = new Map(courseProgress.map((p) => [p.lessonId, p]));
+
+      const completedCount = allLessons.filter((l) => progressMap.get(l.id)?.completedAt).length;
+      const cert = userCertificates.find((c) => c.courseId === enr.courseId) ?? null;
+      const attempt = userAttempts
+        .filter((a) => a.courseId === enr.courseId)
+        .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))[0] ?? null;
+
+      const percent =
+        allLessons.length > 0 ? Math.round((completedCount / allLessons.length) * 100) : 0;
+      const status: 'certified' | 'exam_ready' | 'in_progress' | 'not_started' = cert
+        ? 'certified'
+        : percent === 100
+          ? 'exam_ready'
+          : completedCount > 0
+            ? 'in_progress'
+            : 'not_started';
+
+      return {
+        courseSlug: enr.courseId,
+        courseTitle: course?.title ?? enr.courseId,
+        courseCode: course?.code ?? '',
+        track: course?.track ?? 'workforce',
+        enrolledAt: enr.enrolledAt,
+        conditionsAcceptedAt: enr.conditionsAcceptedAt,
+        completedCount,
+        totalLessons: allLessons.length,
+        percent,
+        status,
+        lessons: allLessons.map((l) => {
+          const p = progressMap.get(l.id);
+          return {
+            id: l.id,
+            title: l.title,
+            isCompleted: Boolean(p?.completedAt),
+            completedAt: p?.completedAt ?? null,
+            positionSeconds: p?.positionSeconds ?? 0,
+            notes: p?.notes,
+          };
+        }),
+        attempt: attempt
+          ? {
+              status: attempt.status,
+              score: attempt.score,
+              passed: attempt.passed,
+              submittedAt: attempt.submittedAt,
+            }
+          : null,
+        certificate: cert
+          ? {
+              code: cert.code,
+              score: cert.score,
+              issuedAt: cert.issuedAt,
+            }
+          : null,
+      };
+    });
+
+    return {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+        createdAt: user.createdAt,
+      },
+      enrollments: enrollmentDetails,
+      totalCompletedLessons: totalCompleted,
+      lastActiveAt: latestActivity ?? user.createdAt,
+    };
+  });
+
+  const totalWorkers = db.users.length;
+  const activeEnrolled = db.enrollments.length;
+  const completedTracks = workers.reduce(
+    (sum, w) => sum + w.enrollments.filter((e) => e.percent === 100).length,
+    0
+  );
+  const totalCertificates = db.certificates.length;
+
+  return {
+    workers: workers.sort(
+      (a, b) => Date.parse(b.lastActiveAt ?? '') - Date.parse(a.lastActiveAt ?? '')
+    ),
+    summary: {
+      totalWorkers,
+      activeEnrolled,
+      completedTracks,
+      totalCertificates,
+    },
+  };
 }

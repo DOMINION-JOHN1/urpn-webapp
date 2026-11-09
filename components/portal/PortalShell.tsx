@@ -10,6 +10,7 @@ import {
   LayoutGrid,
   Globe,
   ArrowUpRight,
+  Users,
 } from 'lucide-react';
 import { UrpnLogo } from '@/components/UrpnLogo';
 import { InstallAppButton } from '@/components/InstallAppButton';
@@ -67,12 +68,14 @@ export function PortalShell({ user, children }: PortalShellProps) {
     : [
         { href: '/portal', label: 'Overview', icon: LayoutGrid, exact: true },
         { href: '/portal/courses', label: 'Leadership tracks', icon: GraduationCap, exact: false },
+        { href: '/portal/monitor', label: 'Progress Monitor', icon: Users, exact: false },
         { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
       ];
 
   const mobileNav = [
     { href: isWorkforce ? '/workforce' : '/portal', label: 'Overview', icon: LayoutGrid, exact: true },
     { href: '/portal/courses', label: isWorkforce ? 'Departments' : 'Training', icon: BookOpen, exact: false },
+    ...(!isWorkforce ? [{ href: '/portal/monitor', label: 'Monitor', icon: Users, exact: false }] : []),
     { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
     { href: '/', label: 'Website', icon: Globe, exact: false },
   ];
