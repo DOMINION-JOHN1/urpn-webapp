@@ -43,8 +43,13 @@ export function AuthForm({
 
   const fillDemo = () => {
     setMode('signin');
-    setEmail('worker@urpn.org');
-    setPassword('urpn2026');
+    if (portalType === 'workforce') {
+      setEmail('member@urpn.org');
+      setPassword('member2026');
+    } else {
+      setEmail('worker@urpn.org');
+      setPassword('urpn2026');
+    }
     setError(null);
   };
 
@@ -286,13 +291,15 @@ export function AuthForm({
         </div>
       )}
 
-      {mode === 'signin' && showDemo && isWorkerLocked && (
+      {mode === 'signin' && showDemo && (
         <div className="mt-8 rounded-xl border border-line bg-surface/50 p-3.5">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="mono-label !text-[9px]">Demo staff account</p>
+              <p className="mono-label !text-[9px]">
+                {portalType === 'workforce' ? 'Demo workforce account' : 'Demo staff account'}
+              </p>
               <p className="mt-1 font-mono text-[11px] text-cream-300">
-                worker@urpn.org · urpn2026
+                {portalType === 'workforce' ? 'member@urpn.org · member2026' : 'worker@urpn.org · urpn2026'}
               </p>
             </div>
             <button

@@ -581,7 +581,7 @@ export async function getCertificateForUser(
   if (!user) return null;
   return {
     certificate,
-    course: COURSES.find((course) => course.slug === certificate.courseId),
+    course: ALL_COURSES.find((course) => course.slug === certificate.courseId),
     name: user.name,
   };
 }
@@ -600,7 +600,7 @@ export async function getCertificateByCode(code: string): Promise<{
   if (!user) return null;
   return {
     certificate,
-    course: COURSES.find((course) => course.slug === certificate.courseId),
+    course: ALL_COURSES.find((course) => course.slug === certificate.courseId),
     name: user.name,
   };
 }
@@ -614,6 +614,6 @@ export async function listCertificatesForUser(
     .sort((a, b) => Date.parse(b.issuedAt) - Date.parse(a.issuedAt))
     .map((certificate) => ({
       certificate,
-      course: COURSES.find((course) => course.slug === certificate.courseId),
+      course: ALL_COURSES.find((course) => course.slug === certificate.courseId),
     }));
 }
