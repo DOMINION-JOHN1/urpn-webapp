@@ -389,3 +389,4 @@ export function WorkforceDepartmentTabs({ courses, statusMap }: Props) {
     </div>
   );
 }
+
