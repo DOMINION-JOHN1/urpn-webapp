@@ -220,14 +220,23 @@ export function ProgressMonitorView({ data }: Props) {
               onChange={(e) => setDepartmentFilter(e.target.value)}
               className="rounded-xl border border-line bg-canvas/60 px-3 py-2.5 text-xs text-cream-200 focus:border-accent focus:outline-none"
             >
-              <option value="all">All Departments</option>
-              <option value="media">Media</option>
-              <option value="technical">Technical</option>
-              <option value="ushering">Ushering</option>
+              <option value="all">All Tracks & Departments</option>
+              <option value="aesthetics">Aesthetics</option>
+              <option value="pr">Public Relations</option>
               <option value="protocol">Protocol</option>
-              <option value="choir">Choir</option>
-              <option value="welfare">Welfare</option>
-              <option value="children">Children</option>
+              <option value="ushering">Ushering</option>
+              <option value="technical">Technical</option>
+              <option value="media">Media</option>
+              <option value="choir">Choir / Worship</option>
+              <option value="welfare">Welfare & Hospitality</option>
+              <option value="prayer">Prayer</option>
+              <option value="counseling">Counseling</option>
+              <option value="transport">Transport</option>
+              <option value="medical">Medical (Medics)</option>
+              <option value="security">Security</option>
+              <option value="children">Children/Teens</option>
+              <option value="publications">Publications & Academic</option>
+              <option value="drama">Drama & Demonstration</option>
               <option value="ministers">Ministers Training</option>
               <option value="pastors">Pastors Training</option>
             </select>

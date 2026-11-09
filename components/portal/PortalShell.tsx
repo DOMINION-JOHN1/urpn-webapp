@@ -29,13 +29,22 @@ const LEADERSHIP_TRACKS = [
 ];
 
 const WORKFORCE_TRACKS = [
-  { href: '/portal/courses/media', label: 'Media', code: 'MED' },
-  { href: '/portal/courses/technical', label: 'Technical', code: 'TEC' },
-  { href: '/portal/courses/ushering', label: 'Ushering', code: 'USH' },
+  { href: '/portal/courses/aesthetics', label: 'Aesthetics', code: 'AES' },
+  { href: '/portal/courses/pr', label: 'Public Relations', code: 'PR' },
   { href: '/portal/courses/protocol', label: 'Protocol', code: 'PRO' },
-  { href: '/portal/courses/choir', label: 'Choir', code: 'CHO' },
+  { href: '/portal/courses/ushering', label: 'Ushering', code: 'USH' },
+  { href: '/portal/courses/technical', label: 'Technical', code: 'TEC' },
+  { href: '/portal/courses/media', label: 'Media', code: 'MED' },
+  { href: '/portal/courses/choir', label: 'Choir / Worship', code: 'CHO' },
   { href: '/portal/courses/welfare', label: 'Welfare', code: 'WEL' },
-  { href: '/portal/courses/children', label: 'Children', code: 'CHI' },
+  { href: '/portal/courses/prayer', label: 'Prayer', code: 'PRA' },
+  { href: '/portal/courses/counseling', label: 'Counseling', code: 'CNS' },
+  { href: '/portal/courses/transport', label: 'Transport', code: 'TRN' },
+  { href: '/portal/courses/medical', label: 'Medical', code: 'MED' },
+  { href: '/portal/courses/security', label: 'Security', code: 'SEC' },
+  { href: '/portal/courses/children', label: 'Children/Teens', code: 'CHI' },
+  { href: '/portal/courses/publications', label: 'Publications & Academic', code: 'PUB' },
+  { href: '/portal/courses/drama', label: 'Drama & Demonstration', code: 'DRM' },
 ];
 
 function initials(name: string) {

@@ -19,7 +19,7 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Become a Worker · Unique Revival Prayer Network',
   description:
-    'Step into your assignment. Join one of our 7 ministry departments: review conditions, complete the audio formation track, sit the timed exam, and earn your certificate to serve.',
+    'Step into your assignment. Join one of our 16 ministry departments: review conditions, complete the audio formation track, sit the timed exam, and earn your certificate to serve.',
 };
 
 export default async function WorkforceHubPage() {
@@ -166,7 +166,7 @@ export default async function WorkforceHubPage() {
                 <span className="mono-label text-gold-300">Choose a department</span>
               </div>
               <h2 className="mt-3 text-[26px] font-semibold text-cream-50 sm:text-[32px]">
-                The Seven Ministry Departments
+                The 16 Ministry Departments
               </h2>
             </div>
             <p className="max-w-sm text-[12.5px] text-cream-400">

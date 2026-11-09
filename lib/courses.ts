@@ -10,17 +10,35 @@
  * and update `media.file`, `media.durationSeconds`, and the poster path below.
  */
 
+import {
+  type DepartmentJobDescription,
+  type ResponsibilityGroup,
+  type HeadOfDepartment,
+  DEPARTMENT_JOB_DESCRIPTIONS,
+} from "./department-data";
+
+export type { DepartmentJobDescription, ResponsibilityGroup, HeadOfDepartment };
+
 export type CourseSlug =
   | 'foundation'
   | 'ministers'
   | 'pastors'
-  | 'media'
-  | 'technical'
-  | 'ushering'
+  | 'aesthetics'
+  | 'pr'
   | 'protocol'
+  | 'ushering'
+  | 'technical'
+  | 'media'
   | 'choir'
   | 'welfare'
-  | 'children';
+  | 'prayer'
+  | 'counseling'
+  | 'transport'
+  | 'medical'
+  | 'security'
+  | 'children'
+  | 'publications'
+  | 'drama';
 
 export type CourseTrack = 'workforce' | 'leadership';
 
@@ -96,6 +114,8 @@ export interface Course {
     passMark: number;
     questionCount: number;
   };
+  /** Comprehensive Job Description, Member Responsibilities, Attributes, and HOD Profile */
+  jobDescription?: DepartmentJobDescription;
 }
 
 const FOUNDATION: Course = {
@@ -839,6 +859,7 @@ const departmentModule = (
 });
 
 const MEDIA: Course = {
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['media'],
   slug: 'media',
   code: 'URPN MEDIA',
   title: 'URPN Media Department',
@@ -924,6 +945,7 @@ const MEDIA: Course = {
 };
 
 const TECHNICAL: Course = {
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['technical'],
   slug: 'technical',
   code: 'URPN TECH',
   title: 'URPN Technical Department',
@@ -1008,6 +1030,7 @@ const TECHNICAL: Course = {
 };
 
 const USHERING: Course = {
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['ushering'],
   slug: 'ushering',
   code: 'URPN USHER',
   title: 'URPN Ushering Department',
@@ -1092,6 +1115,7 @@ const USHERING: Course = {
 };
 
 const PROTOCOL: Course = {
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['protocol'],
   slug: 'protocol',
   code: 'URPN PROTOCOL',
   title: 'URPN Protocol Department',
@@ -1176,6 +1200,7 @@ const PROTOCOL: Course = {
 };
 
 const CHOIR: Course = {
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['choir'],
   slug: 'choir',
   code: 'URPN CHOIR',
   title: 'URPN Choir Department',
@@ -1260,6 +1285,7 @@ const CHOIR: Course = {
 };
 
 const WELFARE: Course = {
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['welfare'],
   slug: 'welfare',
   code: 'URPN WELFARE',
   title: 'URPN Welfare Department',
@@ -1345,6 +1371,7 @@ const WELFARE: Course = {
 };
 
 const CHILDREN: Course = {
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['children'],
   slug: 'children',
   code: 'URPN KIDS',
   title: 'URPN Children Department',
@@ -1428,15 +1455,782 @@ const CHILDREN: Course = {
   exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
 };
 
+
+const AESTHETICS: Course = {
+  slug: 'aesthetics',
+  code: 'URPN AES',
+  title: 'URPN Aesthetics Department',
+  shortTitle: 'Aesthetics',
+  icon: 'palette',
+  track: 'workforce',
+  tagline: 'Creating an atmosphere of visual excellence, order, and honor.',
+  description:
+    'The Aesthetics Department shapes the worship and meeting environment, ensuring sanctuary spaces inspire reverence, hospitality, and modern excellence in altar decor, cleanliness, and hall readiness.',
+  audience: 'Members with gifts in interior design, floral arrangements, staging, decor, and sanctuary care.',
+  weeks: 3,
+  outcomes: [
+    'Transform physical spaces into atmospheres conducive for worship and prayer.',
+    'Plan and execute stage, altar, and event decoration projects with excellence.',
+    'Maintain high standards of hall cleanliness, furniture order, and sanitation.',
+    'Incorporate modern aesthetics, lighting harmony, and sustainable materials.',
+  ],
+  conditions: [
+    'A keen eye for design, cleanliness, and visual detail.',
+    'Creativity and ability to conceptualize fresh, modern decorative ideas.',
+    'Strong teamwork and willingness to work under event time constraints.',
+    'Commitment to pre-service preparation and thorough post-service resetting.',
+    'Willingness to learn and adapt to contemporary sanctuary trends and technologies.',
+  ],
+  prerequisites: [],
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['aesthetics'],
+  modules: [
+    departmentModule(
+      'aesthetics-m1',
+      'Sanctuary Atmosphere & Visual Excellence',
+      1,
+      'The spiritual purpose of order and beauty in God\'s house.',
+      audioLesson(
+        'aesthetics-01',
+        'Welcome to the Aesthetics Department',
+        'aesthetics-01.m4a',
+        'The heart, calling, and spiritual standard of sanctuary aesthetics.',
+        [
+          'Excellence reflects the character and majesty of God.',
+          'Cleanliness and visual harmony remove distractions for worshippers.',
+          'Arrive early to prepare the sanctuary before prayer begins.',
+        ],
+        { reference: 'Psalm 96:9', text: 'O worship the Lord in the beauty of holiness: fear before him, all the earth.' }
+      )
+    ),
+    departmentModule(
+      'aesthetics-m2',
+      'Stage, Altar & Event Design',
+      2,
+      'Executing modern designs for regular and special services.',
+      audioLesson(
+        'aesthetics-02',
+        'Altar Staging & Creative Decor',
+        'aesthetics-02.m4a',
+        'Practical principles of stage design, lighting balance, and thematic decoration.',
+        [
+          'Align stage decor with the season and sermon mandate.',
+          'Use sustainable, reusable, and quality materials within budget.',
+          'Collaborate closely with media and technical teams for camera sightlines.',
+        ]
+      )
+    ),
+    departmentModule(
+      'aesthetics-m3',
+      'Hall Stewardship & Post-Service Reset',
+      3,
+      'Operational discipline before, during, and after meetings.',
+      audioLesson(
+        'aesthetics-03',
+        'Sanitation & Rapid Hall Resetting',
+        'aesthetics-03.m4a',
+        'Post-service cleaning protocols, furniture maintenance, and swift hall reset.',
+        [
+          'Inspect premises immediately after services for maintenance needs.',
+          'Properly clean, sanitize, and reset chairs and equipment.',
+          'Protect ministry assets with diligent inventory care.',
+        ]
+      )
+    ),
+  ],
+  exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
+};
+
+const PR: Course = {
+  slug: 'pr',
+  code: 'URPN PR',
+  title: 'URPN Public Relations Department',
+  shortTitle: 'Public Relations',
+  icon: 'megaphone',
+  track: 'workforce',
+  tagline: 'The voice and face of the ministry, connecting souls and community.',
+  description:
+    'The PR Department serves as the ministry\'s ambassador, managing external inquiries, first-timer integration, bulk communications, félicitations, and collaborative branding.',
+  audience: 'Members skilled in communication, hospitality, soul retention, and public relations.',
+  weeks: 3,
+  outcomes: [
+    'Welcome first-time guests with warmth and execute structured follow-up pipelines.',
+    'Manage ministry communications, inquiries, and bulk SMS systems effectively.',
+    'Safeguard the ministry\'s branding and public image across touchpoints.',
+    'Celebrate member milestones and strengthen community connections.',
+  ],
+  conditions: [
+    'Strong verbal and written communication and interpersonal skills.',
+    'Thorough understanding of URPN mission, vision, and calendar.',
+    'A genuine heart for outreach, soul-winning, and attendee retention.',
+    'High professionalism, confidentiality, and emotional maturity.',
+    'Punctual and proactive in communications and follow-up reporting.',
+  ],
+  prerequisites: [],
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['pr'],
+  modules: [
+    departmentModule(
+      'pr-m1',
+      'Kingdom Ambassadorship & First Impressions',
+      1,
+      'Serving as the front face and official voice of the ministry.',
+      audioLesson(
+        'pr-01',
+        'The Ministry of Public Relations',
+        'pr-01.m4a',
+        'Communicating with grace, clarity, and kingdom authority.',
+        [
+          'You are the first impression of URPN to every guest and inquiry.',
+          'Master the ministry vision, meeting schedules, and local territory.',
+          'Respond to all communications with promptness and honor.',
+        ],
+        { reference: 'Colossians 4:6', text: 'Let your speech be alway with grace, seasoned with salt, that ye may know how ye ought to answer every man.' }
+      )
+    ),
+    departmentModule(
+      'pr-m2',
+      'Soul Retention & Contact Follow-Up',
+      2,
+      'Structured pipelines to turn first-timers into rooted kingdomites.',
+      audioLesson(
+        'pr-02',
+        'From First-Timer to Disciple',
+        'pr-02.m4a',
+        'Executing phone calls, bulk SMS, and personal follow-up workflows.',
+        [
+          'Contact first-timers within 24 hours of every service.',
+          'Partner with evangelism to retain contacts from field outreaches.',
+          'Guide new participants into departments and cell fellowships.',
+        ]
+      )
+    ),
+    departmentModule(
+      'pr-m3',
+      'Public Image, Félicitations & Departmental Bridge',
+      3,
+      'Brand management, community celebrations, and inter-departmental unity.',
+      audioLesson(
+        'pr-03',
+        'Félicitations and Community Connection',
+        'pr-03.m4a',
+        'Celebrating birthdays, managing invitations, and coordinating with media.',
+        [
+          'Track member milestones and celebrate them with honor.',
+          'Collaborate with media for cohesive branding and event publicity.',
+          'Uphold professional ethics in public and private interactions.',
+        ]
+      )
+    ),
+  ],
+  exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
+};
+
+const PRAYER: Course = {
+  slug: 'prayer',
+  code: 'URPN PRAY',
+  title: 'URPN Prayer Department',
+  shortTitle: 'Prayer',
+  icon: 'flame',
+  track: 'workforce',
+  tagline: 'Maintaining perpetual fire upon the altar through vigilant intercession.',
+  description:
+    'The Prayer Department is the spiritual powerhouse of URPN, standing in the gap for the ministry, leaders, congregation, territorial breakthrough, and global harvests.',
+  audience: 'Intercessors called to travail, watchmanship, and spiritual warfare.',
+  weeks: 3,
+  outcomes: [
+    'Cultivate and sustain a vibrant personal and corporate secret-place altar.',
+    'Execute strategic territorial intercession and targeted prayer projects.',
+    'Provide prayer backing for all services, crusades, and leadership decisions.',
+    'Uphold strict spiritual confidentiality regarding sensitive prayer burdens.',
+  ],
+  conditions: [
+    'Consistent personal prayer life and commitment to spiritual disciplines.',
+    'Sensitivity to the Holy Spirit and discernment of spiritual seasons.',
+    'Absolute confidentiality regarding all prayer requests and burdens.',
+    'Availability for scheduled prayer chains, vigils, and pre-service prayer.',
+    'Spiritual humility, obedience to leadership, and doctrinal stability.',
+  ],
+  prerequisites: [],
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['prayer'],
+  modules: [
+    departmentModule(
+      'prayer-m1',
+      'The Priestly Calling & Perpetual Fire',
+      1,
+      'The biblical mandate of intercession and the altar of incense.',
+      audioLesson(
+        'prayer-01',
+        'The Altar of the Watchman',
+        'prayer-01.m4a',
+        'Understanding the priestly ministry of standing before God for the people.',
+        [
+          'Prayer is an altar of exchange: our surrender for heaven\'s fire.',
+          'Keep your secret place vibrant before standing on public prayer lines.',
+          'Pray with spiritual focus, avoiding fleshly showmanship.',
+        ],
+        { reference: 'Leviticus 6:13', text: 'The fire shall ever be burning upon the altar; it shall never go out.' }
+      )
+    ),
+    departmentModule(
+      'prayer-m2',
+      'Territorial Intercession & Spiritual Warfare',
+      2,
+      'Discerning atmospheres and legislating victory in the spirit.',
+      audioLesson(
+        'prayer-02',
+        'Territorial Breakthrough',
+        'prayer-02.m4a',
+        'Strategic warfare, breaking territorial yokes, and covering leaders.',
+        [
+          'Discern spiritual resistance and wage warfare with the Word.',
+          'Build a shield of prayer around the President, pastors, and ministers.',
+          'Saturate event auditoriums and crusade grounds prior to meetings.',
+        ]
+      )
+    ),
+    departmentModule(
+      'prayer-m3',
+      'Intercessory Integrity & Corporate Alignment',
+      3,
+      'Spiritual confidentiality, prayer vigils, and unity in prayer.',
+      audioLesson(
+        'prayer-03',
+        'The Integrity of the Intercessor',
+        'prayer-03.m4a',
+        'Protecting sensitive confidences and maintaining fervent prayer chains.',
+        [
+          'Never discuss prayer requests as gossip; bury them at the altar.',
+          'Maintain stamina for all-night vigils and assigned prayer watches.',
+          'Flow in submission with the Prayer Coordinator and pastoral council.',
+        ]
+      )
+    ),
+  ],
+  exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
+};
+
+const COUNSELING: Course = {
+  slug: 'counseling',
+  code: 'URPN CNS',
+  title: 'URPN Counseling Department',
+  shortTitle: 'Counseling',
+  icon: 'message-square',
+  track: 'workforce',
+  tagline: 'Ministering Christ-centered comfort, restoration, and biblical guidance.',
+  description:
+    'The Counseling Department provides compassionate, biblically sound counsel to individuals navigating life challenges, emotional pain, spiritual questions, and relationship restoration.',
+  audience: 'Mature believers with gifts in exhortation, pastoral care, and active listening.',
+  weeks: 3,
+  outcomes: [
+    'Apply Scripture accurately to life issues with empathy and discernment.',
+    'Maintain airtight pastoral confidentiality and ethical counseling boundaries.',
+    'Support new converts, first-timers, and members seeking spiritual direction.',
+    'Identify complex or critical cases requiring immediate escalation to pastoral leadership.',
+  ],
+  conditions: [
+    'Spiritual maturity and solid foundation in biblical doctrine.',
+    'Strong active listening skills and empathetic, non-judgmental posture.',
+    'Absolute commitment to confidentiality and ethical boundaries.',
+    'Submission to pastoral leadership and established counseling guidelines.',
+    'Continual personal emotional and spiritual health.',
+  ],
+  prerequisites: [],
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['counseling'],
+  modules: [
+    departmentModule(
+      'counseling-m1',
+      'Biblical Foundations of Christian Counseling',
+      1,
+      'Restoring lives through God\'s Word, the Holy Spirit, and compassionate listening.',
+      audioLesson(
+        'counseling-01',
+        'The Ministry of Comfort',
+        'counseling-01.m4a',
+        'Empathy, presence, and ministering the healing truth of Christ.',
+        [
+          'Listen with patience before offering advice or direction.',
+          'Anchor all counsel firmly in the Scriptures, not personal opinions.',
+          'Point the counselee to their personal relationship with Christ.',
+        ],
+        { reference: '2 Corinthians 1:4', text: 'Who comforteth us in all our tribulation, that we may be able to comfort them which are in any trouble.' }
+      )
+    ),
+    departmentModule(
+      'counseling-m2',
+      'Confidentiality & Ethical Boundaries',
+      2,
+      'Protecting the counselee, the ministry, and the counselor.',
+      audioLesson(
+        'counseling-02',
+        'The Sacred Trust of Confidentiality',
+        'counseling-02.m4a',
+        'Ethical boundaries, two-person rules, and safeguarding sensitive disclosures.',
+        [
+          'Confidentiality is sacrosanct: never share disclosures casually.',
+          'Counsel in visible, open spaces or with a team partner present.',
+          'Recognize signs of trauma, abuse, or legal exposure requiring pastoral notice.',
+        ]
+      )
+    ),
+    departmentModule(
+      'counseling-m3',
+      'Restoration Pipelines & Pastoral Escalation',
+      3,
+      'Structured support, follow-up meetings, and knowing when to refer.',
+      audioLesson(
+        'counseling-03',
+        'Escalation and Continued Care',
+        'counseling-03.m4a',
+        'Managing follow-up sessions, appointments with the President, and records.',
+        [
+          'Escalate deep spiritual crises or marriage disputes to the Head of Counseling.',
+          'Coordinate counseling appointments with the President through the HOD.',
+          'Document non-confidential metrics and celebrate restored lives.',
+        ]
+      )
+    ),
+  ],
+  exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
+};
+
+const TRANSPORT: Course = {
+  slug: 'transport',
+  code: 'URPN TRN',
+  title: 'URPN Transport Department',
+  shortTitle: 'Transport',
+  icon: 'bus',
+  track: 'workforce',
+  tagline: 'Safe, punctual, and reliable transit in service of the Kingdom.',
+  description:
+    'The Transport Department coordinates member and guest mobility, operating fleet vehicles, managing route logistics, and ensuring safe transit to and from all services and events.',
+  audience: 'Drivers, fleet coordinators, and logistics-minded workers.',
+  weeks: 3,
+  outcomes: [
+    'Conduct daily vehicle pre-trip inspections and adhere to preventive maintenance.',
+    'Execute punctual pickup and drop-off schedules across designated routes.',
+    'Practice defensive driving and maintain road safety compliance at all times.',
+    'Provide a welcoming, orderly, and peaceful transit atmosphere for passengers.',
+  ],
+  conditions: [
+    'Valid driver’s license with a clean, verifiable driving record.',
+    'Deep commitment to passenger safety and defensive driving practices.',
+    'Punctual, dependable, and available for scheduled service runs.',
+    'Calm temperament under heavy traffic and difficult road conditions.',
+    'Courteous customer-service attitude towards all riders.',
+  ],
+  prerequisites: [],
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['transport'],
+  modules: [
+    departmentModule(
+      'transport-m1',
+      'The Ministry of Safe Mobility',
+      1,
+      'Seeing transportation as a vital lifeline of hospitality and outreach.',
+      audioLesson(
+        'transport-01',
+        'Driving as a Kingdom Calling',
+        'transport-01.m4a',
+        'The spiritual and pastoral mindset of transporting God\'s people.',
+        [
+          'Every passenger is entrusted into your care under God\'s protection.',
+          'Punctuality on routes allows members to arrive relaxed for worship.',
+          'Maintain a courteous, calm, and reassuring atmosphere in the vehicle.',
+        ],
+        { reference: 'Psalm 121:8', text: 'The Lord shall preserve thy going out and thy coming in from this time forth, and even for evermore.' }
+      )
+    ),
+    departmentModule(
+      'transport-m2',
+      'Vehicle Inspection, Road Safety & Compliance',
+      2,
+      'Pre-trip checklists, defensive driving, and traffic regulations.',
+      audioLesson(
+        'transport-02',
+        'Preventive Inspection & Road Readiness',
+        'transport-02.m4a',
+        'Checking fluids, tires, brakes, lights, and emergency gear.',
+        [
+          'Perform thorough pre-trip and post-trip vehicle inspections.',
+          'Never compromise on speed limits, seatbelts, or defensive driving.',
+          'Report mechanical anomalies immediately to the Head of Transport.',
+        ]
+      )
+    ),
+    departmentModule(
+      'transport-m3',
+      'Logistics, Fleet Maintenance & Emergency Protocols',
+      3,
+      'Route coordination, vehicle cleanliness, and accident/breakdown procedures.',
+      audioLesson(
+        'transport-03',
+        'Route Logistics & Emergency Handling',
+        'transport-03.m4a',
+        'Handling traffic diversions, flat tires, and rapid communication.',
+        [
+          'Keep church vehicles clean, fueled, and sanitized inside and out.',
+          'Follow documented contingency plans if delays or breakdowns occur.',
+          'Record trip logs, passenger counts, and fuel receipts accurately.',
+        ]
+      )
+    ),
+  ],
+  exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
+};
+
+const MEDICAL: Course = {
+  slug: 'medical',
+  code: 'URPN MED',
+  title: 'URPN Medical Department (Medics)',
+  shortTitle: 'Medical',
+  icon: 'stethoscope',
+  track: 'workforce',
+  tagline: 'Clinical excellence, compassionate first response, and community health.',
+  description:
+    'The Medical Department delivers emergency first response, health triage, and wellness education, maintaining first-aid readiness and promoting public health throughout URPN gatherings.',
+  audience: 'Doctors, nurses, paramedics, pharmacists, and trained first-aiders.',
+  weeks: 3,
+  outcomes: [
+    'Provide swift, competent emergency first aid and triage during church services.',
+    'Maintain strict patient privacy, accurate health records, and clinical ethics.',
+    'Manage medical bay inventory, diagnostic kits, and emergency equipment.',
+    'Support community health screenings, medical outreaches, and wellness seminars.',
+  ],
+  conditions: [
+    'Professional qualification or certified training in healthcare/first-aid.',
+    'Commitment to clinical confidentiality and ethical medical guidelines.',
+    'Availability for service duty rotations and special outreach clinics.',
+    'Calm composure and rapid decision-making in clinical emergencies.',
+    'Compassionate, gentle demeanor with patients of all ages.',
+  ],
+  prerequisites: [],
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['medical'],
+  modules: [
+    departmentModule(
+      'medical-m1',
+      'Emergency Triage & First Response',
+      1,
+      'Immediate clinical care during services, conferences, and large meetings.',
+      audioLesson(
+        'medical-01',
+        'Clinical Preparedness in the Sanctuary',
+        'medical-01.m4a',
+        'Stationing, first aid kits, emergency kits, and vital sign monitoring.',
+        [
+          'Keep first-aid kits stocked, checked, and readily accessible.',
+          'Respond swiftly without creating panic in the congregation.',
+          'Assess airways, breathing, and circulation with practiced competence.',
+        ],
+        { reference: 'Luke 10:34', text: 'And went to him, and bound up his wounds, pouring in oil and wine, and set him on his own beast, and brought him to an inn, and took care of him.' }
+      )
+    ),
+    departmentModule(
+      'medical-m2',
+      'Confidentiality & Medical Ethics',
+      2,
+      'Safeguarding patient records and professional boundaries in ministry.',
+      audioLesson(
+        'medical-02',
+        'Patient Privacy & Clinical Documentation',
+        'medical-02.m4a',
+        'Ethical standards, logging treatments, and patient dignity.',
+        [
+          'Patient medical data is strictly confidential and protected.',
+          'Administer first aid within certified clinical scope and guidelines.',
+          'Know exact ambulance dispatch and hospital referral protocols.',
+        ]
+      )
+    ),
+    departmentModule(
+      'medical-m3',
+      'Preventive Health, Screenings & Community Outreach',
+      3,
+      'Promoting wellness, health seminars, and medical outreaches.',
+      audioLesson(
+        'medical-03',
+        'Community Health & Preventative Care',
+        'medical-03.m4a',
+        'Organizing blood pressure drives, health talks, and medical fairs.',
+        [
+          'Educate members on lifestyle health, hygiene, and disease prevention.',
+          'Coordinate medical outreach camps for underserved communities.',
+          'Report health trends and supply requirements to the Medical HOD.',
+        ]
+      )
+    ),
+  ],
+  exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
+};
+
+const SECURITY: Course = {
+  slug: 'security',
+  code: 'URPN SEC',
+  title: 'URPN Security Department',
+  shortTitle: 'Security',
+  icon: 'shield',
+  track: 'workforce',
+  tagline: 'Vigilant watchmanship, access control, and peaceful sanctuary order.',
+  description:
+    'The Security Department safeguards worshippers, church premises, and ministry assets through professional surveillance, access control, conflict de-escalation, and external agency collaboration.',
+  audience: 'Members with alertness, physical fitness, and passion for safety and crowd protection.',
+  weeks: 3,
+  outcomes: [
+    'Maintain active situational awareness and perimeter security during gatherings.',
+    'Manage access control, parking order, and designated security checkpoints.',
+    'De-escalate disturbances and manage emergency evacuation protocols.',
+    'Collaborate effectively with protocol, ushering, and civic law enforcement.',
+  ],
+  conditions: [
+    'High situational awareness, discipline, and alertness.',
+    'Calm, firm, and respectful communication during confrontational situations.',
+    'Physical stamina and readiness for post assignments in all weather.',
+    'Discretion, integrity, and strict adherence to security protocols.',
+    'Clear criminal record and willingness to undergo background checks.',
+  ],
+  prerequisites: [],
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['security'],
+  modules: [
+    departmentModule(
+      'security-m1',
+      'The Ministry of the Watchman',
+      1,
+      'The spiritual and operational role of safeguarding the assembly.',
+      audioLesson(
+        'security-01',
+        'Watchmen on the Walls',
+        'security-01.m4a',
+        'Maintaining vigilant posture, mental alertness, and spiritual coverage.',
+        [
+          'Security is quiet, proactive protection that allows worshippers to focus on God.',
+          'Maintain continuous surveillance of entrances, perimeters, and crowds.',
+          'Report suspicious items or strange activity immediately to the CSO.',
+        ],
+        { reference: 'Nehemiah 4:9', text: 'Nevertheless we made our prayer unto our God, and set a watch against them day and night, because of them.' }
+      )
+    ),
+    departmentModule(
+      'security-m2',
+      'Access Control, Perimeter Vigilance & De-Escalation',
+      2,
+      'Checkpoints, parking coordination, and non-violent conflict resolution.',
+      audioLesson(
+        'security-02',
+        'Access Control & Conflict De-Escalation',
+        'security-02.m4a',
+        'Managing gates, parking lots, and resolving disputes with calm authority.',
+        [
+          'Exercise polite yet firm control at all access gates.',
+          'De-escalate angry individuals using gentle speech and calm posture.',
+          'Secure parked vehicles against break-ins and traffic congestion.',
+        ]
+      )
+    ),
+    departmentModule(
+      'security-m3',
+      'Emergency Evacuation & Law Enforcement Coordination',
+      3,
+      'Crisis response, fire safety, and external security collaboration.',
+      audioLesson(
+        'security-03',
+        'Emergency Action Protocols',
+        'security-03.m4a',
+        'Evacuation routes, fire safety drills, and working with police and civil defense.',
+        [
+          'Know all emergency exits and assembly muster points thoroughly.',
+          'Lead calm crowd evacuations in case of fire, threat, or power failure.',
+          'Maintain liaison protocols with state police and emergency services.',
+        ]
+      )
+    ),
+  ],
+  exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
+};
+
+const PUBLICATIONS: Course = {
+  slug: 'publications',
+  code: 'URPN PUB',
+  title: 'URPN Publications & Academic Department',
+  shortTitle: 'Publications',
+  icon: 'library',
+  track: 'workforce',
+  tagline: 'Preserving revelation, advancing scholarship, and disseminating truth.',
+  description:
+    'The Publications and Academic Department stewards ministry literature, books, physical and digital libraries, research archives, and educational development programs for the community.',
+  audience: 'Writers, editors, librarians, researchers, educators, and literature distributors.',
+  weeks: 3,
+  outcomes: [
+    'Coordinate the editing, typesetting, printing, and distribution of ministry literature.',
+    'Manage physical and virtual library systems, archives, and cataloging.',
+    'Organize academic tutorials, career fairs, and educational advancement initiatives.',
+    'Ensure intellectual property rights and publishing standards are strictly preserved.',
+  ],
+  conditions: [
+    'Strong written and verbal communication skills and attention to detail.',
+    'Passion for Christian literature, scholarly research, and education.',
+    'Organizational competence in library administration and inventory.',
+    'Integrity in managing financial proceeds from literature and resources.',
+    'Heart for mentoring students and youths toward academic excellence.',
+  ],
+  prerequisites: [],
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['publications'],
+  modules: [
+    departmentModule(
+      'publications-m1',
+      'Stewarding the Written Word & Publishing Excellence',
+      1,
+      'The mandate to document revelation and produce high-caliber literature.',
+      audioLesson(
+        'publications-01',
+        'The Power of Kingdom Literature',
+        'publications-01.m4a',
+        'Editing, typesetting, and publishing sermons, books, and study guides.',
+        [
+          'Writing preserves spiritual truth across generations.',
+          'Maintain rigorous editorial standards, accuracy, and biblical fidelity.',
+          'Protect copyright, manuscripts, and distribution rights diligently.',
+        ],
+        { reference: 'Habakkuk 2:2', text: 'And the Lord answered me, and said, Write the vision, and make it plain upon tables, that he may run that readeth it.' }
+      )
+    ),
+    departmentModule(
+      'publications-m2',
+      'Library Systems & Knowledge Repositories',
+      2,
+      'Managing traditional, digital, and archival resources for the church.',
+      audioLesson(
+        'publications-02',
+        'The Ministry Knowledge Repository',
+        'publications-02.m4a',
+        'Cataloging books, managing digital lending libraries, and bookshop sales.',
+        [
+          'Classify and catalog church literature for easy retrieval.',
+          'Ensure transparent accounting for book sales and distribution.',
+          'Preserve historical conference recordings, audio, and print materials.',
+        ]
+      )
+    ),
+    departmentModule(
+      'publications-m3',
+      'Academic Development, Tutoring & Scholarship Guidance',
+      3,
+      'Empowering members and students to excel in formal education.',
+      audioLesson(
+        'publications-03',
+        'Christ-Centered Academic Excellence',
+        'publications-03.m4a',
+        'Organizing study sessions, educational seminars, and career mentorship.',
+        [
+          'Integrate academic rigor with kingdom purpose in students.',
+          'Coordinate tutoring programs and share scholarship opportunities.',
+          'Report educational progress and community outcomes to the HOD.',
+        ]
+      )
+    ),
+  ],
+  exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
+};
+
+const DRAMA: Course = {
+  slug: 'drama',
+  code: 'URPN DRM',
+  title: 'URPN Drama and Demonstration Department',
+  shortTitle: 'Drama',
+  icon: 'clapperboard',
+  track: 'workforce',
+  tagline: 'Prophetic arts, visual demonstrations, and creative gospel storytelling.',
+  description:
+    'The Drama and Demonstration Department brings biblical truth alive through skits, stage plays, prophetic choreographies, and visual storytelling, ministering conviction and healing through the dramatic arts.',
+  audience: 'Actors, playwrights, directors, stage managers, and visual demonstrators.',
+  weeks: 3,
+  outcomes: [
+    'Develop and stage biblically sound, impactful dramatic presentations.',
+    'Demonstrate spiritual truths with visual clarity, conviction, and creativity.',
+    'Manage costumes, props, stage choreography, and rehearsal schedules.',
+    'Use dramatic arts as an effective evangelistic tool for outreach and youth engagement.',
+  ],
+  conditions: [
+    'Passion for dramatic arts and creative communication as ministry.',
+    'Humility, spiritual discipline, and teachable spirit in receiving direction.',
+    'Strict punctuality and commitment to intensive rehearsal schedules.',
+    'Ability to collaborate well with diverse actors and stage crew.',
+    'Consecration of creative gifts solely for God’s glory and gospel impact.',
+  ],
+  prerequisites: [],
+  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['drama'],
+  modules: [
+    departmentModule(
+      'drama-m1',
+      'Prophetic Arts & Visual Gospel Storytelling',
+      1,
+      'The biblical foundation of dramatic demonstration and living parables.',
+      audioLesson(
+        'drama-01',
+        'Drama as a Ministry of Conviction',
+        'drama-01.m4a',
+        'Communicating the heart of God through character, voice, and stage.',
+        [
+          'Drama is not entertainment; it is visual preaching with conviction.',
+          'Portray characters with truth, vulnerability, and spiritual weight.',
+          'Keep your heart consecrated in prayer before stepping on stage.',
+        ],
+        { reference: 'Ezekiel 4:1-3', text: 'Thou also, son of man, take thee a tile, and lay it before thee, and portray upon it the city... This shall be a sign to the house of Israel.' }
+      )
+    ),
+    departmentModule(
+      'drama-m2',
+      'Scriptwriting, Biblical Fidelity & Directing',
+      2,
+      'Writing anointed scripts and sharpening performance craft.',
+      audioLesson(
+        'drama-02',
+        'Script Craft and Character Integrity',
+        'drama-02.m4a',
+        'Developing storylines, script dialogue, and rehearsals that honor God.',
+        [
+          'Ensure every script aligns strictly with biblical doctrine.',
+          'Honor rehearsal schedules with discipline and prompt attendance.',
+          'Receive directorial guidance with humility and team respect.',
+        ]
+      )
+    ),
+    departmentModule(
+      'drama-m3',
+      'Stagecraft, Props Management & Outreach Drama',
+      3,
+      'Costumes, stage choreography, and taking drama into the streets.',
+      audioLesson(
+        'drama-03',
+        'Stage Management & Street Evangelism',
+        'drama-03.m4a',
+        'Managing props, stage logistics, and dramatic street evangelism.',
+        [
+          'Catalog, clean, and store costumes and props responsibly.',
+          'Deploy short, punchy skits for community and campus crusades.',
+          'Measure success by conviction, lives touched, and souls won.',
+        ]
+      )
+    ),
+  ],
+  exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
+};
+
 export const WORKFORCE_COURSES: Course[] = [
-  MEDIA,
-  TECHNICAL,
-  USHERING,
+  AESTHETICS,
+  PR,
   PROTOCOL,
+  USHERING,
+  TECHNICAL,
+  MEDIA,
   CHOIR,
   WELFARE,
+  PRAYER,
+  COUNSELING,
+  TRANSPORT,
+  MEDICAL,
+  SECURITY,
   CHILDREN,
+  PUBLICATIONS,
+  DRAMA,
 ];
+
 
 export const LEADERSHIP_COURSES: Course[] = [MINISTERS, PASTORS];
 

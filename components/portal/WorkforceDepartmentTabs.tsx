@@ -20,18 +20,41 @@ import {
   ArrowRight,
   Clock,
   Layers,
+  Palette,
+  Megaphone,
+  Flame,
+  MessageSquare,
+  Bus,
+  Stethoscope,
+  Shield,
+  Library,
+  Clapperboard,
+  UserCheck,
+  Briefcase,
+  Target,
+  GraduationCap,
+  FileCheck2,
 } from 'lucide-react';
 import type { Course } from '@/lib/courses';
 import { getLessonCount, getCourseDurationLabel } from '@/lib/courses';
 
 const ICONS: Record<string, React.ElementType> = {
-  media: Camera,
-  technical: Cpu,
-  ushering: Users,
+  aesthetics: Palette,
+  pr: Megaphone,
   protocol: ShieldCheck,
+  ushering: Users,
+  technical: Cpu,
+  media: Camera,
   choir: Music,
   welfare: HeartHandshake,
+  prayer: Flame,
+  counseling: MessageSquare,
+  transport: Bus,
+  medical: Stethoscope,
+  security: Shield,
   children: Baby,
+  publications: Library,
+  drama: Clapperboard,
 };
 
 interface CourseStatusInfo {
@@ -47,14 +70,17 @@ interface Props {
   statusMap: Record<string, CourseStatusInfo>;
 }
 
+type SubTabKey = 'overview' | 'hod' | 'conditions' | 'curriculum';
+
 export function WorkforceDepartmentTabs({ courses, statusMap }: Props) {
   const [activeSlug, setActiveSlug] = useState<string>('all');
+  const [activeSubTab, setActiveSubTab] = useState<SubTabKey>('overview');
 
   const selectedCourse = courses.find((c) => c.slug === activeSlug);
 
   return (
     <div>
-      {/* ---------------------------------------------------- TAB BUTTONS */}
+      {/* ---------------------------------------------------- MAIN DEPARTMENT TABS */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
         <button
           type="button"
@@ -81,7 +107,10 @@ export function WorkforceDepartmentTabs({ courses, statusMap }: Props) {
             <button
               key={course.slug}
               type="button"
-              onClick={() => setActiveSlug(course.slug)}
+              onClick={() => {
+                setActiveSlug(course.slug);
+                setActiveSubTab('overview');
+              }}
               className={`flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-xs font-medium transition-all shrink-0 border ${
                 isSelected
                   ? 'border-gold-400 bg-gold-400/15 text-gold-200 font-semibold shadow-sm'
@@ -100,7 +129,7 @@ export function WorkforceDepartmentTabs({ courses, statusMap }: Props) {
         })}
       </div>
 
-      {/* ---------------------------------------------------- SINGLE DEPARTMENT TAB VIEW */}
+      {/* ---------------------------------------------------- SINGLE DEPARTMENT VIEW */}
       {selectedCourse && (
         <div className="mt-6 rounded-3xl border border-line bg-surface p-6 sm:p-10 transition-all animate-fade-in">
           {(() => {
@@ -108,12 +137,14 @@ export function WorkforceDepartmentTabs({ courses, statusMap }: Props) {
             const status = statusMap[selectedCourse.slug];
             const isCertified = Boolean(status?.isCertified);
             const isEnrolled = Boolean(status?.isEnrolled);
+            const jd = selectedCourse.jobDescription;
 
             return (
               <div>
+                {/* Header Section */}
                 <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                   <div className="flex items-start gap-4">
-                    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-line bg-canvas text-gold-300">
+                    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-line bg-canvas text-gold-300 shadow-sm">
                       <Icon className="h-7 w-7" aria-hidden="true" />
                     </span>
                     <div>
@@ -162,106 +193,430 @@ export function WorkforceDepartmentTabs({ courses, statusMap }: Props) {
                   </div>
                 </div>
 
-                <p className="mt-6 max-w-3xl text-[14.5px] leading-relaxed text-cream-400">
-                  {selectedCourse.description}
-                </p>
+                {/* Sub-Navigation Tabs */}
+                <div className="mt-8 flex items-center gap-2 border-b border-line pb-3 overflow-x-auto scrollbar-none">
+                  <button
+                    type="button"
+                    onClick={() => setActiveSubTab('overview')}
+                    className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all shrink-0 ${
+                      activeSubTab === 'overview'
+                        ? 'bg-gold-400/15 text-gold-200 border border-gold-400/40 shadow-sm'
+                        : 'text-cream-400 hover:text-cream-100'
+                    }`}
+                  >
+                    <Briefcase className="h-3.5 w-3.5" />
+                    <span>Job Description & Member Duties</span>
+                  </button>
 
-                {/* Quick stats */}
-                <div className="mt-6 flex flex-wrap items-center gap-4 border-y border-line-soft py-4 text-xs text-cream-400">
-                  <span className="flex items-center gap-1.5">
-                    <Headphones className="h-4 w-4 text-accent" />
-                    <strong>{getLessonCount(selectedCourse)} audio lessons</strong>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="h-4 w-4 text-gold-400" />
-                    <span>Duration: {getCourseDurationLabel(selectedCourse)}</span>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Timer className="h-4 w-4 text-cream-400" />
-                    <span>{selectedCourse.exam.durationMinutes}-minute timed exam</span>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Award className="h-4 w-4 text-gold-400" />
-                    <span>Pass mark: {selectedCourse.exam.passMark}%</span>
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveSubTab('hod')}
+                    className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all shrink-0 ${
+                      activeSubTab === 'hod'
+                        ? 'bg-gold-400/15 text-gold-200 border border-gold-400/40 shadow-sm'
+                        : 'text-cream-400 hover:text-cream-100'
+                    }`}
+                  >
+                    <UserCheck className="h-3.5 w-3.5" />
+                    <span>Head of Department (HOD)</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveSubTab('conditions')}
+                    className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all shrink-0 ${
+                      activeSubTab === 'conditions'
+                        ? 'bg-gold-400/15 text-gold-200 border border-gold-400/40 shadow-sm'
+                        : 'text-cream-400 hover:text-cream-100'
+                    }`}
+                  >
+                    <FileCheck2 className="h-3.5 w-3.5" />
+                    <span>Conditions to Join ({selectedCourse.conditions.length})</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveSubTab('curriculum')}
+                    className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all shrink-0 ${
+                      activeSubTab === 'curriculum'
+                        ? 'bg-gold-400/15 text-gold-200 border border-gold-400/40 shadow-sm'
+                        : 'text-cream-400 hover:text-cream-100'
+                    }`}
+                  >
+                    <BookOpen className="h-3.5 w-3.5" />
+                    <span>Course Lessons & Exam</span>
+                  </button>
                 </div>
 
-                {/* Two Column details: Conditions & Syllabus */}
-                <div className="mt-8 grid gap-8 lg:grid-cols-2">
-                  {/* Left: Conditions */}
-                  <div className="rounded-2xl border border-line-soft bg-canvas/40 p-6">
-                    <div className="flex items-center gap-2">
-                      <ShieldCheck className="h-4 w-4 text-gold-400" />
-                      <h4 className="text-sm font-semibold text-cream-50">
-                        Conditions to Join ({selectedCourse.conditions.length} Requirements)
-                      </h4>
+                {/* ------------------------------------------------ SUB-TAB 1: JOB DESCRIPTION & MEMBER DUTIES */}
+                {activeSubTab === 'overview' && (
+                  <div className="mt-8 space-y-8 animate-fade-in">
+                    {/* Overview Box */}
+                    <div className="rounded-2xl border border-line-soft bg-canvas/40 p-6 sm:p-7">
+                      <span className="mono-label !text-[9px] text-gold-400 uppercase tracking-widest">
+                        Department Purpose & Mission
+                      </span>
+                      <p className="mt-2 text-[15px] leading-relaxed text-cream-200">
+                        {jd?.overview || selectedCourse.description}
+                      </p>
                     </div>
-                    <p className="mt-1 text-xs text-cream-500">
-                      You must acknowledge these requirements before beginning the course.
-                    </p>
 
-                    <ul className="mt-4 space-y-2.5">
-                      {selectedCourse.conditions.map((condition, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300">
-                          <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-400/10 text-gold-400">
-                            <Check className="h-2.5 w-2.5" />
-                          </span>
-                          <span>{condition}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    {/* Member Responsibilities */}
+                    {jd && jd.responsibilities.length > 0 && (
+                      <div>
+                        <h4 className="text-base font-semibold text-cream-50 flex items-center gap-2">
+                          <Briefcase className="h-4 w-4 text-gold-400" />
+                          Key Responsibilities for Team Members
+                        </h4>
+                        <p className="mt-1 text-xs text-cream-500">
+                          Specific operational duties carried out by department workers.
+                        </p>
 
-                  {/* Right: Audio Syllabus & Outcomes */}
-                  <div className="space-y-6">
-                    <div className="rounded-2xl border border-line-soft bg-canvas/40 p-6">
-                      <div className="flex items-center gap-2">
-                        <BookOpen className="h-4 w-4 text-accent" />
-                        <h4 className="text-sm font-semibold text-cream-50">Audio Lessons Syllabus</h4>
-                      </div>
-                      <div className="mt-4 space-y-3">
-                        {selectedCourse.modules.map((m) => (
-                          <div key={m.id} className="rounded-xl border border-line bg-surface/50 p-3.5">
-                            <p className="font-mono text-[9px] uppercase tracking-wider text-gold-400">
-                              Week {m.week} · {m.title}
-                            </p>
-                            {m.lessons.map((l) => (
-                              <div key={l.id} className="mt-2 flex items-center justify-between text-xs">
-                                <span className="font-medium text-cream-200">{l.title}</span>
-                                <span className="font-mono text-[10px] text-cream-500">
-                                  {l.estimatedMinutes} min
+                        <div className="mt-4 grid gap-4 md:grid-cols-2">
+                          {jd.responsibilities.map((group, gIdx) => (
+                            <div
+                              key={gIdx}
+                              className="rounded-2xl border border-line-soft bg-surface/80 p-5 hover:border-line-strong transition-all"
+                            >
+                              <div className="flex items-center gap-2 border-b border-line-soft pb-2.5">
+                                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold-400/10 text-gold-400 text-[10px] font-mono">
+                                  {gIdx + 1}
                                 </span>
+                                <h5 className="text-xs font-semibold uppercase tracking-wider text-cream-200">
+                                  {group.category}
+                                </h5>
                               </div>
-                            ))}
+                              <ul className="mt-3 space-y-2">
+                                {group.items.map((item, iIdx) => (
+                                  <li
+                                    key={iIdx}
+                                    className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300"
+                                  >
+                                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-400" />
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Key Attributes for Team Members */}
+                    {jd && jd.keyAttributes.length > 0 && (
+                      <div className="rounded-2xl border border-line-soft bg-canvas/50 p-6">
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="h-4 w-4 text-gold-400" />
+                          <h4 className="text-sm font-semibold text-cream-50">
+                            Key Attributes Required for Team Members
+                          </h4>
+                        </div>
+                        <p className="mt-1 text-xs text-cream-500">
+                          Character traits, spiritual disciplines, and skills essential for this department.
+                        </p>
+
+                        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                          {jd.keyAttributes.map((attr, idx) => (
+                            <div
+                              key={idx}
+                              className="flex items-start gap-2.5 rounded-xl border border-line-soft/60 bg-surface/60 p-3.5 text-xs text-cream-300"
+                            >
+                              <Check className="h-4 w-4 shrink-0 text-emerald-400 mt-0.5" />
+                              <span>{attr}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* ------------------------------------------------ SUB-TAB 2: HEAD OF DEPARTMENT */}
+                {activeSubTab === 'hod' && jd && (
+                  <div className="mt-8 space-y-8 animate-fade-in">
+                    {/* HOD Summary Header */}
+                    <div className="rounded-2xl border border-gold-500/20 bg-gold-500/5 p-6 sm:p-7">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <span className="rounded-full border border-gold-400/40 bg-gold-400/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-gold-300 font-semibold">
+                          Leadership Specification
+                        </span>
+                        <span className="text-xs text-cream-400">Reports to the Administrator</span>
+                      </div>
+                      <h4 className="mt-3 text-xl font-bold text-cream-50 sm:text-2xl">
+                        {jd.headOfDepartment.title}
+                      </h4>
+                      <p className="mt-3 text-sm leading-relaxed text-cream-300">
+                        {jd.headOfDepartment.summary}
+                      </p>
+                    </div>
+
+                    {/* HOD Responsibilities */}
+                    <div>
+                      <h4 className="text-base font-semibold text-cream-50 flex items-center gap-2">
+                        <Briefcase className="h-4 w-4 text-gold-400" />
+                        Key Leadership Responsibilities
+                      </h4>
+                      <p className="mt-1 text-xs text-cream-500">
+                        Strategic direction, management, team development, and operational oversight.
+                      </p>
+
+                      <div className="mt-4 grid gap-4 md:grid-cols-2">
+                        {jd.headOfDepartment.responsibilities.map((group, gIdx) => (
+                          <div
+                            key={gIdx}
+                            className="rounded-2xl border border-line-soft bg-surface/80 p-5 hover:border-line-strong transition-all"
+                          >
+                            <div className="flex items-center gap-2 border-b border-line-soft pb-2.5">
+                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold-400/10 text-gold-400 text-[10px] font-mono">
+                                {gIdx + 1}
+                              </span>
+                              <h5 className="text-xs font-semibold uppercase tracking-wider text-cream-200">
+                                {group.category}
+                              </h5>
+                            </div>
+                            <ul className="mt-3 space-y-2">
+                              {group.items.map((item, iIdx) => (
+                                <li
+                                  key={iIdx}
+                                  className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300"
+                                >
+                                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-400" />
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="rounded-2xl border border-line-soft bg-canvas/40 p-5">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-cream-400">
-                        Outcomes for Service
-                      </h4>
-                      <ul className="mt-2.5 space-y-1.5 text-xs text-cream-400">
-                        {selectedCourse.outcomes.map((outcome, idx) => (
-                          <li key={idx} className="flex items-start gap-2">
-                            <span className="h-1 w-1 rounded-full bg-accent mt-1.5 shrink-0" />
-                            <span>{outcome}</span>
+                    {/* KPIs & Qualifications Grid */}
+                    <div className="grid gap-6 lg:grid-cols-2">
+                      {/* KPIs */}
+                      <div className="rounded-2xl border border-line-soft bg-canvas/40 p-6">
+                        <div className="flex items-center gap-2">
+                          <Target className="h-4 w-4 text-gold-400" />
+                          <h4 className="text-sm font-semibold text-cream-50">
+                            Key Performance Indicators (KPIs)
+                          </h4>
+                        </div>
+                        <p className="mt-1 text-xs text-cream-500">
+                          Metrics measuring departmental effectiveness and spiritual health.
+                        </p>
+
+                        <ul className="mt-4 space-y-2.5">
+                          {jd.headOfDepartment.kpis.map((kpi, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300"
+                            >
+                              <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-400/10 text-gold-400 font-mono text-[9px]">
+                                {idx + 1}
+                              </span>
+                              <span>{kpi}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Qualifications (if present) or Leadership Culture */}
+                      <div className="rounded-2xl border border-line-soft bg-canvas/40 p-6">
+                        <div className="flex items-center gap-2">
+                          <GraduationCap className="h-4 w-4 text-accent" />
+                          <h4 className="text-sm font-semibold text-cream-50">
+                            {jd.headOfDepartment.qualifications && jd.headOfDepartment.qualifications.length > 0
+                              ? 'Key Qualifications & Skills'
+                              : 'Leadership Culture & Spiritual Standard'}
+                          </h4>
+                        </div>
+                        <p className="mt-1 text-xs text-cream-500">
+                          {jd.headOfDepartment.qualifications && jd.headOfDepartment.qualifications.length > 0
+                            ? 'Professional prerequisites and leadership competencies.'
+                            : 'Apostolic alignment, humility, and submission to the Governing Council.'}
+                        </p>
+
+                        <ul className="mt-4 space-y-2.5">
+                          {jd.headOfDepartment.qualifications && jd.headOfDepartment.qualifications.length > 0 ? (
+                            jd.headOfDepartment.qualifications.map((qual, idx) => (
+                              <li
+                                key={idx}
+                                className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300"
+                              >
+                                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent font-mono text-[9px]">
+                                  ✓
+                                </span>
+                                <span>{qual}</span>
+                              </li>
+                            ))
+                          ) : (
+                            <>
+                              <li className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300">
+                                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                                <span>Complete spiritual consecration and fidelity to the URPN apostolic blueprint.</span>
+                              </li>
+                              <li className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300">
+                                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                                <span>Proven servant leadership, emotional maturity, and pastoral care for team members.</span>
+                              </li>
+                              <li className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300">
+                                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                                <span>Accountability in reporting and transparent stewardship of resources and budgets.</span>
+                              </li>
+                              <li className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300">
+                                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                                <span>Commitment to mentoring emerging leaders and raising successors.</span>
+                              </li>
+                            </>
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ------------------------------------------------ SUB-TAB 3: CONDITIONS TO JOIN */}
+                {activeSubTab === 'conditions' && (
+                  <div className="mt-8 grid gap-8 lg:grid-cols-2 animate-fade-in">
+                    {/* Left: Requirements Checklist */}
+                    <div className="rounded-2xl border border-line-soft bg-canvas/40 p-6">
+                      <div className="flex items-center gap-2">
+                        <ShieldCheck className="h-4 w-4 text-gold-400" />
+                        <h4 className="text-sm font-semibold text-cream-50">
+                          Conditions to Join ({selectedCourse.conditions.length} Requirements)
+                        </h4>
+                      </div>
+                      <p className="mt-1 text-xs text-cream-500">
+                        You must acknowledge and accept these requirements before enrolling.
+                      </p>
+
+                      <ul className="mt-4 space-y-2.5">
+                        {selectedCourse.conditions.map((condition, idx) => (
+                          <li
+                            key={idx}
+                            className="flex items-start gap-2.5 text-xs leading-relaxed text-cream-300"
+                          >
+                            <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-400/10 text-gold-400">
+                              <Check className="h-2.5 w-2.5" />
+                            </span>
+                            <span>{condition}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
-                  </div>
-                </div>
 
-                {/* Bottom CTA */}
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-line-soft pt-6">
+                    {/* Right: Service Outcomes */}
+                    <div className="space-y-6">
+                      <div className="rounded-2xl border border-line-soft bg-canvas/40 p-6">
+                        <h4 className="text-xs font-semibold uppercase tracking-wider text-cream-400">
+                          Outcomes for Service
+                        </h4>
+                        <p className="mt-1 text-xs text-cream-500">
+                          What you will be equipped to accomplish upon completing this track.
+                        </p>
+                        <ul className="mt-3.5 space-y-2 text-xs text-cream-300">
+                          {selectedCourse.outcomes.map((outcome, idx) => (
+                            <li key={idx} className="flex items-start gap-2.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
+                              <span>{outcome}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="rounded-2xl border border-gold-500/20 bg-gold-500/5 p-5">
+                        <p className="text-xs text-gold-300 font-medium">
+                          ⚡ Ready to step into this department? Complete the short 3-week audio course and pass the timed certification exam.
+                        </p>
+                        <div className="mt-3">
+                          <Link
+                            href={`/portal/courses/${selectedCourse.slug}`}
+                            className="btn btn-primary btn-sm"
+                          >
+                            Proceed to Enrollment
+                            <ArrowRight className="h-3.5 w-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ------------------------------------------------ SUB-TAB 4: CURRICULUM & EXAM */}
+                {activeSubTab === 'curriculum' && (
+                  <div className="mt-8 space-y-6 animate-fade-in">
+                    {/* Quick Stats Bar */}
+                    <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-line-soft bg-canvas/40 px-6 py-4 text-xs text-cream-400">
+                      <span className="flex items-center gap-1.5">
+                        <Headphones className="h-4 w-4 text-accent" />
+                        <strong>{getLessonCount(selectedCourse)} audio lessons</strong>
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <Clock className="h-4 w-4 text-gold-400" />
+                        <span>Duration: {getCourseDurationLabel(selectedCourse)}</span>
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <Timer className="h-4 w-4 text-cream-400" />
+                        <span>{selectedCourse.exam.durationMinutes}-minute timed exam</span>
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <Award className="h-4 w-4 text-gold-400" />
+                        <span>Pass mark: {selectedCourse.exam.passMark}%</span>
+                      </span>
+                    </div>
+
+                    {/* Audio Lessons Syllabus */}
+                    <div className="rounded-2xl border border-line-soft bg-canvas/40 p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <BookOpen className="h-4 w-4 text-accent" />
+                          <h4 className="text-sm font-semibold text-cream-50">Audio Lessons Syllabus</h4>
+                        </div>
+                        <span className="font-mono text-[10px] text-cream-500">
+                          Sequential unlocking enabled
+                        </span>
+                      </div>
+
+                      <div className="mt-4 space-y-3">
+                        {selectedCourse.modules.map((m) => (
+                          <div key={m.id} className="rounded-xl border border-line bg-surface/50 p-4">
+                            <div className="flex items-center justify-between">
+                              <p className="font-mono text-[9.5px] uppercase tracking-wider text-gold-400">
+                                Week {m.week} · {m.title}
+                              </p>
+                              <span className="text-[11px] text-cream-500">{m.summary}</span>
+                            </div>
+                            <div className="mt-3 space-y-2 border-t border-line-soft pt-2.5">
+                              {m.lessons.map((l) => (
+                                <div
+                                  key={l.id}
+                                  className="flex items-center justify-between text-xs py-1"
+                                >
+                                  <div className="flex items-center gap-2">
+                                    <Headphones className="h-3.5 w-3.5 text-accent" />
+                                    <span className="font-medium text-cream-200">{l.title}</span>
+                                  </div>
+                                  <span className="font-mono text-[10px] text-cream-500">
+                                    {l.estimatedMinutes} min
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Bottom Back Button & Action */}
+                <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-line-soft pt-6">
                   <button
                     type="button"
                     onClick={() => setActiveSlug('all')}
                     className="text-xs text-cream-500 hover:text-cream-200 underline-offset-4 hover:underline"
                   >
-                    ← Back to all departments
+                    ← Back to all 16 departments
                   </button>
 
                   <Link
@@ -300,10 +655,13 @@ export function WorkforceDepartmentTabs({ courses, statusMap }: Props) {
                     <div className="flex items-center gap-1.5">
                       <button
                         type="button"
-                        onClick={() => setActiveSlug(course.slug)}
-                        className="rounded-full border border-line/70 px-2 py-0.5 text-[9px] text-cream-400 hover:text-gold-300 hover:border-gold-400/50 transition-colors"
+                        onClick={() => {
+                          setActiveSlug(course.slug);
+                          setActiveSubTab('overview');
+                        }}
+                        className="rounded-full border border-line/70 px-2.5 py-0.5 text-[9.5px] text-cream-400 hover:text-gold-300 hover:border-gold-400/50 transition-colors"
                       >
-                        Tab view
+                        Explore Tab
                       </button>
                       <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-cream-400">
                         {course.code}
@@ -358,7 +716,10 @@ export function WorkforceDepartmentTabs({ courses, statusMap }: Props) {
                 <div className="mt-6 flex items-center gap-2 border-t border-line-soft pt-4">
                   <button
                     type="button"
-                    onClick={() => setActiveSlug(course.slug)}
+                    onClick={() => {
+                      setActiveSlug(course.slug);
+                      setActiveSubTab('overview');
+                    }}
                     className="btn btn-secondary btn-sm flex-1 text-xs"
                   >
                     View Tab
@@ -389,4 +750,3 @@ export function WorkforceDepartmentTabs({ courses, statusMap }: Props) {
     </div>
   );
 }
-

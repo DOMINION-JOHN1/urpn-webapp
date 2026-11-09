@@ -25,21 +25,39 @@ describe('URPN training catalogue', () => {
       'URPN Pastors Training',
     ]);
     expect(WORKFORCE_COURSES.map((course) => course.slug)).toEqual([
-      'media',
-      'technical',
-      'ushering',
+      'aesthetics',
+      'pr',
       'protocol',
+      'ushering',
+      'technical',
+      'media',
       'choir',
       'welfare',
+      'prayer',
+      'counseling',
+      'transport',
+      'medical',
+      'security',
       'children',
+      'publications',
+      'drama',
     ]);
   });
 
   it('includes all courses in ALL_COURSES and retrieves them via getCourse', () => {
-    expect(ALL_COURSES.length).toBe(10);
+    expect(ALL_COURSES.length).toBe(19);
     expect(getCourse('foundation')).toBeDefined();
     expect(getCourse('ministers')).toBeDefined();
     expect(getCourse('pastors')).toBeDefined();
+    expect(getCourse('aesthetics')).toBeDefined();
+    expect(getCourse('pr')).toBeDefined();
+    expect(getCourse('prayer')).toBeDefined();
+    expect(getCourse('counseling')).toBeDefined();
+    expect(getCourse('transport')).toBeDefined();
+    expect(getCourse('medical')).toBeDefined();
+    expect(getCourse('security')).toBeDefined();
+    expect(getCourse('publications')).toBeDefined();
+    expect(getCourse('drama')).toBeDefined();
     expect(getCourse('media')).toBeDefined();
     expect(getCourse('children')).toBeDefined();
   });
@@ -62,6 +80,20 @@ describe('URPN training catalogue', () => {
       for (const condition of course.conditions) {
         expect(condition.length).toBeGreaterThan(5);
       }
+    }
+  });
+
+  it('attaches comprehensive job description and HOD specs to all workforce courses', () => {
+    for (const course of WORKFORCE_COURSES) {
+      expect(course.jobDescription).toBeDefined();
+      expect(course.jobDescription?.departmentName).toBeTruthy();
+      expect(course.jobDescription?.overview).toBeTruthy();
+      expect(course.jobDescription?.responsibilities.length).toBeGreaterThan(0);
+      expect(course.jobDescription?.keyAttributes.length).toBeGreaterThan(0);
+      expect(course.jobDescription?.headOfDepartment.title).toBeTruthy();
+      expect(course.jobDescription?.headOfDepartment.summary).toBeTruthy();
+      expect(course.jobDescription?.headOfDepartment.responsibilities.length).toBeGreaterThan(0);
+      expect(course.jobDescription?.headOfDepartment.kpis.length).toBeGreaterThan(0);
     }
   });
 
