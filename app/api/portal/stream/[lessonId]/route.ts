@@ -15,15 +15,22 @@ export const runtime = 'nodejs';
 
 const MEDIA_ROOT = path.join(process.cwd(), 'media');
 
-function privateHeaders(contentType: string, contentLength?: number): HeadersInit {
+function privateHeaders(
+  contentType: string,
+  contentLength?: number,
+  filename?: string,
+  asDownload = false
+): HeadersInit {
+  const disposition = asDownload && filename
+    ? `attachment; filename="${filename.replace(/[^a-zA-Z0-9_.-]/g, '_')}"`
+    : 'inline';
   const headers: Record<string, string> = {
     'Content-Type': contentType,
-    'Cache-Control': 'private, no-store, no-cache, must-revalidate, max-age=0',
+    'Cache-Control': asDownload ? 'private, max-age=3600' : 'private, no-store, no-cache, must-revalidate, max-age=0',
     Pragma: 'no-cache',
-    'Content-Disposition': 'inline',
+    'Content-Disposition': disposition,
     'X-Content-Type-Options': 'nosniff',
     'Accept-Ranges': 'bytes',
-    'Cross-Origin-Resource-Policy': 'same-origin',
   };
   if (typeof contentLength === 'number') headers['Content-Length'] = String(contentLength);
   return headers;
@@ -39,6 +46,7 @@ export async function GET(
   }
 
   const url = new URL(request.url);
+  const isDownload = url.searchParams.get('download') === '1';
   const courseSlug = url.searchParams.get('course') ?? '';
   const course = getCourse(courseSlug);
   if (!course) {
@@ -57,8 +65,9 @@ export async function GET(
   const media = found.lesson.media;
   const contentType = media.mime || 'audio/mp4';
   const range = request.headers.get('range');
+  const safeFilename = `${params.lessonId}.m4a`;
 
-  // 1. Google Drive Audio Streaming (Protected: no direct download link)
+  // 1. Google Drive Audio Streaming & Download
   const driveFileId = media.driveFileId || extractDriveFileId(media.driveUrl || media.file);
   if (driveFileId) {
     try {
@@ -71,7 +80,7 @@ export async function GET(
         );
         return new Response(Readable.toWeb(driveStream.data as Readable) as unknown as ReadableStream, {
           status: 200,
-          headers: privateHeaders(contentType),
+          headers: privateHeaders(contentType, undefined, safeFilename, isDownload),
         });
       }
 
@@ -87,7 +96,9 @@ export async function GET(
           status: driveFetch.status === 206 ? 206 : 200,
           headers: privateHeaders(
             driveFetch.headers.get('content-type') || contentType,
-            Number(driveFetch.headers.get('content-length')) || undefined
+            Number(driveFetch.headers.get('content-length')) || undefined,
+            safeFilename,
+            isDownload
           ),
         });
       }
@@ -96,7 +107,7 @@ export async function GET(
     }
   }
 
-  // 2. Direct remote audio URL proxy (Protected: hides remote URL)
+  // 2. Direct remote audio URL proxy
   if (media.audioUrl) {
     try {
       const remoteRes = await fetch(media.audioUrl, {
@@ -107,7 +118,9 @@ export async function GET(
           status: remoteRes.status === 206 ? 206 : 200,
           headers: privateHeaders(
             remoteRes.headers.get('content-type') || contentType,
-            Number(remoteRes.headers.get('content-length')) || undefined
+            Number(remoteRes.headers.get('content-length')) || undefined,
+            safeFilename,
+            isDownload
           ),
         });
       }
@@ -116,7 +129,7 @@ export async function GET(
     }
   }
 
-  // 3. Local file in media/ (with graceful demo fallback so playback never breaks)
+  // 3. Local file in media/ (with graceful demo fallback so playback/download never breaks)
   let fileName = media.file ? path.basename(media.file) : '';
   let filePath = fileName ? path.join(MEDIA_ROOT, fileName) : '';
   let stat;
@@ -177,7 +190,7 @@ export async function GET(
     return new Response(Readable.toWeb(stream) as unknown as ReadableStream, {
       status: 206,
       headers: {
-        ...privateHeaders(contentType, end - start + 1),
+        ...privateHeaders(contentType, end - start + 1, safeFilename, isDownload),
         'Content-Range': `bytes ${start}-${end}/${stat.size}`,
       },
     });
@@ -186,7 +199,7 @@ export async function GET(
   const stream = createReadStream(filePath);
   return new Response(Readable.toWeb(stream) as unknown as ReadableStream, {
     status: 200,
-    headers: privateHeaders(contentType, stat.size),
+    headers: privateHeaders(contentType, stat.size, safeFilename, isDownload),
   });
 }
 

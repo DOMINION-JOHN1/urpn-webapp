@@ -26,6 +26,7 @@ import {
 } from '@/lib/courses';
 import { EnrollButton } from '@/components/portal/EnrollButton';
 import { DepartmentConditionsAcceptance } from '@/components/portal/DepartmentConditionsAcceptance';
+import { CurriculumAccordion } from '@/components/portal/CurriculumAccordion';
 
 export const dynamic = 'force-dynamic';
 
@@ -270,94 +271,14 @@ export default async function CourseOverviewPage({
       )}
 
       <div className="mt-8 grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
-        <div className="min-w-0 space-y-3">
-          {course.modules.map((module, moduleIndex) => (
-            <section
-              key={module.id}
-              className="overflow-hidden rounded-2xl border border-line bg-surface"
-            >
-              <div className="border-b border-line-soft px-5 py-4">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-cream-600">
-                    Week {module.week}
-                  </span>
-                  <span className="text-line-strong">·</span>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-cream-600">
-                    Module {moduleIndex + 1}
-                  </span>
-                </div>
-                <h2 className="mt-2 text-[16px] font-medium text-cream-50">{module.title}</h2>
-                <p className="mt-1 text-[11.5px] leading-relaxed text-cream-500">
-                  {module.summary}
-                </p>
-              </div>
-
-              <ul className="divide-y divide-line-soft">
-                {module.lessons.map((lesson) => {
-                  const isComplete = completed.has(lesson.id);
-                  const isNext = lesson.id === nextId;
-                  const content = (
-                    <>
-                      <span
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${
-                          isComplete
-                            ? 'border-gold-400/25 bg-gold-400/[0.07] text-gold-300'
-                            : 'border-line bg-canvas text-cream-400'
-                        }`}
-                      >
-                        {isComplete ? (
-                          <Check className="h-4 w-4" aria-hidden="true" />
-                        ) : (
-                          <LessonIcon kind={lesson.kind} />
-                        )}
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <p
-                            className={`truncate text-[13px] font-medium ${
-                              isComplete ? 'text-cream-300' : 'text-cream-50'
-                            }`}
-                          >
-                            {lesson.title}
-                          </p>
-                          {isNext && overview.enrolled && (
-                            <span className="rounded-full border border-accent/30 bg-accent/10 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.1em] text-accent">
-                              Next
-                            </span>
-                          )}
-                        </div>
-                        <p className="mt-0.5 line-clamp-1 text-[11px] text-cream-500">
-                          {lessonKindLabel(lesson.kind)} · {formatLessonDuration(lesson)}
-                        </p>
-                      </div>
-                    </>
-                  );
-
-                  return (
-                    <li key={lesson.id}>
-                      {overview.enrolled ? (
-                        <Link
-                          href={`/portal/courses/${course.slug}/lessons/${lesson.id}`}
-                          className="flex min-w-0 items-center gap-3 px-4 py-3 transition-colors hover:bg-cream-50/[0.025] sm:px-5"
-                        >
-                          {content}
-                          <ArrowUpRight
-                            className="h-3.5 w-3.5 shrink-0 text-cream-600"
-                            aria-hidden="true"
-                          />
-                        </Link>
-                      ) : (
-                        <div className="flex items-center gap-3 px-4 py-3 opacity-70 sm:px-5">
-                          {content}
-                          <Lock className="h-3.5 w-3.5 shrink-0 text-cream-600" aria-hidden="true" />
-                        </div>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-          ))}
+        {/* Curriculum accordion matching Image 1 (library pane) */}
+        <div className="min-w-0">
+          <CurriculumAccordion
+            course={course}
+            completedLessonIds={overview.completedLessonIds}
+            enrolled={overview.enrolled}
+            showHeader
+          />
         </div>
 
         <aside className="min-w-0 space-y-3 lg:sticky lg:top-6 lg:self-start">

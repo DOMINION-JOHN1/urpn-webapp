@@ -10,12 +10,15 @@ import {
   Check,
   CheckCircle2,
   ChevronLeft,
+  Download,
   Headphones,
+  History,
   Loader2,
   Pause,
   Play,
   RotateCcw,
   RotateCw,
+  Save,
   ShieldCheck,
   Volume2,
   VolumeX,
@@ -42,6 +45,9 @@ interface LessonPlayerProps {
   lesson: PlayerLesson;
   initialPosition: number;
   initiallyCompleted: boolean;
+  initialNotes?: string;
+  allNotes?: Record<string, string>;
+  allLessons?: { id: string; title: string }[];
   nextHref?: string;
   nextTitle?: string;
   previousHref?: string;
@@ -62,6 +68,9 @@ export function LessonPlayer({
   lesson,
   initialPosition,
   initiallyCompleted,
+  initialNotes,
+  allNotes,
+  allLessons,
   nextHref,
   nextTitle,
   previousHref,
@@ -83,6 +92,50 @@ export function LessonPlayer({
   const [mediaError, setMediaError] = useState(false);
   const [resumed, setResumed] = useState(false);
   const [marking, setMarking] = useState(false);
+  const [notes, setNotes] = useState(initialNotes || '');
+  const [savingNotes, setSavingNotes] = useState(false);
+  const [savedNotes, setSavedNotes] = useState(false);
+  const [showPastNotes, setShowPastNotes] = useState(false);
+
+  const pastNotesList = useMemo(() => {
+    if (!allNotes || !allLessons) return [];
+    return allLessons
+      .filter((l) => l.id !== lesson.id && allNotes[l.id] && allNotes[l.id].trim().length > 0)
+      .map((l) => ({
+        id: l.id,
+        title: l.title,
+        text: allNotes[l.id],
+      }));
+  }, [allNotes, allLessons, lesson.id]);
+
+  const handleSaveNotes = async () => {
+    setSavingNotes(true);
+    try {
+      await fetch('/api/portal/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          courseId: courseSlug,
+          lessonId: lesson.id,
+          notes,
+        }),
+      });
+      setSavedNotes(true);
+      setTimeout(() => setSavedNotes(false), 3000);
+    } catch (err) {
+      console.warn('Failed to save notes:', err);
+    } finally {
+      setSavingNotes(false);
+    }
+  };
+
+  const markCompleteNow = async () => {
+    setMarking(true);
+    const media = mediaRef.current;
+    const pos = media ? media.currentTime : currentTime;
+    await report(pos, true);
+    setMarking(false);
+  };
 
   const report = useCallback(
     async (position: number, markComplete = false) => {
@@ -305,14 +358,28 @@ export function LessonPlayer({
             <span className="pointer-events-none absolute right-3 top-3 select-none font-mono text-[8.5px] tracking-[0.08em] text-cream-600">
               {userEmail}
             </span>
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-surface text-gold-300">
-                <Headphones className="h-4 w-4" aria-hidden="true" />
-              </span>
-              <div className="min-w-0">
-                <p className="mono-label !text-[9px]">Audio teaching</p>
-                <p className="mt-1 truncate text-[14px] font-medium text-cream-50">{lesson.title}</p>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line bg-surface text-gold-300">
+                  <Headphones className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                  <p className="mono-label !text-[9px]">Audio teaching</p>
+                  <p className="mt-1 truncate text-[14px] font-medium text-cream-50">{lesson.title}</p>
+                </div>
               </div>
+
+              {lesson.mediaUrl && (
+                <a
+                  href={`${lesson.mediaUrl}&download=1`}
+                  download
+                  className="btn btn-secondary btn-sm shrink-0 gap-1.5 text-xs"
+                  title="Download audio file to listen offline"
+                >
+                  <Download className="h-3.5 w-3.5" />
+                  <span>Download audio</span>
+                </a>
+              )}
             </div>
 
             <div className="mt-5 flex h-12 items-end gap-[3px]" aria-hidden="true">
@@ -336,8 +403,6 @@ export function LessonPlayer({
               }}
               src={lesson.mediaUrl}
               preload="metadata"
-              controlsList="nodownload"
-              onContextMenu={(event) => event.preventDefault()}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
               onPlay={() => setPlaying(true)}
@@ -463,36 +528,55 @@ export function LessonPlayer({
             )}
           </span>
           <span className="hidden items-center gap-1.5 sm:inline-flex">
-            <ShieldCheck className="h-3 w-3" aria-hidden="true" />
-            Stream only · no download
+            <Download className="h-3 w-3 text-gold-400" aria-hidden="true" />
+            Listen or download
           </span>
         </div>
       )}
 
-      {/* Completion */}
-      {lesson.kind === 'reading' ? (
-        <div className="mt-5 flex flex-col gap-3 rounded-xl border border-line bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2.5">
-            {completed ? (
-              <CheckCircle2 className="h-4 w-4 text-gold-300" aria-hidden="true" />
-            ) : (
-              <BookOpen className="h-4 w-4 text-cream-500" aria-hidden="true" />
-            )}
-            <p className="text-[12px] text-cream-300">
-              {completed ? 'You have completed this lesson.' : 'Finished reading? Mark it complete.'}
-            </p>
-          </div>
-          {completed ? (
-            nextHref && (
-              <Link href={nextHref} className="btn btn-secondary btn-sm shrink-0">
-                Next lesson
+      {/* Universal Mark As Complete Section */}
+      <div className="mt-5">
+        {completed ? (
+          <div className="flex flex-col gap-3 rounded-xl border border-gold-400/25 bg-gold-400/[0.05] p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2.5">
+              <CheckCircle2 className="h-5 w-5 text-gold-300 shrink-0" aria-hidden="true" />
+              <div>
+                <p className="text-[12.5px] font-semibold text-cream-50">
+                  Lesson complete!
+                </p>
+                <p className="text-[11px] text-cream-400">
+                  Your progress is saved and the next topic in the curriculum is unlocked.
+                </p>
+              </div>
+            </div>
+            {nextHref ? (
+              <Link href={nextHref} className="btn btn-primary btn-sm shrink-0">
+                <span>Next: {nextTitle ?? 'Next topic'}</span>
                 <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Link>
-            )
-          ) : (
+            ) : (
+              <Link href={`/portal/courses/${courseSlug}`} className="btn btn-primary btn-sm shrink-0">
+                <span>Go to Final Exam</span>
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2.5">
+              <CheckCircle2 className="h-5 w-5 text-cream-500 shrink-0" aria-hidden="true" />
+              <div>
+                <p className="text-[12.5px] font-semibold text-cream-50">
+                  Finished this teaching?
+                </p>
+                <p className="text-[11px] text-cream-400">
+                  Mark as complete to unlock the next audio or course topic.
+                </p>
+              </div>
+            </div>
             <button
               type="button"
-              onClick={markReadingComplete}
+              onClick={markCompleteNow}
               disabled={marking}
               className="btn btn-primary btn-sm shrink-0"
             >
@@ -501,26 +585,89 @@ export function LessonPlayer({
               ) : (
                 <Check className="h-3.5 w-3.5" aria-hidden="true" />
               )}
-              Mark as complete
+              <span>Mark as complete &amp; unlock next</span>
             </button>
+          </div>
+        )}
+      </div>
+
+      {/* Class Notes (Study Notes) */}
+      <div className="mt-6 rounded-2xl border border-line bg-surface p-5 sm:p-6">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <BookOpen className="h-4 w-4 text-accent" />
+            <h3 className="text-sm font-semibold text-cream-50">Class Notes</h3>
+          </div>
+          {savedNotes && (
+            <span className="flex items-center gap-1 font-mono text-[10px] text-emerald-400">
+              <Check className="h-3 w-3" /> Notes saved
+            </span>
           )}
         </div>
-      ) : (
-        completed && (
-          <div className="mt-5 flex flex-col gap-3 rounded-xl border border-gold-400/25 bg-gold-400/[0.05] p-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="flex items-center gap-2.5 text-[12px] text-cream-200">
-              <CheckCircle2 className="h-4 w-4 text-gold-300" aria-hidden="true" />
-              Lesson complete. Your progress has been recorded.
-            </p>
-            {nextHref && (
-              <Link href={nextHref} className="btn btn-primary btn-sm shrink-0">
-                Next: {nextTitle ?? 'Next lesson'}
-                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Link>
+        <p className="mt-1 text-xs text-cream-500">
+          Record what the Spirit is teaching you during this session…
+        </p>
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Record what the Spirit is teaching you..."
+          rows={4}
+          className="field mt-3 resize-y font-sans text-xs leading-relaxed"
+        />
+
+        <div className="mt-3 flex items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={() => setShowPastNotes(!showPastNotes)}
+            className="btn btn-secondary btn-sm gap-1.5 text-xs text-cream-300"
+          >
+            <History className="h-3.5 w-3.5" />
+            <span>{showPastNotes ? 'Hide Past Notes' : 'Past Notes'}</span>
+          </button>
+          <button
+            type="button"
+            onClick={handleSaveNotes}
+            disabled={savingNotes}
+            className="btn btn-primary btn-sm gap-1.5"
+          >
+            {savingNotes ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <Save className="h-3.5 w-3.5" />
+            )}
+            <span>Save</span>
+          </button>
+        </div>
+
+        {/* Past Notes collapsible drawer matching Image 2 */}
+        {showPastNotes && (
+          <div className="mt-4 rounded-xl border border-line-soft bg-canvas/60 p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <History className="h-3.5 w-3.5 text-gold-400" />
+              <h4 className="text-xs font-semibold text-cream-100 uppercase tracking-wider font-mono">
+                Your Past Notes in this Track
+              </h4>
+            </div>
+
+            {pastNotesList.length === 0 ? (
+              <p className="text-xs text-cream-500 italic py-1">
+                No notes from other lessons found yet. As you record notes in other sessions, they will be archived here.
+              </p>
+            ) : (
+              <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
+                {pastNotesList.map((item) => (
+                  <div key={item.id} className="rounded-lg border border-line bg-surface/80 p-3">
+                    <p className="font-medium text-xs text-cream-100">{item.title}</p>
+                    <p className="mt-1 text-xs text-cream-300 whitespace-pre-wrap leading-relaxed font-sans">
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
-        )
-      )}
+        )}
+      </div>
 
       {/* Scripture + key points */}
       {(lesson.scripture || lesson.keyPoints?.length) && (

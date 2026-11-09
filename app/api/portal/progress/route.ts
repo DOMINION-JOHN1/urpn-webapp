@@ -15,6 +15,7 @@ export async function POST(request: Request) {
     lessonId?: string;
     positionSeconds?: number;
     markComplete?: boolean;
+    notes?: string;
   };
   try {
     body = await request.json();
@@ -32,6 +33,7 @@ export async function POST(request: Request) {
     lessonId: body.lessonId,
     positionSeconds: Number(body.positionSeconds ?? 0),
     markComplete: Boolean(body.markComplete),
+    notes: typeof body.notes === 'string' ? body.notes : undefined,
   });
 
   if (!result.ok) {

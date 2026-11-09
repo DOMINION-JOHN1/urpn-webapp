@@ -39,6 +39,7 @@ export interface CourseOverview {
   percent: number;
   nextLesson: Lesson | null;
   positions: Record<string, number>;
+  notes: Record<string, string>;
   attempt: Attempt | null;
   certificate: Certificate | null;
   examUnlocked: boolean;
@@ -93,9 +94,13 @@ function courseOverviewFromDb(
     ) ?? null;
 
   const positions: Record<string, number> = {};
+  const notes: Record<string, string> = {};
   for (const entry of db.progress) {
     if (entry.userId === userId && entry.courseId === course.slug) {
       positions[entry.lessonId] = entry.positionSeconds;
+      if (entry.notes) {
+        notes[entry.lessonId] = entry.notes;
+      }
     }
   }
 
@@ -114,6 +119,7 @@ function courseOverviewFromDb(
     percent: lessons.length ? Math.round((completed.length / lessons.length) * 100) : 0,
     nextLesson,
     positions,
+    notes,
     attempt,
     certificate,
     examUnlocked: completed.length === lessons.length && !certificate,
@@ -133,6 +139,38 @@ export async function isEnrolled(userId: string, courseSlug: string): Promise<bo
   return db.enrollments.some(
     (entry) => entry.userId === userId && entry.courseId === courseSlug
   );
+}
+
+/**
+ * Sequential progression: Lesson 0 is always unlocked.
+ * Any subsequent lesson is unlocked IF AND ONLY IF all preceding lessons are completed.
+ */
+export function isLessonUnlocked(
+  course: Course,
+  completedLessonIds: string[],
+  lessonId: string
+): boolean {
+  const lessons = getAllLessons(course);
+  const targetIndex = lessons.findIndex((l) => l.id === lessonId);
+  if (targetIndex <= 0) return true;
+
+  const completedSet = new Set(completedLessonIds);
+  // Every lesson before the target must be completed!
+  for (let i = 0; i < targetIndex; i++) {
+    if (!completedSet.has(lessons[i].id)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+export function getFirstUnlockedIncompleteLesson(
+  course: Course,
+  completedLessonIds: string[]
+): Lesson | null {
+  const lessons = getAllLessons(course);
+  const completedSet = new Set(completedLessonIds);
+  return lessons.find((l) => !completedSet.has(l.id)) ?? null;
 }
 
 export async function getDashboardData(userId: string): Promise<DashboardData> {
@@ -221,8 +259,9 @@ interface RecordProgressInput {
   userId: string;
   courseSlug: string;
   lessonId: string;
-  positionSeconds: number;
+  positionSeconds?: number;
   markComplete?: boolean;
+  notes?: string;
 }
 
 export async function recordLessonProgress(
@@ -235,6 +274,7 @@ export async function recordLessonProgress(
       percent: number;
       completedCount: number;
       totalLessons: number;
+      notes?: string;
     }
   | { ok: false; error: string }
 > {
@@ -260,26 +300,29 @@ export async function recordLessonProgress(
 
     const duration = lesson.media?.durationSeconds ?? 0;
     const requestedPosition = Number.isFinite(input.positionSeconds)
-      ? Math.max(0, Math.min(input.positionSeconds, duration || 10_000))
+      ? Math.max(0, Math.min(input.positionSeconds ?? 0, duration || 10_000))
       : 0;
 
     let completedAt = existing?.completedAt ?? null;
 
-    if (lesson.kind === 'reading') {
-      if (input.markComplete) completedAt = completedAt ?? now;
+    // Both reading and audio lessons can be marked complete explicitly
+    // (e.g. user downloaded and listened offline, or finished listening)
+    if (input.markComplete) {
+      completedAt = completedAt ?? now;
     } else if (!completedAt && duration > 0) {
-      // 90% of the authoritative duration unlocks completion. The client cannot
-      // simply send `markComplete` for streamed media.
+      // Automatic completion after 90% of duration streamed
       if (requestedPosition >= duration * 0.9) {
         completedAt = now;
       }
     }
 
     const finalPosition = Math.max(existing?.positionSeconds ?? 0, requestedPosition);
+    const notes = input.notes !== undefined ? input.notes : existing?.notes;
 
     if (existing) {
       existing.positionSeconds = finalPosition;
       existing.completedAt = completedAt;
+      if (notes !== undefined) existing.notes = notes;
       existing.updatedAt = now;
     } else {
       const entry: LessonProgress = {
@@ -288,6 +331,7 @@ export async function recordLessonProgress(
         lessonId: lesson.id,
         positionSeconds: finalPosition,
         completedAt,
+        notes,
         updatedAt: now,
       };
       db.progress.push(entry);
@@ -308,6 +352,7 @@ export async function recordLessonProgress(
       completedCount: done,
       totalLessons: allLessons.length,
       percent: Math.round((done / allLessons.length) * 100),
+      notes,
     };
   });
 }

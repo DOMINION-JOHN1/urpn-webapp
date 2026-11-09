@@ -27,6 +27,7 @@ export interface LessonProgress {
   lessonId: string;
   positionSeconds: number;
   completedAt: string | null;
+  notes?: string;
   updatedAt: string;
 }
 
