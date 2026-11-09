@@ -48,6 +48,10 @@ interface LessonPlayerProps {
   initialNotes?: string;
   allNotes?: Record<string, string>;
   allLessons?: { id: string; title: string }[];
+  /** How many lessons were already completed when the page was server-rendered */
+  initialCompletedCount?: number;
+  /** Total lessons in the course */
+  totalLessons?: number;
   nextHref?: string;
   nextTitle?: string;
   previousHref?: string;
@@ -71,6 +75,8 @@ export function LessonPlayer({
   initialNotes,
   allNotes,
   allLessons,
+  initialCompletedCount = 0,
+  totalLessons = 0,
   nextHref,
   nextTitle,
   previousHref,
@@ -84,6 +90,8 @@ export function LessonPlayer({
   const lastReportRef = useRef(0);
 
   const [completed, setCompleted] = useState(initiallyCompleted);
+  const [completedCount, setCompletedCount] = useState(initialCompletedCount);
+  const [justCompletedToast, setJustCompletedToast] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(lesson.durationSeconds ?? 0);
   const [playing, setPlaying] = useState(false);
@@ -159,8 +167,13 @@ export function LessonPlayer({
         const data = (await response.json()) as { completed?: boolean };
         lastReportRef.current = Date.now();
         if (data.completed) {
+          const wasCompleted = completedRef.current;
           completedRef.current = true;
           setCompleted(true);
+          if (!wasCompleted) {
+            setCompletedCount((prev) => prev + 1);
+            setJustCompletedToast(true);
+          }
           router.refresh();
         }
         setSaveState('saved');
@@ -536,16 +549,40 @@ export function LessonPlayer({
 
       {/* Universal Mark As Complete Section */}
       <div className="mt-5">
+        {/* Animated celebration toast when newly marked complete */}
+        {justCompletedToast && (
+          <div className="mb-3 flex items-center justify-between rounded-xl border border-emerald-500/40 bg-emerald-500/15 p-3 text-xs text-emerald-300 animate-fade-in">
+            <span className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4" />
+              <span>Progress updated! <strong>{completedCount} / {totalLessons}</strong> lessons completed ({totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0}%)</span>
+            </span>
+            <button
+              type="button"
+              onClick={() => setJustCompletedToast(false)}
+              className="text-[10px] text-emerald-400 hover:text-emerald-200"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
+
         {completed ? (
           <div className="flex flex-col gap-3 rounded-xl border border-gold-400/25 bg-gold-400/[0.05] p-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2.5">
               <CheckCircle2 className="h-5 w-5 text-gold-300 shrink-0" aria-hidden="true" />
               <div>
-                <p className="text-[12.5px] font-semibold text-cream-50">
-                  Lesson complete!
+                <p className="text-[12.5px] font-semibold text-cream-50 flex items-center gap-2">
+                  <span>Lesson complete!</span>
+                  {totalLessons > 0 && (
+                    <span className="font-mono text-[10px] text-gold-400 font-normal">
+                      ({completedCount}/{totalLessons} done)
+                    </span>
+                  )}
                 </p>
                 <p className="text-[11px] text-cream-400">
-                  Your progress is saved and the next topic in the curriculum is unlocked.
+                  {nextTitle
+                    ? `Next unlocked: ${nextTitle}`
+                    : 'All lessons complete! Head to the Final Exam.'}
                 </p>
               </div>
             </div>

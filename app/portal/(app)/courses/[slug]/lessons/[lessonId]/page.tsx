@@ -190,6 +190,8 @@ export default async function LessonPage({
             initialNotes={overview.notes[lesson.id]}
             allNotes={overview.notes}
             allLessons={lessons.map((l) => ({ id: l.id, title: l.title }))}
+            initialCompletedCount={overview.completedCount}
+            totalLessons={lessons.length}
             nextHref={next ? lessonHref(next.id) : undefined}
             nextTitle={next?.title}
             previousHref={previous ? lessonHref(previous.id) : undefined}
