@@ -8,13 +8,15 @@ interface UrpnLogoProps {
 }
 
 const sizeMap = {
-  sm: { box: 'h-10 w-10', title: 'text-lg', sub: 'text-[7px]' },
-  md: { box: 'h-12 w-12', title: 'text-xl sm:text-2xl', sub: 'text-[8px] sm:text-[9px]' },
-  lg: { box: 'h-16 w-16', title: 'text-3xl', sub: 'text-[10px]' },
+  sm: { box: 'h-7 w-7', title: 'text-[13px]', sub: 'text-[6.5px]' },
+  md: { box: 'h-9 w-9', title: 'text-[15px]', sub: 'text-[7px]' },
+  lg: { box: 'h-12 w-12', title: 'text-xl', sub: 'text-[8px]' },
 };
 
 /**
- * The official URPN emblem — the actual gold menorah / shofar / laurel mark.
+ * The URPN mark (transparent, cropped from the official emblem) plus a clean
+ * sans wordmark. The gold lives in the emblem only; the interface stays
+ * neutral so the brand does not overwhelm the content.
  */
 export const UrpnLogo: React.FC<UrpnLogoProps> = ({
   className = '',
@@ -24,27 +26,29 @@ export const UrpnLogo: React.FC<UrpnLogoProps> = ({
   const s = sizeMap[size];
 
   return (
-    <div className={`flex items-center gap-3 select-none ${className}`}>
+    <div className={`flex select-none items-center gap-2.5 ${className}`}>
       <span className={`relative ${s.box} shrink-0`}>
         <Image
-          src="/urpn-logo-mark.png"
-          alt="URPN — Unique Revival Prayer Network emblem"
+          src="/brand/urpn-mark.png"
+          alt="URPN emblem"
           fill
-          sizes="64px"
+          sizes="48px"
           priority
-          className="object-contain drop-shadow-[0_2px_14px_rgba(237,165,30,0.35)]"
+          className="object-contain"
         />
       </span>
 
       {showWordmark && (
-        <div className="flex flex-col leading-none">
-          <span className={`font-cinzel font-bold tracking-[0.2em] text-gold-sheen ${s.title}`}>
+        <div className="flex flex-col justify-center leading-none">
+          <span
+            className={`font-semibold tracking-[-0.02em] text-cream-50 ${s.title}`}
+          >
             URPN
           </span>
           <span
-            className={`font-sans font-semibold uppercase tracking-[0.18em] text-bronze-300/90 mt-1 ${s.sub}`}
+            className={`mt-1 font-mono font-medium uppercase tracking-[0.14em] text-cream-500 ${s.sub}`}
           >
-            Unique Revival Prayer Network
+            Prayer Network
           </span>
         </div>
       )}

@@ -1,42 +1,69 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
+import { PwaRegister } from '@/components/PwaRegister';
 
 export const metadata: Metadata = {
-  title: 'URPN · Unique Revival Prayer Network',
+  title: {
+    default: 'URPN — Unique Revival Prayer Network',
+    template: '%s · URPN',
+  },
   description:
-    'Restoring people, families, spheres, and territories back to their original divine ordination — through prophetic intercession, fire, and the seasoned word of God.',
-  keywords: ['URPN', 'Unique Revival Prayer Network', 'Revival', 'Prayer', 'Intercession', 'Restoration'],
+    'A prophetic prayer network restoring people, families, spheres, and territories to their original divine ordination — with training for every worker, minister, and pastor.',
+  applicationName: 'URPN',
+  keywords: [
+    'URPN',
+    'Unique Revival Prayer Network',
+    'Revival',
+    'Prayer',
+    'Intercession',
+    'Restoration',
+    'Worker training',
+  ],
+  manifest: '/manifest.webmanifest',
   icons: {
-    icon: '/urpn-logo.png',
-    shortcut: '/urpn-logo.png',
-    apple: '/urpn-logo.png',
+    icon: [
+      { url: '/icons/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    shortcut: '/icons/favicon-32.png',
+    apple: '/icons/apple-touch-icon.png',
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black',
+    title: 'URPN',
+  },
+  formatDetection: {
+    telephone: false,
   },
   openGraph: {
-    title: 'URPN · Unique Revival Prayer Network',
-    description: 'Restoring people, families, spheres, and territories back to their original ordination.',
+    title: 'URPN — Unique Revival Prayer Network',
+    description:
+      'Restoring people, families, spheres, and territories to their original divine ordination.',
     type: 'website',
+    siteName: 'URPN',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0B0710',
+  themeColor: '#0D0C0F',
+  colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
+  viewportFit: 'cover',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className="text-cream-200 flex flex-col min-h-screen antialiased">
-        <Navbar />
-        <main className="flex-1 flex flex-col items-center w-full">{children}</main>
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-canvas text-cream-100 antialiased">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('urpn-theme');var light=t==='light';document.documentElement.classList.toggle('light',light);document.documentElement.style.colorScheme=light?'light':'dark';var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',light?'#F6F2F4':'#0D0C0F');}catch(e){}})();`,
+          }}
+        />
+        <PwaRegister />
+        {children}
       </body>
     </html>
   );

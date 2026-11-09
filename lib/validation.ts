@@ -75,7 +75,7 @@ export function validateTestimonySubmission(
   // 3. Validate Media Type
   const rawMediaType = fields.mediaType?.toLowerCase() || 'audio';
   if (rawMediaType !== 'audio' && rawMediaType !== 'video' && rawMediaType !== 'text') {
-    return { valid: false, error: 'Invalid testimony type.' };
+    return { valid: false, error: 'Invalid media type.' };
   }
   const mediaType = rawMediaType as TestimonyMediaType;
 

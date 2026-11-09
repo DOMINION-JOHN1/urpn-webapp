@@ -15,7 +15,7 @@ const SHOTS: Shot[] = [
     alt: 'Congregation lifting hands in worship',
     caption: 'An atmosphere of surrender and praise',
     tag: 'Worship',
-    className: 'md:col-span-2 md:row-span-2',
+    className: 'col-span-2 row-span-2',
   },
   {
     src: '/images/ministry-prayer.jpg',
@@ -50,54 +50,56 @@ const SHOTS: Shot[] = [
     alt: 'The URPN church family gathered together',
     caption: 'Convergence — one family in Christ',
     tag: 'Family',
-    className: 'md:col-span-2',
+    className: 'col-span-2 md:col-span-4',
   },
 ];
 
-export const MinistryGallery: React.FC = () => {
+export function MinistryGallery() {
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 my-20 md:my-28">
-      <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
-        <span className="inline-block font-cinzel text-xs sm:text-sm font-semibold tracking-[0.28em] uppercase text-gold-400">
-          The Life of the Altar
-        </span>
-        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-cream-100 leading-[1.05]">
-          Where Heaven Meets a{' '}
-          <span className="text-gold-sheen">Hungry Generation</span>
-        </h2>
-        <div className="rule-gold w-28 mx-auto" />
-        <p className="text-cream-400 text-base sm:text-lg leading-relaxed font-light">
-          Moments from our gatherings — worship, intercession, and encounter as God restores
-          people, families, and territories.
-        </p>
-      </div>
+    <section className="border-b border-line">
+      <div className="container-page py-16 sm:py-20">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="h-px w-6 bg-gold-500/70" />
+              <span className="mono-label text-gold-300">The life of the altar</span>
+            </div>
+            <h2 className="mt-5 max-w-[18ch] text-[34px] font-semibold leading-[1.08] tracking-[-0.04em] text-cream-50 sm:text-[42px]">
+              Where heaven meets a hungry generation.
+            </h2>
+          </div>
+          <p className="max-w-sm text-[13.5px] leading-relaxed text-cream-400">
+            Moments from our gatherings — worship, intercession, and encounter as God restores
+            people, families, and territories.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] sm:auto-rows-[190px] md:auto-rows-[200px] gap-3 sm:gap-4">
-        {SHOTS.map((shot) => (
-          <figure
-            key={shot.src}
-            className={`group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-gold-500/15 shadow-elevate ${shot.className}`}
-          >
-            <Image
-              src={shot.src}
-              alt={shot.alt}
-              fill
-              sizes="(max-width: 768px) 50vw, 25vw"
-              className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/25 to-transparent" />
-            <div className="absolute inset-0 ring-1 ring-inset ring-white/5 rounded-2xl sm:rounded-3xl" />
-            <figcaption className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-              <span className="inline-block text-[10px] font-semibold uppercase tracking-[0.18em] text-gold-300 mb-1">
-                {shot.tag}
-              </span>
-              <p className="text-cream-100 text-sm sm:text-base font-medium leading-snug drop-shadow">
-                {shot.caption}
-              </p>
-            </figcaption>
-          </figure>
-        ))}
+        <div className="mt-10 grid auto-rows-[150px] grid-cols-2 gap-2.5 sm:auto-rows-[190px] md:grid-cols-4">
+          {SHOTS.map((shot) => (
+            <figure
+              key={shot.src}
+              className={`group relative overflow-hidden rounded-xl border border-line ${shot.className}`}
+            >
+              <Image
+                src={shot.src}
+                alt={shot.alt}
+                fill
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+              <figcaption className="absolute inset-x-0 bottom-0 p-4">
+                <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#E7C98C]">
+                  {shot.tag}
+                </span>
+                <p className="mt-1 text-[13px] font-medium leading-snug text-white">
+                  {shot.caption}
+                </p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </section>
   );
-};
+}

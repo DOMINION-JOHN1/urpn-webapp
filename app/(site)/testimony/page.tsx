@@ -1,44 +1,86 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Image from 'next/image';
+import { Heart, ShieldCheck, Mic, Video, PenLine } from 'lucide-react';
 import { TestimonyForm } from '@/components/TestimonyForm';
 
 export const metadata: Metadata = {
-  title: 'Share Your Testimony · URPN',
+  title: 'Share your testimony',
   description:
-    'Record a short voice or video testimony of what God has done. Your story could strengthen someone’s faith.',
+    'Record a short voice or video testimony, or write it down. Your story could strengthen someone’s faith.',
 };
 
 export default function TestimonyPage() {
   return (
-    <div className="w-full min-h-screen py-14 md:py-20 px-4 sm:px-6 flex flex-col items-center">
-      {/* Header */}
-      <div className="text-center max-w-xl mx-auto mb-10 space-y-5 animate-fade-in">
-        <div className="flex justify-center">
-          <span className="relative h-16 w-16">
-            <Image src="/urpn-logo-mark.png" alt="URPN emblem" fill sizes="64px" className="object-contain drop-shadow-[0_2px_16px_rgba(237,165,30,0.4)]" />
-          </span>
+    <div className="container-page py-14 sm:py-20">
+      <div className="max-w-2xl">
+        <div className="flex items-center gap-3">
+          <span className="h-px w-6 bg-gold-500/70" />
+          <span className="mono-label text-gold-300">Give God the glory</span>
         </div>
-
-        <span className="inline-block font-cinzel text-xs sm:text-sm font-semibold tracking-[0.26em] uppercase text-gold-400">
-          Give God the Glory
-        </span>
-
-        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-cream-50 leading-[1.05]">
-          Share Your Testimony
+        <h1 className="mt-5 text-[38px] font-semibold leading-[1.05] tracking-[-0.04em] text-cream-50 sm:text-[52px]">
+          Share your testimony.
         </h1>
-
-        <div className="rule-gold w-24 mx-auto" />
-
-        <p className="text-cream-300 text-base sm:text-lg leading-relaxed font-light">
-          Speak from your heart about what God has done. Your story could encourage someone else and
-          build a memorial of His wonders.
+        <p className="mt-5 max-w-xl text-[14.5px] leading-[1.75] text-cream-400">
+          Speak from your heart about what God has done. Your story could encourage someone
+          else and become a memorial of His wonders.
         </p>
       </div>
 
-      {/* Form */}
-      <div className="w-full relative z-10">
-        <TestimonyForm />
+      <div className="mt-12 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <aside className="lg:pt-2">
+          <blockquote className="border-l border-gold-500/50 pl-5 text-[19px] font-medium leading-[1.55] tracking-[-0.02em] text-cream-100 sm:text-[21px]">
+            “And they overcame him by the blood of the Lamb, and by the word of their testimony.”
+          </blockquote>
+          <p className="mt-4 pl-5 font-mono text-[10px] uppercase tracking-[0.18em] text-cream-500">
+            Revelation 12:11
+          </p>
+
+          <div className="mt-9 space-y-4">
+            <div className="flex gap-3">
+              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
+              <div>
+                <p className="text-[13px] font-medium text-cream-100">
+                  Handled with pastoral confidentiality
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-cream-500">
+                  Your testimony is received by the URPN pastoral team and reviewed with prayer
+                  and care.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Heart className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
+              <div>
+                <p className="text-[13px] font-medium text-cream-100">No account needed</p>
+                <p className="mt-1 text-xs leading-relaxed text-cream-500">
+                  Record in your browser or write it down. It only takes a couple of minutes.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-9 border-t border-line-soft pt-5">
+            <p className="mono-label mb-3">Ways to share</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-[11px] text-cream-300">
+                <Mic className="h-3 w-3" aria-hidden="true" />
+                Voice
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-[11px] text-cream-300">
+                <Video className="h-3 w-3" aria-hidden="true" />
+                Video
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-[11px] text-cream-300">
+                <PenLine className="h-3 w-3" aria-hidden="true" />
+                Written
+              </span>
+            </div>
+          </div>
+        </aside>
+
+        <div className="w-full">
+          <TestimonyForm />
+        </div>
       </div>
     </div>
   );

@@ -35,6 +35,10 @@ next-env.d.ts
 !package-lock.json
 !tsconfig.json
 
+# Local portal data (users, progress, attempts, session secret)
+/data/
+/.tmp-media/
+
 # Debug logs
 npm-debug.log*
 yarn-debug.log*
@@ -49,3 +53,7 @@ yarn-error.log*
 *.pem
 .vscode
 .idea
+
+# Python cache
+__pycache__/
+*.pyc

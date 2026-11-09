@@ -1,42 +1,107 @@
 import React from 'react';
 import Link from 'next/link';
-import { ShieldCheck, Heart, MapPin } from 'lucide-react';
+import { ArrowUpRight, MapPin } from 'lucide-react';
 import { UrpnLogo } from './UrpnLogo';
+import { InstallAppButton } from './InstallAppButton';
 
-export const Footer: React.FC = () => {
+const EXPLORE = [
+  { href: '/#mandate', label: 'The mandate' },
+  { href: '/#training', label: 'Training tracks' },
+  { href: '/#gatherings', label: 'Gatherings' },
+  { href: '/testimony', label: 'Share a testimony' },
+];
+
+const PORTAL = [
+  { href: '/portal', label: 'Worker portal' },
+  { href: '/portal/login', label: 'Sign in' },
+  { href: '/portal/login?mode=register', label: 'Create an account' },
+  { href: '/verify', label: 'Verify a certificate' },
+];
+
+export function Footer() {
   return (
-    <footer className="w-full border-t border-gold-500/15 bg-ink-950/70 py-14 px-4 mt-10">
-      <div className="max-w-5xl mx-auto flex flex-col items-center text-center space-y-7">
-        <Link href="/testimony" className="inline-block">
-          <UrpnLogo size="lg" showWordmark />
-        </Link>
+    <footer className="border-t border-line bg-canvas">
+      <div className="container-page py-14 md:py-16">
+        <div className="grid gap-12 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Link href="/" aria-label="URPN home">
+              <UrpnLogo size="md" />
+            </Link>
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream-400">
+              A prophetic altar of intercession and formation — restoring people, families,
+              spheres, and territories to their original divine ordination.
+            </p>
+            <div className="mt-5 flex items-center gap-2 text-xs text-cream-500">
+              <MapPin className="h-3.5 w-3.5 text-cream-500" aria-hidden="true" />
+              <span>Lokoja, Kogi State · Nigeria</span>
+            </div>
+          </div>
 
-        <div className="rule-gold w-40" />
+          <div className="grid grid-cols-2 gap-8 md:col-span-5 md:grid-cols-2">
+            <div>
+              <p className="mono-label mb-4">Explore</p>
+              <ul className="space-y-3">
+                {EXPLORE.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-cream-400 transition-colors hover:text-cream-50"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="mono-label mb-4">Portal</p>
+              <ul className="space-y-3">
+                {PORTAL.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-cream-400 transition-colors hover:text-cream-50"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
 
-        <p className="font-display italic text-cream-200 text-xl sm:text-2xl max-w-xl mx-auto leading-relaxed">
-          “And they overcame him by the blood of the Lamb, and by the word of their testimony.”
-          <span className="block font-sans not-italic text-xs font-semibold tracking-[0.2em] text-gold-400 mt-3 uppercase">
-            Revelation 12:11
-          </span>
-        </p>
-
-        <div className="flex flex-wrap items-center justify-center gap-5 text-xs font-medium text-cream-500">
-          <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-gold-500" />
-            <span>Handled with pastoral confidentiality</span>
-          </span>
-          <span className="hidden sm:inline text-bronze-600">•</span>
-          <span className="flex items-center gap-1.5">
-            <Heart className="w-4 h-4 text-gold-500" />
-            <span>Reviewed with prayer and care</span>
-          </span>
+          <div className="md:col-span-2">
+            <p className="mono-label mb-4">The app</p>
+            <p className="mb-4 text-sm leading-relaxed text-cream-400">
+              Install the worker portal on your phone. Lessons stream in the app and your progress
+              syncs automatically.
+            </p>
+            <InstallAppButton variant="secondary" label="Install app" className="w-full" />
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+              <Link
+                href="/install"
+                className="inline-flex items-center gap-1.5 text-xs text-cream-500 transition-colors hover:text-cream-50"
+              >
+                Installation guide
+              </Link>
+              <Link
+                href="/portal"
+                className="inline-flex items-center gap-1.5 text-xs text-cream-500 transition-colors hover:text-cream-50"
+              >
+                Open portal
+                <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <div className="pt-5 border-t border-white/5 w-full text-xs text-cream-500 leading-relaxed">
-          © {new Date().getFullYear()} URPN — Unique Revival Prayer Network. Restoring People,
-          Families, Spheres &amp; Territories.
+        <div className="mt-12 flex flex-col gap-4 border-t border-line-soft pt-6 text-xs text-cream-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} URPN — Unique Revival Prayer Network.</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-gold-600">
+            Restore · Equip · Deploy
+          </p>
         </div>
       </div>
     </footer>
   );
-};
+}

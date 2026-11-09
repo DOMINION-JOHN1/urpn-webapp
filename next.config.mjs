@@ -1,31 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Only the testimony page is public for now — send the root there.
-  // (Temporary redirect so it's easy to re-open the full site later.)
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/testimony',
-        permanent: false,
-      },
-    ];
-  },
   experimental: {
     serverActions: {
       bodySizeLimit: '60mb',
     },
+    // The streaming route reads from the private media directory at runtime.
+    outputFileTracingIncludes: {
+      '/api/portal/stream/[lessonId]': ['./media/**/*'],
+      '/api/**/*': ['./media/**/*'],
+    },
   },
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-      net: false,
-      tls: false,
-      child_process: false,
-    };
-    return config;
+  async headers() {
+    return [
+      {
+        source: '/portal/:path*',
+        headers: [
+          { key: 'Referrer-Policy', value: 'same-origin' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+        ],
+      },
+    ];
   },
 };
 

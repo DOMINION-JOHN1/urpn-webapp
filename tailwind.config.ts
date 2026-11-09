@@ -1,5 +1,15 @@
 import type { Config } from 'tailwindcss';
 
+/**
+ * URPN design tokens.
+ *
+ * Charcoal canvas, royal purple for actions and progress, gold for editorial
+ * accents and achievements. Flat surfaces, one-pixel lines, no decorative
+ * gradients. Legacy token names (ink/cream/gold/royal/bronze) remain aliases so
+ * older components inherit the palette automatically.
+ */
+const token = (name: string) => `rgb(var(${name}) / <alpha-value>)`;
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,120 +20,166 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        /* Warm near-black canvas — subtle purple/brown undertone */
-        ink: {
-          950: '#060309',
-          900: '#0B0710',
-          850: '#100A18',
-          800: '#160D21',
-          700: '#20142E',
-          600: '#2C1C3D',
+        canvas: {
+          DEFAULT: token('--canvas'),
+          deep: token('--canvas-deep'),
+          raised: token('--canvas-raised'),
         },
-        /* Deep royal / imperial purple */
-        royal: {
-          950: '#160727',
-          900: '#200A38',
-          800: '#2F1150',
-          700: '#421A72',
-          600: '#57259A',
-          500: '#7C3AED',
-          400: '#9F6BF0',
-          300: '#C1A3F5',
-          200: '#DCCBFA',
+        surface: {
+          DEFAULT: token('--surface'),
+          raised: token('--surface-raised'),
+          soft: token('--surface-soft'),
         },
-        /* Warm brown / bronze */
-        bronze: {
-          950: '#1A0F08',
-          900: '#28190E',
-          800: '#3B2616',
-          700: '#53361F',
-          600: '#6E4A2B',
-          500: '#8C5E3B',
-          400: '#AC7A4F',
-          300: '#C89B6F',
-          200: '#E4C6A0',
-          100: '#F2E2CD',
+        line: {
+          DEFAULT: token('--line'),
+          soft: token('--line-soft'),
+          strong: token('--line-strong'),
         },
-        /* Refined gold — primary accent */
+        accent: {
+          DEFAULT: token('--accent'),
+          hover: token('--accent-hover'),
+          soft: token('--accent-soft'),
+          ink: token('--accent-ink'),
+          50: '#F7EDF8',
+          100: '#EEDBF0',
+          200: '#DDB8DF',
+          300: '#C894CB',
+          400: '#BE7AB8',
+          500: '#B05BA8',
+          600: '#8E3E88',
+          700: '#6F2A6A',
+          800: '#571F53',
+          900: '#42183F',
+          950: '#241023',
+        },
         gold: {
-          50: '#FFFBEB',
-          100: '#FEF3C7',
-          200: '#FCE59B',
-          300: '#FAD65F',
-          400: '#F6C13B',
-          500: '#EDA51E',
-          600: '#D4870F',
-          700: '#A9640C',
-          800: '#834B10',
-          900: '#6A3C12',
-          950: '#3C2007',
+          50: '#FBF6E9',
+          100: '#F5EACD',
+          200: token('--gold-200'),
+          300: token('--gold-300'),
+          400: token('--gold-400'),
+          500: token('--gold-500'),
+          600: token('--gold-600'),
+          700: '#7E5E2C',
+          800: '#5E451F',
+          900: '#3E2E14',
+          950: '#22180A',
         },
-        /* Warm ivory / cream — text on dark */
+        /* Legacy aliases */
+        ink: {
+          950: token('--ink-950'),
+          900: token('--ink-900'),
+          850: token('--ink-850'),
+          800: token('--ink-800'),
+          700: token('--ink-700'),
+          600: token('--ink-600'),
+        },
         cream: {
-          50: '#FFFFFF',
-          100: '#FCF8F1',
-          200: '#F4EADA',
-          300: '#E6D6BF',
-          400: '#C9B49A',
-          500: '#A38F76',
-          600: '#7E6B54',
+          50: token('--cream-50'),
+          100: token('--cream-100'),
+          200: token('--cream-200'),
+          300: token('--cream-300'),
+          400: token('--cream-400'),
+          500: token('--cream-500'),
+          600: token('--cream-600'),
         },
-        /* Legacy neutral kept as a warm charcoal safety net */
+        royal: {
+          950: '#140A2E',
+          900: '#1B0E3D',
+          800: '#261456',
+          700: '#331B73',
+          600: '#43259B',
+          500: '#B05BA8',
+          400: '#C894CB',
+          300: '#DDB8DF',
+          200: '#EEDBF0',
+        },
+        bronze: {
+          950: '#0B0A0C',
+          900: '#121013',
+          800: '#171419',
+          700: '#1D1921',
+          600: '#2B2631',
+          500: '#4E4653',
+          400: '#7A727F',
+          300: '#A79FA9',
+          200: '#CFC8D1',
+          100: '#E8E3E9',
+        },
         church: {
-          50: '#F7F4F0',
-          100: '#ECE6DE',
-          200: '#D6CCBF',
-          300: '#B3A692',
-          400: '#8A7C68',
-          500: '#5F5343',
-          600: '#3F3529',
-          700: '#2A2018',
-          800: '#160D21',
-          900: '#0B0710',
-          950: '#060309',
+          50: '#F6F3F0',
+          100: '#EAE5E1',
+          200: '#D3CCD4',
+          300: '#A79FA9',
+          400: '#807884',
+          500: '#5E5762',
+          600: '#3B3442',
+          700: '#2B2631',
+          800: '#161419',
+          900: '#0D0C0F',
+          950: '#09080B',
         },
       },
       fontFamily: {
-        sans: ['var(--font-outfit)', 'system-ui', '-apple-system', 'sans-serif'],
-        serif: ['var(--font-cormorant)', 'Georgia', 'serif'],
-        display: ['var(--font-cormorant)', 'Georgia', 'serif'],
-        cinzel: ['var(--font-cinzel)', 'Georgia', 'serif'],
+        sans: ['var(--font-sans)', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        display: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        cinzel: ['var(--font-mono)', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {
-        luxe: '0.32em',
+        luxe: '0.2em',
+        tightest: '-0.045em',
+      },
+      maxWidth: {
+        page: '1120px',
+        prose: '68ch',
+      },
+      borderRadius: {
+        '4xl': '2rem',
       },
       boxShadow: {
-        'glow-gold': '0 0 30px -6px rgba(237, 165, 30, 0.35)',
-        'glow-gold-lg': '0 0 55px -10px rgba(237, 165, 30, 0.45)',
-        'glow-royal': '0 0 40px -8px rgba(124, 58, 237, 0.4)',
-        elevate: '0 24px 60px -22px rgba(0, 0, 0, 0.8)',
-        'ring-gold': '0 0 0 1px rgba(237, 165, 30, 0.25)',
+        'glow-gold': '0 0 0 1px rgba(216,181,111,0.16)',
+        'glow-gold-lg': '0 8px 30px -14px rgba(216,181,111,0.4)',
+        'glow-royal': '0 0 0 1px rgba(176,91,168,0.22)',
+        elevate: '0 18px 40px -28px rgba(0,0,0,0.9)',
+        'ring-gold': '0 0 0 1px rgba(216,181,111,0.35)',
+        card: '0 1px 0 rgba(255,255,255,0.03) inset',
       },
       backgroundImage: {
-        'gold-sheen':
-          'linear-gradient(110deg, #FDE9A8 0%, #F6C13B 28%, #EDA51E 52%, #D4870F 74%, #FDE9A8 100%)',
+        'gold-sheen': 'linear-gradient(110deg, #D8B56F 0%, #D8B56F 100%)',
+        'accent-sheen': 'linear-gradient(110deg, #6A1557 0%, #6A1557 100%)',
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '0%': { opacity: '0', transform: 'translateY(6px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         floatSlow: {
           '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
+          '50%': { transform: 'translateY(0)' },
         },
         shimmer: {
           '0%': { backgroundPosition: '200% center' },
           '100%': { backgroundPosition: '-200% center' },
         },
+        pulseSoft: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.55' },
+        },
       },
       animation: {
-        'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'fade-in': 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'float-slow': 'floatSlow 6s ease-in-out infinite',
         shimmer: 'shimmer 7s linear infinite',
+        'pulse-soft': 'pulseSoft 2.4s ease-in-out infinite',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }: { addVariant: (name: string, definition: string) => void }) {
+      addVariant('light', 'html.light &');
+    },
+  ],
 };
 export default config;

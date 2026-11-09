@@ -64,10 +64,10 @@ export const AudioWaveformVisualizer: React.FC<AudioWaveformVisualizerProps> = (
         for (let i = 0; i < bufferLength; i++) {
           const barHeight = Math.max(4, (dataArray[i] / 255) * canvas.height * 0.85);
 
-          // Create rich warm gold gradient
+          // Gold gradient for the testimony recorder
           const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
-          gradient.addColorStop(0, '#FAD65F');
-          gradient.addColorStop(1, '#D4870F');
+          gradient.addColorStop(0, '#E7C98C');
+          gradient.addColorStop(1, '#B9954F');
 
           ctx.fillStyle = gradient;
           ctx.beginPath();
@@ -105,7 +105,7 @@ export const AudioWaveformVisualizer: React.FC<AudioWaveformVisualizerProps> = (
         ref={canvasRef}
         width={320}
         height={64}
-        className="w-full max-w-xs h-14 rounded-lg bg-ink-950/50 backdrop-blur-sm border border-white/10"
+        className="w-full max-w-xs h-14 rounded-lg bg-ink-950/50 backdrop-blur-sm border border-line-soft"
       />
     </div>
   );

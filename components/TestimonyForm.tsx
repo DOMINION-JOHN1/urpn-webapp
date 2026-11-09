@@ -124,7 +124,7 @@ export const TestimonyForm: React.FC = () => {
           particleCount: 110,
           spread: 82,
           origin: { y: 0.6 },
-          colors: ['#EDA51E', '#F6C13B', '#7C3AED', '#C89B6F', '#FCF8F1'],
+          colors: ['#B05BA8', '#C894CB', '#D8B56F', '#FFFFFF', '#6A1557'],
         });
       } catch (_) {}
     } catch (err: any) {
@@ -149,26 +149,26 @@ export const TestimonyForm: React.FC = () => {
   if (submitSuccess) {
     const kind = submitSuccess.media_type || (mode === 'write' ? 'text' : mediaType);
     return (
-      <div className="w-full max-w-xl mx-auto panel rounded-[1.75rem] p-8 sm:p-10 shadow-elevate text-center flex flex-col items-center animate-fade-in">
-        <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-gold-500/20 to-royal-600/20 border border-gold-500/40 flex items-center justify-center mb-6">
+      <div className="w-full max-w-xl mx-auto rounded-2xl border border-line bg-surface p-7 text-center flex flex-col items-center sm:p-10">
+        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-gold-400/30 bg-gold-400/10">
           <CheckCircle2 className="w-10 h-10 text-gold-300" />
         </div>
 
-        <span className="font-cinzel text-xs font-semibold uppercase tracking-[0.22em] text-gold-400 mb-2">
+        <span className="mono-label mb-2 !text-gold-300">
           Received with Joy
         </span>
-        <h2 className="font-display text-3xl sm:text-4xl font-bold text-cream-50 mb-3">
+        <h2 className="mb-3 text-2xl font-semibold tracking-[-0.03em] text-cream-50 sm:text-3xl">
           Thank You for Sharing
         </h2>
-        <p className="text-cream-300 text-base max-w-md leading-relaxed mb-7 font-light">
+        <p className="mb-7 max-w-md text-sm leading-relaxed text-cream-400">
           Your testimony has been received, <strong className="text-gold-300">{name}</strong>. It
           will encourage and strengthen our church family.
         </p>
 
-        <div className="w-full bg-ink-950/50 border border-white/8 rounded-2xl p-5 mb-8 text-left space-y-3">
-          <div className="flex justify-between items-center text-xs pb-2 border-b border-white/8">
+        <div className="mb-8 w-full space-y-3 rounded-xl border border-line bg-canvas/50 p-4 text-left">
+          <div className="flex items-center justify-between border-b border-line-soft pb-2 text-xs">
             <span className="text-cream-500 font-medium">Reference</span>
-            <span className="font-mono font-bold text-gold-300 bg-ink-900 px-2 py-0.5 rounded">
+            <span className="rounded bg-canvas px-2 py-0.5 font-mono text-gold-300">
               #{submitSuccess.submission_id}
             </span>
           </div>
@@ -190,7 +190,7 @@ export const TestimonyForm: React.FC = () => {
         <button
           type="button"
           onClick={handleStartAnother}
-          className="flex items-center gap-2 px-7 py-3.5 bg-gold-sheen text-ink-950 font-semibold text-sm rounded-xl shadow-glow-gold transition hover:scale-[1.03] active:scale-95 cursor-pointer"
+          className="btn btn-primary"
         >
           <RefreshCw className="w-4 h-4" />
           <span>Share Another Testimony</span>
@@ -201,7 +201,7 @@ export const TestimonyForm: React.FC = () => {
 
   // ---------------------------- FORM ----------------------------
   return (
-    <div className="w-full max-w-xl mx-auto panel rounded-[1.75rem] p-6 sm:p-8 md:p-10 shadow-elevate">
+    <div className="w-full max-w-xl mx-auto rounded-2xl border border-line bg-surface p-5 sm:p-8 md:p-9">
       <form onSubmit={handleSubmit} className="space-y-7">
         {/* Step 1 */}
         <div className="space-y-4">
@@ -223,7 +223,7 @@ export const TestimonyForm: React.FC = () => {
                 placeholder="e.g. David Adeyemi"
                 disabled={isSubmitting}
                 required
-                className="w-full pl-10 pr-4 py-3.5 bg-ink-950/60 border border-white/10 rounded-xl text-cream-100 placeholder-cream-600 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500/60 transition disabled:opacity-50"
+                className="field pl-10 disabled:opacity-50"
               />
             </div>
           </div>
@@ -243,7 +243,7 @@ export const TestimonyForm: React.FC = () => {
                 onChange={(e) => setContact(e.target.value)}
                 placeholder="david@example.com or +234 801 234 5678"
                 disabled={isSubmitting}
-                className="w-full pl-10 pr-4 py-3.5 bg-ink-950/60 border border-white/10 rounded-xl text-cream-100 placeholder-cream-600 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500/60 transition disabled:opacity-50"
+                className="field pl-10 disabled:opacity-50"
               />
             </div>
           </div>
@@ -254,15 +254,15 @@ export const TestimonyForm: React.FC = () => {
           <StepHeader n={2} title="Share Your Story" hint="Write it out, or record your voice or video — whatever you prefer." />
 
           {/* Write vs Record toggle */}
-          <div className="flex items-center gap-1.5 p-1 bg-ink-950/60 border border-white/10 rounded-2xl w-full max-w-xs mx-auto">
+          <div className="mx-auto flex w-full max-w-xs items-center gap-1 rounded-full border border-line bg-canvas p-1">
             <button
               type="button"
               onClick={() => { setMode('write'); setSubmitError(null); }}
               disabled={isSubmitting}
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition cursor-pointer ${
                 mode === 'write'
-                  ? 'bg-gold-sheen text-ink-950 shadow-glow-gold'
-                  : 'text-cream-400 hover:text-cream-100 hover:bg-white/5'
+                  ? 'bg-accent text-accent-ink'
+                  : 'text-cream-400 hover:text-cream-100 hover:bg-cream-50/5'
               }`}
             >
               <PenLine className="w-4 h-4" />
@@ -274,8 +274,8 @@ export const TestimonyForm: React.FC = () => {
               disabled={isSubmitting}
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition cursor-pointer ${
                 mode === 'record'
-                  ? 'bg-gold-sheen text-ink-950 shadow-glow-gold'
-                  : 'text-cream-400 hover:text-cream-100 hover:bg-white/5'
+                  ? 'bg-accent text-accent-ink'
+                  : 'text-cream-400 hover:text-cream-100 hover:bg-cream-50/5'
               }`}
             >
               <Mic className="w-4 h-4" />
@@ -292,7 +292,7 @@ export const TestimonyForm: React.FC = () => {
                 rows={7}
                 maxLength={MAX_TEXT_LENGTH}
                 placeholder="Write your testimony here — share what God has done in your life…"
-                className="w-full px-4 py-3.5 bg-ink-950/60 border border-white/10 rounded-2xl text-cream-100 placeholder-cream-600 text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500/60 transition disabled:opacity-50 resize-y min-h-[168px]"
+                className="field min-h-[168px] resize-y py-3 leading-relaxed disabled:opacity-50"
               />
               <div className="flex justify-end mt-1.5">
                 <span className="text-[11px] text-cream-500">
@@ -313,14 +313,14 @@ export const TestimonyForm: React.FC = () => {
 
         {/* Step 3 */}
         <div className="space-y-4 pt-1">
-          <div className="p-4 rounded-2xl bg-ink-950/50 border border-white/8 flex items-start gap-3">
+          <div className="flex items-start gap-3 rounded-xl border border-line-soft bg-canvas/50 p-4">
             <input
               id="consent"
               type="checkbox"
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
               disabled={isSubmitting}
-              className="mt-1 w-4 h-4 rounded border-white/20 text-gold-600 focus:ring-gold-500 bg-ink-900 cursor-pointer accent-gold-500"
+              className="mt-0.5 h-4 w-4 cursor-pointer rounded border-line bg-canvas accent-accent"
             />
             <label htmlFor="consent" className="text-xs text-cream-400 leading-relaxed cursor-pointer">
               By submitting, I understand that my testimony and details will be received and reviewed
@@ -339,7 +339,7 @@ export const TestimonyForm: React.FC = () => {
           )}
 
           {isSubmitting && (
-            <div className="p-4 bg-gold-500/10 border border-gold-500/30 rounded-2xl flex items-center gap-3">
+            <div className="flex items-center gap-3 rounded-xl border border-accent/20 bg-accent/[0.06] p-4">
               <Loader2 className="w-5 h-5 text-gold-300 animate-spin shrink-0" />
               <div className="flex-1 text-xs">
                 <span className="font-bold text-gold-300 block">Please wait…</span>
@@ -351,7 +351,7 @@ export const TestimonyForm: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting || !name.trim() || !consent || !hasContent}
-            className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gold-sheen bg-[length:200%_auto] hover:bg-right text-ink-950 font-semibold text-base rounded-2xl shadow-glow-gold transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="btn btn-primary w-full py-4 text-[15px] disabled:cursor-not-allowed disabled:opacity-40"
           >
             {isSubmitting ? (
               <>
@@ -380,13 +380,13 @@ export const TestimonyForm: React.FC = () => {
 };
 
 const StepHeader: React.FC<{ n: number; title: string; hint: string }> = ({ n, title, hint }) => (
-  <div className="border-b border-white/8 pb-3">
-    <h3 className="text-base font-bold text-cream-100 flex items-center gap-2.5 font-sans">
-      <span className="w-7 h-7 rounded-full bg-gold-500/15 text-gold-300 border border-gold-500/40 text-xs flex items-center justify-center font-bold">
+  <div className="border-b border-line-soft pb-3">
+    <h3 className="flex items-center gap-2.5 text-sm font-medium text-cream-50">
+      <span className="flex h-6 w-6 items-center justify-center rounded-md border border-line bg-canvas font-mono text-[10px] text-accent">
         {n}
       </span>
       <span>{title}</span>
     </h3>
-    <p className="text-xs text-cream-500 mt-1.5 pl-[38px]">{hint}</p>
+    <p className="mt-1.5 pl-[34px] text-xs leading-relaxed text-cream-500">{hint}</p>
   </div>
 );

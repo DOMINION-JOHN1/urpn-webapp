@@ -1,208 +1,285 @@
-# 🎙 Church Testimony Voice & Video Submission Platform
+# URPN — Unique Revival Prayer Network
 
-A modern, production-ready church testimony platform built as a **single Next.js project** ready for **one-click Vercel deployment**.
+A complete redesign of the URPN website plus an authenticated **worker training portal** with three tracks, streamed lessons, progress tracking, a timed one-attempt exam, and verifiable certificates. The existing testimony recording flow is included and restyled to match.
 
-Visitors can record their testimonies using **Voice (up to 10 minutes)** or **Video (up to 7 minutes)** directly in their browser. Submissions are automatically uploaded to a designated **Google Drive** folder, transcribed using the ultra-fast **Deepgram Nova-2 AI** (with Google Cloud Speech-to-Text fallback), and logged into a **Google Sheet** for pastoral review.
-
----
-
-## ✨ Features
-
-- 🎙 **Voice Recording Mode**: Browser-native microphone recording with real-time animated audio waveform visualizer and configurable limit (default: 10 minutes).
-- 📹 **Video Recording Mode**: In-browser camera recording with live viewfinder, front/rear camera switcher, and strict 7-minute limit with remaining-time indicators.
-- ⚡ **Automated AI Transcription**: Powered by **Deepgram Nova-2 API** for fast, punctuated transcription of both audio and video containers (WebM, MP4, etc.), with Google Cloud Speech-to-Text fallback.
-- 📁 **Google Drive Persistent Storage**: Automatically uploads and organizes voice/video recordings into a dedicated church Google Drive folder with unique tracking IDs.
-- 📊 **Google Sheets Submission Log**: Automatically records submission metadata (ID, Name, Contact, Media Type, Drive Link, Full Transcript, Timestamp, Status) into a Google Spreadsheet for pastoral review.
-- 📱 **Mobile-First & Zero Friction**: No accounts, sign-ins, or app downloads needed. Works on iOS Safari, Android Chrome, and all modern desktop browsers.
-- 🎨 **Warm Church Aesthetic**: Rich dark navy & gold palette, accessible contrast, smooth micro-interactions, and celebratory submission confirmation.
-- 🚀 **Single Vercel Deployment**: No separate backend servers, databases, or Redis required. All API routes run securely within Next.js Route Handlers.
+Built with **Next.js 14 (App Router)**, React 18, TypeScript, and Tailwind CSS. No external database or SaaS is required for local use.
 
 ---
 
-## 🛠 Technology Stack
+## Preview
 
-- **Framework**: Next.js 14 (App Router, Route Handlers)
-- **Frontend**: React 18, TypeScript, Tailwind CSS, Lucide Icons, Canvas Confetti
-- **Storage**: Google Drive API (`googleapis`)
-- **Database / Logging**: Google Sheets API (`googleapis`)
-- **Transcription**: Deepgram SDK (`@deepgram/sdk`) & Google Cloud Speech API
-- **Testing**: Vitest, React Testing Library, JSDOM
-- **Deployment**: Vercel (Single Project)
+Dark (default):
+
+![URPN homepage in charcoal, dark magenta, and gold](docs/screenshots/home-desktop.png)
+![URPN worker portal dashboard in dark mode](docs/screenshots/portal-dashboard.png)
+
+Light:
+
+![URPN homepage in light mode](docs/screenshots/home-light.png)
+![URPN worker portal dashboard in light mode](docs/screenshots/portal-dashboard-light.png)
+
+Installation: [install page](docs/screenshots/install-light.png) · [mobile install guide](docs/screenshots/install-mobile-light.png)
+
+More: [mobile home](docs/screenshots/home-mobile.png) · [mobile dashboard](docs/screenshots/portal-dashboard-mobile.png) · [lesson player](docs/screenshots/lesson-player.png) · [course overview](docs/screenshots/course-overview.png)
 
 ---
 
-## 🚀 Quick Start (Local Development)
+## What is included
 
-### 1. Clone & Install Dependencies
+### Public site
+- Charcoal, dark magenta, and gold design system (flat surfaces, magenta actions, gold editorial accents, restrained typography).
+- Responsive marketing homepage: hero, mandate, vision/mission, training tracks, gatherings, gallery, testimony CTA.
+- Calendar downloads (`.ics` / Google Calendar) and RSVP flow for gatherings.
+- Testimony page with voice, video, and written submissions (existing Google Drive/Sheets integration preserved).
+- Light and dark themes with a persisted toggle in the header, login page, and portal.
+- Dedicated `/install` page plus an installable PWA with offline fallback.
+
+### Worker portal (`/portal`)
+- Email + password accounts with scrypt hashing, signed HTTP-only sessions, and login rate limiting.
+- Three training tracks:
+  1. **URPN Foundation Class** (`/portal/courses/foundation`)
+  2. **URPN Ministers Training** (`/portal/courses/ministers`)
+  3. **URPN Pastors Training** (`/portal/courses/pastors`)
+- Same format in every track: video, audio, and reading lessons; progress saved across devices; no loose downloads.
+- Private media streaming through `/api/portal/stream/[lessonId]` with enrollment checks and HTTP range support.
+- Lesson completion at 90% of the authoritative media duration (readings are marked complete explicitly).
+- Final exam unlocks only when every lesson is complete.
+- Exam rules: one attempt, server-authoritative timer, auto-submit when the tab is hidden, 60-second network grace, instant score.
+- Certificate issued automatically on passing, with a unique code and a public verification page.
+- Certificate print view designed for **A4 landscape** → “Print / Save as PDF”.
+- PWA install prompt on desktop/Android, iOS “Add to Home Screen” instructions, an install guide, and a theme-aware offline page.
+
+### Route map
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Marketing site |
+| `/testimony` | Voice / video / written testimony |
+| `/portal/login` | Worker sign in and registration |
+| `/portal` | Worker dashboard |
+| `/portal/courses` | All three tracks |
+| `/portal/courses/[slug]` | Course overview + curriculum + exam state |
+| `/portal/courses/[slug]/lessons/[lessonId]` | Streamed lesson player / reading |
+| `/portal/courses/[slug]/exam` | Exam rules, then the timed exam |
+| `/portal/courses/[slug]/exam/result/[attemptId]` | Score, review, certificate link |
+| `/portal/certificates` | Earned certificates |
+| `/portal/certificates/[code]` | Printable certificate |
+| `/verify` | Public certificate lookup |
+| `/verify/[code]` | Public verification result |
+| `/install` | Install guide for iOS, Android, and desktop |
+| `/offline.html` | Static, theme-aware PWA offline fallback |
+
+---
+
+## Quick start
+
 ```bash
-git clone <your-repository-url>
-cd urpn
 npm install
-```
-
-### 2. Configure Environment Variables
-Copy the template to create your `.env.local`:
-```bash
-cp .env.example .env.local
-```
-*(Note: If you run without API keys, the application automatically runs in **Mock/Dev Mode**, allowing you to test UI recording and form flows locally!)*
-
-### 3. Run Automated Tests
-```bash
-npm test
-```
-
-### 4. Start Local Development Server
-```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) to view the landing page, or [http://localhost:3000/testimony](http://localhost:3000/testimony) to test recording.
+
+Open [http://localhost:3000](http://localhost:3000).
+
+### Demo worker
+
+On a fresh database, the app seeds one demo worker when `SHOW_DEMO_LOGIN` is not `false`:
+
+```text
+Email:    worker@urpn.org
+Password: urpn2026
+```
+
+The demo account starts with 5 of 8 Foundation lessons complete, so you can try the player, the progress tracking, and the last three lessons before sitting the exam.
+
+**Before going public**, set `SHOW_DEMO_LOGIN=false`, remove the local `data/` directory, and register real accounts (or add your own invitation flow). The demo password is intentionally simple.
+
+### Reset local data
+
+```bash
+rm -rf data
+```
+
+The next request reseeds the database. Session cookies become invalid, which is expected.
 
 ---
 
-## ☁️ Google Cloud & Deepgram Setup Guide
+## Exam behavior
 
-Follow this beginner-friendly step-by-step guide to connect your Google Drive, Google Sheets, and Deepgram accounts:
+- Questions and answer keys live only on the server (`lib/exam-bank.ts`); the browser receives prompts and options without the correct answer.
+- Starting an exam creates a server-side attempt with an `expiresAt` timestamp. The client countdown is display only; the server enforces the deadline.
+- **Leaving the tab** (visibility change) or closing the page submits the attempt automatically. It cannot be resumed afterwards.
+- Closing the whole browser without sending the submission leaves the attempt open until its deadline; the server marks it expired when it is next accessed. This is a deliberate network-failure recovery path, not a second attempt.
+- Only one attempt per user per course is ever created. A second start returns `409 already_attempted`.
+- A late submission (more than 60 seconds past the deadline) is recorded as expired and cannot pass.
+- Scores: Foundation 70% to pass, Ministers 75%, Pastors 80%. Exams are 25/30/35 minutes with 12 questions each.
+- The result page shows each question, the chosen option, the correct option, and an explanation.
 
-### Step 1: Deepgram API Setup (Transcription)
-1. Sign up for a free account at [console.deepgram.com](https://console.deepgram.com/).
-2. Navigate to **API Keys** -> click **Create a New API Key**.
-3. Copy the key and set it in your `.env.local` or Vercel settings:
-   ```env
-   DEEPGRAM_API_KEY=your_deepgram_api_key_here
+---
+
+## Replacing the demo lessons with your own teaching
+
+The demo videos are short narrated placeholders generated on macOS. Replace them without touching the player:
+
+1. Export video as **H.264 / AAC MP4** (max compatibility) or audio as **M4A/AAC**.
+2. Put the file in the private **`media/`** directory. Do **not** put it in `public/` — public files bypass authentication.
+3. Update the lesson in **`lib/courses.ts`**:
+   ```ts
+   media: {
+     file: 'foundation-welcome.mp4',   // name inside media/
+     mime: 'video/mp4',
+     durationSeconds: 612,             // exact duration; drives 90% completion
+     poster: '/posters/foundation-welcome.jpg',
+   }
    ```
+4. Put the poster image in `public/posters/` (a still frame is fine).
+5. Keep lesson IDs stable once workers have progress. To add a lesson, add it to a module; to change an exam, edit `lib/exam-bank.ts` and update `course.exam.questionCount`.
+
+Media is served only through `/api/portal/stream/[lessonId]?course=[slug]`, which checks the session and enrollment, supports `Range` requests for seeking, and sends `Content-Disposition: inline` with `no-store`. The player also disables download controls, picture-in-picture, and the context menu. No system can prevent screen recording; this is access-controlled streaming, not DRM.
+
+### Regenerating the demo assets (optional)
+
+```bash
+python3 scripts/generate-brand-assets.py
+python3 scripts/generate-demo-media.py    # macOS `say` + ffmpeg
+```
+
+`generate-demo-media.py` also updates the `durationSeconds` values in `lib/courses.ts` to match the generated files.
 
 ---
 
-### Step 2: Create a Google Cloud Project & Enable APIs
-1. Open the [Google Cloud Console](https://console.cloud.google.com/).
-2. In the top bar, click the project dropdown and click **New Project** (e.g. `church-testimonies`).
-3. In the search bar at the top, search for and **Enable** these 3 APIs:
-   - **Google Drive API**
-   - **Google Sheets API**
-   - **Cloud Speech-to-Text API**
+## Accounts, sessions, and data
+
+- Passwords: scrypt with a per-user salt; hashes never leave the server.
+- Sessions: HMAC-SHA256 signed token in an HTTP-only, SameSite=Lax cookie (30 days). Set `AUTH_SECRET` in production so sessions survive restarts and multiple instances.
+- Login and registration are rate-limited in memory. Use a shared limiter if you run multiple instances.
+- Registration is open by default. If the portal should be invite-only, gate `/api/auth/register` with an invite code or remove the “Create an account” link.
+- `middleware.ts` preserves the intended course/lesson URL through sign-in (`/portal/login?next=...`), so marketing course links land in the right place after login.
+- Data lives in a small JSON store at `data/urpn-db.json` (override with `URPN_DATA_DIR`). Writes are serialized and committed atomically. All persistence goes through `lib/server/db.ts`, so replacing it with Postgres, SQLite, or Vercel KV only requires changing that module.
+
+### Production persistence
+
+`data/` is git-ignored. On a VPS or any host with a persistent writable volume, set `URPN_DATA_DIR` to that volume and the app is fully functional.
+
+### Researched production architecture
+
+The current JSON store is intentionally a prototype. The researched production design is documented in [docs/INFRASTRUCTURE.md](docs/INFRASTRUCTURE.md), with a ready-to-apply Supabase schema in [supabase/migrations/0001_initial.sql](supabase/migrations/0001_initial.sql).
+
+Short version:
+
+- **Database/Auth:** Supabase Postgres (Pro) with Supabase Auth and RLS, EU region for Nigeria (no African Supabase region).
+- **Video:** Mux (recommended) or Cloudflare Stream/Bunny Stream. Do **not** stream lesson media from Google Drive or Telegram.
+- **Google Drive:** keep it as the upload/archive source for a sync job that publishes to Mux/Stream.
+- **Telegram:** announcements/reminders only — the Bot API has a 20 MB file-download limit and is not a video CDN.
+- Approximate cost at 25 lessons and 100–500 workers: **$25–30/month** with Supabase Pro + Mux.
+
+**Vercel/serverless caveat:** the filesystem is ephemeral. Without a persistent volume or an external database, accounts, progress, and certificates reset between deployments/instances. The media files themselves are read-only and are traced into the serverless bundle (`next.config.mjs`), but the portal database is not. For a public deployment, replace the JSON adapter in `lib/server/db.ts` with a real database (Postgres via `pg`/Prisma, Upstash Redis, etc.) before onboarding workers.
 
 ---
 
-### Step 3: Create a Google Service Account & Generate JSON Key
-1. Go to **IAM & Admin** -> **Service Accounts**.
-2. Click **Create Service Account**:
-   - Name: `testimony-bot`
-   - Description: `Service account for Church Testimony submissions`
-   - Click **Create and Continue**, then click **Done**.
-3. Copy the generated **Service Account Email** (e.g., `testimony-bot@church-testimonies.iam.gserviceaccount.com`).
-4. Click on the newly created service account -> navigate to the **Keys** tab.
-5. Click **Add Key** -> **Create new key** -> Select **JSON** -> Click **Create**.
-6. A JSON key file will download to your computer. Open it and extract:
-   - `client_email` -> `GOOGLE_SERVICE_ACCOUNT_EMAIL`
-   - `private_key` -> `GOOGLE_PRIVATE_KEY`
-   - `project_id` -> `GOOGLE_PROJECT_ID`
+## Light and dark mode
+
+The site defaults to the dark charcoal theme. A sun/moon toggle appears in the public header, the sign-in page, and the portal (sidebar on desktop, top bar on mobile). The choice is stored in `localStorage` under `urpn-theme` and applied by an inline root-layout script before paint, so there is no flash. It also updates the browser `theme-color`.
+
+| | Dark (default) | Light |
+| --- | --- | --- |
+| Canvas | `#0D0C0F` | `#F5F1F6` |
+| Surface | `#161419` | `#FFFFFF` |
+| Primary action | `#6A1557` | `#5A104B` |
+| Accent / progress | `#B05BA8` | `#6E1558` |
+| Gold | `#D8B56F` | `#8A6423` |
+
+All Tailwind semantic colors (`canvas`, `surface`, `line`, `cream`, `ink`, `accent`, `gold`) are CSS variables, so both themes flow through every page, form, exam, and the certificate print view. The static offline shell also reads the saved theme.
 
 ---
 
-### Step 4: Create and Share Your Google Drive Folder
-1. Go to [Google Drive](https://drive.google.com/).
-2. Create a new folder named **"Church Testimonies"**.
-3. Right-click the folder -> click **Share**.
-4. In the "Add people" field, paste your **Service Account Email** (from Step 3).
-5. Set the permission to **Editor** or **Content Manager** and click **Share**.
-6. Copy the **Folder ID** from the browser URL:
-   - Example URL: `https://drive.google.com/drive/folders/1abcXYZ_folder_id_here`
-   - Folder ID is: `1abcXYZ_folder_id_here` -> set as `GOOGLE_DRIVE_FOLDER_ID`.
+## PWA / installability
+
+- Manifest: `public/manifest.webmanifest` (name, short name, standalone display, theme, icons, shortcuts).
+- Icons: `public/icons/` (192, 512, maskable 512, Apple touch, favicon).
+- Service worker: `public/sw.js` — precaches the offline page and static assets, uses network-first for public pages, and **never caches API responses, media streams, or authenticated portal pages**.
+- Registration happens only in production (`components/PwaRegister.tsx`), so development is never served from a stale cache.
+- Install UI: `components/InstallAppButton.tsx` (Chrome/Android prompt + iOS instructions). It appears in the footer, dashboard, portal sidebar, and the dedicated `/install` page.
+- Installation is a **PWA install**, not an App Store / Play Store download. For a native APK/IPA later, wrap this PWA with Capacitor; nothing here prevents that.
+
+To test installability locally:
+
+```bash
+npm run build
+npm start
+```
+
+Open `http://localhost:3000` in Chrome (localhost is treated as a secure origin).
 
 ---
 
-### Step 5: Create and Share Your Google Sheet
-1. Go to [Google Sheets](https://sheets.new) and create a spreadsheet named **"Church Testimonies"**.
-2. Name the first sheet/tab **"Submissions"**.
-3. Click the **Share** button in the top right.
-4. Add your **Service Account Email** as **Editor** and click **Send**.
-5. Copy the **Spreadsheet ID** from the browser URL:
-   - Example URL: `https://docs.google.com/spreadsheets/d/1abcXYZ_sheet_id_here/edit`
-   - Sheet ID is: `1abcXYZ_sheet_id_here` -> set as `GOOGLE_SHEET_ID`.
+## Configuration
 
-The system automatically initializes the header columns on the first submission:
-`ID | Name | Contact | Media Type | Media File Name | Google Drive File ID | Media URL | Transcript | Submitted At | Status | Error`
+Copy `.env.example` to `.env.local` and set what you need.
 
----
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `AUTH_SECRET` | Production | 32+ random chars for session signing |
+| `URPN_DATA_DIR` | Production with persistent disk | Writable directory for the portal JSON store |
+| `SHOW_DEMO_LOGIN` | No | Set `false` to hide/disable the demo seed account |
+| Google Drive/Sheets + Deepgram variables | Testimony only | See `.env.example` and `OAUTH-SETUP.md` |
 
-## 🔑 Environment Variables Reference
-
-| Variable | Required | Description | Example |
-| :--- | :--- | :--- | :--- |
-| `GOOGLE_PROJECT_ID` | Yes | Google Cloud Project ID | `church-testimonies-2026` |
-| `GOOGLE_SERVICE_ACCOUNT_EMAIL` | Yes | Service Account Email | `bot@project.iam.gserviceaccount.com` |
-| `GOOGLE_PRIVATE_KEY` | Yes | Service Account Private Key (with `\n` line breaks) | `"-----BEGIN PRIVATE KEY-----\n..."` |
-| `GOOGLE_DRIVE_FOLDER_ID` | Yes | Google Drive Folder ID for audio/video storage | `1abcXYZ_drive_folder_id` |
-| `GOOGLE_SHEET_ID` | Yes | Google Sheet ID for logging submissions | `1abcXYZ_sheet_id` |
-| `GOOGLE_SHEET_NAME` | No | Worksheet tab name (default: `Submissions`) | `Submissions` |
-| `DEEPGRAM_API_KEY` | Recommended | Deepgram Nova-2 API key for ultra-fast transcription | `your_deepgram_api_key` |
-| `MAX_AUDIO_RECORDING_SECONDS`| No | Max voice recording duration in seconds (default: 600s = 10m) | `600` |
-| `MAX_VIDEO_RECORDING_SECONDS`| No | Max video recording duration in seconds (default: 420s = 7m) | `420` |
-| `MAX_UPLOAD_SIZE_MB` | No | Maximum media upload size in megabytes (default: 50MB) | `50` |
+The public site and portal run without Google or Deepgram keys. The testimony page records locally and falls back to mock transcription/storage when those services are not configured.
 
 ---
 
-## 🚢 Deploying to Vercel (Single Project)
+## Testimony module (existing functionality)
 
-1. Push your code to your GitHub repository:
-   ```bash
-   git init
-   git add .
-   git commit -m "feat: complete church testimony voice and video submission MVP"
-   git branch -M main
-   git remote add origin <your-github-repo-url>
-   git push -u origin main
-   ```
-2. Go to [Vercel Dashboard](https://vercel.com/) -> click **Add New** -> **Project**.
-3. Import your GitHub repository.
-4. Under **Environment Variables**, add all variables from your `.env.local`:
-   - `GOOGLE_PROJECT_ID`
-   - `GOOGLE_SERVICE_ACCOUNT_EMAIL`
-   - `GOOGLE_PRIVATE_KEY`
-   - `GOOGLE_DRIVE_FOLDER_ID`
-   - `GOOGLE_SHEET_ID`
-   - `GOOGLE_SHEET_NAME`
-   - `DEEPGRAM_API_KEY`
-   - `MAX_AUDIO_RECORDING_SECONDS`
-   - `MAX_VIDEO_RECORDING_SECONDS`
-   - `MAX_UPLOAD_SIZE_MB`
-5. Click **Deploy**. Vercel will build and launch your application at `https://your-project.vercel.app`.
+Submissions can be voice (up to 10 minutes), video (up to 7 minutes), or written. Recordings upload to Google Drive, are transcribed by Deepgram (Google Speech fallback), and are logged to a Google Sheet. Setup instructions are in [`.env.example`](.env.example) and [`OAUTH-SETUP.md`](OAUTH-SETUP.md).
+
+If no credentials are present, the API returns a mock success path for local development. Do not rely on that in production.
 
 ---
 
-## 🧪 Testing Your Deployment
+## Scripts
 
-1. Visit `https://your-domain.vercel.app/api/health` to verify all integration checks.
-2. Visit `https://your-domain.vercel.app/testimony`:
-   - Enter your name and optional phone/email.
-   - Record a voice or video testimony.
-   - Preview the recording and click **Submit Testimony**.
-   - Check Google Drive to see the newly saved audio/video file.
-   - Check Google Sheets to see the new row with transcript and Drive link.
+```bash
+npm run dev       # development server
+npm run build     # production build
+npm start         # production server
+npm test          # vitest (23 tests)
+npm run lint      # next lint (if configured)
+```
 
----
+Additional generators:
 
-## 🛠 Troubleshooting & FAQ
-
-### 1. "Microphone or Camera access is required"
-- **Cause**: Browser permissions were dismissed or blocked.
-- **Fix**: Click the padlock or camera icon in your browser URL bar, change Microphone and Camera permissions to **Allow**, and reload the page.
-
-### 2. "The caller does not have permission" (Google Drive / Sheets)
-- **Cause**: The Google Drive folder or Google Sheet was not shared with the service account.
-- **Fix**: Open your Google Drive folder and Google Sheet, click **Share**, paste your `GOOGLE_SERVICE_ACCOUNT_EMAIL`, and ensure permission is set to **Editor**.
-
-### 3. "Invalid Private Key" (Google Auth)
-- **Cause**: Line breaks in `GOOGLE_PRIVATE_KEY` were corrupted when pasting.
-- **Fix**: Wrap the key in double quotes in your environment configuration and ensure newline characters `\n` are preserved:
-  `GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----\n"`
-
-### 4. Video Recording Limit
-- The video recorder is strictly capped at **7 minutes (420 seconds)**. A visual countdown bar alerts the user when approaching the limit, and the recording automatically finalizes when the limit is reached.
+```bash
+python3 scripts/generate-brand-assets.py   # emblem crop + PWA icons
+python3 scripts/generate-demo-media.py     # demo videos/audio/posters
+```
 
 ---
 
-## 📜 License & Acknowledgments
-Built with ❤️ for church ministry and community praise sharing. Free for use and modification.
-# urpn-webapp
+## Design notes
+
+- Canvas `#0D0C0F`, surface `#161419`, line `#2B2631` in dark mode; canvas `#F5F1F6`, surface `#FFFFFF`, line `#E4DDE8` in light mode.
+- Deep plum-magenta `#6A1557` for primary buttons; orchid-violet `#B05BA8` for links, focus, progress, and active states.
+- Gold `#D8B56F` for eyebrow labels, editorial rules, completed lessons, exam passes, and certificates; gold deepens to `#8A6423` in light mode so small labels stay legible.
+- Inter for interface text, IBM Plex Mono for labels and codes.
+- Warm charcoal with a slight magenta undertone, flat cards, 1px borders, 12–16px radii, no decorative gradients or glow text.
+- Mobile-first: portal bottom tab bar, collapsible curriculum, stacked player, install guide, and a responsive theme toggle. Audited at 320, 360, 390, 768, 1024, and 1440 px in **both themes** with zero horizontal overflow.
+- Light mode is a true palette swap (variables), not an inverted filter; images, video, the certificate, and the live camera preview keep their intended contrast.
+- Certificate uses a cream/brass print palette, Georgia for the recipient name, and A4 landscape print CSS.
+
+---
+
+## Security checklist before launch
+
+- [ ] Set a strong `AUTH_SECRET`.
+- [ ] Set `SHOW_DEMO_LOGIN=false` and remove `data/`.
+- [ ] Move persistence to a durable database/volume.
+- [ ] Decide whether registration is open or invite-only.
+- [ ] Replace demo media with your own teaching.
+- [ ] Configure Google/Deepgram if the testimony module is public.
+- [ ] Review certificate revocation/reissue policy (not included).
+- [ ] Add a privacy policy for worker data and testimony content.
+
+---
+
+## License
+
+Private project for URPN. All teaching media and branding belong to Unique Revival Prayer Network.
