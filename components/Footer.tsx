@@ -5,16 +5,16 @@ import { UrpnLogo } from './UrpnLogo';
 import { InstallAppButton } from './InstallAppButton';
 
 const EXPLORE = [
-  { href: '/#mandate', label: 'The mandate' },
-  { href: '/#training', label: 'Training tracks' },
-  { href: '/#gatherings', label: 'Gatherings' },
+  { href: '/mandate', label: 'The mandate' },
+  { href: '/workforce', label: 'Become a worker' },
+  { href: '/gatherings', label: 'Gatherings' },
   { href: '/testimony', label: 'Share a testimony' },
 ];
 
 const PORTAL = [
-  { href: '/portal', label: 'Worker portal' },
-  { href: '/portal/login', label: 'Sign in' },
-  { href: '/portal/login?mode=register', label: 'Create an account' },
+  { href: '/workforce', label: 'Workforce hub' },
+  { href: '/workforce/register', label: 'Create worker account' },
+  { href: '/portal/login', label: 'Staff portal 🔒' },
   { href: '/verify', label: 'Verify a certificate' },
 ];
 

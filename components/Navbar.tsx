@@ -8,9 +8,8 @@ import { UrpnLogo } from './UrpnLogo';
 import { ThemeToggle } from './ThemeToggle';
 
 const NAV_LINKS = [
-  { href: '/#mandate', label: 'Mandate' },
-  { href: '/#gatherings', label: 'Gatherings' },
-  { href: '/workforce', label: 'Join Workforce' },
+  { href: '/mandate', label: 'Mandate' },
+  { href: '/gatherings', label: 'Gatherings' },
   { href: '/testimony', label: 'Testimony' },
 ];
 
@@ -105,7 +104,7 @@ export function Navbar() {
             ))}
           </nav>
           <Link href="/workforce" onClick={() => setOpen(false)} className="btn btn-primary mt-6 w-full">
-            Join the workforce
+            Become a worker
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <Link

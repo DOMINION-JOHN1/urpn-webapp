@@ -100,7 +100,7 @@ export default function HomePage() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link href="/workforce" className="btn btn-primary w-full sm:w-auto">
-                Join the workforce
+                Become a worker
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link href="/portal/login" className="btn btn-secondary w-full sm:w-auto">

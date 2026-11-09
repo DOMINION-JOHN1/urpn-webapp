@@ -3,47 +3,51 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import {
   Award,
-  BookOpen,
-  Camera,
   CheckCircle2,
-  Cpu,
   Headphones,
-  HeartHandshake,
-  Music,
   ShieldCheck,
-  Sparkles,
-  Timer,
   UserPlus,
-  Users,
-  Baby,
-  ArrowRight,
   ArrowUpRight,
 } from 'lucide-react';
-import { WORKFORCE_COURSES, getLessonCount, getCourseDurationLabel } from '@/lib/courses';
+import { WORKFORCE_COURSES } from '@/lib/courses';
 import { getSessionUser } from '@/lib/server/auth';
 import { getDashboardData } from '@/lib/server/learning';
+import { WorkforceDepartmentTabs } from '@/components/portal/WorkforceDepartmentTabs';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Join the Workforce · Unique Revival Prayer Network',
+  title: 'Become a Worker · Unique Revival Prayer Network',
   description:
     'Step into your assignment. Join one of our 7 ministry departments: review conditions, complete the audio formation track, sit the timed exam, and earn your certificate to serve.',
-};
-
-const ICONS: Record<string, React.ElementType> = {
-  media: Camera,
-  technical: Cpu,
-  ushering: Users,
-  protocol: ShieldCheck,
-  choir: Music,
-  welfare: HeartHandshake,
-  children: Baby,
 };
 
 export default async function WorkforceHubPage() {
   const user = await getSessionUser();
   const dashboard = user ? await getDashboardData(user.id) : null;
+
+  const statusMap: Record<
+    string,
+    {
+      courseSlug: string;
+      isEnrolled: boolean;
+      isCertified: boolean;
+      certificateCode?: string;
+      percent?: number;
+    }
+  > = {};
+
+  if (dashboard) {
+    for (const c of dashboard.courses) {
+      statusMap[c.course.slug] = {
+        courseSlug: c.course.slug,
+        isEnrolled: Boolean(c.enrolled),
+        isCertified: Boolean(c.certificate),
+        certificateCode: c.certificate?.code,
+        percent: c.percent,
+      };
+    }
+  }
 
   return (
     <div className="w-full pb-20 pt-8 sm:pb-28 sm:pt-12">
@@ -155,7 +159,7 @@ export default async function WorkforceHubPage() {
 
         {/* ============================================================ 7 DEPARTMENTS */}
         <section className="mt-16">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between mb-8">
             <div>
               <div className="flex items-center gap-3">
                 <span className="h-px w-6 bg-gold-500/70" />
@@ -166,99 +170,11 @@ export default async function WorkforceHubPage() {
               </h2>
             </div>
             <p className="max-w-sm text-[12.5px] text-cream-400">
-              Select any department to review its conditions and begin the audio course.
+              Select any department tab to review its conditions, listen to the audio teaching, and sit the exam.
             </p>
           </div>
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {WORKFORCE_COURSES.map((course, index) => {
-              const Icon = ICONS[course.slug] || Sparkles;
-              const courseStatus = dashboard?.courses.find((c) => c.course.slug === course.slug);
-              const isCertified = Boolean(courseStatus?.certificate);
-              const isEnrolled = Boolean(courseStatus?.enrolled);
-
-              return (
-                <article
-                  key={course.slug}
-                  className="group flex flex-col justify-between rounded-2xl border border-line bg-surface p-6 transition-all hover:border-line-strong hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-canvas text-gold-300">
-                        <Icon className="h-5 w-5" aria-hidden="true" />
-                      </span>
-                      <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-cream-400">
-                        {course.code}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-5 text-[20px] font-semibold leading-snug tracking-[-0.02em] text-cream-50">
-                      {course.shortTitle} Department
-                    </h3>
-                    <p className="mt-1 text-[12px] font-medium text-gold-300/90">{course.tagline}</p>
-                    <p className="mt-2 text-[12.5px] leading-relaxed text-cream-400 line-clamp-3">
-                      {course.description}
-                    </p>
-
-                    <div className="mt-5 rounded-xl border border-line-soft bg-canvas/50 p-3.5">
-                      <p className="mono-label !text-[8.5px] text-gold-300">Conditions to join</p>
-                      <p className="mt-1 text-[11.5px] font-medium text-cream-200">
-                        {course.conditions.length} requirements to accept before enrolling
-                      </p>
-                      <ul className="mt-2 space-y-1 text-[11px] text-cream-400">
-                        {course.conditions.slice(0, 2).map((c, i) => (
-                          <li key={i} className="line-clamp-1 flex items-center gap-1.5">
-                            <span className="h-1 w-1 rounded-full bg-gold-400 shrink-0" />
-                            <span>{c}</span>
-                          </li>
-                        ))}
-                        {course.conditions.length > 2 && (
-                          <li className="text-[10px] text-cream-500">
-                            +{course.conditions.length - 2} more conditions inside
-                          </li>
-                        )}
-                      </ul>
-                    </div>
-
-                    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-cream-500">
-                      <span className="inline-flex items-center gap-1">
-                        <Headphones className="h-3 w-3" />
-                        {getLessonCount(course)} audio lessons
-                      </span>
-                      <span className="inline-flex items-center gap-1">
-                        <Timer className="h-3 w-3" />
-                        {course.exam.durationMinutes} min exam
-                      </span>
-                      <span className="inline-flex items-center gap-1">
-                        <Award className="h-3 w-3" />
-                        {course.exam.passMark}% pass mark
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 border-t border-line-soft pt-4">
-                    {isCertified ? (
-                      <Link
-                        href={`/portal/certificates/${courseStatus!.certificate!.code}`}
-                        className="btn btn-secondary btn-sm w-full"
-                      >
-                        <Award className="h-3.5 w-3.5 text-gold-400" />
-                        View Certificate
-                      </Link>
-                    ) : (
-                      <Link
-                        href={`/portal/courses/${course.slug}`}
-                        className="btn btn-primary btn-sm w-full"
-                      >
-                        {isEnrolled ? 'Continue Course' : 'View Conditions & Join'}
-                        <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                      </Link>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+          <WorkforceDepartmentTabs courses={WORKFORCE_COURSES} statusMap={statusMap} />
         </section>
 
         {/* ============================================================ LOCK NOTICE ON WORKER PORTAL */}
