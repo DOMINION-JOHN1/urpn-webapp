@@ -12,6 +12,10 @@ import {
   extractDriveFileId,
 } from '@/lib/courses';
 import { getExamDefinition } from '@/lib/exam-bank';
+import {
+  isLessonUnlocked,
+  getFirstUnlockedIncompleteLesson,
+} from '@/lib/server/learning';
 
 describe('URPN training catalogue', () => {
   it('ships leadership tracks and workforce departments', () => {
@@ -115,5 +119,29 @@ describe('URPN training catalogue', () => {
       (item) => item.kind === 'video' || item.kind === 'audio'
     )!;
     expect(formatLessonDuration(lesson)).toMatch(/sec|min/);
+  });
+
+  it('strictly enforces sequential lesson progression and locking', () => {
+    const course = getCourse('media')!;
+    const lessons = getAllLessons(course);
+    expect(lessons.length).toBeGreaterThan(1);
+
+    const lesson0 = lessons[0].id;
+    const lesson1 = lessons[1].id;
+
+    // Lesson 0 is always unlocked
+    expect(isLessonUnlocked(course, [], lesson0)).toBe(true);
+
+    // Lesson 1 is locked when lesson 0 is not completed
+    expect(isLessonUnlocked(course, [], lesson1)).toBe(false);
+
+    // Lesson 1 unlocks once lesson 0 is marked complete
+    expect(isLessonUnlocked(course, [lesson0], lesson1)).toBe(true);
+
+    // getFirstUnlockedIncompleteLesson returns lesson 0 when no progress
+    expect(getFirstUnlockedIncompleteLesson(course, [])?.id).toBe(lesson0);
+
+    // getFirstUnlockedIncompleteLesson returns lesson 1 when lesson 0 is complete
+    expect(getFirstUnlockedIncompleteLesson(course, [lesson0])?.id).toBe(lesson1);
   });
 });
