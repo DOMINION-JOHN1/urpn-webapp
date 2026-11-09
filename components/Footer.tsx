@@ -6,16 +6,14 @@ import { InstallAppButton } from './InstallAppButton';
 
 const EXPLORE = [
   { href: '/mandate', label: 'The mandate' },
-  { href: '/workforce', label: 'Become a worker' },
   { href: '/gatherings', label: 'Gatherings' },
   { href: '/testimony', label: 'Share a testimony' },
 ];
 
-const PORTAL = [
-  { href: '/workforce', label: 'Workforce hub' },
-  { href: '/workforce/register', label: 'Create worker account' },
-  { href: '/portal/login', label: 'Staff portal 🔒' },
+const CONNECT = [
+  { href: '/workforce', label: 'Become a worker' },
   { href: '/verify', label: 'Verify a certificate' },
+  { href: '/install', label: 'Install mobile app' },
 ];
 
 export function Footer() {
@@ -54,9 +52,9 @@ export function Footer() {
               </ul>
             </div>
             <div>
-              <p className="mono-label mb-4">Portal</p>
+              <p className="mono-label mb-4">Connect</p>
               <ul className="space-y-3">
-                {PORTAL.map((link) => (
+                {CONNECT.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -73,22 +71,16 @@ export function Footer() {
           <div className="md:col-span-2">
             <p className="mono-label mb-4">The app</p>
             <p className="mb-4 text-sm leading-relaxed text-cream-400">
-              Install the worker portal on your phone. Lessons stream in the app and your progress
-              syncs automatically.
+              Install the URPN app on your phone. Gatherings, prayer schedules, and testimonies
+              stay in sync.
             </p>
             <InstallAppButton variant="secondary" label="Install app" className="w-full" />
-            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <div className="mt-3">
               <Link
                 href="/install"
                 className="inline-flex items-center gap-1.5 text-xs text-cream-500 transition-colors hover:text-cream-50"
               >
                 Installation guide
-              </Link>
-              <Link
-                href="/portal"
-                className="inline-flex items-center gap-1.5 text-xs text-cream-500 transition-colors hover:text-cream-50"
-              >
-                Open portal
                 <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
               </Link>
             </div>

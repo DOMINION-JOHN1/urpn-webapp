@@ -64,13 +64,6 @@ export function Navbar() {
             Become a worker
             <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
           </Link>
-          <Link
-            href="/portal/login"
-            className="btn btn-secondary btn-sm hidden sm:inline-flex"
-            title="In-house staff and leadership portal"
-          >
-            Staff portal 🔒
-          </Link>
           <ThemeToggle />
           <button
             type="button"
@@ -106,13 +99,6 @@ export function Navbar() {
           <Link href="/workforce" onClick={() => setOpen(false)} className="btn btn-primary mt-6 w-full">
             Become a worker
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-          <Link
-            href="/portal/login"
-            onClick={() => setOpen(false)}
-            className="btn btn-secondary mt-2 w-full"
-          >
-            Staff portal 🔒
           </Link>
           <Link
             href="/install"
