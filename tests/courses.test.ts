@@ -4,6 +4,8 @@ import {
   ALL_COURSES,
   LEADERSHIP_COURSES,
   WORKFORCE_COURSES,
+  WORKFORCE_DEPARTMENTS,
+  WORKFORCE_TRAINING,
   getAllLessons,
   getCourse,
   getCoursesForRole,
@@ -18,13 +20,20 @@ import {
 } from '@/lib/server/learning';
 
 describe('URPN training catalogue', () => {
-  it('ships leadership tracks and workforce departments', () => {
+  it('ships leadership tracks and a single shared workforce course', () => {
     expect(LEADERSHIP_COURSES.map((course) => course.slug)).toEqual(['ministers', 'pastors']);
     expect(LEADERSHIP_COURSES.map((course) => course.title)).toEqual([
       'URPN Ministers Training',
       'URPN Pastors Training',
     ]);
-    expect(WORKFORCE_COURSES.map((course) => course.slug)).toEqual([
+    // Every department now funnels into one shared workforce course.
+    expect(WORKFORCE_COURSES.map((course) => course.slug)).toEqual(['workforce-training']);
+    expect(WORKFORCE_TRAINING.slug).toBe('workforce-training');
+    expect(WORKFORCE_TRAINING.modules.length).toBeGreaterThan(0);
+  });
+
+  it('exposes sixteen lightweight departments that only carry join requirements', () => {
+    expect(WORKFORCE_DEPARTMENTS.map((department) => department.slug)).toEqual([
       'aesthetics',
       'pr',
       'protocol',
@@ -42,29 +51,31 @@ describe('URPN training catalogue', () => {
       'publications',
       'drama',
     ]);
+    for (const department of WORKFORCE_DEPARTMENTS) {
+      expect(department.conditions.length).toBeGreaterThan(0);
+      for (const condition of department.conditions) {
+        expect(condition.length).toBeGreaterThan(5);
+      }
+      // Departments are not courses: no modules, exam, or HOD data leaks through.
+      expect('modules' in department).toBe(false);
+      expect('jobDescription' in department).toBe(false);
+    }
   });
 
   it('includes all courses in ALL_COURSES and retrieves them via getCourse', () => {
-    expect(ALL_COURSES.length).toBe(19);
+    expect(ALL_COURSES.length).toBe(4);
     expect(getCourse('foundation')).toBeDefined();
     expect(getCourse('ministers')).toBeDefined();
     expect(getCourse('pastors')).toBeDefined();
-    expect(getCourse('aesthetics')).toBeDefined();
-    expect(getCourse('pr')).toBeDefined();
-    expect(getCourse('prayer')).toBeDefined();
-    expect(getCourse('counseling')).toBeDefined();
-    expect(getCourse('transport')).toBeDefined();
-    expect(getCourse('medical')).toBeDefined();
-    expect(getCourse('security')).toBeDefined();
-    expect(getCourse('publications')).toBeDefined();
-    expect(getCourse('drama')).toBeDefined();
-    expect(getCourse('media')).toBeDefined();
-    expect(getCourse('children')).toBeDefined();
+    expect(getCourse('workforce-training')).toBeDefined();
+    // Individual departments are no longer standalone courses.
+    expect(getCourse('aesthetics')).toBeUndefined();
+    expect(getCourse('media')).toBeUndefined();
   });
 
   it('filters courses correctly by user role', () => {
     const workforceCourses = getCoursesForRole('workforce');
-    expect(workforceCourses.map((c) => c.slug)).toEqual(WORKFORCE_COURSES.map((c) => c.slug));
+    expect(workforceCourses.map((c) => c.slug)).toEqual(['workforce-training']);
 
     const workerCourses = getCoursesForRole('worker');
     expect(workerCourses.map((c) => c.slug)).toEqual(['ministers', 'pastors']);
@@ -73,27 +84,11 @@ describe('URPN training catalogue', () => {
     expect(adminCourses.map((c) => c.slug)).toEqual(['ministers', 'pastors']);
   });
 
-  it('requires department conditions for all workforce courses', () => {
-    for (const course of WORKFORCE_COURSES) {
-      expect(course.track).toBe('workforce');
-      expect(course.conditions.length).toBeGreaterThan(0);
-      for (const condition of course.conditions) {
-        expect(condition.length).toBeGreaterThan(5);
-      }
-    }
-  });
-
-  it('attaches comprehensive job description and HOD specs to all workforce courses', () => {
-    for (const course of WORKFORCE_COURSES) {
-      expect(course.jobDescription).toBeDefined();
-      expect(course.jobDescription?.departmentName).toBeTruthy();
-      expect(course.jobDescription?.overview).toBeTruthy();
-      expect(course.jobDescription?.responsibilities.length).toBeGreaterThan(0);
-      expect(course.jobDescription?.keyAttributes.length).toBeGreaterThan(0);
-      expect(course.jobDescription?.headOfDepartment.title).toBeTruthy();
-      expect(course.jobDescription?.headOfDepartment.summary).toBeTruthy();
-      expect(course.jobDescription?.headOfDepartment.responsibilities.length).toBeGreaterThan(0);
-      expect(course.jobDescription?.headOfDepartment.kpis.length).toBeGreaterThan(0);
+  it('requires conditions on the shared workforce course', () => {
+    expect(WORKFORCE_TRAINING.track).toBe('workforce');
+    expect(WORKFORCE_TRAINING.conditions.length).toBeGreaterThan(0);
+    for (const condition of WORKFORCE_TRAINING.conditions) {
+      expect(condition.length).toBeGreaterThan(5);
     }
   });
 
@@ -154,7 +149,7 @@ describe('URPN training catalogue', () => {
   });
 
   it('strictly enforces sequential lesson progression and locking', () => {
-    const course = getCourse('media')!;
+    const course = getCourse('workforce-training')!;
     const lessons = getAllLessons(course);
     expect(lessons.length).toBeGreaterThan(1);
 

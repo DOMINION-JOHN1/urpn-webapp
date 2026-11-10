@@ -2052,26 +2052,186 @@ const DRAMA_QUESTIONS: ExamQuestion[] = [
   },
 ];
 
+const SHARED_WORKFORCE_QUESTIONS: ExamQuestion[] = [
+  {
+    id: 'wtq-01',
+    prompt: 'According to the URPN mandate, what is restoration?',
+    options: [
+      'A cosmetic repair of what was broken',
+      'A return to God’s original blueprint for a person, family, or sphere',
+      'A reward for faithful church attendance',
+      'A change of church branding and programmes',
+    ],
+    answer: 1,
+    explanation:
+      'The mandate defines restoration as a return to God’s original divine ordination — a return to blueprint, not a cosmetic repair.',
+  },
+  {
+    id: 'wtq-02',
+    prompt: 'In "URPN in Focus", what are the service units?',
+    options: [
+      'The weekly prayer meetings',
+      'The departments where members serve with their gifts',
+      'The financial accounts of the church',
+      'The leadership hierarchy only',
+    ],
+    answer: 1,
+    explanation:
+      'The service units are the URPN departments — the places where a worker’s gift is deployed in service.',
+  },
+  {
+    id: 'wtq-03',
+    prompt: 'What distinction stands at the centre of Christian character and spiritual formation?',
+    options: [
+      'The difference between leaders and members',
+      'The contrast between the old man and the new man',
+      'The difference between full-time and volunteer staff',
+      'The gap between rich and poor believers',
+    ],
+    answer: 1,
+    explanation:
+      'Formation hinges on the old man (crucified) versus the new man (raised to walk in newness of life).',
+  },
+  {
+    id: 'wtq-04',
+    prompt: 'What is the biblical answer to fear, shame, and imposter syndrome in service?',
+    options: [
+      'Working harder to earn your place',
+      'Serving from identity (sonship) rather than a need to be seen',
+      'Avoiding visible roles entirely',
+      'Comparing yourself with more experienced workers',
+    ],
+    answer: 1,
+    explanation:
+      'Identity comes before assignment; the worker serves from sonship, not from striving to prove worth.',
+  },
+  {
+    id: 'wtq-05',
+    prompt: 'How should the Great Commission be understood in the "Concept of the Kingdom" module?',
+    options: [
+      'As a call to personal comfort and blessing',
+      'In view of kingdom conquest — discipling individuals and nations',
+      'As an optional activity for a few believers',
+      'As a purely future, end-time event',
+    ],
+    answer: 1,
+    explanation:
+      'The Great Commission is read in view of kingdom conquest: establishing God’s rule and discipling nations.',
+  },
+  {
+    id: 'wtq-06',
+    prompt: 'What do the "mountains of influence" refer to?',
+    options: [
+      'Physical mountains where prayer is held',
+      'The spheres of society — such as family, government, education, media, and business',
+      'Levels of church membership',
+      'Stages of spiritual maturity',
+    ],
+    answer: 1,
+    explanation:
+      'The mountains of influence are the spheres of society into which workers are assigned and placed.',
+  },
+  {
+    id: 'wtq-07',
+    prompt: 'How is greatness measured in kingdom service and stewardship?',
+    options: [
+      'By title and position',
+      'By service — the greatest is the servant of all',
+      'By the size of one’s department',
+      'By years of membership',
+    ],
+    answer: 1,
+    explanation:
+      'Servant leadership follows Christ: whoever will be great must be the servant of all.',
+  },
+  {
+    id: 'wtq-08',
+    prompt: 'What is the core idea of stewardship?',
+    options: [
+      'Everything we handle finally belongs to us',
+      'Resources are entrusted to us, and faithfulness in little opens the door to much',
+      'Only leaders are accountable for resources',
+      'Stewardship applies only to money',
+    ],
+    answer: 1,
+    explanation:
+      'Stewardship recognises that time, money, people, and tools are entrusted; faithfulness in little leads to much.',
+  },
+  {
+    id: 'wtq-09',
+    prompt: 'In the Excellence module, why does URPN pursue excellent service?',
+    options: [
+      'To impress visitors and gain applause',
+      'Because excellence is honour expressed in work and a means of kingdom advancement',
+      'Because perfectionism is required of every worker',
+      'To compete with other churches',
+    ],
+    answer: 1,
+    explanation:
+      'Excellence is the culture of the throne — honour through the quality of work, and a means of kingdom advancement.',
+  },
+  {
+    id: 'wtq-10',
+    prompt: 'Which community is the pattern for Christian community life in the Communication module?',
+    options: [
+      'The church at Corinth',
+      'The Acts Jerusalem church',
+      'The church at Laodicea',
+      'The church at Ephesus',
+    ],
+    answer: 1,
+    explanation:
+      'Christian community life follows the Acts Jerusalem church — fellowship, sharing, and single-hearted devotion.',
+  },
+  {
+    id: 'wtq-11',
+    prompt: 'According to the laws of honour, how should offence and grievances be handled?',
+    options: [
+      'By spreading the matter to other workers',
+      'With honour, so that offences do not become division',
+      'By ignoring all feedback and protocol',
+      'By leaving the department immediately',
+    ],
+    answer: 1,
+    explanation:
+      'Offences will come; honour is the culture that keeps grievances from becoming division.',
+  },
+  {
+    id: 'wtq-12',
+    prompt: 'What does the "laws of seasons" teaching in Personal Development emphasise?',
+    options: [
+      'That timing matters — sow, work, and reap in step with God',
+      'That seasons have no effect on a worker’s life',
+      'That financial increase is guaranteed without stewardship',
+      'That workers should wait passively for change',
+    ],
+    answer: 0,
+    explanation:
+      'The laws of seasons teach discernment of timing so that we sow, labour, and reap in step with God.',
+  },
+];
+
 const BANK: Record<CourseSlug, ExamDefinition> = {
   foundation: { questions: FOUNDATION_QUESTIONS },
   ministers: { questions: MINISTERS_QUESTIONS },
   pastors: { questions: PASTORS_QUESTIONS },
-  aesthetics: { questions: AESTHETICS_QUESTIONS },
-  pr: { questions: PR_QUESTIONS },
-  protocol: { questions: PROTOCOL_QUESTIONS },
-  ushering: { questions: USHERING_QUESTIONS },
-  technical: { questions: TECHNICAL_QUESTIONS },
-  media: { questions: MEDIA_QUESTIONS },
-  choir: { questions: CHOIR_QUESTIONS },
-  welfare: { questions: WELFARE_QUESTIONS },
-  prayer: { questions: PRAYER_QUESTIONS },
-  counseling: { questions: COUNSELING_QUESTIONS },
-  transport: { questions: TRANSPORT_QUESTIONS },
-  medical: { questions: MEDICAL_QUESTIONS },
-  security: { questions: SECURITY_QUESTIONS },
-  children: { questions: CHILDREN_QUESTIONS },
-  publications: { questions: PUBLICATIONS_QUESTIONS },
-  drama: { questions: DRAMA_QUESTIONS },
+  'workforce-training': { questions: SHARED_WORKFORCE_QUESTIONS },
+  aesthetics: { questions: SHARED_WORKFORCE_QUESTIONS },
+  pr: { questions: SHARED_WORKFORCE_QUESTIONS },
+  protocol: { questions: SHARED_WORKFORCE_QUESTIONS },
+  ushering: { questions: SHARED_WORKFORCE_QUESTIONS },
+  technical: { questions: SHARED_WORKFORCE_QUESTIONS },
+  media: { questions: SHARED_WORKFORCE_QUESTIONS },
+  choir: { questions: SHARED_WORKFORCE_QUESTIONS },
+  welfare: { questions: SHARED_WORKFORCE_QUESTIONS },
+  prayer: { questions: SHARED_WORKFORCE_QUESTIONS },
+  counseling: { questions: SHARED_WORKFORCE_QUESTIONS },
+  transport: { questions: SHARED_WORKFORCE_QUESTIONS },
+  medical: { questions: SHARED_WORKFORCE_QUESTIONS },
+  security: { questions: SHARED_WORKFORCE_QUESTIONS },
+  children: { questions: SHARED_WORKFORCE_QUESTIONS },
+  publications: { questions: SHARED_WORKFORCE_QUESTIONS },
+  drama: { questions: SHARED_WORKFORCE_QUESTIONS },
 };
 
 export function getExamDefinition(slug: CourseSlug): ExamDefinition {

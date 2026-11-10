@@ -91,7 +91,7 @@ export function DepartmentConditionsAcceptance({
                 Department conditions acknowledged
               </h2>
               <p className="mt-0.5 text-[12.5px] leading-relaxed text-cream-400">
-                You are enrolled in the {courseTitle}. Listen to every audio lesson below to unlock your final exam and receive your certificate.
+                You are enrolled in the {courseTitle}. Complete every lesson below to unlock your final exam and receive your certificate.
               </p>
             </div>
           </div>
@@ -148,7 +148,7 @@ export function DepartmentConditionsAcceptance({
       </div>
 
       <p className="mt-3 text-[13px] leading-relaxed text-cream-300">
-        Every department worker represents the altar and the house. Please read the requirements below carefully. Accepting these conditions unlocks your audio lessons.
+        Every department worker represents the altar and the house. Please read the requirements below carefully. Accepting these conditions unlocks the training lessons.
       </p>
 
       <div className="mt-5 space-y-2.5 rounded-xl border border-line bg-canvas/60 p-4 sm:p-5">
@@ -189,7 +189,7 @@ export function DepartmentConditionsAcceptance({
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[11.5px] text-cream-500">
-            Accepting will enroll your profile and unlock all audio lessons immediately.
+            Accepting will enroll your profile and unlock all lessons immediately.
           </p>
           <button
             type="button"

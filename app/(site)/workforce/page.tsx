@@ -9,7 +9,7 @@ import {
   UserPlus,
   ArrowUpRight,
 } from 'lucide-react';
-import { WORKFORCE_COURSES } from '@/lib/courses';
+import { WORKFORCE_DEPARTMENTS, WORKFORCE_TRAINING, getLessonCount, getCourseDurationLabel } from '@/lib/courses';
 import { getSessionUser } from '@/lib/server/auth';
 import { getDashboardData } from '@/lib/server/learning';
 import { WorkforceDepartmentTabs } from '@/components/portal/WorkforceDepartmentTabs';
@@ -26,28 +26,32 @@ export default async function WorkforceHubPage() {
   const user = await getSessionUser();
   const dashboard = user ? await getDashboardData(user.id) : null;
 
-  const statusMap: Record<
-    string,
-    {
-      courseSlug: string;
-      isEnrolled: boolean;
-      isCertified: boolean;
-      certificateCode?: string;
-      percent?: number;
-    }
-  > = {};
+  const trainingEntry = dashboard?.courses.find(
+    (c) => c.course.slug === WORKFORCE_TRAINING.slug
+  );
 
-  if (dashboard) {
-    for (const c of dashboard.courses) {
-      statusMap[c.course.slug] = {
-        courseSlug: c.course.slug,
-        isEnrolled: Boolean(c.enrolled),
-        isCertified: Boolean(c.certificate),
-        certificateCode: c.certificate?.code,
-        percent: c.percent,
-      };
-    }
-  }
+  const trainingStatus = {
+    isEnrolled: Boolean(trainingEntry?.enrolled),
+    isCertified: Boolean(trainingEntry?.certificate),
+    certificateCode: trainingEntry?.certificate?.code,
+    percent: trainingEntry?.percent ?? 0,
+  };
+
+  const training = {
+    slug: WORKFORCE_TRAINING.slug,
+    weeks: WORKFORCE_TRAINING.weeks,
+    lessonCount: getLessonCount(WORKFORCE_TRAINING),
+    durationLabel: getCourseDurationLabel(WORKFORCE_TRAINING),
+    passMark: WORKFORCE_TRAINING.exam.passMark,
+    examMinutes: WORKFORCE_TRAINING.exam.durationMinutes,
+    outcomes: WORKFORCE_TRAINING.outcomes,
+    modules: WORKFORCE_TRAINING.modules.map((m) => ({
+      id: m.id,
+      week: m.week,
+      title: m.title,
+      summary: m.summary,
+    })),
+  };
 
   return (
     <div className="w-full pb-20 pt-8 sm:pb-28 sm:pt-12">
@@ -141,9 +145,9 @@ export default async function WorkforceHubPage() {
 
             <div className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
               <span className="font-mono text-xs text-gold-400">03</span>
-              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Listen to audios</h3>
+              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Take the training</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
-                Stream the department audio teaching directly in your browser. Progress is saved as you listen.
+                Every department leads to the same workforce curriculum. Work through the lessons in your browser — progress is saved as you go.
               </p>
             </div>
 
@@ -170,11 +174,15 @@ export default async function WorkforceHubPage() {
               </h2>
             </div>
             <p className="max-w-sm text-[12.5px] text-cream-400">
-              Select any department tab to review its conditions, listen to the audio teaching, and sit the exam.
+              Pick any department to see what&apos;s required to join. Every department leads to the same common training curriculum and exam.
             </p>
           </div>
 
-          <WorkforceDepartmentTabs courses={WORKFORCE_COURSES} statusMap={statusMap} />
+          <WorkforceDepartmentTabs
+            departments={WORKFORCE_DEPARTMENTS}
+            training={training}
+            status={trainingStatus}
+          />
         </section>
 
         {/* ============================================================ LOCK NOTICE ON WORKER PORTAL */}

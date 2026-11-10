@@ -18,14 +18,14 @@ export default async function CoursesPage() {
   return (
     <div>
       <p className="mono-label text-gold-300">
-        {isWorkforce ? 'Workforce departments' : 'In-House Leadership Training'}
+        {isWorkforce ? 'Workforce training' : 'In-House Leadership Training'}
       </p>
       <h1 className="mt-2 text-[30px] font-semibold leading-[1.1] tracking-[-0.04em] text-cream-50 sm:text-[36px]">
-        {isWorkforce ? 'Department Formation Tracks' : 'Leadership Formation'}
+        {isWorkforce ? 'Workforce Formation' : 'Leadership Formation'}
       </h1>
       <p className="mt-2 max-w-xl text-[13.5px] leading-relaxed text-cream-400">
         {isWorkforce
-          ? 'Seven ministry departments open for service. Review department conditions, listen to the audio modules, pass the timed exam, and receive your certificate.'
+          ? 'One shared training for every department. Review the conditions, work through the modules, pass the timed exam, and receive your workforce certificate.'
           : 'In-house training for ministers and pastors. Finish every lesson to unlock the final exam. Each track allows one timed attempt and issues a verifiable certificate on passing.'}
       </p>
 

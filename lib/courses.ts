@@ -10,19 +10,11 @@
  * and update `media.file`, `media.durationSeconds`, and the poster path below.
  */
 
-import {
-  type DepartmentJobDescription,
-  type ResponsibilityGroup,
-  type HeadOfDepartment,
-  DEPARTMENT_JOB_DESCRIPTIONS,
-} from "./department-data";
-
-export type { DepartmentJobDescription, ResponsibilityGroup, HeadOfDepartment };
-
 export type CourseSlug =
   | 'foundation'
   | 'ministers'
   | 'pastors'
+  | 'workforce-training'
   | 'aesthetics'
   | 'pr'
   | 'protocol'
@@ -114,8 +106,6 @@ export interface Course {
     passMark: number;
     questionCount: number;
   };
-  /** Comprehensive Job Description, Member Responsibilities, Attributes, and HOD Profile */
-  jobDescription?: DepartmentJobDescription;
 }
 
 const FOUNDATION: Course = {
@@ -858,8 +848,318 @@ const departmentModule = (
   lessons: [lesson],
 });
 
+const readingLesson = (
+  id: string,
+  title: string,
+  summary: string,
+  estimatedMinutes: number,
+  body: string[],
+  keyPoints: string[],
+  scripture?: { reference: string; text: string }
+): Lesson => ({
+  id,
+  title,
+  kind: 'reading',
+  summary,
+  estimatedMinutes,
+  body,
+  keyPoints,
+  scripture,
+});
+
+// ===========================================================================
+// SHARED WORKFORCE TRAINING CURRICULUM
+// Every department leads to this one common training. Departments differ only
+// by the conditions required to join. When a worker starts any department they
+// are taken to this same curriculum and exam.
+// Facilitators: Martin Ochu, Dominion John, Adama Stephen.
+// ===========================================================================
+
+export const SHARED_WORKFORCE_WEEKS = 8;
+
+export const SHARED_WORKFORCE_OUTCOMES = [
+  'Explain the URPN mandate, vision, structure, and service units.',
+  'Grow in Christian character, spiritual formation, and daily discipline.',
+  'Carry a kingdom mindset into your assignment and sphere of influence.',
+  'Serve with excellence, honour, communication, and faithful stewardship.',
+];
+
+export const SHARED_WORKFORCE_EXAM = {
+  durationMinutes: 20,
+  passMark: 70,
+  questionCount: 12,
+};
+
+export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
+  {
+    id: 'wt-m1',
+    title: 'URPN in Focus',
+    week: 1,
+    summary: 'Facilitator: Martin Ochu — the mandate, vision, structure, and service units.',
+    lessons: [
+      readingLesson(
+        'wt-urpn-focus',
+        'URPN in Focus',
+        'The mandate, vision and mission, arms and structure, tenets, leadership, and the service units you can join.',
+        6,
+        [
+          'URPN is not a programme with a prayer meeting attached; it is a prophetic altar with a commission. The mandate is simple to say and costly to live: people, families, spheres, and territories are to be restored to their original divine ordination and taught to operate from that standpoint. Restoration is a return to blueprint, not a cosmetic repair.',
+          'This module settles the ground every worker stands on: the vision and mission of the network, the arms and structures that carry the work, the tenets and beliefs we hold, and the leadership and hierarchy that give the house order. Finally, it introduces the service units — the departments — so you can see where your gift is meant to serve.',
+          'Before you choose a place to serve, know the house you are serving. A worker who understands the mandate serves with conviction rather than mere duty, and carries the same burden into every assignment they are given.',
+        ],
+        [
+          'URPN Mandate — restoring people and spheres to their original ordination.',
+          'Vision and Mission of the network.',
+          'Arms and Structures of URPN.',
+          'Tenets and Beliefs we hold.',
+          'Leadership and Hierarchy.',
+          'Service Units (the URPN departments).',
+        ],
+        {
+          reference: 'Jeremiah 1:10',
+          text: 'See, I have this day set thee over the nations and over the kingdoms, to root out, and to pull down, and to destroy, and to throw down, to build, and to plant.',
+        }
+      ),
+    ],
+  },
+  {
+    id: 'wt-m2',
+    title: 'Christian Character & Spiritual Formation',
+    week: 2,
+    summary: 'Facilitator: Dominion John — character, the new man, and the fruit of the Spirit.',
+    lessons: [
+      readingLesson(
+        'wt-character',
+        'Christian Character & Spiritual Formation',
+        'The old and the new man, the fruit of the Spirit, overcoming fear and shame, and the concept of spiritual discipline.',
+        7,
+        [
+          'Ministry flows out of character before it flows out of gift. This module defines the basic concepts of Christian formation and the vital contrast between the old man and the new man — the self that is crucified and the self that is raised to walk in newness of life.',
+          'We then turn to the fruit of the Spirit for daily living, and to the inner battles that disqualify many capable workers: fear, shame, and the imposter syndrome that whispers you do not belong. The answer is identity before assignment — you serve from sonship, not from a need to be seen.',
+          'Character is proven in the unseen places: integrity, accountability, and moral excellence. These are sustained by spiritual discipline — the quiet, consistent habits of prayer and the Word that keep the fire burning when no one is watching.',
+        ],
+        [
+          'Definition of basic concepts of formation.',
+          'The old man and the new man.',
+          'The fruit of the Spirit for daily living.',
+          'Overcoming fear, shame, and imposter syndrome (esteem issues).',
+          'Integrity, accountability, and moral excellence.',
+          'The concept of spiritual discipline.',
+        ],
+        {
+          reference: 'Galatians 5:22-23',
+          text: 'But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith, meekness, temperance: against such there is no law.',
+        }
+      ),
+    ],
+  },
+  {
+    id: 'wt-m3',
+    title: 'Concept of the Kingdom',
+    week: 3,
+    summary: 'Facilitator: Dominion John — kingdom conquest, the Great Commission, and spheres of influence.',
+    lessons: [
+      readingLesson(
+        'wt-kingdom',
+        'Concept of the Kingdom',
+        'Biblical kingdom conquest, the Great Commission, the mountains of influence, and the weapons of our victory.',
+        7,
+        [
+          'The gospel is the gospel of a kingdom, not merely of personal comfort. This module introduces biblical kingdom conquest: the call to see the rule of God established in every place a believer is planted, and to disciple not only individuals but nations.',
+          'We read the Great Commission in view of kingdom conquest, then look at the mountains of influence — the spheres of family, government, education, media, arts, business, and religion — and the concept of assignments and placements. You are not deployed at random; you are positioned.',
+          'Finally we consider the weapons of our victory: the mystery of exemptions and fortification. Those who carry the kingdom are covered, set apart, and armed for the resistance that advance always provokes.',
+        ],
+        [
+          'Introduction to biblical kingdom conquest.',
+          'The Great Commission in view of kingdom conquest.',
+          'The mountains of influence; assignments and placements.',
+          'Weapons of our victory: the mystery of exemptions and fortification.',
+        ],
+        {
+          reference: 'Matthew 6:33',
+          text: 'But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you.',
+        }
+      ),
+    ],
+  },
+  {
+    id: 'wt-m4',
+    title: 'Kingdom Service & Stewardship',
+    week: 4,
+    summary: 'Facilitator: Martin Ochu — servant leadership, stewardship, and kingdom deployment.',
+    lessons: [
+      readingLesson(
+        'wt-service',
+        'Kingdom Service & Stewardship',
+        'Servant leadership principles, stewardship and resource management, and the concept of kingdom deployment.',
+        6,
+        [
+          'In the kingdom, greatness is measured by service. This module teaches servant leadership principles after the pattern of Christ, who did not come to be served but to serve and to give his life as a ransom for many.',
+          'We then study the concept of stewardship and resource management — the understanding that nothing we handle is finally ours. Time, money, people, and tools are entrusted to us, and faithfulness in little is the doorway to much.',
+          'The module closes with the concept of kingdom deployment: being sent, positioned, and released to serve where the house needs you, with a willing and teachable spirit.',
+        ],
+        [
+          'Servant leadership principles.',
+          'The concept of stewardship and resource management.',
+          'The concept of kingdom deployment.',
+        ],
+        {
+          reference: 'Mark 10:43-44',
+          text: 'But whosoever will be great among you, shall be your minister: And whosoever of you will be the chiefest, shall be servant of all.',
+        }
+      ),
+    ],
+  },
+  {
+    id: 'wt-m5',
+    title: 'Excellence: The Culture of the Throne',
+    week: 5,
+    summary: 'Facilitator: Adama Stephen — becoming a valuable, value-driven worker.',
+    lessons: [
+      readingLesson(
+        'wt-excellence',
+        'Excellence: The Culture of the Throne',
+        'Value and value-driven service, excellent service as kingdom advancement, and self-sufficiency and proficiency.',
+        6,
+        [
+          'Excellence is the culture of the throne. This module makes the case that becoming a valuable, value-driven worker is a core agenda for URPN — because a workforce that carries excellence becomes a means of kingdom advancement.',
+          'We examine the importance of excellent service: the difference between doing enough to get by and offering God your best. In the kingdom, excellence is not perfectionism or pride; it is honour expressed through the quality of your work.',
+          'The module also presses toward self-sufficiency and proficiency — growing in skill so that you are dependable, competent, and a credit to the house you represent.',
+        ],
+        [
+          'Value: becoming a valuable, value-driven worker.',
+          'The importance of excellent service.',
+          'Kingdom advancement through excellence.',
+          'Self-sufficiency and proficiency.',
+        ],
+        {
+          reference: 'Colossians 3:23',
+          text: 'And whatsoever ye do, do it heartily, as to the Lord, and not unto men.',
+        }
+      ),
+    ],
+  },
+  {
+    id: 'wt-m6',
+    title: 'Communication & Relational Skills',
+    week: 6,
+    summary: 'Facilitator: Martin Ochu — community life, honour, and handling offence.',
+    lessons: [
+      readingLesson(
+        'wt-communication',
+        'Communication & Relational Skills',
+        'Christian community life, URPN communication expectations, honour, protocol, and dealing with offence.',
+        7,
+        [
+          'The health of a workforce is the health of its relationships. This module begins with Christian community life after the pattern of the Acts Jerusalem church — a people in fellowship, sharing, and single-hearted devotion.',
+          'We set the URPN communication expectation: effective listening and feedback, public interactions, leadership communication, and the permissions and protocols that keep a large house in order. Communication is not only what you say; it is how, when, and to whom you say it.',
+          'Finally we study the laws of honour and the right way to deal with offence and grievances. Offences will come; honour is the culture that keeps them from becoming division.',
+        ],
+        [
+          'Christian community life (the Acts Jerusalem church).',
+          'URPN communication expectation.',
+          'Effective listening and feedback.',
+          'Public interactions and leadership communication.',
+          'Permissions and protocols.',
+          'The laws of honour.',
+          'Dealing with offence and grievances.',
+        ],
+        {
+          reference: 'Ephesians 4:29',
+          text: 'Let no corrupt communication proceed out of your mouth, but that which is good to the use of edifying, that it may minister grace unto the hearers.',
+        }
+      ),
+    ],
+  },
+  {
+    id: 'wt-m7',
+    title: 'Personal Development',
+    week: 7,
+    summary: 'Facilitator: Dominion John — growth, the call, priesthood, and biblical economics.',
+    lessons: [
+      readingLesson(
+        'wt-development',
+        'Personal Development',
+        'Growth and resilience, spiritual stability, the call and priesthood, and biblical economics and financial stewardship.',
+        8,
+        [
+          'A worker is a growing thing. This module teaches the concept of growth, resilience, and lifelong development, and the spiritual stability that keeps you planted when seasons change.',
+          'We revisit the assignment and the call, the place of spiritual discipline, and the priesthood every believer carries. Service is not a hobby; it is the outworking of a calling and a priestly identity.',
+          'The module then opens the door to biblical economics and prosperity: financial stewardship, the financial laws of the kingdom, and the laws of seasons — understanding timing so that you sow, work, and reap in step with God.',
+        ],
+        [
+          'Growth, resilience, and lifelong development.',
+          'Spiritual stability.',
+          'The assignment and the call; priesthood.',
+          'Biblical economics and prosperity.',
+          'Financial stewardship and financial laws.',
+          'The laws of seasons.',
+        ],
+        {
+          reference: 'Galatians 6:9',
+          text: 'And let us not be weary in well doing: for in due season we shall reap, if we faint not.',
+        }
+      ),
+    ],
+  },
+  {
+    id: 'wt-m8',
+    title: 'Management',
+    week: 8,
+    summary: 'Facilitator: Adama Stephen — time, problem-solving, and learning.',
+    lessons: [
+      readingLesson(
+        'wt-management',
+        'Management',
+        'Time management, critical thinking and problem-solving, and literacy and academic success principles.',
+        6,
+        [
+          'Good intentions are organised by good management. This final module equips you with the practical disciplines that make service sustainable, beginning with time management — stewarding the hours entrusted to you.',
+          'We then build the muscles of critical thinking and problem-solving, so that you meet obstacles with wisdom rather than panic, and bring solutions rather than only complaints.',
+          'The module closes with literacy and academic success principles — a commitment to keep learning, reading, and sharpening, because a worker who keeps growing keeps being useful to the house and to the kingdom.',
+        ],
+        [
+          'Time management.',
+          'Critical thinking and problem-solving.',
+          'Literacy and academic success principles.',
+        ],
+        {
+          reference: 'Ephesians 5:15-16',
+          text: 'See then that ye walk circumspectly, not as fools, but as wise, Redeeming the time, because the days are evil.',
+        }
+      ),
+    ],
+  },
+];
+
+/**
+ * The single shared workforce course. Every department funnels into this one
+ * common training and the same certification exam.
+ */
+export const WORKFORCE_TRAINING: Course = {
+  slug: 'workforce-training',
+  code: 'URPN WF',
+  title: 'URPN Workforce Training',
+  shortTitle: 'Workforce Training',
+  icon: 'sparkles',
+  track: 'workforce',
+  tagline: 'The one formation every worker completes.',
+  description:
+    'The common training for every intending URPN worker, across all departments. Work through the eight-week curriculum, pass the timed exam, and receive your verified workforce certificate.',
+  audience: 'Every intending URPN workforce member, across all departments.',
+  conditions: [
+    'Born again and committed to the vision of URPN.',
+    'Willing to be trained, corrected, and held accountable.',
+    'Committed to completing the lessons and the certification exam.',
+  ],
+  weeks: SHARED_WORKFORCE_WEEKS,
+  outcomes: SHARED_WORKFORCE_OUTCOMES,
+  prerequisites: [],
+  modules: SHARED_WORKFORCE_MODULES,
+  exam: SHARED_WORKFORCE_EXAM,
+};
+
 const MEDIA: Course = {
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['media'],
   slug: 'media',
   code: 'URPN MEDIA',
   title: 'URPN Media Department',
@@ -945,7 +1245,6 @@ const MEDIA: Course = {
 };
 
 const TECHNICAL: Course = {
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['technical'],
   slug: 'technical',
   code: 'URPN TECH',
   title: 'URPN Technical Department',
@@ -1030,7 +1329,6 @@ const TECHNICAL: Course = {
 };
 
 const USHERING: Course = {
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['ushering'],
   slug: 'ushering',
   code: 'URPN USHER',
   title: 'URPN Ushering Department',
@@ -1115,7 +1413,6 @@ const USHERING: Course = {
 };
 
 const PROTOCOL: Course = {
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['protocol'],
   slug: 'protocol',
   code: 'URPN PROTOCOL',
   title: 'URPN Protocol Department',
@@ -1200,7 +1497,6 @@ const PROTOCOL: Course = {
 };
 
 const CHOIR: Course = {
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['choir'],
   slug: 'choir',
   code: 'URPN CHOIR',
   title: 'URPN Choir Department',
@@ -1285,7 +1581,6 @@ const CHOIR: Course = {
 };
 
 const WELFARE: Course = {
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['welfare'],
   slug: 'welfare',
   code: 'URPN WELFARE',
   title: 'URPN Welfare Department',
@@ -1371,7 +1666,6 @@ const WELFARE: Course = {
 };
 
 const CHILDREN: Course = {
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['children'],
   slug: 'children',
   code: 'URPN KIDS',
   title: 'URPN Children Department',
@@ -1482,7 +1776,6 @@ const AESTHETICS: Course = {
     'Willingness to learn and adapt to contemporary sanctuary trends and technologies.',
   ],
   prerequisites: [],
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['aesthetics'],
   modules: [
     departmentModule(
       'aesthetics-m1',
@@ -1566,7 +1859,6 @@ const PR: Course = {
     'Punctual and proactive in communications and follow-up reporting.',
   ],
   prerequisites: [],
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['pr'],
   modules: [
     departmentModule(
       'pr-m1',
@@ -1650,7 +1942,6 @@ const PRAYER: Course = {
     'Spiritual humility, obedience to leadership, and doctrinal stability.',
   ],
   prerequisites: [],
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['prayer'],
   modules: [
     departmentModule(
       'prayer-m1',
@@ -1734,7 +2025,6 @@ const COUNSELING: Course = {
     'Continual personal emotional and spiritual health.',
   ],
   prerequisites: [],
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['counseling'],
   modules: [
     departmentModule(
       'counseling-m1',
@@ -1818,7 +2108,6 @@ const TRANSPORT: Course = {
     'Courteous customer-service attitude towards all riders.',
   ],
   prerequisites: [],
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['transport'],
   modules: [
     departmentModule(
       'transport-m1',
@@ -1902,7 +2191,6 @@ const MEDICAL: Course = {
     'Compassionate, gentle demeanor with patients of all ages.',
   ],
   prerequisites: [],
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['medical'],
   modules: [
     departmentModule(
       'medical-m1',
@@ -1986,7 +2274,6 @@ const SECURITY: Course = {
     'Clear criminal record and willingness to undergo background checks.',
   ],
   prerequisites: [],
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['security'],
   modules: [
     departmentModule(
       'security-m1',
@@ -2070,7 +2357,6 @@ const PUBLICATIONS: Course = {
     'Heart for mentoring students and youths toward academic excellence.',
   ],
   prerequisites: [],
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['publications'],
   modules: [
     departmentModule(
       'publications-m1',
@@ -2154,7 +2440,6 @@ const DRAMA: Course = {
     'Consecration of creative gifts solely for God’s glory and gospel impact.',
   ],
   prerequisites: [],
-  jobDescription: DEPARTMENT_JOB_DESCRIPTIONS['drama'],
   modules: [
     departmentModule(
       'drama-m1',
@@ -2212,7 +2497,34 @@ const DRAMA: Course = {
   exam: { durationMinutes: 20, passMark: 70, questionCount: 8 },
 };
 
-export const WORKFORCE_COURSES: Course[] = [
+/**
+ * Lightweight department entries for the public workforce hub. A department is
+ * no longer its own course — every department funnels into the single shared
+ * WORKFORCE_TRAINING course. A department only carries what is required to join.
+ */
+export interface Department {
+  slug: string;
+  code: string;
+  title: string;
+  shortTitle: string;
+  tagline: string;
+  description: string;
+  icon?: string;
+  conditions: string[];
+}
+
+const toDepartment = (course: Course): Department => ({
+  slug: course.slug,
+  code: course.code,
+  title: course.title,
+  shortTitle: course.shortTitle,
+  tagline: course.tagline,
+  description: course.description,
+  icon: course.icon,
+  conditions: course.conditions,
+});
+
+export const WORKFORCE_DEPARTMENTS: Department[] = [
   AESTHETICS,
   PR,
   PROTOCOL,
@@ -2229,8 +2541,10 @@ export const WORKFORCE_COURSES: Course[] = [
   CHILDREN,
   PUBLICATIONS,
   DRAMA,
-];
+].map(toDepartment);
 
+/** The single enrollable workforce course that every department leads to. */
+export const WORKFORCE_COURSES: Course[] = [WORKFORCE_TRAINING];
 
 export const LEADERSHIP_COURSES: Course[] = [MINISTERS, PASTORS];
 

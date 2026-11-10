@@ -7,7 +7,7 @@ import { getSessionUser } from '@/lib/server/auth';
 import { UrpnLogo } from '@/components/UrpnLogo';
 import { AuthForm } from '@/components/portal/AuthForm';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { WORKFORCE_COURSES } from '@/lib/courses';
+import { WORKFORCE_DEPARTMENTS } from '@/lib/courses';
 
 export const metadata: Metadata = {
   title: 'Workforce Sign In · URPN',
@@ -75,19 +75,19 @@ export default async function WorkforceLoginPage() {
           </p>
 
           <div className="mt-8 space-y-px overflow-hidden rounded-xl border border-line bg-line">
-            {WORKFORCE_COURSES.map((course, index) => (
+            {WORKFORCE_DEPARTMENTS.map((department, index) => (
               <div
-                key={course.slug}
+                key={department.slug}
                 className="flex items-center justify-between gap-4 bg-surface/80 px-4 py-2.5"
               >
                 <div className="flex items-center gap-2.5">
                   <span className="font-mono text-[9px] text-cream-600">0{index + 1}</span>
                   <span className="text-[12.5px] font-medium text-cream-100">
-                    {course.shortTitle} Department
+                    {department.shortTitle} Department
                   </span>
                 </div>
                 <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-cream-500">
-                  {course.exam.durationMinutes} min exam
+                  {department.conditions.length} conditions
                 </span>
               </div>
             ))}
