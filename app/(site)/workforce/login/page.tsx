@@ -16,9 +16,19 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic';
 
-export default async function WorkforceLoginPage() {
+export default async function WorkforceLoginPage({
+  searchParams,
+}: {
+  searchParams: { next?: string };
+}) {
+  const requestedNext = typeof searchParams.next === 'string' ? searchParams.next : '';
+  const nextPath =
+    requestedNext.startsWith('/portal') && !requestedNext.startsWith('//')
+      ? requestedNext
+      : '/workforce';
+
   const user = await getSessionUser();
-  if (user) redirect('/workforce');
+  if (user) redirect(nextPath);
 
   return (
     <div className="grid min-h-[100dvh] lg:grid-cols-[1fr_1.05fr]">
@@ -44,7 +54,7 @@ export default async function WorkforceLoginPage() {
             <AuthForm
               initialMode="signin"
               showDemo={false}
-              nextPath="/workforce"
+              nextPath={nextPath}
               portalType="workforce"
             />
           </div>
@@ -114,4 +124,3 @@ export default async function WorkforceLoginPage() {
     </div>
   );
 }
-

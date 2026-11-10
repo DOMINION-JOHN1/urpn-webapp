@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   Award,
-  BookOpen,
   Check,
   CheckCircle2,
   Cpu,
@@ -13,11 +12,9 @@ import {
   Music,
   ShieldCheck,
   Sparkles,
-  Timer,
   Users,
   Baby,
   ArrowRight,
-  Clock,
   Layers,
   Palette,
   Megaphone,
@@ -50,22 +47,9 @@ const ICONS: Record<string, React.ElementType> = {
   drama: Clapperboard,
 };
 
-interface TrainingModuleSummary {
-  id: string;
-  week: number;
-  title: string;
-  summary: string;
-}
-
 interface TrainingSummary {
   slug: string;
-  weeks: number;
-  lessonCount: number;
-  durationLabel: string;
-  passMark: number;
-  examMinutes: number;
   outcomes: string[];
-  modules: TrainingModuleSummary[];
 }
 
 interface TrainingStatus {
@@ -79,17 +63,21 @@ interface Props {
   departments: Department[];
   training: TrainingSummary;
   status: TrainingStatus;
+  isAuthenticated: boolean;
 }
 
-export function WorkforceDepartmentTabs({ departments, training, status }: Props) {
+export function WorkforceDepartmentTabs({ departments, training, status, isAuthenticated }: Props) {
   const [activeSlug, setActiveSlug] = useState<string>('all');
 
   const selected = departments.find((d) => d.slug === activeSlug);
 
-  const startHref = `/portal/courses/${training.slug}`;
+  const courseHref = `/portal/courses/${training.slug}`;
+  const startHref = isAuthenticated
+    ? courseHref
+    : `/workforce/login?next=${encodeURIComponent(courseHref)}`;
   const certificateHref = status.certificateCode
     ? `/portal/certificates/${status.certificateCode}`
-    : startHref;
+    : courseHref;
 
   // A single shared course, so the call-to-action is the same everywhere.
   const PrimaryCta = ({ className = 'btn btn-primary' }: { className?: string }) =>
@@ -117,60 +105,6 @@ export function WorkforceDepartmentTabs({ departments, training, status }: Props
         Enrolled ({status.percent}%)
       </span>
     ) : null;
-
-  const CurriculumCard = () => (
-    <div className="rounded-2xl border border-line-soft bg-canvas/40 p-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <BookOpen className="h-4 w-4 text-accent" />
-          <h4 className="text-sm font-semibold text-cream-50">The training curriculum</h4>
-        </div>
-        <span className="rounded-full border border-gold-400/30 bg-gold-400/10 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-gold-300">
-          One course for every department
-        </span>
-      </div>
-
-      <div className="mt-3 flex flex-wrap items-center gap-4 border-y border-line-soft py-3 text-xs text-cream-400">
-        <span className="flex items-center gap-1.5">
-          <BookOpen className="h-4 w-4 text-accent" />
-          <strong>{training.lessonCount} lessons</strong>
-        </span>
-        <span className="flex items-center gap-1.5">
-          <Clock className="h-4 w-4 text-gold-400" />
-          <span>
-            {training.durationLabel} · {training.weeks} weeks
-          </span>
-        </span>
-        <span className="flex items-center gap-1.5">
-          <Timer className="h-4 w-4 text-cream-400" />
-          <span>{training.examMinutes}-minute exam</span>
-        </span>
-        <span className="flex items-center gap-1.5">
-          <Award className="h-4 w-4 text-gold-400" />
-          <span>Pass mark: {training.passMark}%</span>
-        </span>
-      </div>
-
-      <div className="mt-4 space-y-2.5">
-        {training.modules.map((m) => (
-          <div
-            key={m.id}
-            className="flex flex-col gap-1 rounded-xl border border-line bg-surface/50 p-4 sm:flex-row sm:items-center sm:justify-between"
-          >
-            <div className="flex items-start gap-2.5">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-gold-400 shrink-0 pt-0.5">
-                Wk {m.week}
-              </span>
-              <span className="text-[13px] font-medium text-cream-100">{m.title}</span>
-            </div>
-            <span className="text-[11px] leading-relaxed text-cream-500 sm:text-right sm:max-w-xs">
-              {m.summary}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 
   return (
     <div>
@@ -283,7 +217,7 @@ export function WorkforceDepartmentTabs({ departments, training, status }: Props
                       <h4 className="text-sm font-semibold text-cream-50">What you&apos;ll gain</h4>
                     </div>
                     <p className="mt-1 text-xs text-cream-500">
-                      Every department completes the same workforce training below.
+                      Every department completes the same workforce training before certification.
                     </p>
                     <ul className="mt-4 space-y-2 text-xs text-cream-300">
                       {training.outcomes.map((outcome, idx) => (
@@ -294,11 +228,6 @@ export function WorkforceDepartmentTabs({ departments, training, status }: Props
                       ))}
                     </ul>
                   </div>
-                </div>
-
-                {/* Shared curriculum */}
-                <div className="mt-6">
-                  <CurriculumCard />
                 </div>
 
                 <div className="mt-6 flex flex-col items-start gap-3 rounded-2xl border border-gold-500/20 bg-gold-500/5 p-5 sm:flex-row sm:items-center sm:justify-between">
@@ -382,10 +311,6 @@ export function WorkforceDepartmentTabs({ departments, training, status }: Props
             })}
           </div>
 
-          {/* Shared curriculum shown once, below the grid */}
-          <div className="mt-8 animate-fade-in">
-            <CurriculumCard />
-          </div>
         </>
       )}
     </div>

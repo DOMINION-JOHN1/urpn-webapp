@@ -14,8 +14,9 @@ export function middleware(request: NextRequest) {
   if (!pathname.startsWith('/portal')) return NextResponse.next();
   if (request.cookies.has(SESSION_COOKIE)) return NextResponse.next();
 
+  const isWorkforceCoursePath = pathname.startsWith('/portal/courses/workforce-training');
   const loginUrl = request.nextUrl.clone();
-  loginUrl.pathname = '/portal/login';
+  loginUrl.pathname = isWorkforceCoursePath ? '/workforce/login' : '/portal/login';
   loginUrl.search = '';
   loginUrl.searchParams.set('next', `${pathname}${search}`);
   return NextResponse.redirect(loginUrl);

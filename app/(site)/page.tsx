@@ -114,31 +114,10 @@ export default function HomePage() {
                     </p>
                   </div>
 
-                  <div className="space-y-2.5 pt-2 border-t border-line-soft">
-                    <div className="flex items-center justify-between rounded-xl border border-line-soft bg-canvas/50 px-3.5 py-2.5 text-xs">
-                      <span className="font-medium text-cream-100 flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                        Monday Altar of Fire
-                      </span>
-                      <span className="font-mono text-[10px] text-cream-400">9:00 PM</span>
-                    </div>
-
-                    <div className="flex items-center justify-between rounded-xl border border-line-soft bg-canvas/50 px-3.5 py-2.5 text-xs">
-                      <span className="font-medium text-cream-100 flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
-                        Thursday Word &amp; Power
-                      </span>
-                      <span className="font-mono text-[10px] text-cream-400">5:00 PM</span>
-                    </div>
-
-                    <div className="flex items-center justify-between rounded-xl border border-line-soft bg-canvas/50 px-3.5 py-2.5 text-xs">
-                      <span className="font-medium text-cream-100 flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                        Sunday Apostolic Gathering
-                      </span>
-                      <span className="font-mono text-[10px] text-cream-400">8:30 AM</span>
-                    </div>
-                  </div>
+                  <p className="border-t border-line-soft pt-3 text-[12.5px] leading-relaxed text-cream-400">
+                    Join daily weekday prayers, The Weekly Furnace, Intensify vigil, Kingdomite
+                    gatherings, and our annual Convergence.
+                  </p>
 
                   <div className="pt-2">
                     <Link

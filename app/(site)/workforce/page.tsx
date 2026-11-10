@@ -9,7 +9,7 @@ import {
   UserPlus,
   ArrowUpRight,
 } from 'lucide-react';
-import { WORKFORCE_DEPARTMENTS, WORKFORCE_TRAINING, getLessonCount, getCourseDurationLabel } from '@/lib/courses';
+import { WORKFORCE_DEPARTMENTS, WORKFORCE_TRAINING } from '@/lib/courses';
 import { getSessionUser } from '@/lib/server/auth';
 import { getDashboardData } from '@/lib/server/learning';
 import { WorkforceDepartmentTabs } from '@/components/portal/WorkforceDepartmentTabs';
@@ -39,18 +39,7 @@ export default async function WorkforceHubPage() {
 
   const training = {
     slug: WORKFORCE_TRAINING.slug,
-    weeks: WORKFORCE_TRAINING.weeks,
-    lessonCount: getLessonCount(WORKFORCE_TRAINING),
-    durationLabel: getCourseDurationLabel(WORKFORCE_TRAINING),
-    passMark: WORKFORCE_TRAINING.exam.passMark,
-    examMinutes: WORKFORCE_TRAINING.exam.durationMinutes,
     outcomes: WORKFORCE_TRAINING.outcomes,
-    modules: WORKFORCE_TRAINING.modules.map((m) => ({
-      id: m.id,
-      week: m.week,
-      title: m.title,
-      summary: m.summary,
-    })),
   };
 
   return (
@@ -182,6 +171,7 @@ export default async function WorkforceHubPage() {
             departments={WORKFORCE_DEPARTMENTS}
             training={training}
             status={trainingStatus}
+            isAuthenticated={Boolean(user)}
           />
         </section>
 
@@ -207,4 +197,3 @@ export default async function WorkforceHubPage() {
     </div>
   );
 }
-

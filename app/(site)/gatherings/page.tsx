@@ -14,7 +14,7 @@ import { MeetingSchedule } from '@/components/MeetingSchedule';
 export const metadata: Metadata = {
   title: 'Gatherings & Schedules · Unique Revival Prayer Network',
   description:
-    'Join our monthly Kingdomite gatherings, weekly Furnace prayer services, and daily weekday altars in Lokoja, Kogi State and online.',
+    'Join our daily weekday prayers, Weekly Furnace, Intensify vigil, third-weekend Kingdomite, and annual August Convergence in Lokoja, Kogi State and online.',
 };
 
 export default function GatheringsPage() {
@@ -40,7 +40,7 @@ export default function GatheringsPage() {
             </h1>
 
             <p className="mt-6 text-[15px] leading-[1.75] text-cream-400 sm:text-[16px]">
-              URPN is a prayer network before it is anything else. Join us for our flagship monthly Kingdomite, weekly Furnace fire services, and daily weekday intercession altars. Add dates directly to your Google Calendar.
+              URPN is a prayer network before it is anything else. Join us for daily weekday prayers, The Weekly Furnace, Intensify vigil, Kingdomite every third weekend, and annual Convergence in August. Add dates directly to your Google Calendar.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -85,4 +85,3 @@ export default function GatheringsPage() {
     </div>
   );
 }
-

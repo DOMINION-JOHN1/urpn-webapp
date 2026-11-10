@@ -40,8 +40,8 @@ const MEETINGS: MeetingEvent[] = [
     id: 'kingdomite',
     title: 'Monthly Kingdomite',
     category: 'Flagship gathering',
-    scheduleLabel: '3rd Friday (4 PM) · 3rd Saturday (9 AM & 4 PM)',
-    timeDisplay: 'Friday 4:00 PM | Saturday 9:00 AM & 4:00 PM',
+    scheduleLabel: 'Every 3rd weekend',
+    timeDisplay: '3rd Friday & Saturday (WAT)',
     description:
       'The flagship monthly URPN gathering — two days of apostolic impartation, prophetic intercession, and territorial alignment over Kogi State and beyond.',
     location: "St. Luke's Anglican Church, Adankolo",
@@ -62,18 +62,18 @@ const MEETINGS: MeetingEvent[] = [
     id: 'weekly-furnace',
     title: 'The Weekly Furnace',
     category: 'Weekly fire service',
-    scheduleLabel: 'Every Thursday (non-Kingdomite weeks) · 4:00 PM',
+    scheduleLabel: 'Every Thursday · 4:00 PM',
     timeDisplay: 'Thursdays 4:00 PM (WAT)',
     description:
-      'A burning altar every Thursday of the month except during Kingdomite week. Intense prayer, prophetic fire, and the living Word at the URPN Family House.',
+      'A burning altar every Thursday at the URPN Family House. Intense prayer, prophetic fire, and the living Word.',
     location: 'URPN Family House',
     icon: <Flame className="h-4 w-4" />,
     googleCalendarUrl:
-      'https://calendar.google.com/calendar/render?action=TEMPLATE&text=URPN+The+Weekly+Furnace&details=Weekly+Furnace+prayer+and+prophetic+fire+at+URPN+Family+House+%284PM%29.+Every+Thursday+except+Kingdomite+week.&location=URPN+Family+House&recur=RRULE:FREQ=WEEKLY;BYDAY=TH',
+      'https://calendar.google.com/calendar/render?action=TEMPLATE&text=URPN+The+Weekly+Furnace&details=Weekly+Furnace+prayer+and+prophetic+fire+at+URPN+Family+House+%284PM%29.+Every+Thursday.&location=URPN+Family+House&recur=RRULE:FREQ=WEEKLY;BYDAY=TH',
     icsData: {
       title: 'URPN The Weekly Furnace',
       description:
-        'The Weekly Furnace — prayer and prophetic fire at URPN Family House (4PM). Every Thursday except Kingdomite week.',
+        'The Weekly Furnace — prayer and prophetic fire at URPN Family House (4PM). Every Thursday.',
       location: 'URPN Family House',
       startHour: '160000',
       endHour: '180000',
@@ -102,25 +102,25 @@ const MEETINGS: MeetingEvent[] = [
     },
   },
   {
-    id: 'prayer-stretch',
-    title: '12-Hour Prayer Stretch',
-    category: 'Monthly prayer marathon',
-    scheduleLabel: '4th Saturday · 6:00 AM – 6:00 PM',
-    timeDisplay: '4th Saturday — 6:00 AM to 6:00 PM (WAT)',
+    id: 'convergence',
+    title: 'Convergence',
+    category: 'Annual gathering',
+    scheduleLabel: 'Once a year · Every August',
+    timeDisplay: 'Annual gathering in August (WAT)',
     description:
-      'A full 12-hour prayer marathon on the fourth Saturday of every month — intercession, territorial warfare, and apostolic decrees for breakthrough.',
+      'A once-a-year apostolic convergence in August for deep alignment, impartation, and territorial commissioning.',
     location: 'URPN Family House',
     icon: <Zap className="h-4 w-4" />,
     googleCalendarUrl:
-      'https://calendar.google.com/calendar/render?action=TEMPLATE&text=URPN+12-Hour+Prayer+Stretch&details=12-hour+prayer+marathon+at+URPN+Family+House.+6AM+to+6PM+on+the+4th+Saturday+of+every+month.&location=URPN+Family+House&recur=RRULE:FREQ=MONTHLY;BYDAY=4SA',
+      'https://calendar.google.com/calendar/render?action=TEMPLATE&text=URPN+Convergence&details=URPN+annual+Convergence+gathering+in+August.&location=URPN+Family+House&recur=RRULE:FREQ=YEARLY;BYMONTH=8',
     icsData: {
-      title: 'URPN 12-Hour Prayer Stretch',
+      title: 'URPN Convergence',
       description:
-        '12-hour prayer marathon at URPN Family House. 6AM to 6PM on the 4th Saturday of every month.',
+        'URPN annual Convergence gathering in August.',
       location: 'URPN Family House',
-      startHour: '060000',
-      endHour: '180000',
-      recurrenceRule: 'FREQ=MONTHLY;BYDAY=4SA',
+      startHour: '090000',
+      endHour: '170000',
+      recurrenceRule: 'FREQ=YEARLY;BYMONTH=8',
     },
   },
   {
