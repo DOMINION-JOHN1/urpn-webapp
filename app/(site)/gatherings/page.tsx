@@ -10,7 +10,7 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { MeetingSchedule } from '@/components/MeetingSchedule';
-import { EventFlyers } from '@/components/EventFlyers';
+import { CommunityNotices } from '@/components/CommunityNotices';
 
 export const metadata: Metadata = {
   title: 'Gatherings & Schedules · Unique Revival Prayer Network',
@@ -83,7 +83,7 @@ export default function GatheringsPage() {
           </div>
         </section>
 
-        <EventFlyers />
+        <CommunityNotices />
       </div>
     </div>
   );

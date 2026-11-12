@@ -7,16 +7,18 @@ import { hashPasswordSync } from './password';
 import { COURSES, getAllLessons } from '../courses';
 
 /**
- * A deliberately small JSON-backed store so the portal runs with zero external
- * services. Writes are serialised in-process and committed atomically.
- *
- * Production note: on platforms with an ephemeral filesystem (e.g. Vercel's
- * serverless functions), point URPN_DATA_DIR at a persistent volume or replace
- * this module with your database of choice. All reads/writes go through
- * `readDb` / `mutateDb`, so the rest of the app does not need to change.
+ * The local portal store is a small JSON file. When Supabase credentials are
+ * configured, the same state uses a private Postgres JSONB row with atomic
+ * revision checks, so serverless instances share one durable source of truth.
  */
 
 const DB_FILENAME = 'urpn-db.json';
+const SUPABASE_STATE_ID = 'main';
+
+interface SupabaseStateRow {
+  revision: number;
+  state: Database;
+}
 
 let writeQueue: Promise<unknown> = Promise.resolve();
 let seedPromise: Promise<void> | null = null;
@@ -30,6 +32,88 @@ export function getDataDir(): string {
 
 export function getDbPath(): string {
   return path.join(getDataDir(), DB_FILENAME);
+}
+
+function supabaseStateConfig() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/+$/, '');
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  return url && serviceRoleKey ? { url, serviceRoleKey } : null;
+}
+
+export function isSupabaseStateConfigured(): boolean {
+  return Boolean(supabaseStateConfig());
+}
+
+function supabaseHeaders(serviceRoleKey: string): HeadersInit {
+  return {
+    apikey: serviceRoleKey,
+    Authorization: `Bearer ${serviceRoleKey}`,
+    'Content-Type': 'application/json',
+  };
+}
+
+async function readSupabaseState(): Promise<SupabaseStateRow | null> {
+  const config = supabaseStateConfig();
+  if (!config) return null;
+
+  const response = await fetch(
+    `${config.url}/rest/v1/urpn_app_state?id=eq.${SUPABASE_STATE_ID}&select=revision,state`,
+    { headers: supabaseHeaders(config.serviceRoleKey), cache: 'no-store' }
+  );
+  if (!response.ok) {
+    throw new Error(`Persistent database read failed (${response.status}).`);
+  }
+
+  const rows = (await response.json()) as SupabaseStateRow[];
+  return rows[0] ?? null;
+}
+
+async function createSupabaseState(state: Database): Promise<void> {
+  const config = supabaseStateConfig();
+  if (!config) return;
+
+  const response = await fetch(`${config.url}/rest/v1/urpn_app_state?on_conflict=id`, {
+    method: 'POST',
+    headers: {
+      ...supabaseHeaders(config.serviceRoleKey),
+      Prefer: 'resolution=ignore-duplicates,return=minimal',
+    },
+    body: JSON.stringify({ id: SUPABASE_STATE_ID, revision: 0, state }),
+    cache: 'no-store',
+  });
+  if (!response.ok) {
+    throw new Error(`Persistent database initialization failed (${response.status}).`);
+  }
+}
+
+async function commitSupabaseState(state: Database, expectedRevision: number): Promise<boolean> {
+  const config = supabaseStateConfig();
+  if (!config) return false;
+
+  const response = await fetch(`${config.url}/rest/v1/rpc/urpn_commit_state`, {
+    method: 'POST',
+    headers: supabaseHeaders(config.serviceRoleKey),
+    body: JSON.stringify({ p_state: state, p_expected_revision: expectedRevision }),
+    cache: 'no-store',
+  });
+  if (!response.ok) {
+    throw new Error(`Persistent database write failed (${response.status}).`);
+  }
+  return (await response.json()) === true;
+}
+
+async function mutateSupabaseState<T>(mutator: (db: Database) => T | Promise<T>): Promise<T> {
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    await ensureSeeded();
+    const current = await readSupabaseState();
+    if (!current) continue;
+
+    const draft = JSON.parse(JSON.stringify(current.state)) as Database;
+    const result = await mutator(draft);
+    if (await commitSupabaseState(draft, current.revision)) return result;
+  }
+
+  throw new Error('Persistent database update conflicted too many times.');
 }
 
 async function exists(file: string): Promise<boolean> {
@@ -149,6 +233,23 @@ async function writeDb(db: Database): Promise<void> {
 }
 
 async function ensureSeeded(): Promise<void> {
+  if (isSupabaseStateConfigured()) {
+    if (await readSupabaseState()) return;
+    if (!seedPromise) {
+      seedPromise = (async () => {
+        if (await readSupabaseState()) return;
+        await createSupabaseState(buildSeed());
+      })();
+    }
+    try {
+      await seedPromise;
+    } catch (error) {
+      seedPromise = null;
+      throw error;
+    }
+    return;
+  }
+
   if (await exists(getDbPath())) return;
   if (!seedPromise) {
     seedPromise = (async () => {
@@ -157,11 +258,21 @@ async function ensureSeeded(): Promise<void> {
       await writeDb(buildSeed());
     })();
   }
-  await seedPromise;
+  try {
+    await seedPromise;
+  } catch (error) {
+    seedPromise = null;
+    throw error;
+  }
 }
 
 export async function readDb(): Promise<Database> {
   await ensureSeeded();
+  if (isSupabaseStateConfigured()) {
+    const row = await readSupabaseState();
+    if (!row) throw new Error('Persistent database state is missing.');
+    return row.state;
+  }
   const raw = await fs.readFile(getDbPath(), 'utf8');
   return JSON.parse(raw) as Database;
 }
@@ -172,6 +283,7 @@ export async function readDb(): Promise<Database> {
  */
 export function mutateDb<T>(mutator: (db: Database) => T | Promise<T>): Promise<T> {
   const run = writeQueue.then(async () => {
+    if (isSupabaseStateConfigured()) return mutateSupabaseState(mutator);
     await ensureSeeded();
     const db = await readDb();
     const result = await mutator(db);

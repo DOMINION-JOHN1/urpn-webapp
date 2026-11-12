@@ -153,12 +153,14 @@ python3 scripts/generate-demo-media.py    # macOS `say` + ffmpeg
 - Sessions: HMAC-SHA256 signed token in an HTTP-only, SameSite=Lax cookie (30 days). Set `AUTH_SECRET` in production so sessions survive restarts and multiple instances.
 - Login and registration are rate-limited in memory. Use a shared limiter if you run multiple instances.
 - Registration is open by default. If the portal should be invite-only, gate `/api/auth/register` with an invite code or remove the “Create an account” link.
-- `middleware.ts` preserves the intended course/lesson URL through sign-in (`/portal/login?next=...`), so marketing course links land in the right place after login.
-- Data lives in a small JSON store at `data/urpn-db.json` (override with `URPN_DATA_DIR`). Writes are serialized and committed atomically. All persistence goes through `lib/server/db.ts`, so replacing it with Postgres, SQLite, or Vercel KV only requires changing that module.
+- `middleware.ts` preserves the intended workforce course URL through registration (`/workforce/register?next=...`) and the staff course URL through sign-in, so users return to the track they requested.
+- Local development stores data in `data/urpn-db.json` (override with `URPN_DATA_DIR`). Production can use the private Supabase state table; writes use revision checks so concurrent serverless requests do not overwrite one another.
 
 ### Production persistence
 
-`data/` is git-ignored. On a VPS or any host with a persistent writable volume, set `URPN_DATA_DIR` to that volume and the app is fully functional.
+`data/` is git-ignored. On a VPS or any host with a persistent writable volume, set `URPN_DATA_DIR` to that volume. For Vercel, apply the Supabase migrations and set `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and a 32+ character `AUTH_SECRET` in the project environment. The service-role key stays server-side.
+
+When the Supabase credentials are present, `lib/server/db.ts` stores the current portal data document in the access-restricted `urpn_app_state` table. This keeps the existing portal model working across serverless instances while the relational Supabase migration remains available for a later data-model upgrade.
 
 ### Researched production architecture
 
@@ -220,6 +222,7 @@ Copy `.env.example` to `.env.local` and set what you need.
 | --- | --- | --- |
 | `AUTH_SECRET` | Production | 32+ random chars for session signing |
 | `URPN_DATA_DIR` | Production with persistent disk | Writable directory for the portal JSON store |
+| `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` | Production serverless | Enables persistent state in the private Supabase table |
 | `SHOW_DEMO_LOGIN` | No | Set `false` to hide/disable the demo seed account |
 | Google Drive/Sheets + Deepgram variables | Testimony only | See `.env.example` and `OAUTH-SETUP.md` |
 

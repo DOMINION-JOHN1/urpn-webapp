@@ -74,7 +74,7 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
   const courseHref = `/portal/courses/${training.slug}`;
   const startHref = isAuthenticated
     ? courseHref
-    : `/workforce/login?next=${encodeURIComponent(courseHref)}`;
+    : `/workforce/register?next=${encodeURIComponent(courseHref)}`;
   const certificateHref = status.certificateCode
     ? `/portal/certificates/${status.certificateCode}`
     : courseHref;
@@ -88,7 +88,11 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
       </Link>
     ) : (
       <Link href={startHref} className={className}>
-        {status.isEnrolled ? 'Continue the course' : 'Start the course'}
+        {status.isEnrolled
+          ? 'Continue the course'
+          : isAuthenticated
+            ? 'Start the course'
+            : 'Create account'}
         <ArrowRight className="h-4 w-4" />
       </Link>
     );

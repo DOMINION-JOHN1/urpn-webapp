@@ -14,16 +14,17 @@ supabase link --project-ref <your-project-ref>
 supabase db push
 ```
 
-Then:
+Then set these hosting environment variables:
 
-1. Enable **Email** auth in Supabase → Authentication → Providers.
-2. Configure a custom SMTP provider for production email (confirmation/reset).
-3. Create the first admin by registering a user, then setting `profiles.role = 'admin'`.
-4. Add the environment variables from `../.env.example`:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY`
-5. Seed course media rows after uploading videos to Mux/Stream/Bunny.
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY` (server only; do not prefix with `NEXT_PUBLIC_`)
+- `AUTH_SECRET` (stable, random, and at least 32 characters)
+
+Migration `0002_serverless_portal_state.sql` creates the private state table
+used by the current portal adapter. It keeps worker registration, progress,
+attempts, and certificates persistent across serverless instances. The portal
+still uses its own scrypt password hashes and session cookies; Supabase Auth,
+SMTP, and the relational learner tables are for a later adapter migration.
 
 ## Notes
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Calendar,
   CalendarPlus,
@@ -19,6 +20,7 @@ interface MeetingEvent {
   id: string;
   title: string;
   category: string;
+  poster?: string;
   scheduleLabel: string;
   timeDisplay: string;
   description: string;
@@ -40,6 +42,7 @@ const MEETINGS: MeetingEvent[] = [
     id: 'kingdomite',
     title: 'Monthly Kingdomite',
     category: 'Flagship gathering',
+    poster: '/flyers/for-the-testimony-3.jpg',
     scheduleLabel: 'Every 3rd weekend',
     timeDisplay: '3rd Friday & Saturday (WAT)',
     description:
@@ -62,6 +65,7 @@ const MEETINGS: MeetingEvent[] = [
     id: 'weekly-furnace',
     title: 'The Weekly Furnace',
     category: 'Weekly fire service',
+    poster: '/flyers/furnace-experience.jpg',
     scheduleLabel: 'Every Thursday · 4:00 PM',
     timeDisplay: 'Thursdays 4:00 PM (WAT)',
     description:
@@ -105,6 +109,7 @@ const MEETINGS: MeetingEvent[] = [
     id: 'convergence',
     title: 'Convergence',
     category: 'Annual gathering',
+    poster: '/flyers/testaments-revival.jpg',
     scheduleLabel: 'Once a year · Every August',
     timeDisplay: 'Annual gathering in August (WAT)',
     description:
@@ -127,6 +132,7 @@ const MEETINGS: MeetingEvent[] = [
     id: 'intensify-vigil',
     title: 'Intensify — Workers’ Vigil',
     category: 'Monthly night vigil',
+    poster: '/flyers/intensify.jpg',
     scheduleLabel: '2nd Friday · 10:00 PM onwards',
     timeDisplay: '2nd Friday — from 10:00 PM (WAT)',
     description:
@@ -143,6 +149,28 @@ const MEETINGS: MeetingEvent[] = [
       startHour: '220000',
       endHour: '040000',
       recurrenceRule: 'FREQ=MONTHLY;BYDAY=2FR',
+    },
+  },
+  {
+    id: 'prayer-stretch',
+    title: '12 Hours Prayer Stretch',
+    category: 'Extended prayer altar',
+    poster: '/flyers/12-hours-prayer-stretch.jpg',
+    scheduleLabel: '1st & 4th Saturdays · 6:00 AM–6:00 PM',
+    timeDisplay: '1st & 4th Saturdays · 6:00 AM–6:00 PM (WAT)',
+    description: 'An extended monthly prayer gathering at the URPN Family House.',
+    location: 'URPN Family House',
+    icon: <Clock className="h-4 w-4" />,
+    googleCalendarUrl:
+      'https://calendar.google.com/calendar/render?action=TEMPLATE&text=URPN+12+Hours+Prayer+Stretch&details=Extended+monthly+prayer+gathering+at+URPN+Family+House.+Every+1st+and+4th+Saturday+from+6AM+to+6PM.&location=URPN+Family+House&recur=RRULE:FREQ=MONTHLY;BYDAY=1SA,4SA',
+    icsData: {
+      title: 'URPN 12 Hours Prayer Stretch',
+      description:
+        'Extended monthly prayer gathering at URPN Family House. 1st and 4th Saturdays, 6AM to 6PM.',
+      location: 'URPN Family House',
+      startHour: '060000',
+      endHour: '180000',
+      recurrenceRule: 'FREQ=MONTHLY;BYDAY=1SA,4SA',
     },
   },
 ];
@@ -246,21 +274,36 @@ export function MeetingSchedule() {
               </span>
             </div>
 
-            <h3 className="mt-5 text-[18px] font-semibold leading-snug tracking-[-0.02em] text-cream-50">
-              {meeting.title}
-            </h3>
-            <p className="mt-2 text-[12.5px] leading-relaxed text-cream-400">
-              {meeting.description}
-            </p>
+            <div className="mt-5 flex gap-4">
+              {meeting.poster && (
+                <figure className="relative aspect-[4/5] w-[104px] shrink-0 overflow-hidden rounded-lg border border-line-soft bg-canvas sm:w-[116px]">
+                  <Image
+                    src={meeting.poster}
+                    alt={`${meeting.title} event flyer`}
+                    fill
+                    sizes="116px"
+                    className="object-contain"
+                  />
+                </figure>
+              )}
+              <div className="min-w-0 flex-1">
+                <h3 className="text-[17px] font-semibold leading-snug tracking-[-0.02em] text-cream-50">
+                  {meeting.title}
+                </h3>
+                <p className="mt-2 text-[12px] leading-relaxed text-cream-400">
+                  {meeting.description}
+                </p>
 
-            <div className="mt-5 space-y-2.5 border-t border-line-soft pt-4">
-              <div className="flex items-start gap-2 text-[12px] text-cream-300">
-                <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cream-500" aria-hidden="true" />
-                <span>{meeting.scheduleLabel}</span>
-              </div>
-              <div className="flex items-start gap-2 text-[12px] text-cream-400">
-                <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cream-500" aria-hidden="true" />
-                <span>{meeting.location}</span>
+                <div className="mt-4 space-y-2.5 border-t border-line-soft pt-3">
+                  <div className="flex items-start gap-2 text-[11.5px] text-cream-300">
+                    <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cream-500" aria-hidden="true" />
+                    <span>{meeting.scheduleLabel}</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-[11.5px] text-cream-400">
+                    <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cream-500" aria-hidden="true" />
+                    <span>{meeting.location}</span>
+                  </div>
+                </div>
               </div>
             </div>
 

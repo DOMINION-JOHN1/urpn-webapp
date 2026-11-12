@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { readDb } from '@/lib/server/db';
+import { isSupabaseStateConfigured, readDb } from '@/lib/server/db';
 import { verifyPassword } from '@/lib/server/password';
 import {
   createSessionToken,
@@ -12,6 +12,16 @@ import { clientKey, rateLimit } from '@/lib/server/rate-limit';
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
+  if (
+    process.env.VERCEL === '1' &&
+    (!isSupabaseStateConfigured() || !process.env.AUTH_SECRET || process.env.AUTH_SECRET.length < 32)
+  ) {
+    return NextResponse.json(
+      { error: 'The worker portal is not ready yet. Please contact the URPN site administrator.' },
+      { status: 503 }
+    );
+  }
+
   let body: { email?: string; password?: string };
   try {
     body = await request.json();

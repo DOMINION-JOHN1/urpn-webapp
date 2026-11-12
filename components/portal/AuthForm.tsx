@@ -89,7 +89,12 @@ export function AuthForm({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      const data = await response.json().catch(() => ({}));
+      const data = await response.json().catch(() => ({
+        error:
+          mode === 'register'
+            ? 'We could not create your account right now. Please try again shortly or contact the URPN team.'
+            : 'We could not complete sign in right now. Please try again shortly.',
+      }));
 
       if (!response.ok) {
         throw new Error(data.error || 'Something went wrong. Please try again.');

@@ -1,14 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Calendar,
-  Flame,
-  MapPin,
-  Mic,
-  Sparkles,
-} from 'lucide-react';
+import Image from 'next/image';
+import { Calendar, Mic } from 'lucide-react';
 import { MandateSection } from '@/components/MandateSection';
 import { MeetingSchedule } from '@/components/MeetingSchedule';
 import { MinistryGallery } from '@/components/MinistryGallery';
@@ -78,56 +71,36 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Spiritual Mandate & Altar Preview Card */}
-          <div className="mx-auto w-full max-w-[460px] lg:mx-0" data-reveal>
-            <div className="relative">
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-6 top-8 h-full rounded-2xl border border-line-soft bg-surface/40"
+          {/* The URPN family portrait */}
+          <div className="mx-auto w-full max-w-[520px] lg:mx-0" data-reveal>
+            <figure className="group relative aspect-[1.7] overflow-hidden rounded-2xl border border-line bg-canvas shadow-[0_40px_100px_-50px_rgba(0,0,0,0.95)]">
+              <Image
+                src="/images/urpn-community.png"
+                alt="The URPN family gathered together at Testaments Saviours"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.015]"
               />
               <div
                 aria-hidden="true"
-                className="absolute inset-x-3 top-4 h-full rounded-2xl border border-line/70 bg-surface/70"
+                className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/10"
               />
-
-              <div className="relative rounded-2xl border border-line bg-surface p-6 shadow-[0_40px_100px_-50px_rgba(0,0,0,0.95)] sm:p-7">
-                <div className="flex items-center justify-between gap-3 border-b border-line-soft pb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-gold-400" />
-                    <span className="mono-label !text-[9.5px]">Apostolic Altar</span>
-                  </div>
-                  <span className="rounded-full border border-line bg-canvas/60 px-2.5 py-1 font-mono text-[9.5px] uppercase tracking-[0.14em] text-gold-300">
-                    Weekly Altars
-                  </span>
-                </div>
-
-                <div className="pt-5 space-y-4">
-                  <div>
-                    <h3 className="text-[17px] font-semibold text-cream-50 leading-snug">
-                      “Restoring people, territories, and spheres back to their original ordination.”
-                    </h3>
-                    <p className="mt-1.5 font-mono text-[10px] uppercase tracking-wider text-cream-500">
-                      The Mandate of URPN
-                    </p>
-                  </div>
-
-                  <p className="border-t border-line-soft pt-3 text-[12.5px] leading-relaxed text-cream-400">
-                    Join daily weekday prayers, The Weekly Furnace, Intensify vigil, Kingdomite
-                    gatherings, and our annual Convergence.
+              <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-6">
+                <div>
+                  <span className="mono-label !text-gold-300">One family · one altar</span>
+                  <p className="mt-1 text-[17px] font-semibold tracking-[-0.02em] text-white sm:text-[20px]">
+                    Restoring together.
                   </p>
-
-                  <div className="pt-2">
-                    <Link
-                      href="/gatherings"
-                      className="flex items-center justify-between text-xs font-medium text-gold-300 hover:text-gold-200 transition-colors"
-                    >
-                      <span>View gathering locations &amp; schedule</span>
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
-                  </div>
                 </div>
-              </div>
-            </div>
+                <Link
+                  href="/gatherings"
+                  className="shrink-0 rounded-full border border-white/35 bg-black/25 px-3.5 py-2 text-[11px] font-medium text-white transition-colors hover:bg-black/45"
+                >
+                  Join us
+                </Link>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
