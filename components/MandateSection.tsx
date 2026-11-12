@@ -16,7 +16,7 @@ export function MandateSection() {
   return (
     <section className="border-b border-line">
       <div className="container-page py-16 sm:py-20">
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20" data-reveal>
           <div>
             <div className="flex items-center gap-3">
               <span className="h-px w-6 bg-gold-500/70" />

@@ -18,9 +18,9 @@ const SHOTS: Shot[] = [
     className: 'col-span-2 row-span-2',
   },
   {
-    src: '/images/ministry-prayer.jpg',
-    alt: 'A man kneeling in earnest prayer',
-    caption: 'Travailing at the altar',
+    src: '/images/recent-prayer.jpeg',
+    alt: 'A minister praying over a member at a church gathering',
+    caption: 'Prayer and ministry at the altar',
     tag: 'Intercession',
     className: '',
   },
@@ -32,23 +32,23 @@ const SHOTS: Shot[] = [
     className: '',
   },
   {
-    src: '/images/ministry-worship.jpg',
-    alt: 'Hands raised across the congregation',
-    caption: 'One voice, lifted together',
+    src: '/images/recent-worship.jpeg',
+    alt: 'A woman lifting her hand in worship',
+    caption: 'A song of worship and surrender',
     tag: 'Praise',
     className: '',
   },
   {
-    src: '/images/ministry-praise.jpg',
-    alt: 'Heartfelt praise and thanksgiving',
-    caption: 'Tears of thanksgiving',
-    tag: 'Revival',
+    src: '/images/recent-gathering.jpeg',
+    alt: 'Congregants gathered for a church meeting',
+    caption: 'Gathered around the Word',
+    tag: 'Gathering',
     className: '',
   },
   {
-    src: '/images/urpn-community.png',
-    alt: 'The URPN church family gathered together',
-    caption: 'Convergence — one family in Christ',
+    src: '/images/recent-community.jpeg',
+    alt: 'URPN members standing together for a group portrait',
+    caption: 'One family in Christ',
     tag: 'Family',
     className: 'col-span-2 md:col-span-4',
   },
@@ -59,7 +59,7 @@ export function MinistryGallery() {
     <section className="border-b border-line">
       <div className="container-page py-16 sm:py-20">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
+          <div data-reveal>
             <div className="flex items-center gap-3">
               <span className="h-px w-6 bg-gold-500/70" />
               <span className="mono-label text-gold-300">The life of the altar</span>
@@ -75,10 +75,16 @@ export function MinistryGallery() {
         </div>
 
         <div className="mt-10 grid auto-rows-[150px] grid-cols-2 gap-2.5 sm:auto-rows-[190px] md:grid-cols-4">
-          {SHOTS.map((shot) => (
+          {SHOTS.map((shot, index) => (
             <figure
               key={shot.src}
               className={`group relative overflow-hidden rounded-xl border border-line ${shot.className}`}
+              data-reveal
+              style={
+                { '--reveal-delay': `${index * 55}ms` } as React.CSSProperties & {
+                  '--reveal-delay': string;
+                }
+              }
             >
               <Image
                 src={shot.src}

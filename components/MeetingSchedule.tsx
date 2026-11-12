@@ -204,7 +204,7 @@ export function MeetingSchedule() {
 
   return (
     <section className="container-page py-16 sm:py-20">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between" data-reveal>
         <div>
           <div className="flex items-center gap-3">
             <span className="h-px w-6 bg-gold-500/70" />
@@ -230,6 +230,12 @@ export function MeetingSchedule() {
             className={`flex h-full flex-col rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-line-strong ${
               index < 2 ? 'md:col-span-3' : 'md:col-span-2'
             }`}
+            data-reveal
+            style={
+              { '--reveal-delay': `${index * 65}ms` } as React.CSSProperties & {
+                '--reveal-delay': string;
+              }
+            }
           >
             <div className="flex items-start justify-between gap-3">
               <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-canvas text-gold-300">

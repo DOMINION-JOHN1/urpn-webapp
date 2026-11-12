@@ -44,10 +44,7 @@ export default function HomePage() {
         <div className="container-page grid items-center gap-14 pb-16 pt-14 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-24 lg:pt-24">
           <div className="animate-fade-in">
             <div className="mb-6 flex items-center gap-2.5">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-400 opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold-400" />
-              </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
               <span className="mono-label text-gold-300">URPN · Prophetic prayer network</span>
             </div>
 
@@ -82,7 +79,7 @@ export default function HomePage() {
           </div>
 
           {/* Spiritual Mandate & Altar Preview Card */}
-          <div className="mx-auto w-full max-w-[460px] lg:mx-0">
+          <div className="mx-auto w-full max-w-[460px] lg:mx-0" data-reveal>
             <div className="relative">
               <div
                 aria-hidden="true"
@@ -96,7 +93,7 @@ export default function HomePage() {
               <div className="relative rounded-2xl border border-line bg-surface p-6 shadow-[0_40px_100px_-50px_rgba(0,0,0,0.95)] sm:p-7">
                 <div className="flex items-center justify-between gap-3 border-b border-line-soft pb-4">
                   <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-gold-400 animate-pulse" />
+                    <span className="h-2 w-2 rounded-full bg-gold-400" />
                     <span className="mono-label !text-[9.5px]">Apostolic Altar</span>
                   </div>
                   <span className="rounded-full border border-line bg-canvas/60 px-2.5 py-1 font-mono text-[9.5px] uppercase tracking-[0.14em] text-gold-300">
@@ -138,7 +135,7 @@ export default function HomePage() {
       {/* ==================================================== MANDATE */}
       <section id="mandate" className="scroll-mt-24">
         <div className="container-page py-16 sm:py-20">
-          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20" data-reveal>
             <div>
               <div className="flex items-center gap-3">
                 <span className="h-px w-6 bg-gold-500/70" />
@@ -166,7 +163,7 @@ export default function HomePage() {
             </figure>
           </div>
 
-          <div className="mt-14 grid gap-8 border-t border-line-soft pt-10 md:grid-cols-3 md:gap-10">
+          <div className="mt-14 grid gap-8 border-t border-line-soft pt-10 md:grid-cols-3 md:gap-10" data-reveal>
             {PILLARS.map((pillar) => (
               <div key={pillar.number}>
                 <span className="mono-label text-cream-600">{pillar.number}</span>
@@ -194,7 +191,7 @@ export default function HomePage() {
       {/* ==================================================== TESTIMONY CTA */}
       <section className="container-page pb-20 pt-8 sm:pb-24">
         <div className="overflow-hidden rounded-2xl border border-line bg-surface">
-          <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center" data-reveal>
             <div>
               <div className="flex items-center gap-3">
                 <span className="h-px w-6 bg-gold-500/70" />

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import {
   AlertCircle,
   ArrowRight,
+  ArrowUpRight,
   BookOpen,
   Check,
   CheckCircle2,
@@ -30,6 +31,8 @@ export interface PlayerLesson {
   kind: 'video' | 'audio' | 'reading';
   summary: string;
   estimatedMinutes: number;
+  resourceUrl?: string;
+  resourceLabel?: string;
   mediaUrl?: string;
   mime?: string;
   durationSeconds?: number;
@@ -512,6 +515,25 @@ export function LessonPlayer({
           <div className="prose-urpn px-5 py-6 sm:px-7 sm:py-8">
             {lesson.body?.map((paragraph) => <p key={paragraph.slice(0, 24)}>{paragraph}</p>)}
           </div>
+          {lesson.resourceUrl && (
+            <div className="flex flex-col gap-3 border-t border-line-soft bg-canvas/35 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+              <div>
+                <p className="mono-label !text-[9px]">Course material</p>
+                <p className="mt-1 text-[12px] font-medium text-cream-200">
+                  {lesson.resourceLabel || lesson.title}
+                </p>
+              </div>
+              <a
+                href={lesson.resourceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-secondary btn-sm w-full gap-1.5 sm:w-auto"
+              >
+                Open material
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+            </div>
+          )}
         </div>
       )}
 

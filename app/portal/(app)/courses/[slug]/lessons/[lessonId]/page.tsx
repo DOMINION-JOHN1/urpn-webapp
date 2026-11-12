@@ -175,6 +175,8 @@ export default async function LessonPage({
               kind: lesson.kind,
               summary: lesson.summary,
               estimatedMinutes: lesson.estimatedMinutes,
+              resourceUrl: lesson.resourceUrl,
+              resourceLabel: lesson.resourceLabel,
               mediaUrl: lesson.media
                 ? `/api/portal/stream/${lesson.id}?course=${course.slug}`
                 : undefined,

@@ -10,6 +10,7 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { MeetingSchedule } from '@/components/MeetingSchedule';
+import { EventFlyers } from '@/components/EventFlyers';
 
 export const metadata: Metadata = {
   title: 'Gatherings & Schedules · Unique Revival Prayer Network',
@@ -28,9 +29,9 @@ export default function GatheringsPage() {
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(750px_400px_at_90%_0%,rgba(176,91,168,0.14),transparent_70%)]"
           />
 
-          <div className="relative max-w-3xl">
+          <div className="relative max-w-3xl" data-reveal>
             <div className="flex items-center gap-2.5">
-              <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse" />
+              <span className="flex h-2 w-2 rounded-full bg-accent" />
               <span className="mono-label text-gold-300">Gatherings · Prayer Altars</span>
             </div>
 
@@ -62,7 +63,7 @@ export default function GatheringsPage() {
         </div>
 
         {/* ============================================================ LOCATION CARD */}
-        <section className="mt-14 rounded-2xl border border-line bg-surface/60 p-7 sm:p-10">
+        <section className="mt-14 rounded-2xl border border-line bg-surface/60 p-7 sm:p-10" data-reveal>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <span className="mono-label !text-gold-300">Physical Locations</span>
@@ -81,6 +82,8 @@ export default function GatheringsPage() {
             </div>
           </div>
         </section>
+
+        <EventFlyers />
       </div>
     </div>
   );

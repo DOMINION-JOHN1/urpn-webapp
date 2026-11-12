@@ -69,9 +69,9 @@ export default function MandatePage() {
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(750px_400px_at_90%_0%,rgba(176,91,168,0.14),transparent_70%)]"
           />
 
-          <div className="relative max-w-3xl">
+          <div className="relative max-w-3xl" data-reveal>
             <div className="flex items-center gap-2.5">
-              <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse" />
+              <span className="flex h-2 w-2 rounded-full bg-accent" />
               <span className="mono-label text-gold-300">The Apostolic Mandate · URPN</span>
             </div>
 
@@ -97,7 +97,7 @@ export default function MandatePage() {
         </div>
 
         {/* ============================================================ THE MANDATE QUOTE */}
-        <section className="mt-14 rounded-2xl border border-gold-500/30 bg-gold-500/[0.04] p-7 sm:p-12">
+        <section className="mt-14 rounded-2xl border border-gold-500/30 bg-gold-500/[0.04] p-7 sm:p-12" data-reveal>
           <span className="mono-label !text-gold-300">The Commission</span>
           <blockquote className="mt-4 border-l-2 border-gold-400 pl-6 text-[22px] font-medium leading-[1.45] tracking-[-0.02em] text-cream-50 sm:text-[28px]">
             “Restoring people, territories, and spheres back to their original divine ordination, such that they operate from that standpoint.”
@@ -108,7 +108,7 @@ export default function MandatePage() {
         </section>
 
         {/* ============================================================ THREE PILLARS */}
-        <section className="mt-16">
+        <section className="mt-16" data-reveal>
           <div className="flex items-center gap-3">
             <span className="h-px w-6 bg-gold-500/70" />
             <span className="mono-label text-gold-300">Our Foundation</span>

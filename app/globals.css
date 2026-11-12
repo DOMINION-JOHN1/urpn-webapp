@@ -329,6 +329,24 @@ svg {
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Public pages use one-time, low-distance reveals as sections enter view. */
+[data-reveal].reveal-ready {
+  transition:
+    opacity 520ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal].reveal-ready:not(.is-visible) {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+}
+
+[data-reveal].reveal-ready.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -426,5 +444,10 @@ svg {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+
+  [data-reveal].reveal-ready:not(.is-visible) {
+    opacity: 1;
+    transform: none;
   }
 }

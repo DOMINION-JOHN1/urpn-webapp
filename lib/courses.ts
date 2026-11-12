@@ -69,6 +69,9 @@ export interface Lesson {
   summary: string;
   /** Reading time, or media length rounded for display. */
   estimatedMinutes: number;
+  /** Optional source material supplied for this lesson. */
+  resourceUrl?: string;
+  resourceLabel?: string;
   media?: LessonMedia;
   scripture?: { reference: string; text: string };
   body?: string[];
@@ -855,7 +858,9 @@ const readingLesson = (
   estimatedMinutes: number,
   body: string[],
   keyPoints: string[],
-  scripture?: { reference: string; text: string }
+  scripture?: { reference: string; text: string },
+  resourceUrl?: string,
+  resourceLabel?: string
 ): Lesson => ({
   id,
   title,
@@ -865,6 +870,8 @@ const readingLesson = (
   body,
   keyPoints,
   scripture,
+  resourceUrl,
+  resourceLabel,
 });
 
 // ===========================================================================
@@ -918,7 +925,9 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         {
           reference: 'Jeremiah 1:10',
           text: 'See, I have this day set thee over the nations and over the kingdoms, to root out, and to pull down, and to destroy, and to throw down, to build, and to plant.',
-        }
+        },
+        'https://drive.google.com/file/d/1PlFtl8FlaHtSckNl2Z9MT8G10wcCMfgk/view?usp=drive_link',
+        'URPN in Focus'
       ),
     ],
   },
@@ -978,7 +987,9 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         {
           reference: 'Matthew 6:33',
           text: 'But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you.',
-        }
+        },
+        'https://drive.google.com/file/d/11Nzr4vgUFxeGMfsNS9DL0nUzVWIpy99l/view?usp=drive_link',
+        'Kingdom Conquest'
       ),
     ],
   },
@@ -1006,7 +1017,9 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         {
           reference: 'Mark 10:43-44',
           text: 'But whosoever will be great among you, shall be your minister: And whosoever of you will be the chiefest, shall be servant of all.',
-        }
+        },
+        'https://drive.google.com/file/d/1zkeZSEAoIyoIWCn_IFErOEqEEerN7vOr/view?usp=drive_link',
+        'The Place of Your Stewardship'
       ),
     ],
   },
@@ -1035,7 +1048,9 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         {
           reference: 'Colossians 3:23',
           text: 'And whatsoever ye do, do it heartily, as to the Lord, and not unto men.',
-        }
+        },
+        'https://drive.google.com/file/d/1eTIghEPpTcXP59UkQmhQ-uym1Wqk9Z47/view?usp=drive_link',
+        'The Culture of Your Throne'
       ),
     ],
   },
@@ -1067,7 +1082,9 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         {
           reference: 'Ephesians 4:29',
           text: 'Let no corrupt communication proceed out of your mouth, but that which is good to the use of edifying, that it may minister grace unto the hearers.',
-        }
+        },
+        'https://drive.google.com/file/d/1ov78XiBhG6jkVDbhH3hMHxB6Jo-O0H2s/view?usp=drive_link',
+        'URPN Community Life'
       ),
     ],
   },
@@ -1126,7 +1143,9 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         {
           reference: 'Ephesians 5:15-16',
           text: 'See then that ye walk circumspectly, not as fools, but as wise, Redeeming the time, because the days are evil.',
-        }
+        },
+        'https://drive.google.com/file/d/1zmIrXHm1dw0X_XHBY8G5AaMa_-zF_-lE/view?usp=drive_link',
+        'Time Management'
       ),
     ],
   },

@@ -52,9 +52,9 @@ export default async function WorkforceHubPage() {
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_350px_at_90%_0%,rgba(176,91,168,0.12),transparent_70%)]"
           />
 
-          <div className="relative max-w-2xl">
+          <div className="relative max-w-2xl" data-reveal>
             <div className="flex items-center gap-2.5">
-              <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse" />
+              <span className="flex h-2 w-2 rounded-full bg-accent" />
               <span className="mono-label text-gold-300">Open to all members &amp; volunteers</span>
             </div>
 
@@ -107,16 +107,18 @@ export default async function WorkforceHubPage() {
 
         {/* ============================================================ HOW IT WORKS */}
         <section className="mt-14">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-6 bg-gold-500/70" />
-            <span className="mono-label text-gold-300">How to join</span>
+          <div data-reveal>
+            <div className="flex items-center gap-3">
+              <span className="h-px w-6 bg-gold-500/70" />
+              <span className="mono-label text-gold-300">How to join</span>
+            </div>
+            <h2 className="mt-3 text-[26px] font-semibold text-cream-50 sm:text-[32px]">
+              Four steps to service in the house
+            </h2>
           </div>
-          <h2 className="mt-3 text-[26px] font-semibold text-cream-50 sm:text-[32px]">
-            Four steps to service in the house
-          </h2>
 
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
+            <div className="rounded-2xl border border-line bg-surface p-5 sm:p-6" data-reveal>
               <span className="font-mono text-xs text-gold-400">01</span>
               <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Create account</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
@@ -124,7 +126,11 @@ export default async function WorkforceHubPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
+            <div
+              className="rounded-2xl border border-line bg-surface p-5 sm:p-6"
+              data-reveal
+              style={{ '--reveal-delay': '60ms' } as React.CSSProperties & { '--reveal-delay': string }}
+            >
               <span className="font-mono text-xs text-gold-400">02</span>
               <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Review conditions</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
@@ -132,7 +138,11 @@ export default async function WorkforceHubPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
+            <div
+              className="rounded-2xl border border-line bg-surface p-5 sm:p-6"
+              data-reveal
+              style={{ '--reveal-delay': '120ms' } as React.CSSProperties & { '--reveal-delay': string }}
+            >
               <span className="font-mono text-xs text-gold-400">03</span>
               <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Take the training</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
@@ -140,7 +150,11 @@ export default async function WorkforceHubPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
+            <div
+              className="rounded-2xl border border-line bg-surface p-5 sm:p-6"
+              data-reveal
+              style={{ '--reveal-delay': '180ms' } as React.CSSProperties & { '--reveal-delay': string }}
+            >
               <span className="font-mono text-xs text-gold-400">04</span>
               <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Sit exam &amp; certify</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
@@ -151,7 +165,7 @@ export default async function WorkforceHubPage() {
         </section>
 
         {/* ============================================================ 7 DEPARTMENTS */}
-        <section className="mt-16">
+        <section className="mt-16" data-reveal>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between mb-8">
             <div>
               <div className="flex items-center gap-3">
@@ -176,7 +190,7 @@ export default async function WorkforceHubPage() {
         </section>
 
         {/* ============================================================ LOCK NOTICE ON WORKER PORTAL */}
-        <section className="mt-16 rounded-2xl border border-line bg-surface/50 p-6 sm:p-8">
+        <section className="mt-16 rounded-2xl border border-line bg-surface/50 p-6 sm:p-8" data-reveal>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="max-w-xl">
               <span className="mono-label text-gold-300">Church Staff &amp; Leadership</span>
