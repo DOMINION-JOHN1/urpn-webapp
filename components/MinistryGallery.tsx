@@ -204,7 +204,7 @@ export function MinistryGallery() {
   const visibleEnd = Math.min(activeIndex + visibleCount, PHOTOS.length);
 
   return (
-    <section className="border-b border-line" aria-labelledby="gallery-title">
+    <section aria-labelledby="gallery-title">
       <div className="container-page py-16 sm:py-20">
         <div className="mb-9 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between" data-reveal>
           <div>
@@ -264,7 +264,7 @@ export function MinistryGallery() {
                   aria-hidden={index < activeIndex || index >= visibleEnd}
                   style={{ flex: `0 0 ${100 / PHOTOS.length}%`, paddingInline: '8px' }}
                 >
-                  <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+                  <div className="overflow-hidden rounded-2xl bg-surface shadow-[0_12px_34px_-28px_rgba(40,20,35,0.4)]">
                     <div className="relative aspect-[4/3] bg-canvas">
                       <Image
                         src={photo.src}
@@ -287,7 +287,7 @@ export function MinistryGallery() {
             </div>
           </div>
 
-          <div className="mt-5 flex items-center justify-between gap-3 border-t border-line-soft pt-4">
+          <div className="mt-5 flex items-center justify-between gap-3 pt-2">
             <span className="font-mono text-[11px] tracking-[0.12em] text-cream-500" aria-live="off">
               {String(activeIndex + 1).padStart(2, '0')}–{String(visibleEnd).padStart(2, '0')} / {String(PHOTOS.length).padStart(2, '0')}
             </span>
@@ -295,7 +295,7 @@ export function MinistryGallery() {
               <button
                 type="button"
                 onClick={showPrevious}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-cream-300 transition-colors hover:border-line-strong hover:text-cream-50"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-cream-300 transition-colors hover:bg-gold-500/10 hover:text-cream-50"
                 aria-label="Previous photos"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -303,7 +303,7 @@ export function MinistryGallery() {
               <button
                 type="button"
                 onClick={showNext}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-cream-300 transition-colors hover:border-line-strong hover:text-cream-50"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-cream-300 transition-colors hover:bg-gold-500/10 hover:text-cream-50"
                 aria-label="Next photos"
               >
                 <ArrowRight className="h-4 w-4" />

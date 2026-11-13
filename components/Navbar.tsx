@@ -10,6 +10,7 @@ import { ThemeToggle } from './ThemeToggle';
 const NAV_LINKS = [
   { href: '/mandate', label: 'Mandate' },
   { href: '/gatherings', label: 'Gatherings' },
+  { href: '/giving', label: 'Giving' },
   { href: '/testimony', label: 'Testimony' },
 ];
 

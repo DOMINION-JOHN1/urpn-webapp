@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { MeetingSchedule } from '@/components/MeetingSchedule';
-import { CommunityNotices } from '@/components/CommunityNotices';
 
 export const metadata: Metadata = {
   title: 'Days of Meeting · Unique Revival Prayer Network',
@@ -12,7 +11,6 @@ export default function GatheringsPage() {
   return (
     <div className="w-full pb-20">
       <MeetingSchedule />
-      <CommunityNotices />
     </div>
   );
 }

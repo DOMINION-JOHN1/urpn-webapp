@@ -1,11 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
-import { Clock, Flame, Moon, Sun, Zap } from 'lucide-react';
+import { CalendarPlus, Clock, Flame, Moon, Sun, Zap } from 'lucide-react';
 
 interface MeetingEvent {
   title: string;
   poster?: string;
   schedule?: string;
+  location?: string;
   icon: React.ReactNode;
 }
 
@@ -15,6 +16,7 @@ const MEETINGS: MeetingEvent[] = [
     poster: '/flyers/for-the-testimony-3.jpg',
     schedule:
       'Monthly Kingdomite on the third Friday at 4:00 pm, Saturday 9:00 am and 4:00 pm at ST Luke’s Anglican Church, Adankolo',
+    location: 'ST Luke’s Anglican Church, Adankolo',
     icon: <Flame className="h-7 w-7" />,
   },
   {
@@ -22,11 +24,13 @@ const MEETINGS: MeetingEvent[] = [
     poster: '/flyers/furnace-experience.jpg',
     schedule:
       'Every Thursday of the month aside the week of Kingdomite at 4:00 pm at the URPN Family House',
+    location: 'URPN Family House',
     icon: <Flame className="h-7 w-7" />,
   },
   {
     title: 'Daily weekday Prayers',
     schedule: 'Daily weekday Prayers 4:00 pm at the URPN Family House',
+    location: 'URPN Family House',
     icon: <Sun className="h-7 w-7" />,
   },
   {
@@ -48,6 +52,16 @@ const MEETINGS: MeetingEvent[] = [
   },
 ];
 
+function calendarUrl(meeting: MeetingEvent) {
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: meeting.title,
+    details: meeting.schedule ?? meeting.title,
+  });
+  if (meeting.location) params.set('location', meeting.location);
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
 export function MeetingSchedule() {
   return (
     <section className="container-page py-16 sm:py-20" aria-labelledby="meeting-schedule-title">
@@ -62,11 +76,11 @@ export function MeetingSchedule() {
         {MEETINGS.map((meeting, index) => (
           <article
             key={meeting.title}
-            className="group relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-[24px] border border-line bg-surface transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-[0_24px_58px_-38px_rgba(216,181,111,0.4)]"
+            className="group relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-[24px] bg-surface shadow-[0_10px_34px_-28px_rgba(40,20,35,0.35)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_58px_-38px_rgba(216,181,111,0.4)]"
             data-reveal
             style={{ '--reveal-delay': `${index * 45}ms` } as React.CSSProperties & { '--reveal-delay': string }}
           >
-            <div className="relative isolate flex h-[240px] items-center justify-center overflow-hidden border-b border-line-soft bg-canvas sm:h-[260px]">
+            <div className="relative isolate flex h-[240px] items-center justify-center overflow-hidden bg-canvas sm:h-[260px]">
               {meeting.poster ? (
                 <Image
                   src={meeting.poster}
@@ -76,13 +90,13 @@ export function MeetingSchedule() {
                   className="object-contain p-2 transition-transform duration-500 ease-out group-hover:scale-[1.025]"
                 />
               ) : (
-                <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-gold-500/25 bg-surface/80 text-gold-300">
+                <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-surface/80 text-gold-300 shadow-sm">
                   {meeting.icon}
                 </span>
               )}
             </div>
 
-            <div className="flex flex-1 items-start gap-3 p-5 sm:p-6">
+            <div className="flex flex-1 items-start gap-3 p-5 pb-3 sm:p-6 sm:pb-3">
               <Clock className="mt-1 h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
               <div>
                 <h3 className="text-[18px] font-semibold leading-snug tracking-[-0.025em] text-cream-50">
@@ -94,6 +108,18 @@ export function MeetingSchedule() {
                   </p>
                 )}
               </div>
+            </div>
+            <div className="px-5 pb-5 sm:px-6 sm:pb-6">
+              <a
+                href={calendarUrl(meeting)}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-canvas px-3.5 py-2 text-xs font-medium text-cream-200 transition-colors hover:bg-gold-500/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
+                aria-label={`Add ${meeting.title} to Google Calendar`}
+              >
+                <CalendarPlus className="h-4 w-4 text-gold-400" aria-hidden="true" />
+                Add to calendar
+              </a>
             </div>
           </article>
         ))}

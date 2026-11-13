@@ -7,6 +7,7 @@ import { InstallAppButton } from './InstallAppButton';
 const EXPLORE = [
   { href: '/mandate', label: 'The mandate' },
   { href: '/gatherings', label: 'Gatherings' },
+  { href: '/giving', label: 'Giving' },
   { href: '/testimony', label: 'Share a testimony' },
 ];
 
