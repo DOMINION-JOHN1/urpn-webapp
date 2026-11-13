@@ -217,25 +217,25 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
       {/* ---------------------------------------------------- ALL DEPARTMENTS GRID VIEW */}
       {activeSlug === 'all' && (
         <>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {departments.map((department, index) => {
               const Icon = ICONS[department.slug] || Sparkles;
 
               return (
                 <article
                   key={department.slug}
-                  className="group relative flex min-h-[330px] flex-col overflow-hidden rounded-[22px] border border-line bg-surface p-5 transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/35 hover:bg-surface-raised hover:shadow-[0_24px_55px_-34px_rgba(216,181,111,0.4)] sm:p-6"
+                  className="group relative flex min-h-[280px] flex-col overflow-hidden rounded-2xl border border-line/70 bg-surface p-4 transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-accent/30 hover:bg-surface-raised hover:shadow-[0_20px_48px_-34px_rgba(110,21,88,0.22)] sm:min-h-[320px] sm:p-6"
                   data-reveal
-                  style={{ '--reveal-delay': `${index * 35}ms` } as React.CSSProperties & { '--reveal-delay': string }}
+                  style={{ '--reveal-delay': `${(index % 3) * 25}ms` } as React.CSSProperties & { '--reveal-delay': string }}
                 >
                   <span
                     aria-hidden="true"
-                    className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-gold-500/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                   />
 
                   <div className="flex flex-1 flex-col">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-canvas text-gold-300 transition-[transform,border-color,background-color] duration-300 group-hover:scale-105 group-hover:border-gold-500/35 group-hover:bg-gold-500/10">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-lg border border-line/70 bg-canvas text-accent transition-[border-color,background-color] duration-300 group-hover:border-accent/30 group-hover:bg-accent/10">
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
                       <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-cream-400">
@@ -246,15 +246,15 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
                     <h3 className="mt-5 text-[20px] font-semibold leading-snug tracking-[-0.02em] text-cream-50">
                       {department.shortTitle} Department
                     </h3>
-                    <p className="mt-1 text-[12px] font-medium text-gold-300/90">{department.tagline}</p>
-                    <p className="mt-2 text-[12.5px] leading-relaxed text-cream-400 line-clamp-2">
+                    <p className="mt-1 text-[12px] font-medium text-accent/90">{department.tagline}</p>
+                    <p className="mt-2 text-[12.5px] leading-relaxed text-cream-400 line-clamp-3 sm:line-clamp-2">
                       {department.description}
                     </p>
 
                     <div className="mt-auto pt-5">
-                      <div className="rounded-xl border border-line-soft bg-canvas/50 px-4 py-3.5 transition-colors duration-300 group-hover:border-gold-500/20 group-hover:bg-gold-500/[0.035]">
+                      <div className="rounded-lg border border-line-soft bg-canvas/50 px-4 py-3.5 transition-colors duration-300 group-hover:border-accent/20 group-hover:bg-accent/[0.035]">
                         <div className="flex items-center justify-between gap-3">
-                          <p className="mono-label !text-[8.5px] text-gold-300">Joining requirements</p>
+                          <p className="mono-label !text-[8.5px] text-accent">Joining requirements</p>
                           <span className="rounded-full border border-line px-2 py-0.5 font-mono text-[9px] text-cream-300">
                             {department.conditions.length}
                           </span>
@@ -266,7 +266,7 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
                         )}
                         {department.conditions.length > 1 && (
                           <p className="mt-1 text-[10px] text-cream-500">
-                            +{department.conditions.length - 1} more in department details
+                            +{department.conditions.length - 1} more requirements
                           </p>
                         )}
                       </div>

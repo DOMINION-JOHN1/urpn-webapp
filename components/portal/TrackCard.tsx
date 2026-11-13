@@ -131,7 +131,7 @@ export function TrackCard({ course }: { course: DashboardCourse }) {
           <EnrollButton
             courseId={course.course.slug}
             courseSlug={course.course.slug}
-            label="Start track"
+            label="Start course"
             className="btn btn-primary btn-sm w-full"
           />
         )}

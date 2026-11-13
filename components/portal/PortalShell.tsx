@@ -51,7 +51,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
   const primaryNav = isWorkforce
     ? [
         { href: '/workforce', label: 'Workforce Hub', icon: LayoutGrid, exact: true },
-        { href: '/portal/courses', label: 'Departments', icon: GraduationCap, exact: false },
+        { href: '/portal/courses', label: 'Courses', icon: BookOpen, exact: false },
         { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
       ]
     : [
@@ -63,7 +63,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
 
   const mobileNav = [
     { href: isWorkforce ? '/workforce' : '/portal', label: 'Overview', icon: LayoutGrid, exact: true },
-    { href: '/portal/courses', label: isWorkforce ? 'Departments' : 'Training', icon: BookOpen, exact: false },
+    { href: '/portal/courses', label: isWorkforce ? 'Courses' : 'Training', icon: BookOpen, exact: false },
     ...(!isWorkforce ? [{ href: '/portal/monitor', label: 'Monitor', icon: Users, exact: false }] : []),
     { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
     { href: '/', label: 'Website', icon: Globe, exact: false },
@@ -165,7 +165,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
 
       {/* ------------------------------------------------------------- main */}
       <div className="flex min-h-[100dvh] min-w-0 flex-col">
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-canvas/90 px-4 backdrop-blur-lg lg:hidden">
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-canvas px-4 lg:hidden">
           <Link href="/portal" aria-label="URPN portal home">
             <UrpnLogo size="sm" />
           </Link>
@@ -185,10 +185,10 @@ export function PortalShell({ user, children }: PortalShellProps) {
 
       {/* -------------------------------------------------------- mobile nav */}
       <nav
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-canvas-deep/95 backdrop-blur-xl lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-canvas-deep lg:hidden"
         aria-label="Portal mobile navigation"
       >
-        <div className="safe-bottom mx-auto grid max-w-md grid-cols-4 px-2 pt-1.5">
+        <div className={`safe-bottom mx-auto grid max-w-md px-2 pt-1.5 ${isWorkforce ? 'grid-cols-4' : 'grid-cols-5'}`}>
           {mobileNav.map((item) => {
             const active = isActive(pathname, item.href, item.exact);
             return (

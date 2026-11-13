@@ -165,8 +165,8 @@ export default async function WorkforceHubPage() {
         </section>
 
         {/* ============================================================ 7 DEPARTMENTS */}
-        <section className="mt-16" data-reveal>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between mb-8">
+        <section className="mt-12 sm:mt-16">
+          <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between" data-reveal>
             <div>
               <div className="flex items-center gap-3">
                 <span className="h-px w-6 bg-gold-500/70" />

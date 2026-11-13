@@ -222,7 +222,7 @@ export default async function CourseOverviewPage({
             href={`/portal/courses/${course.slug}/lessons/${overview.nextLesson.id}`}
             className="btn btn-primary shrink-0"
           >
-            {overview.completedCount > 0 ? 'Continue track' : 'Begin first lesson'}
+            {overview.completedCount > 0 ? 'Continue course' : 'Begin first lesson'}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         )}

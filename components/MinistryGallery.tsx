@@ -136,7 +136,7 @@ const PHOTOS: GatheringPhoto[] = [
 
 export function MinistryGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [autoPlay, setAutoPlay] = useState(true);
+  const [autoPlay, setAutoPlay] = useState(false);
   const [pausedByPointer, setPausedByPointer] = useState(false);
   const [inView, setInView] = useState(false);
   const [visibleCount, setVisibleCount] = useState(1);
@@ -145,13 +145,20 @@ export function MinistryGallery() {
   const lastIndex = Math.max(0, PHOTOS.length - visibleCount);
 
   useEffect(() => {
-    const updateVisibleCount = () => {
-      setVisibleCount(window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1);
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateLayout = () => {
+      const width = window.innerWidth;
+      setVisibleCount(width >= 1024 ? 3 : width >= 640 ? 2 : 1);
+      setAutoPlay(width >= 1024 && !preference.matches);
     };
 
-    updateVisibleCount();
-    window.addEventListener('resize', updateVisibleCount);
-    return () => window.removeEventListener('resize', updateVisibleCount);
+    updateLayout();
+    window.addEventListener('resize', updateLayout);
+    preference.addEventListener('change', updateLayout);
+    return () => {
+      window.removeEventListener('resize', updateLayout);
+      preference.removeEventListener('change', updateLayout);
+    };
   }, []);
 
   useEffect(() => {
@@ -174,21 +181,13 @@ export function MinistryGallery() {
   }, []);
 
   useEffect(() => {
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const syncPreference = () => setAutoPlay(!preference.matches);
-    syncPreference();
-    preference.addEventListener('change', syncPreference);
-    return () => preference.removeEventListener('change', syncPreference);
-  }, []);
-
-  useEffect(() => {
     if (!autoPlay || pausedByPointer || !inView) return;
 
     const timer = window.setInterval(() => {
       if (document.visibilityState === 'visible') {
         setActiveIndex((index) => (index >= lastIndex ? 0 : index + 1));
       }
-    }, 5000);
+    }, 7000);
 
     return () => window.clearInterval(timer);
   }, [autoPlay, pausedByPointer, inView, lastIndex]);

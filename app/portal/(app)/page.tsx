@@ -63,14 +63,14 @@ export default async function PortalDashboardPage() {
         </div>
         <Link href="/portal/courses" className="btn btn-secondary btn-sm hidden sm:inline-flex">
           <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
-          Browse tracks
+          Browse courses
         </Link>
       </div>
 
       {/* Summary */}
       <div className="mt-8 grid grid-cols-3 divide-x divide-line overflow-hidden rounded-2xl border border-line bg-surface">
         <div className="p-4 sm:p-5">
-          <p className="mono-label !text-[9px]">Tracks</p>
+          <p className="mono-label !text-[9px]">Courses</p>
           <p className="mt-2 text-[22px] font-semibold tracking-[-0.03em] text-cream-50">
             {data.enrolledCount}
             <span className="ml-1 font-mono text-[11px] font-normal text-cream-600">
@@ -260,9 +260,9 @@ export default async function PortalDashboardPage() {
       <section className="mt-9">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="mono-label">Your tracks</p>
+            <p className="mono-label">Your learning</p>
             <h2 className="mt-2 text-[20px] font-semibold tracking-[-0.025em] text-cream-50">
-              Formation path
+              {user.role === 'workforce' ? 'Your courses' : 'Formation path'}
             </h2>
           </div>
           <Link

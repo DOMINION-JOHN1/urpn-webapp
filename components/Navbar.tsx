@@ -38,7 +38,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-canvas/85 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-line bg-canvas">
       <div className="container-page flex h-[72px] items-center justify-between gap-6">
         <Link href="/" aria-label="URPN home" className="shrink-0" onClick={() => setOpen(false)}>
           <UrpnLogo size="md" />

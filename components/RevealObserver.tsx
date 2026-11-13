@@ -25,7 +25,7 @@ export function RevealObserver() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -32px 0px' }
+      { threshold: 0, rootMargin: '0px 0px -16px 0px' }
     );
 
     elements.forEach((element) => {

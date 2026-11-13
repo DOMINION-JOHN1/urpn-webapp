@@ -13,7 +13,7 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden border-b border-line sm:min-h-[700px] lg:min-h-[740px]">
         <div className="relative aspect-[1.96] w-full sm:absolute sm:inset-0 sm:aspect-auto">
           <Image
-            src="/images/urpn-community.png"
+            src="/images/urpn-community.webp"
             alt="The URPN family gathered together at Testaments Saviours"
             fill
             priority

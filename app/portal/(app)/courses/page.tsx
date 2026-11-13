@@ -8,7 +8,7 @@ import { getCourseDurationLabel, getLessonCount } from '@/lib/courses';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata = { title: 'My training' };
+export const metadata = { title: 'Courses' };
 
 export default async function CoursesPage() {
   const user = await requireUser();
@@ -21,11 +21,11 @@ export default async function CoursesPage() {
         {isWorkforce ? 'Workforce training' : 'In-House Leadership Training'}
       </p>
       <h1 className="mt-2 text-[30px] font-semibold leading-[1.1] tracking-[-0.04em] text-cream-50 sm:text-[36px]">
-        {isWorkforce ? 'Workforce Formation' : 'Leadership Formation'}
+        {isWorkforce ? 'Courses' : 'Leadership Formation'}
       </h1>
       <p className="mt-2 max-w-xl text-[13.5px] leading-relaxed text-cream-400">
         {isWorkforce
-          ? 'One shared training for every department. Review the conditions, work through the modules, pass the timed exam, and receive your workforce certificate.'
+          ? 'One shared course for every department. Complete the modules, pass the timed exam, and receive your workforce certificate.'
           : 'In-house training for ministers and pastors. Finish every lesson to unlock the final exam. Each track allows one timed attempt and issues a verifiable certificate on passing.'}
       </p>
 
@@ -108,14 +108,14 @@ export default async function CoursesPage() {
                         href={`/portal/courses/${course.slug}`}
                         className="btn btn-primary btn-sm w-full"
                       >
-                        {entry.percent === 100 ? 'Go to final exam' : 'Continue track'}
+                        {entry.percent === 100 ? 'Go to final exam' : 'Continue course'}
                         <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </Link>
                     ) : (
                       <EnrollButton
                         courseId={course.slug}
                         courseSlug={course.slug}
-                        label="Start track"
+                        label="Start course"
                         className="btn btn-primary btn-sm w-full"
                       />
                     )}
