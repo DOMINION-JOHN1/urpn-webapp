@@ -17,7 +17,7 @@ supabase db push
 Then set these hosting environment variables:
 
 - `NEXT_PUBLIC_SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY` (server only; do not prefix with `NEXT_PUBLIC_`)
+- `SUPABASE_SECRET_KEY` (server only; do not prefix with `NEXT_PUBLIC_`). The legacy `SUPABASE_SERVICE_ROLE_KEY` is also supported.
 - `AUTH_SECRET` (stable, random, and at least 32 characters)
 
 Migration `0002_serverless_portal_state.sql` creates the private state table

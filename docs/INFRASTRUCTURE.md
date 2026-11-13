@@ -243,8 +243,8 @@ These are planning estimates, not quotes; re-check provider pricing at signup.
 4. Create the first admin profile; seed the demo worker.
 5. Add environment variables:
    - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY` (server only)
+   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+   - `SUPABASE_SECRET_KEY` (server only)
    - `MUX_TOKEN_ID` / `MUX_TOKEN_SECRET` (or Cloudflare equivalents)
 
 ### Phase 2 — Replace the JSON repository (1–2 days)

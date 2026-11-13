@@ -36,18 +36,28 @@ export function getDbPath(): string {
 
 function supabaseStateConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/+$/, '');
+  const secretKey = process.env.SUPABASE_SECRET_KEY;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  return url && serviceRoleKey ? { url, serviceRoleKey } : null;
+  const apiKey = secretKey || serviceRoleKey;
+  return url && apiKey
+    ? {
+        url,
+        apiKey,
+        // New Supabase secret keys are API keys, not JWTs. Legacy service-role
+        // keys remain JWTs and must also be sent as the bearer token.
+        bearerToken: secretKey ? null : serviceRoleKey,
+      }
+    : null;
 }
 
 export function isSupabaseStateConfigured(): boolean {
   return Boolean(supabaseStateConfig());
 }
 
-function supabaseHeaders(serviceRoleKey: string): HeadersInit {
+function supabaseHeaders(config: NonNullable<ReturnType<typeof supabaseStateConfig>>): HeadersInit {
   return {
-    apikey: serviceRoleKey,
-    Authorization: `Bearer ${serviceRoleKey}`,
+    apikey: config.apiKey,
+    ...(config.bearerToken ? { Authorization: `Bearer ${config.bearerToken}` } : {}),
     'Content-Type': 'application/json',
   };
 }
@@ -58,7 +68,7 @@ async function readSupabaseState(): Promise<SupabaseStateRow | null> {
 
   const response = await fetch(
     `${config.url}/rest/v1/urpn_app_state?id=eq.${SUPABASE_STATE_ID}&select=revision,state`,
-    { headers: supabaseHeaders(config.serviceRoleKey), cache: 'no-store' }
+    { headers: supabaseHeaders(config), cache: 'no-store' }
   );
   if (!response.ok) {
     throw new Error(`Persistent database read failed (${response.status}).`);
@@ -75,7 +85,7 @@ async function createSupabaseState(state: Database): Promise<void> {
   const response = await fetch(`${config.url}/rest/v1/urpn_app_state?on_conflict=id`, {
     method: 'POST',
     headers: {
-      ...supabaseHeaders(config.serviceRoleKey),
+      ...supabaseHeaders(config),
       Prefer: 'resolution=ignore-duplicates,return=minimal',
     },
     body: JSON.stringify({ id: SUPABASE_STATE_ID, revision: 0, state }),
@@ -92,7 +102,7 @@ async function commitSupabaseState(state: Database, expectedRevision: number): P
 
   const response = await fetch(`${config.url}/rest/v1/rpc/urpn_commit_state`, {
     method: 'POST',
-    headers: supabaseHeaders(config.serviceRoleKey),
+    headers: supabaseHeaders(config),
     body: JSON.stringify({ p_state: state, p_expected_revision: expectedRevision }),
     cache: 'no-store',
   });

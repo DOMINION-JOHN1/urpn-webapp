@@ -251,89 +251,101 @@ export function MeetingSchedule() {
         </div>
       </div>
 
-      <div className="mt-10 grid gap-4 md:grid-cols-6">
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
         {MEETINGS.map((meeting, index) => (
           <article
             key={meeting.id}
-            className={`flex h-full flex-col rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-line-strong ${
-              index < 2 ? 'md:col-span-3' : 'md:col-span-2'
-            }`}
+            className="group relative flex h-full min-h-[500px] flex-col overflow-hidden rounded-[24px] border border-line bg-surface shadow-[0_16px_45px_-32px_rgba(0,0,0,0.75)] transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-[0_28px_70px_-38px_rgba(216,181,111,0.45)]"
             data-reveal
             style={
-              { '--reveal-delay': `${index * 65}ms` } as React.CSSProperties & {
+              { '--reveal-delay': `${index * 55}ms` } as React.CSSProperties & {
                 '--reveal-delay': string;
               }
             }
           >
-            <div className="flex items-start justify-between gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-canvas text-gold-300">
-                {meeting.icon}
-              </span>
-              <span className="text-right font-mono text-[9px] uppercase leading-4 tracking-[0.12em] text-cream-500">
-                {meeting.category}
-              </span>
-            </div>
-
-            <div className="mt-5 flex gap-4">
-              {meeting.poster && (
-                <figure className="relative aspect-[4/5] w-[104px] shrink-0 overflow-hidden rounded-lg border border-line-soft bg-canvas sm:w-[116px]">
+            <div className="relative isolate flex h-[218px] items-center justify-center overflow-hidden border-b border-line-soft bg-canvas sm:h-[232px]">
+              {meeting.poster ? (
+                <>
                   <Image
                     src={meeting.poster}
                     alt={`${meeting.title} event flyer`}
                     fill
-                    sizes="116px"
-                    className="object-contain"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    className="object-contain p-2 transition-transform duration-500 ease-out group-hover:scale-[1.035]"
                   />
-                </figure>
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/45 to-transparent"
+                  />
+                </>
+              ) : (
+                <>
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(176,91,168,0.2),transparent_45%),linear-gradient(135deg,rgba(216,181,111,0.08),transparent_60%)]"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute -right-8 -top-12 h-52 w-52 rounded-full border border-gold-500/15 bg-gold-500/[0.03] transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <span className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-gold-500/25 bg-surface/80 text-gold-300 shadow-lg [&_svg]:h-7 [&_svg]:w-7">
+                    {meeting.icon}
+                  </span>
+                </>
               )}
-              <div className="min-w-0 flex-1">
-                <h3 className="text-[17px] font-semibold leading-snug tracking-[-0.02em] text-cream-50">
-                  {meeting.title}
-                </h3>
-                <p className="mt-2 text-[12px] leading-relaxed text-cream-400">
-                  {meeting.description}
-                </p>
-
-                <div className="mt-4 space-y-2.5 border-t border-line-soft pt-3">
-                  <div className="flex items-start gap-2 text-[11.5px] text-cream-300">
-                    <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cream-500" aria-hidden="true" />
-                    <span>{meeting.scheduleLabel}</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-[11.5px] text-cream-400">
-                    <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cream-500" aria-hidden="true" />
-                    <span>{meeting.location}</span>
-                  </div>
-                </div>
-              </div>
+              <span className="absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/45 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-white backdrop-blur-sm">
+                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-gold-300" />
+                {meeting.category}
+              </span>
             </div>
 
-            <div className="mt-auto flex items-center justify-between gap-2 pt-5">
-              <button
-                type="button"
-                onClick={() => openRsvp(meeting)}
-                className="text-[12px] font-medium text-cream-300 transition-colors hover:text-cream-50"
-              >
-                RSVP
-              </button>
-              <div className="flex items-center gap-1.5">
+            <div className="flex flex-1 flex-col p-5 sm:p-6">
+              <h3 className="text-[19px] font-semibold leading-snug tracking-[-0.025em] text-cream-50">
+                {meeting.title}
+              </h3>
+              <p className="mt-2 line-clamp-3 text-[12.5px] leading-relaxed text-cream-400">
+                {meeting.description}
+              </p>
+
+              <div className="mt-5 grid gap-3 border-t border-line-soft pt-4">
+                <div className="flex items-start gap-2.5 text-[11.5px] leading-relaxed text-cream-300">
+                  <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold-400" aria-hidden="true" />
+                  <span>{meeting.scheduleLabel}</span>
+                </div>
+                <div className="flex items-start gap-2.5 text-[11.5px] leading-relaxed text-cream-400">
+                  <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-cream-500" aria-hidden="true" />
+                  <span>{meeting.location}</span>
+                </div>
+              </div>
+
+              <div className="mt-auto flex items-center justify-between gap-2 border-t border-line-soft pt-4">
                 <button
                   type="button"
-                  onClick={() => downloadIcsFile(meeting)}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-cream-400 transition-colors hover:border-line-strong hover:text-cream-50"
-                  title="Download .ics for Apple Calendar or Outlook"
-                  aria-label={`Download ${meeting.title} calendar file`}
+                  onClick={() => openRsvp(meeting)}
+                  className="rounded-full px-2 py-2 text-[12px] font-medium text-cream-300 transition-colors hover:text-cream-50 focus-visible:outline-offset-2"
                 >
-                  <Download className="h-3.5 w-3.5" aria-hidden="true" />
+                  RSVP
                 </button>
-                <a
-                  href={meeting.googleCalendarUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-secondary btn-sm"
-                >
-                  <CalendarPlus className="h-3.5 w-3.5" aria-hidden="true" />
-                  Add
-                </a>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => downloadIcsFile(meeting)}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-cream-400 transition-[border-color,color,transform] duration-200 hover:scale-105 hover:border-line-strong hover:text-cream-50"
+                    title="Download .ics for Apple Calendar or Outlook"
+                    aria-label={`Download ${meeting.title} calendar file`}
+                  >
+                    <Download className="h-3.5 w-3.5" aria-hidden="true" />
+                  </button>
+                  <a
+                    href={meeting.googleCalendarUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary btn-sm transition-transform duration-200 hover:scale-[1.03]"
+                  >
+                    <CalendarPlus className="h-3.5 w-3.5" aria-hidden="true" />
+                    Add
+                  </a>
+                </div>
               </div>
             </div>
           </article>

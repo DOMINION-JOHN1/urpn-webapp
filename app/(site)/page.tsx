@@ -28,26 +28,40 @@ export default function HomePage() {
   return (
     <div className="w-full">
       {/* ============================================================ HERO */}
-      <section className="relative isolate overflow-hidden border-b border-line">
+      <section className="relative isolate overflow-hidden border-b border-line sm:min-h-[700px] lg:min-h-[740px]">
+        <div className="relative aspect-[1.96] w-full sm:absolute sm:inset-0 sm:aspect-auto">
+          <Image
+            src="/images/urpn-community.png"
+            alt="The URPN family gathered together at Testaments Saviours"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-canvas sm:bg-gradient-to-r sm:from-canvas/95 sm:via-canvas/75 sm:to-canvas/20"
+          />
+        </div>
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(760px_420px_at_82%_-8%,rgba(176,91,168,0.13),transparent_70%)]"
+          className="absolute inset-x-0 bottom-0 hidden h-40 bg-gradient-to-t from-canvas/80 to-transparent sm:block"
         />
 
-        <div className="container-page grid items-center gap-14 pb-16 pt-14 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-24 lg:pt-24">
-          <div className="animate-fade-in">
+        <div className="container-page relative z-10 -mt-8 pb-12 pt-4 sm:mt-0 sm:flex sm:min-h-[700px] sm:items-center sm:pb-0 sm:pt-28 lg:min-h-[740px] lg:pt-32">
+          <div className="max-w-[650px] animate-fade-in" data-reveal>
             <div className="mb-6 flex items-center gap-2.5">
               <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
               <span className="mono-label text-gold-300">URPN · Prophetic prayer network</span>
             </div>
 
-            <h1 className="text-[32px] font-semibold leading-[1.05] tracking-[-0.045em] text-cream-50 sm:text-[44px] lg:text-[52px]">
+            <h1 className="text-[34px] font-semibold leading-[1.03] tracking-[-0.045em] text-cream-50 sm:text-[48px] lg:text-[60px]">
               Restore the blueprint.
-              <span className="block text-cream-500">Kindle the fire.</span>
-              <span className="block text-cream-500">Reach the territories.</span>
+              <span className="block text-cream-200">Kindle the fire.</span>
+              <span className="block text-cream-200">Reach the territories.</span>
             </h1>
 
-            <p className="mt-7 max-w-[470px] text-[15px] leading-[1.72] text-cream-400">
+            <p className="mt-6 max-w-[490px] text-[15px] leading-[1.72] text-cream-200/90">
               URPN is a prophetic prayer network restoring people, families, spheres, and territories back to their original divine ordination through relentless intercession, apostolic teaching, and the manifest presence of God.
             </p>
 
@@ -62,45 +76,13 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <p className="mt-7 font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-cream-500">
+            <p className="mt-7 font-mono text-[10px] uppercase leading-relaxed tracking-[0.16em] text-cream-200/75">
               Prophetic prayer altars
               <span className="mx-2 text-line-strong">·</span>
               Apostolic restoration
               <span className="mx-2 text-line-strong">·</span>
               Weekly gatherings
             </p>
-          </div>
-
-          {/* The URPN family portrait */}
-          <div className="mx-auto w-full max-w-[520px] lg:mx-0" data-reveal>
-            <figure className="group relative aspect-[1.7] overflow-hidden rounded-2xl border border-line bg-canvas shadow-[0_40px_100px_-50px_rgba(0,0,0,0.95)]">
-              <Image
-                src="/images/urpn-community.png"
-                alt="The URPN family gathered together at Testaments Saviours"
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.015]"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/10"
-              />
-              <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-6">
-                <div>
-                  <span className="mono-label !text-gold-300">One family · one altar</span>
-                  <p className="mt-1 text-[17px] font-semibold tracking-[-0.02em] text-white sm:text-[20px]">
-                    Restoring together.
-                  </p>
-                </div>
-                <Link
-                  href="/gatherings"
-                  className="shrink-0 rounded-full border border-white/35 bg-black/25 px-3.5 py-2 text-[11px] font-medium text-white transition-colors hover:bg-black/45"
-                >
-                  Join us
-                </Link>
-              </figcaption>
-            </figure>
           </div>
         </div>
       </section>

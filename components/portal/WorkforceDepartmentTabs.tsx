@@ -249,18 +249,25 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
       {/* ---------------------------------------------------- ALL DEPARTMENTS GRID VIEW */}
       {activeSlug === 'all' && (
         <>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 animate-fade-in">
-            {departments.map((department) => {
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {departments.map((department, index) => {
               const Icon = ICONS[department.slug] || Sparkles;
 
               return (
                 <article
                   key={department.slug}
-                  className="group flex flex-col justify-between rounded-2xl border border-line bg-surface p-6 transition-all hover:border-line-strong hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]"
+                  className="group relative flex min-h-[330px] flex-col overflow-hidden rounded-[22px] border border-line bg-surface p-5 transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/35 hover:bg-surface-raised hover:shadow-[0_24px_55px_-34px_rgba(216,181,111,0.4)] sm:p-6"
+                  data-reveal
+                  style={{ '--reveal-delay': `${index * 35}ms` } as React.CSSProperties & { '--reveal-delay': string }}
                 >
-                  <div>
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-gold-500/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  />
+
+                  <div className="flex flex-1 flex-col">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-canvas text-gold-300">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-canvas text-gold-300 transition-[transform,border-color,background-color] duration-300 group-hover:scale-105 group-hover:border-gold-500/35 group-hover:bg-gold-500/10">
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
                       <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-cream-400">
@@ -272,28 +279,29 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
                       {department.shortTitle} Department
                     </h3>
                     <p className="mt-1 text-[12px] font-medium text-gold-300/90">{department.tagline}</p>
-                    <p className="mt-2 text-[12.5px] leading-relaxed text-cream-400 line-clamp-3">
+                    <p className="mt-2 text-[12.5px] leading-relaxed text-cream-400 line-clamp-2">
                       {department.description}
                     </p>
 
-                    <div className="mt-5 rounded-xl border border-line-soft bg-canvas/50 p-3.5">
-                      <p className="mono-label !text-[8.5px] text-gold-300">What&apos;s required to join</p>
-                      <p className="mt-1 text-[11.5px] font-medium text-cream-200">
-                        {department.conditions.length} requirements to serve here
-                      </p>
-                      <ul className="mt-2 space-y-1 text-[11px] text-cream-400">
-                        {department.conditions.slice(0, 2).map((c, i) => (
-                          <li key={i} className="line-clamp-1 flex items-center gap-1.5">
-                            <span className="h-1 w-1 rounded-full bg-gold-400 shrink-0" />
-                            <span>{c}</span>
-                          </li>
-                        ))}
-                        {department.conditions.length > 2 && (
-                          <li className="text-[10px] text-cream-500">
-                            +{department.conditions.length - 2} more requirements inside
-                          </li>
+                    <div className="mt-auto pt-5">
+                      <div className="rounded-xl border border-line-soft bg-canvas/50 px-4 py-3.5 transition-colors duration-300 group-hover:border-gold-500/20 group-hover:bg-gold-500/[0.035]">
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="mono-label !text-[8.5px] text-gold-300">Joining requirements</p>
+                          <span className="rounded-full border border-line px-2 py-0.5 font-mono text-[9px] text-cream-300">
+                            {department.conditions.length}
+                          </span>
+                        </div>
+                        {department.conditions[0] && (
+                          <p className="mt-2 line-clamp-2 text-[11px] leading-relaxed text-cream-400">
+                            {department.conditions[0]}
+                          </p>
                         )}
-                      </ul>
+                        {department.conditions.length > 1 && (
+                          <p className="mt-1 text-[10px] text-cream-500">
+                            +{department.conditions.length - 1} more in department details
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
 
@@ -301,13 +309,13 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
                     <button
                       type="button"
                       onClick={() => setActiveSlug(department.slug)}
-                      className="btn btn-secondary btn-sm flex-1 text-xs"
+                      className="btn btn-secondary btn-sm flex-1 text-xs transition-transform duration-200 hover:scale-[1.02]"
                     >
                       View details
                     </button>
-                    <Link href={startHref} className="btn btn-primary btn-sm flex-1 text-xs">
+                    <Link href={startHref} className="group/start btn btn-primary btn-sm flex-1 text-xs transition-transform duration-200 hover:scale-[1.02]">
                       {status.isCertified ? 'Certificate' : status.isEnrolled ? 'Continue' : 'Start'}
-                      <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover/start:translate-x-0.5" aria-hidden="true" />
                     </Link>
                   </div>
                 </article>

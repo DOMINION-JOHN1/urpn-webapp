@@ -158,7 +158,7 @@ python3 scripts/generate-demo-media.py    # macOS `say` + ffmpeg
 
 ### Production persistence
 
-`data/` is git-ignored. On a VPS or any host with a persistent writable volume, set `URPN_DATA_DIR` to that volume. For Vercel, apply the Supabase migrations and set `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and a 32+ character `AUTH_SECRET` in the project environment. The service-role key stays server-side.
+`data/` is git-ignored. On a VPS or any host with a persistent writable volume, set `URPN_DATA_DIR` to that volume. For Vercel, apply the Supabase migrations and set `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SECRET_KEY` (or the legacy `SUPABASE_SERVICE_ROLE_KEY`), and a 32+ character `AUTH_SECRET` in the project environment. The secret key stays server-side.
 
 When the Supabase credentials are present, `lib/server/db.ts` stores the current portal data document in the access-restricted `urpn_app_state` table. This keeps the existing portal model working across serverless instances while the relational Supabase migration remains available for a later data-model upgrade.
 
@@ -222,7 +222,7 @@ Copy `.env.example` to `.env.local` and set what you need.
 | --- | --- | --- |
 | `AUTH_SECRET` | Production | 32+ random chars for session signing |
 | `URPN_DATA_DIR` | Production with persistent disk | Writable directory for the portal JSON store |
-| `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` | Production serverless | Enables persistent state in the private Supabase table |
+| `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SECRET_KEY` (or legacy `SUPABASE_SERVICE_ROLE_KEY`) | Production serverless | Enables persistent state in the private Supabase table |
 | `SHOW_DEMO_LOGIN` | No | Set `false` to hide/disable the demo seed account |
 | Google Drive/Sheets + Deepgram variables | Testimony only | See `.env.example` and `OAUTH-SETUP.md` |
 
