@@ -237,21 +237,17 @@ export default async function PortalDashboardPage() {
             <div>
               <p className="mono-label">Begin here</p>
               <h2 className="mt-2 text-[20px] font-semibold text-cream-50">
-                {user.role === 'workforce'
-                  ? 'Join a Ministry Department.'
-                  : 'Start with In-House Ministers Training.'}
+                Start with In-House Ministers Training.
               </h2>
               <p className="mt-1 text-[12.5px] text-cream-400">
-                {user.role === 'workforce'
-                  ? 'Review department conditions, listen to the audio modules, and earn your certificate.'
-                  : 'Carrying the mantle, guarding the altar, and ministering with character.'}
+                Carrying the mantle, guarding the altar, and ministering with character.
               </p>
             </div>
             <Link
-              href={user.role === 'workforce' ? '/workforce' : '/portal/courses/ministers'}
+              href="/portal/courses/ministers"
               className="btn btn-primary shrink-0"
             >
-              {user.role === 'workforce' ? 'Explore departments' : 'Open Ministers Training'}
+              Open Ministers Training
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
@@ -264,7 +260,7 @@ export default async function PortalDashboardPage() {
           <div>
             <p className="mono-label">Your learning</p>
             <h2 className="mt-2 text-[20px] font-semibold tracking-[-0.025em] text-cream-50">
-              {user.role === 'workforce' ? 'Your courses' : 'Formation path'}
+              Formation path
             </h2>
           </div>
           <Link
