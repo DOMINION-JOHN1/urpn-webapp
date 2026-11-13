@@ -31,7 +31,7 @@ export default async function LoginPage({
   const user = await getSessionUser();
   if (user) redirect(nextPath);
 
-  const showDemo = process.env.SHOW_DEMO_LOGIN !== 'false';
+  const showDemo = process.env.NODE_ENV !== 'production' && process.env.SHOW_DEMO_LOGIN !== 'false';
 
   return (
     <div className="grid min-h-[100dvh] lg:grid-cols-[1fr_1.05fr]">
