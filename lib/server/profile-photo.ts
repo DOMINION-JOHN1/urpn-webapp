@@ -19,7 +19,7 @@ function storageConfig() {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const apiKey = secretKey || serviceRoleKey;
   if (!url || !apiKey) return null;
-  return { url, apiKey, bearerToken: secretKey ? null : serviceRoleKey };
+  return { url, apiKey, bearerToken: secretKey ? null : serviceRoleKey ?? null };
 }
 
 function headers(apiKey: string, bearerToken: string | null, contentType?: string): HeadersInit {
