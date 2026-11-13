@@ -100,6 +100,13 @@ export function AuthForm({
         throw new Error(data.error || 'Something went wrong. Please try again.');
       }
 
+      if (mode === 'register' || portalType === 'workforce') {
+        // Complete a document navigation after the response sets the session
+        // cookie so protected portal routes read the new session immediately.
+        window.location.replace(nextPath);
+        return;
+      }
+
       router.replace(nextPath);
       router.refresh();
     } catch (err) {

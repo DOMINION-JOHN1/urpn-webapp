@@ -25,7 +25,7 @@ export default async function WorkforceRegisterPage({
   const nextPath =
     requestedNext.startsWith('/portal') && !requestedNext.startsWith('//')
       ? requestedNext
-      : '/workforce';
+      : '/portal/courses';
 
   const user = await getSessionUser();
   if (user) redirect(nextPath);

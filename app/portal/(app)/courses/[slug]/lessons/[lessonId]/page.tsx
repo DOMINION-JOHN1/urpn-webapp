@@ -70,7 +70,7 @@ export default async function LessonPage({
     );
   }
 
-  const { lesson, module, index } = found;
+  const { lesson, index } = found;
   const lessons = getAllLessons(course);
   const previous = index > 0 ? lessons[index - 1] : null;
   const next = index < lessons.length - 1 ? lessons[index + 1] : null;
@@ -94,26 +94,23 @@ export default async function LessonPage({
         <span>
           Lesson {index + 1} of {lessons.length}
         </span>
-        <span className="text-line-strong">/</span>
-        <span className="text-cream-400">{module.title}</span>
       </div>
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="min-w-0">
-          {/* Breadcrumb pill matching Image 2 */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/15 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-accent font-medium">
-              {module.title} / {lesson.title}
-            </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas px-2.5 py-0.5 font-mono text-[8.5px] uppercase tracking-[0.1em] text-cream-400">
               <KindIcon kind={lesson.kind} />
               {lesson.resourceUrl && lesson.estimatedMinutes === 0
                 ? 'Course material'
                 : lessonKindLabel(lesson.kind)}
             </span>
-            <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-cream-600">
-              {formatLessonDuration(lesson)}
-            </span>
+            {((lesson.kind === 'reading' && lesson.estimatedMinutes > 0) ||
+              (lesson.kind !== 'reading' && (lesson.media?.durationSeconds ?? 0) > 0)) && (
+              <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-cream-600">
+                {formatLessonDuration(lesson)}
+              </span>
+            )}
             {isComplete && (
               <span className="inline-flex items-center gap-1 font-mono text-[8.5px] uppercase tracking-[0.1em] text-emerald-400">
                 <Check className="h-3 w-3" />
