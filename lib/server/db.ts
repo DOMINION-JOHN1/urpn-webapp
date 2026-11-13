@@ -138,7 +138,7 @@ async function exists(file: string): Promise<boolean> {
 function buildSeed(): Database {
   const now = new Date();
   const iso = now.toISOString();
-  const demoEnabled = process.env.SHOW_DEMO_LOGIN !== 'false';
+  const demoEnabled = process.env.NODE_ENV !== 'production' && process.env.SHOW_DEMO_LOGIN !== 'false';
 
   const staffId = 'usr_demo_grace';
   const memberId = 'usr_demo_member';
