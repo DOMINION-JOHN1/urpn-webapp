@@ -143,62 +143,56 @@ function buildSeed(): Database {
   const staffId = 'usr_demo_grace';
   const memberId = 'usr_demo_member';
 
-  const ministers = COURSES.find((course) => course.slug === 'ministers')!;
-  const media = COURSES.find((course) => course.slug === 'media')!;
-  const staffLessons = getAllLessons(ministers);
-  const mediaLessons = getAllLessons(media);
-
-  const staffProgress: LessonProgress[] = staffLessons.slice(0, 2).map((lesson, index) => {
-    const completedAt = new Date(
-      now.getTime() - 1000 * 60 * 60 * 24 * (5 - index)
-    ).toISOString();
-    return {
-      userId: staffId,
-      courseId: ministers.slug,
-      lessonId: lesson.id,
-      positionSeconds: lesson.media?.durationSeconds ?? 0,
-      completedAt,
-      updatedAt: completedAt,
-    };
-  });
-
-  const firstMediaLesson = mediaLessons[0];
-  const secondMediaLesson = mediaLessons[1];
+  const ministers = COURSES.find((course) => course.slug === 'ministers');
+  const workforce = COURSES.find((course) => course.slug === 'workforce-training');
   const completedAt = new Date(now.getTime() - 1000 * 60 * 60 * 24 * 2).toISOString();
-  const mediaProgress: LessonProgress[] = [
-    {
-      userId: memberId,
-      courseId: media.slug,
-      lessonId: firstMediaLesson.id,
-      positionSeconds: firstMediaLesson.media?.durationSeconds ?? 0,
-      completedAt,
-      updatedAt: completedAt,
-    },
-    {
-      userId: memberId,
-      courseId: media.slug,
-      lessonId: secondMediaLesson.id,
-      positionSeconds: 15,
-      completedAt: null,
-      updatedAt: completedAt,
-    },
-  ];
+
+  const staffProgress: LessonProgress[] = ministers
+    ? getAllLessons(ministers).slice(0, 2).map((lesson, index) => {
+        const lessonCompletedAt = new Date(
+          now.getTime() - 1000 * 60 * 60 * 24 * (5 - index)
+        ).toISOString();
+        return {
+          userId: staffId,
+          courseId: ministers.slug,
+          lessonId: lesson.id,
+          positionSeconds: lesson.media?.durationSeconds ?? 0,
+          completedAt: lessonCompletedAt,
+          updatedAt: lessonCompletedAt,
+        };
+      })
+    : [];
+
+  const workforceProgress: LessonProgress[] = workforce
+    ? getAllLessons(workforce).slice(0, 2).map((lesson, index) => ({
+        userId: memberId,
+        courseId: workforce.slug,
+        lessonId: lesson.id,
+        positionSeconds: index === 0 ? lesson.media?.durationSeconds ?? 0 : 15,
+        completedAt: index === 0 ? completedAt : null,
+        updatedAt: completedAt,
+      }))
+    : [];
 
   const enrollments: Enrollment[] = [
-    {
-      id: 'enr_demo_ministers',
-      userId: staffId,
-      courseId: ministers.slug,
-      enrolledAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 9).toISOString(),
-      conditionsAcceptedAt: null,
-    },
-    {
-      id: 'enr_demo_media',
-      userId: memberId,
-      courseId: media.slug,
-      enrolledAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 4).toISOString(),
-      conditionsAcceptedAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 4).toISOString(),
-    },
+    ...(ministers
+      ? [{
+          id: 'enr_demo_ministers',
+          userId: staffId,
+          courseId: ministers.slug,
+          enrolledAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 9).toISOString(),
+          conditionsAcceptedAt: null,
+        }]
+      : []),
+    ...(workforce
+      ? [{
+          id: 'enr_demo_workforce',
+          userId: memberId,
+          courseId: workforce.slug,
+          enrolledAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 4).toISOString(),
+          conditionsAcceptedAt: completedAt,
+        }]
+      : []),
   ];
 
   return {
@@ -227,7 +221,7 @@ function buildSeed(): Database {
         ]
       : [],
     enrollments: demoEnabled ? enrollments : [],
-    progress: demoEnabled ? [...staffProgress, ...mediaProgress] : [],
+    progress: demoEnabled ? [...staffProgress, ...workforceProgress] : [],
     attempts: [],
     certificates: [],
   };
