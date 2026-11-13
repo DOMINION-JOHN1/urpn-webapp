@@ -6,7 +6,7 @@ import { LogOut, Loader2 } from 'lucide-react';
 
 export function SignOutButton({
   compact = false,
-  redirectTo = '/portal/login',
+  redirectTo = '/',
 }: {
   compact?: boolean;
   redirectTo?: string;

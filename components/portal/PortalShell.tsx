@@ -185,7 +185,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
               </div>
             </Link>
             <div className="mt-2 border-t border-line-soft pt-1">
-              <SignOutButton redirectTo={isWorkforce ? '/workforce/login' : '/portal/login'} />
+              <SignOutButton redirectTo="/" />
             </div>
           </div>
         </div>
@@ -218,7 +218,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
               ) : initials(user.name || user.email)}
             </Link>
             <ThemeToggle className="h-8 w-8" />
-            <SignOutButton compact redirectTo={isWorkforce ? '/workforce/login' : '/portal/login'} />
+            <SignOutButton compact redirectTo="/" />
           </div>
         </header>
 

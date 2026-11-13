@@ -19,7 +19,7 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Become a Worker · Unique Revival Prayer Network',
   description:
-    'Step into your assignment. Join one of our 16 ministry departments: review conditions, complete the audio formation and timed exam, then attend physical observation, induction, and impartation.',
+    'Join one of our 16 ministry departments. Complete workforce training, pass the exam and receive certification before physical observation, induction, and impartation.',
 };
 
 export default async function WorkforceHubPage() {
@@ -64,7 +64,9 @@ export default async function WorkforceHubPage() {
             </h1>
 
             <p className="mt-5 text-[15px] leading-[1.75] text-cream-400">
-              URPN is raising men and women who carry the altar into their spheres. Choose a ministry department, review the conditions, complete the shared training and exam, then attend physical observation, induction, and impartation before serving.
+              URPN is raising men and women who carry the altar into their spheres. Choose a
+              ministry department, complete the shared training, pass the exam, and receive your
+              certificate before physical observation, induction, and impartation.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -113,16 +115,17 @@ export default async function WorkforceHubPage() {
               <span className="mono-label text-gold-300">How to join</span>
             </div>
             <h2 className="mt-3 text-[26px] font-semibold text-cream-50 sm:text-[32px]">
-              Four steps to service in the house
+              Five steps to service in the house
             </h2>
           </div>
 
-          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5">
             <div className="rounded-2xl border border-line bg-surface p-5 sm:p-6" data-reveal>
               <span className="font-mono text-xs text-gold-400">01</span>
               <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Create account</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
-                Create your account with an email and password. Add your name and profile details after signing in.
+                Create your account with an email and password. Add your name and profile details
+                after signing in.
               </p>
             </div>
 
@@ -134,7 +137,8 @@ export default async function WorkforceHubPage() {
               <span className="font-mono text-xs text-gold-400">02</span>
               <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Review conditions</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
-                Each department lists its spiritual and practical requirements. Review and accept the conditions to enroll.
+                Each department lists its spiritual and practical requirements. Review and accept
+                the conditions to enroll.
               </p>
             </div>
 
@@ -144,9 +148,9 @@ export default async function WorkforceHubPage() {
               style={{ '--reveal-delay': '120ms' } as React.CSSProperties & { '--reveal-delay': string }}
             >
               <span className="font-mono text-xs text-gold-400">03</span>
-              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Complete training &amp; exam</h3>
+              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Complete training</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
-                Complete the shared workforce curriculum and timed exam. Your progress is saved as you go.
+                Finish the shared workforce curriculum. Your progress is saved as you go.
               </p>
             </div>
 
@@ -156,9 +160,24 @@ export default async function WorkforceHubPage() {
               style={{ '--reveal-delay': '180ms' } as React.CSSProperties & { '--reveal-delay': string }}
             >
               <span className="font-mono text-xs text-gold-400">04</span>
-              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Physical observation &amp; induction</h3>
+              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Pass exam &amp; get certified</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
-                Complete the observation and receive induction and impartation before beginning service.
+                Pass the timed exam to receive your workforce certificate.
+              </p>
+            </div>
+
+            <div
+              className="rounded-2xl border border-line bg-surface p-5 sm:p-6"
+              data-reveal
+              style={{ '--reveal-delay': '240ms' } as React.CSSProperties & { '--reveal-delay': string }}
+            >
+              <span className="font-mono text-xs text-gold-400">05</span>
+              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">
+                Physical observation, induction &amp; impartation
+              </h3>
+              <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
+                After certification, complete physical observation and receive induction and
+                impartation before serving.
               </p>
             </div>
           </div>
