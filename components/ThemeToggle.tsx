@@ -21,7 +21,7 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
 
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) {
-      meta.setAttribute('content', next === 'light' ? '#F6F2F4' : '#0D0C0F');
+      meta.setAttribute('content', next === 'light' ? '#F7F4EE' : '#131211');
     }
   };
 

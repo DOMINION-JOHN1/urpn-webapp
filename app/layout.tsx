@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0D0C0F',
+  themeColor: '#131211',
   colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
@@ -59,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-canvas text-cream-100 antialiased">
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('urpn-theme');var light=t==='light';document.documentElement.classList.toggle('light',light);document.documentElement.style.colorScheme=light?'light':'dark';var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',light?'#F6F2F4':'#0D0C0F');}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('urpn-theme');var light=t==='light';document.documentElement.classList.toggle('light',light);document.documentElement.style.colorScheme=light?'light':'dark';var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',light?'#F7F4EE':'#131211');}catch(e){}})();`,
           }}
         />
         <PwaRegister />

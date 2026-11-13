@@ -90,7 +90,9 @@ export default function HomePage() {
       </section>
 
       {/* ==================================================== VISION & MISSION */}
-      <MandateSection />
+      <div className="pb-16 sm:pb-20">
+        <MandateSection contained />
+      </div>
 
       {/* ==================================================== GATHERINGS */}
       <div id="gatherings" className="scroll-mt-24 border-y border-line">

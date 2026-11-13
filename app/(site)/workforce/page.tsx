@@ -49,7 +49,7 @@ export default async function WorkforceHubPage() {
         <div className="relative overflow-hidden rounded-3xl border border-line bg-surface p-7 sm:p-12 lg:p-16">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_350px_at_90%_0%,rgba(176,91,168,0.12),transparent_70%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_350px_at_90%_0%,rgba(204,108,66,0.1),transparent_70%)]"
           />
 
           <div className="relative max-w-2xl" data-reveal>

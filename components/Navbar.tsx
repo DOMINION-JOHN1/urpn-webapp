@@ -89,45 +89,84 @@ export function Navbar() {
       {open && (
         <div
           id="mobile-menu"
-          className="fixed inset-x-0 top-[72px] z-40 h-[calc(100dvh-72px)] overflow-y-auto border-t border-line bg-canvas px-5 pb-10 pt-6 md:hidden"
+          className="fixed inset-x-0 top-[72px] z-40 flex h-[calc(100dvh-72px)] flex-col justify-between overflow-y-auto border-t border-line bg-canvas px-5 pb-8 pt-5 md:hidden"
         >
-          <nav className="flex flex-col" aria-label="Mobile navigation">
-            {NAV_LINKS.map((link, index) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-between border-b border-line-soft py-4 text-lg font-medium text-cream-100"
-              >
-                <span>{link.label}</span>
-                <span className="mono-label text-cream-500">0{index + 1}</span>
-              </Link>
-            ))}
-          </nav>
-          <Link href="/workforce" onClick={() => setOpen(false)} className="btn btn-primary mt-6 w-full">
-            Become a worker
-            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-          <Link
-            href="/portal/login"
-            onClick={() => setOpen(false)}
-            className="btn btn-secondary mt-2 w-full"
-          >
-            Staff portal 🔒
-          </Link>
-          <Link
-            href="/install"
-            onClick={() => setOpen(false)}
-            className="btn btn-secondary mt-2 w-full"
-          >
-            <Download className="h-4 w-4" aria-hidden="true" />
-            Install app
-          </Link>
-          <p className="mt-6 text-center text-xs leading-relaxed text-cream-500">
-            Workforce formation for every department member.
-            <br />
-            Install the portal from your browser menu.
-          </p>
+          <div>
+            <div className="flex items-center justify-between pb-2">
+              <span className="mono-label text-gold-400">Navigation</span>
+              <span className="font-mono text-[10px] text-cream-500">4 Sections</span>
+            </div>
+            <nav className="flex flex-col space-y-1.5 pt-2" aria-label="Mobile navigation">
+              {NAV_LINKS.map((link, index) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={`flex items-center justify-between rounded-xl border p-3.5 text-[15px] font-medium transition-colors ${
+                      isActive
+                        ? 'border-accent/40 bg-surface-raised text-cream-50 shadow-sm'
+                        : 'border-line/70 bg-surface/60 text-cream-200 hover:border-line hover:text-cream-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-md border border-line bg-surface text-center font-mono text-[10px] text-accent">
+                        0{index + 1}
+                      </span>
+                      <span>{link.label}</span>
+                    </div>
+                    {isActive && (
+                      <span className="flex h-2 w-2 rounded-full bg-accent" />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="mt-6 border-t border-line-soft pt-4">
+              <span className="mono-label text-gold-400">Workforce & Portal</span>
+              <div className="mt-3 space-y-2">
+                <Link
+                  href="/workforce"
+                  onClick={() => setOpen(false)}
+                  className="btn btn-primary w-full justify-between"
+                >
+                  <span>Become a worker</span>
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+                <Link
+                  href="/portal/login"
+                  onClick={() => setOpen(false)}
+                  className="btn btn-secondary w-full justify-between"
+                >
+                  <span>Staff portal</span>
+                  <span className="text-[12px]">🔒</span>
+                </Link>
+                <Link
+                  href="/install"
+                  onClick={() => setOpen(false)}
+                  className="btn btn-secondary w-full justify-between"
+                >
+                  <span className="flex items-center gap-2">
+                    <Download className="h-4 w-4" aria-hidden="true" />
+                    Install app
+                  </span>
+                  <span className="font-mono text-[10px] text-cream-500">PWA</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-xl border border-line bg-surface-soft/80 p-3.5 text-center text-xs leading-relaxed text-cream-400">
+            <div className="flex items-center justify-center gap-2 font-medium text-cream-200">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              <span>Unique Revival Prayer Network</span>
+            </div>
+            <p className="mt-1 text-[11px] text-cream-500">
+              Lokoja, Kogi State · Restoring the original divine ordination
+            </p>
+          </div>
         </div>
       )}
     </header>
