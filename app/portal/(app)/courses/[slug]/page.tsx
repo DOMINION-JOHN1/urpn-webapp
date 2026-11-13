@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import {
   ArrowLeft,
@@ -23,6 +23,7 @@ import {
   getCourse,
   getLessonCount,
   lessonKindLabel,
+  WORKFORCE_DEPARTMENTS,
 } from '@/lib/courses';
 import { EnrollButton } from '@/components/portal/EnrollButton';
 import { DepartmentConditionsAcceptance } from '@/components/portal/DepartmentConditionsAcceptance';
@@ -52,7 +53,15 @@ export default async function CourseOverviewPage({
 }) {
   const user = await requireUser();
   const course = getCourse(params.slug);
-  if (!course) notFound();
+  if (!course) {
+    const isWorkforceDepartment = WORKFORCE_DEPARTMENTS.some(
+      (department) => department.slug === params.slug
+    );
+    if (isWorkforceDepartment && user.role === 'workforce') {
+      redirect('/portal/courses/workforce-training');
+    }
+    notFound();
+  }
 
   const overview = await getCourseOverview(user.id, course);
   const total = getLessonCount(course);

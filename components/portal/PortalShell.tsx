@@ -28,25 +28,6 @@ const LEADERSHIP_TRACKS = [
   { href: '/portal/courses/pastors', label: 'Pastors Training', code: '301' },
 ];
 
-const WORKFORCE_TRACKS = [
-  { href: '/portal/courses/aesthetics', label: 'Aesthetics', code: 'AES' },
-  { href: '/portal/courses/pr', label: 'Public Relations', code: 'PR' },
-  { href: '/portal/courses/protocol', label: 'Protocol', code: 'PRO' },
-  { href: '/portal/courses/ushering', label: 'Ushering', code: 'USH' },
-  { href: '/portal/courses/technical', label: 'Technical', code: 'TEC' },
-  { href: '/portal/courses/media', label: 'Media', code: 'MED' },
-  { href: '/portal/courses/choir', label: 'Choir / Worship', code: 'CHO' },
-  { href: '/portal/courses/welfare', label: 'Welfare', code: 'WEL' },
-  { href: '/portal/courses/prayer', label: 'Prayer', code: 'PRA' },
-  { href: '/portal/courses/counseling', label: 'Counseling', code: 'CNS' },
-  { href: '/portal/courses/transport', label: 'Transport', code: 'TRN' },
-  { href: '/portal/courses/medical', label: 'Medical', code: 'MED' },
-  { href: '/portal/courses/security', label: 'Security', code: 'SEC' },
-  { href: '/portal/courses/children', label: 'Children/Teens', code: 'CHI' },
-  { href: '/portal/courses/publications', label: 'Publications & Academic', code: 'PUB' },
-  { href: '/portal/courses/drama', label: 'Drama & Demonstration', code: 'DRM' },
-];
-
 function initials(name: string) {
   return name
     .split(' ')
@@ -65,8 +46,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
   const pathname = usePathname();
   const isWorkforce = user.role === 'workforce';
 
-  const tracks = isWorkforce ? WORKFORCE_TRACKS : LEADERSHIP_TRACKS;
-  const tracksTitle = isWorkforce ? 'Departments' : 'Leadership tracks';
+  const tracks = LEADERSHIP_TRACKS;
 
   const primaryNav = isWorkforce
     ? [
@@ -124,31 +104,33 @@ export function PortalShell({ user, children }: PortalShellProps) {
           </ul>
         </nav>
 
-        <nav className="mt-7" aria-label="Training tracks">
-          <p className="mono-label px-3 !text-[9px]">{tracksTitle}</p>
-          <ul className="mt-2 space-y-0.5">
-            {tracks.map((track) => {
-              const active = pathname.startsWith(track.href);
-              return (
-                <li key={track.href}>
-                  <Link
-                    href={track.href}
-                    className={`flex items-center justify-between rounded-lg px-3 py-2 text-[13px] transition-colors ${
-                      active
-                        ? 'bg-cream-50/[0.06] text-cream-50'
-                        : 'text-cream-400 hover:bg-cream-50/[0.03] hover:text-cream-50'
-                    }`}
-                  >
-                    <span>{track.label}</span>
-                    <span className="font-mono text-[9px] tracking-[0.1em] text-cream-600">
-                      {track.code}
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        {!isWorkforce && (
+          <nav className="mt-7" aria-label="Leadership tracks">
+            <p className="mono-label px-3 !text-[9px]">Leadership tracks</p>
+            <ul className="mt-2 space-y-0.5">
+              {tracks.map((track) => {
+                const active = pathname.startsWith(track.href);
+                return (
+                  <li key={track.href}>
+                    <Link
+                      href={track.href}
+                      className={`flex items-center justify-between rounded-lg px-3 py-2 text-[13px] transition-colors ${
+                        active
+                          ? 'bg-cream-50/[0.06] text-cream-50'
+                          : 'text-cream-400 hover:bg-cream-50/[0.03] hover:text-cream-50'
+                      }`}
+                    >
+                      <span>{track.label}</span>
+                      <span className="font-mono text-[9px] tracking-[0.1em] text-cream-600">
+                        {track.code}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        )}
 
         <div className="mt-auto space-y-3 pt-6">
           <div className="flex items-center gap-2">

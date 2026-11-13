@@ -503,23 +503,27 @@ export function LessonPlayer({
       {/* Reading */}
       {lesson.kind === 'reading' && (
         <div className="overflow-hidden rounded-xl border border-line bg-surface">
-          <div className="flex items-center justify-between gap-3 border-b border-line-soft px-5 py-3.5">
-            <span className="mono-label flex items-center gap-2 !text-[9px]">
-              <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
-              Reading
-            </span>
-            <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-cream-500">
-              {lesson.estimatedMinutes} min read
-            </span>
-          </div>
-          <div className="prose-urpn px-5 py-6 sm:px-7 sm:py-8">
-            {lesson.body?.map((paragraph) => <p key={paragraph.slice(0, 24)}>{paragraph}</p>)}
-          </div>
+          {lesson.body?.length ? (
+            <>
+              <div className="flex items-center justify-between gap-3 border-b border-line-soft px-5 py-3.5">
+                <span className="mono-label flex items-center gap-2 !text-[9px]">
+                  <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
+                  Reading
+                </span>
+                <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-cream-500">
+                  {lesson.estimatedMinutes} min read
+                </span>
+              </div>
+              <div className="prose-urpn px-5 py-6 sm:px-7 sm:py-8">
+                {lesson.body.map((paragraph) => <p key={paragraph.slice(0, 24)}>{paragraph}</p>)}
+              </div>
+            </>
+          ) : null}
           {lesson.resourceUrl && (
-            <div className="flex flex-col gap-3 border-t border-line-soft bg-canvas/35 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+            <div className={`flex flex-col gap-3 bg-canvas/35 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7 ${lesson.body?.length ? 'border-t border-line-soft' : ''}`}>
               <div>
                 <p className="mono-label !text-[9px]">Course material</p>
-                <p className="mt-1 text-[12px] font-medium text-cream-200">
+                <p className="mt-1 text-[14px] font-medium text-cream-100">
                   {lesson.resourceLabel || lesson.title}
                 </p>
               </div>
@@ -626,10 +630,14 @@ export function LessonPlayer({
               <CheckCircle2 className="h-5 w-5 text-cream-500 shrink-0" aria-hidden="true" />
               <div>
                 <p className="text-[12.5px] font-semibold text-cream-50">
-                  Finished this teaching?
+                  {lesson.resourceUrl && lesson.estimatedMinutes === 0
+                    ? 'Finished this course material?'
+                    : 'Finished this teaching?'}
                 </p>
                 <p className="text-[11px] text-cream-400">
-                  Mark as complete to unlock the next audio or course topic.
+                  {lesson.resourceUrl && lesson.estimatedMinutes === 0
+                    ? 'Mark this module complete to unlock the next course material.'
+                    : 'Mark as complete to unlock the next audio or course topic.'}
                 </p>
               </div>
             </div>

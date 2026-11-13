@@ -85,7 +85,9 @@ export default async function ExamPage({ params }: { params: { slug: string } })
                       {lesson.title}
                     </span>
                     <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-cream-600">
-                      {lesson.kind}
+                      {lesson.resourceUrl && lesson.estimatedMinutes === 0
+                        ? 'Course material'
+                        : lesson.kind}
                     </span>
                   </Link>
                 </li>

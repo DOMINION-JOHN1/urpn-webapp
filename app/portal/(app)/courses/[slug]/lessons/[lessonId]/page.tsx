@@ -107,7 +107,9 @@ export default async function LessonPage({
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas px-2.5 py-0.5 font-mono text-[8.5px] uppercase tracking-[0.1em] text-cream-400">
               <KindIcon kind={lesson.kind} />
-              {lessonKindLabel(lesson.kind)}
+              {lesson.resourceUrl && lesson.estimatedMinutes === 0
+                ? 'Course material'
+                : lessonKindLabel(lesson.kind)}
             </span>
             <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-cream-600">
               {formatLessonDuration(lesson)}
@@ -122,9 +124,11 @@ export default async function LessonPage({
           <h1 className="mt-2.5 max-w-3xl text-[26px] font-semibold leading-[1.15] tracking-[-0.035em] text-cream-50 sm:text-[32px]">
             {lesson.title}
           </h1>
-          <p className="mt-2 max-w-2xl text-[12.5px] leading-relaxed text-cream-400">
-            {lesson.summary}
-          </p>
+          {lesson.summary && (
+            <p className="mt-2 max-w-2xl text-[12.5px] leading-relaxed text-cream-400">
+              {lesson.summary}
+            </p>
+          )}
         </div>
 
         <div className="shrink-0 text-left sm:text-right">
