@@ -37,12 +37,12 @@
   --ink-700: 34 31 28;
   --ink-600: 48 44 39;
 
-  --accent: 204 108 66;
-  --accent-hover: 222 124 80;
-  --accent-strong: 172 80 44;
-  --accent-strong-hover: 194 98 58;
+  --accent: 176 91 168;
+  --accent-hover: 194 122 186;
+  --accent-strong: 106 21 87;
+  --accent-strong-hover: 130 33 108;
   --accent-ink: 255 255 255;
-  --accent-soft: 48 28 19;
+  --accent-soft: 55 20 48;
 
   --gold-200: 228 214 182;
   --gold-300: 212 194 154;
@@ -82,12 +82,12 @@ html.light {
   --ink-700: 236 230 220;
   --ink-600: 224 216 204;
 
-  --accent: 174 82 44;
-  --accent-hover: 154 70 34;
-  --accent-strong: 154 70 34;
-  --accent-strong-hover: 174 82 44;
+  --accent: 110 21 88;
+  --accent-hover: 90 16 75;
+  --accent-strong: 90 16 75;
+  --accent-strong-hover: 110 21 88;
   --accent-ink: 255 255 255;
-  --accent-soft: 248 238 230;
+  --accent-soft: 246 231 243;
 
   --gold-200: 130 102 62;
   --gold-300: 130 102 62;
