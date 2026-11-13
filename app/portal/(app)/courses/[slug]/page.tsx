@@ -19,6 +19,7 @@ import {
 import { requireUser } from '@/lib/server/auth';
 import { getCourseOverview } from '@/lib/server/learning';
 import {
+  canAccessCourse,
   formatLessonDuration,
   getCourse,
   getLessonCount,
@@ -61,6 +62,9 @@ export default async function CourseOverviewPage({
       redirect('/portal/courses/workforce-training');
     }
     notFound();
+  }
+  if (!canAccessCourse(user.role, course)) {
+    redirect(user.role === 'workforce' ? '/workforce' : '/portal');
   }
 
   const overview = await getCourseOverview(user.id, course);

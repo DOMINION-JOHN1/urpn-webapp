@@ -19,9 +19,9 @@ export function AuthForm({
   portalType?: 'worker' | 'workforce';
 }) {
   const router = useRouter();
-  // Worker portal is locked: registration is disabled on worker portal.
-  const isWorkerLocked = portalType === 'worker';
-  const effectiveMode = isWorkerLocked ? 'signin' : initialMode;
+  // Staff registration stays closed; church administration provisions these accounts.
+  const isStaffPortal = portalType === 'worker';
+  const effectiveMode = isStaffPortal ? 'signin' : initialMode;
 
   const [mode, setMode] = useState<Mode>(effectiveMode);
   const [email, setEmail] = useState('');
@@ -31,7 +31,7 @@ export function AuthForm({
   const [error, setError] = useState<string | null>(null);
 
   const switchMode = (next: Mode) => {
-    if (isWorkerLocked && next === 'register') return;
+    if (isStaffPortal && next === 'register') return;
     setMode(next);
     setError(null);
     setPassword('');
@@ -63,7 +63,7 @@ export function AuthForm({
     setLoading(true);
     try {
       const endpoint = mode === 'signin' ? '/api/auth/login' : '/api/auth/register';
-      const payload = { email: email.trim(), password };
+      const payload = { email: email.trim(), password, portalType };
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -101,16 +101,16 @@ export function AuthForm({
       <div className="flex items-center gap-3">
         <span className="h-px w-6 bg-gold-500/70" />
         <span className="mono-label text-gold-300">
-          {portalType === 'workforce' ? 'Workforce Portal' : 'Worker Portal'}
+          {portalType === 'workforce' ? 'Workforce Portal' : 'Staff Portal'}
         </span>
       </div>
 
-      {isWorkerLocked && (
+      {isStaffPortal && (
         <div className="mt-4 rounded-xl border border-gold-500/30 bg-gold-500/[0.08] p-4 text-left">
           <div className="flex items-start gap-2.5">
             <Lock className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" />
             <div>
-              <p className="text-[12.5px] font-semibold text-cream-50">Worker portal is locked</p>
+              <p className="text-[12.5px] font-semibold text-cream-50">Staff portal is locked</p>
               <p className="mt-1 text-[11.5px] leading-relaxed text-cream-300">
                 Staff and leadership sign in with credentials issued by church administration.
               </p>
@@ -127,15 +127,15 @@ export function AuthForm({
 
       <h1 className="mt-5 text-[32px] font-semibold leading-[1.1] tracking-[-0.04em] text-cream-50 sm:text-[36px]">
         {mode === 'signin'
-          ? isWorkerLocked
+          ? isStaffPortal
             ? 'Staff sign in.'
             : 'Welcome back.'
           : 'Create your account.'}
       </h1>
       <p className="mt-3 text-[13.5px] leading-relaxed text-cream-400">
         {mode === 'signin'
-          ? isWorkerLocked
-            ? 'Sign in with your in-house worker, minister, or pastor account to continue.'
+          ? isStaffPortal
+            ? 'Sign in with your staff, minister, or pastor account to continue.'
             : 'Sign in to access your department audio lessons, track progress, or sit your exam.'
           : 'Create your account with an email and password. Add your name and profile details after signing in.'}
       </p>
@@ -209,7 +209,7 @@ export function AuthForm({
         </button>
       </form>
 
-      {!isWorkerLocked ? (
+      {!isStaffPortal ? (
         <p className="mt-5 text-center text-xs text-cream-500">
           {mode === 'signin' ? 'New prospective worker?' : 'Already have an account?'}{' '}
           <button
@@ -252,7 +252,7 @@ export function AuthForm({
       )}
 
       <p className="mt-6 text-center text-[10.5px] leading-relaxed text-cream-600">
-        Unique Revival Prayer Network · Apostolic prayer and worker formation.
+        Unique Revival Prayer Network · Apostolic prayer and staff formation.
       </p>
     </div>
   );

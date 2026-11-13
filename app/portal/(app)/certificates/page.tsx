@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, Award, Printer } from 'lucide-react';
+import { ArrowUpRight, Award, Printer } from 'lucide-react';
 import { requireUser } from '@/lib/server/auth';
-import { listCertificatesForUser } from '@/lib/server/learning';
+import { getDashboardData } from '@/lib/server/learning';
+import { LockedCertificatePreview } from '@/components/portal/LockedCertificatePreview';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,7 +20,9 @@ function formatDate(value: string) {
 
 export default async function CertificatesPage() {
   const user = await requireUser();
-  const certificates = await listCertificatesForUser(user.id);
+  const data = await getDashboardData(user.id);
+  const certificates = data.certificates;
+  const lockedCourses = data.courses.filter((entry) => !entry.certificate);
 
   return (
     <div>
@@ -27,27 +30,8 @@ export default async function CertificatesPage() {
       <h1 className="mt-2 text-[30px] font-semibold leading-[1.1] tracking-[-0.04em] text-cream-50 sm:text-[36px]">
         Your certificates.
       </h1>
-      <p className="mt-2 max-w-xl text-[13.5px] leading-relaxed text-cream-400">
-        Every certificate carries a unique code and a public verification link. Print it, save it
-        as a PDF, or share the code with anyone who needs to confirm it.
-      </p>
 
-      {certificates.length === 0 ? (
-        <div className="mt-8 rounded-2xl border border-line bg-surface px-6 py-14 text-center">
-          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-line bg-canvas text-cream-500">
-            <Award className="h-6 w-6" aria-hidden="true" />
-          </span>
-          <h2 className="mt-4 text-[18px] font-medium text-cream-50">No certificate yet.</h2>
-          <p className="mx-auto mt-2 max-w-sm text-[12.5px] leading-relaxed text-cream-400">
-            Complete a training track and pass its final exam. Your certificate will appear here
-            automatically.
-          </p>
-          <Link href="/portal/courses" className="btn btn-primary mt-5">
-            Go to my training
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
-      ) : (
+      {certificates.length > 0 && (
         <div className="mt-7 space-y-3">
           {certificates.map(({ certificate, course }) => (
             <article
@@ -91,6 +75,30 @@ export default async function CertificatesPage() {
             </article>
           ))}
         </div>
+      )}
+
+      {lockedCourses.length > 0 && (
+        <section className="mt-9">
+          <div>
+            <h2 className="text-[20px] font-semibold tracking-[-0.025em] text-cream-50">
+              Certificate previews
+            </h2>
+            <p className="mt-1 max-w-xl text-[12px] leading-relaxed text-cream-400">
+              Blurred previews unlock when you finish a course and pass its final exam.
+            </p>
+          </div>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {lockedCourses.map((entry) => (
+              <LockedCertificatePreview
+                key={entry.course.slug}
+                title={entry.course.title}
+                courseHref={`/portal/courses/${entry.course.slug}`}
+                progress={entry.percent}
+                enrolled={entry.enrolled}
+              />
+            ))}
+          </div>
+        </section>
       )}
     </div>
   );

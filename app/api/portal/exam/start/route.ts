@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSessionUser } from '@/lib/server/auth';
 import { startExamAttempt } from '@/lib/server/learning';
+import { canAccessCourse, getCourse } from '@/lib/courses';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +17,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
   }
 
-  const result = await startExamAttempt(user.id, body.courseId ?? '');
+  const course = getCourse(body.courseId ?? '');
+  if (!course) return NextResponse.json({ error: 'Course not found.' }, { status: 404 });
+  if (!canAccessCourse(user.role, course)) {
+    return NextResponse.json({ error: 'This course is not available in your portal.' }, { status: 403 });
+  }
+
+  const result = await startExamAttempt(user.id, course.slug);
   if (!result.ok) {
     const status = result.error === 'not_found' ? 404 : 409;
     return NextResponse.json(

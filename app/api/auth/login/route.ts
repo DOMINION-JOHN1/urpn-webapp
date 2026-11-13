@@ -17,12 +17,12 @@ export async function POST(request: Request) {
     (!isSupabaseStateConfigured() || !process.env.AUTH_SECRET || process.env.AUTH_SECRET.length < 32)
   ) {
     return NextResponse.json(
-      { error: 'The worker portal is not ready yet. Please contact the URPN site administrator.' },
+      { error: 'The portal is not ready yet. Please contact the URPN site administrator.' },
       { status: 503 }
     );
   }
 
-  let body: { email?: string; password?: string };
+  let body: { email?: string; password?: string; portalType?: 'worker' | 'workforce' };
   try {
     body = await request.json();
   } catch {
@@ -53,6 +53,15 @@ export async function POST(request: Request) {
     !(await verifyPassword(password, user.passwordHash))
   ) {
     return NextResponse.json({ error: 'Incorrect email or password.' }, { status: 401 });
+  }
+
+  const portalType = body.portalType === 'workforce' ? 'workforce' : 'worker';
+
+  if ((portalType === 'workforce') !== (user.role === 'workforce')) {
+    return NextResponse.json(
+      { error: 'This account belongs to the other portal. Use the correct sign-in page.' },
+      { status: 403 }
+    );
   }
 
   const response = NextResponse.json({ user: toPublicUser(user) });

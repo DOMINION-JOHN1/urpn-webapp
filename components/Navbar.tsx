@@ -71,7 +71,7 @@ export function Navbar() {
             className="btn btn-secondary btn-sm hidden sm:inline-flex"
             title="In-house staff and leadership portal"
           >
-            Staff portal 🔒
+            Staff sign in 🔒
           </Link>
           <ThemeToggle />
           <button
@@ -141,7 +141,7 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                   className="btn btn-secondary w-full justify-between"
                 >
-                  <span>Staff portal</span>
+                  <span>Staff portal sign in</span>
                   <span className="text-[12px]">🔒</span>
                 </Link>
                 <Link

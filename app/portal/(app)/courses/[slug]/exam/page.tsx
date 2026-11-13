@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import { ArrowLeft, Check, Lock } from 'lucide-react';
 import { requireUser } from '@/lib/server/auth';
 import { getCourseOverview } from '@/lib/server/learning';
-import { getAllLessons, getCourse, getLessonCount } from '@/lib/courses';
+import { canAccessCourse, getAllLessons, getCourse, getLessonCount } from '@/lib/courses';
 import { ExamExperience } from '@/components/portal/ExamExperience';
 
 export const dynamic = 'force-dynamic';
@@ -23,6 +23,9 @@ export default async function ExamPage({ params }: { params: { slug: string } })
   const user = await requireUser();
   const course = getCourse(params.slug);
   if (!course) notFound();
+  if (!canAccessCourse(user.role, course)) {
+    redirect(user.role === 'workforce' ? '/workforce' : '/portal');
+  }
 
   const overview = await getCourseOverview(user.id, course);
   if (!overview.enrolled) redirect(`/portal/courses/${course.slug}`);

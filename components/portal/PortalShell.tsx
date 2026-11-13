@@ -56,7 +56,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
 
   const primaryNav = isWorkforce
     ? [
-        { href: '/workforce', label: 'Workforce Hub', icon: LayoutGrid, exact: true },
+        { href: '/workforce', label: 'Home', icon: LayoutGrid, exact: true },
         { href: '/portal/courses', label: 'Courses', icon: BookOpen, exact: false },
         { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
       ]
@@ -68,7 +68,12 @@ export function PortalShell({ user, children }: PortalShellProps) {
       ];
 
   const mobileNav = [
-    { href: isWorkforce ? '/workforce' : '/portal', label: 'Overview', icon: LayoutGrid, exact: true },
+    {
+      href: isWorkforce ? '/workforce' : '/portal',
+      label: isWorkforce ? 'Home' : 'Overview',
+      icon: LayoutGrid,
+      exact: true,
+    },
     { href: '/portal/courses', label: isWorkforce ? 'Courses' : 'Training', icon: BookOpen, exact: false },
     ...(!isWorkforce ? [{ href: '/portal/monitor', label: 'Monitor', icon: Users, exact: false }] : []),
     { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
@@ -79,7 +84,11 @@ export function PortalShell({ user, children }: PortalShellProps) {
     <div className="portal-root min-h-[100dvh] bg-canvas lg:grid lg:grid-cols-[248px_minmax(0,1fr)]">
       {/* ---------------------------------------------------------- sidebar */}
       <aside className="sticky top-0 hidden h-[100dvh] flex-col border-r border-line bg-canvas-deep/50 px-4 py-5 lg:flex">
-        <Link href={isWorkforce ? '/workforce' : '/portal'} aria-label="URPN portal home" className="px-2">
+        <Link
+          href={isWorkforce ? '/workforce' : '/portal'}
+          aria-label={isWorkforce ? 'URPN home' : 'URPN portal home'}
+          className="px-2"
+        >
           <UrpnLogo size="sm" />
         </Link>
 
@@ -176,7 +185,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
               </div>
             </Link>
             <div className="mt-2 border-t border-line-soft pt-1">
-              <SignOutButton />
+              <SignOutButton redirectTo={isWorkforce ? '/workforce/login' : '/portal/login'} />
             </div>
           </div>
         </div>
@@ -185,7 +194,10 @@ export function PortalShell({ user, children }: PortalShellProps) {
       {/* ------------------------------------------------------------- main */}
       <div className="flex min-h-[100dvh] min-w-0 flex-col">
         <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-canvas px-4 lg:hidden">
-          <Link href="/portal" aria-label="URPN portal home">
+          <Link
+            href={isWorkforce ? '/workforce' : '/portal'}
+            aria-label={isWorkforce ? 'URPN home' : 'URPN portal home'}
+          >
             <UrpnLogo size="sm" />
           </Link>
           <div className="flex items-center gap-2">
@@ -206,7 +218,7 @@ export function PortalShell({ user, children }: PortalShellProps) {
               ) : initials(user.name || user.email)}
             </Link>
             <ThemeToggle className="h-8 w-8" />
-            <SignOutButton compact />
+            <SignOutButton compact redirectTo={isWorkforce ? '/workforce/login' : '/portal/login'} />
           </div>
         </header>
 

@@ -18,6 +18,7 @@ import {
   isLessonUnlocked,
 } from '@/lib/server/learning';
 import {
+  canAccessCourse,
   formatLessonDuration,
   getAllLessons,
   getCourse,
@@ -53,6 +54,9 @@ export default async function LessonPage({
   const user = await requireUser();
   const course = getCourse(params.slug);
   if (!course) notFound();
+  if (!canAccessCourse(user.role, course)) {
+    redirect(user.role === 'workforce' ? '/workforce' : '/portal');
+  }
   const found = getLesson(course, params.lessonId);
   if (!found) notFound();
 

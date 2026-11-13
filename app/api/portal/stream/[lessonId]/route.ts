@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import { getSessionUser } from '@/lib/server/auth';
 import { isEnrolled } from '@/lib/server/learning';
-import { extractDriveFileId, getCourse, getLesson } from '@/lib/courses';
+import { canAccessCourse, extractDriveFileId, getCourse, getLesson } from '@/lib/courses';
 import { getGoogleAuth } from '@/lib/google/auth';
 import { isGoogleConfigured } from '@/lib/config';
 
@@ -51,6 +51,9 @@ export async function GET(
   const course = getCourse(courseSlug);
   if (!course) {
     return NextResponse.json({ error: 'Course not found' }, { status: 404 });
+  }
+  if (!canAccessCourse(user.role, course)) {
+    return NextResponse.json({ error: 'This course is not available in your portal.' }, { status: 403 });
   }
 
   const found = getLesson(course, params.lessonId);

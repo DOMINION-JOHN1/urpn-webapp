@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -32,6 +33,7 @@ function formatDate(value: string) {
 
 export default async function PortalDashboardPage() {
   const user = await requireUser();
+  if (user.role === 'workforce') redirect('/workforce');
   const data = await getDashboardData(user.id);
   const firstName = user.name.trim().split(' ')[0] || user.email.split('@')[0];
 

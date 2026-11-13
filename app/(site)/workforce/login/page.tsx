@@ -28,7 +28,7 @@ export default async function WorkforceLoginPage({
       : '/portal/courses';
 
   const user = await getSessionUser();
-  if (user) redirect(nextPath);
+  if (user) redirect(user.role === 'workforce' ? nextPath : '/portal');
 
   return (
     <div className="grid min-h-[100dvh] lg:grid-cols-[1fr_1.05fr]">

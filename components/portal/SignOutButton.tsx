@@ -4,7 +4,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LogOut, Loader2 } from 'lucide-react';
 
-export function SignOutButton({ compact = false }: { compact?: boolean }) {
+export function SignOutButton({
+  compact = false,
+  redirectTo = '/portal/login',
+}: {
+  compact?: boolean;
+  redirectTo?: string;
+}) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -14,7 +20,7 @@ export function SignOutButton({ compact = false }: { compact?: boolean }) {
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
     } finally {
-      router.push('/portal/login');
+      router.push(redirectTo);
       router.refresh();
     }
   };

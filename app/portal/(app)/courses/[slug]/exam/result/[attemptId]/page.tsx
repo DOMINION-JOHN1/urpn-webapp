@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { requireUser } from '@/lib/server/auth';
 import { getAttemptForUser } from '@/lib/server/learning';
+import { canAccessCourse } from '@/lib/courses';
 import { getExamDefinition } from '@/lib/exam-bank';
 
 export const dynamic = 'force-dynamic';
@@ -53,6 +54,9 @@ export default async function ExamResultPage({
   const { attempt, course, certificate, correct, total } = result;
 
   if (course.slug !== params.slug) notFound();
+  if (!canAccessCourse(user.role, course)) {
+    redirect(user.role === 'workforce' ? '/workforce' : '/portal');
+  }
   if (attempt.status === 'in_progress') {
     redirect(`/portal/courses/${course.slug}/exam`);
   }

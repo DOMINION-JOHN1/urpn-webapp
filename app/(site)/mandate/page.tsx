@@ -349,7 +349,7 @@ export default function MandatePage() {
                 <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Link>
               <Link href="/portal/login" className="btn btn-secondary btn-sm w-full sm:w-auto">
-                Staff portal 🔒
+                Staff portal sign in 🔒
               </Link>
             </div>
           </div>

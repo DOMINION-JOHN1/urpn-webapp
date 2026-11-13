@@ -1,4 +1,5 @@
 import React from 'react';
+import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { requireUser } from '@/lib/server/auth';
 import { getAdminProgressData } from '@/lib/server/learning';
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 
 export default async function MonitorPage() {
   const user = await requireUser();
+  if (user.role === 'workforce') redirect('/workforce');
   const data = await getAdminProgressData();
 
   return (

@@ -10,8 +10,8 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { LEADERSHIP_COURSES } from '@/lib/courses';
 
 export const metadata: Metadata = {
-  title: 'Worker sign in',
-  description: 'Sign in to the URPN worker portal to continue your training.',
+  title: 'Staff portal sign in',
+  description: 'Sign in to the URPN staff portal with an account provided by church administration.',
   robots: { index: false, follow: false },
 };
 
@@ -29,7 +29,7 @@ export default async function LoginPage({
       : '/portal';
 
   const user = await getSessionUser();
-  if (user) redirect(nextPath);
+  if (user) redirect(user.role === 'workforce' ? '/workforce' : nextPath);
 
   const showDemo = process.env.NODE_ENV !== 'production' && process.env.SHOW_DEMO_LOGIN !== 'false';
 
@@ -72,14 +72,14 @@ export default async function LoginPage({
         <div className="relative">
           <div className="flex items-center gap-3">
             <span className="h-px w-6 bg-gold-500/70" />
-            <span className="mono-label text-gold-300">Worker formation</span>
+            <span className="mono-label text-gold-300">Staff formation</span>
           </div>
           <h2 className="mt-6 max-w-[15ch] text-[40px] font-semibold leading-[1.06] tracking-[-0.045em] text-cream-50">
             Built for the field.
             <span className="block text-cream-500">Not just the classroom.</span>
           </h2>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream-400">
-            Every worker in the URPN family is formed at the altar and tested in the open.
+            Every staff member in the URPN family is formed at the altar and tested in the open.
             Your training, progress, and certificate live in one place.
           </p>
 

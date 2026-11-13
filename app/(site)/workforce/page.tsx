@@ -202,7 +202,7 @@ export default async function WorkforceHubPage() {
               </p>
             </div>
             <Link href="/portal/login" className="btn btn-secondary shrink-0">
-              Go to Worker Portal 🔒
+              Staff portal sign in 🔒
               <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
           </div>
