@@ -46,7 +46,12 @@ export async function POST(request: Request) {
 
   const db = await readDb();
   const user = db.users.find((candidate) => candidate.email.toLowerCase() === email);
-  if (!user || !(await verifyPassword(password, user.passwordHash))) {
+  const demoAccount = user?.id === 'usr_demo_grace' || user?.id === 'usr_demo_member';
+  if (
+    !user ||
+    (process.env.NODE_ENV === 'production' && demoAccount) ||
+    !(await verifyPassword(password, user.passwordHash))
+  ) {
     return NextResponse.json({ error: 'Incorrect email or password.' }, { status: 401 });
   }
 
