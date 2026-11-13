@@ -76,10 +76,14 @@ export function MeetingSchedule() {
         {MEETINGS.map((meeting, index) => (
           <article
             key={meeting.title}
-            className="group relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-[24px] bg-surface shadow-[0_10px_34px_-28px_rgba(40,20,35,0.35)] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_58px_-38px_rgba(216,181,111,0.4)]"
+            className="event-card group relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-[24px] bg-surface shadow-[0_10px_34px_-28px_rgba(40,20,35,0.35)] transition-shadow duration-300 ease-out hover:shadow-[0_24px_58px_-38px_rgba(110,21,88,0.2)]"
             data-reveal
             style={{ '--reveal-delay': `${index * 45}ms` } as React.CSSProperties & { '--reveal-delay': string }}
           >
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-5 top-0 z-10 h-px origin-left scale-x-0 bg-accent/60 transition-transform duration-500 group-hover:scale-x-100 group-focus-within:scale-x-100 motion-reduce:transition-none"
+            />
             <div className="relative isolate flex h-[240px] items-center justify-center overflow-hidden bg-canvas sm:h-[260px]">
               {meeting.poster ? (
                 <Image
@@ -87,7 +91,7 @@ export function MeetingSchedule() {
                   alt={`${meeting.title} event flyer`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                  className="object-contain p-2 transition-transform duration-500 ease-out group-hover:scale-[1.025]"
+                  className="object-contain p-2 transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:transform-none motion-reduce:transition-none"
                 />
               ) : (
                 <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-surface/80 text-gold-300 shadow-sm">
@@ -114,10 +118,10 @@ export function MeetingSchedule() {
                 href={calendarUrl(meeting)}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-canvas px-3.5 py-2 text-xs font-medium text-cream-200 transition-colors hover:bg-gold-500/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400"
+                className="group/calendar inline-flex items-center gap-2 rounded-md bg-canvas px-3.5 py-2 text-xs font-medium text-cream-200 transition-colors hover:bg-accent/10 hover:text-cream-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
                 aria-label={`Add ${meeting.title} to Google Calendar`}
               >
-                <CalendarPlus className="h-4 w-4 text-gold-400" aria-hidden="true" />
+                <CalendarPlus className="h-4 w-4 text-accent transition-transform duration-300 group-hover/calendar:scale-110 motion-reduce:transition-none" aria-hidden="true" />
                 Add to calendar
               </a>
             </div>

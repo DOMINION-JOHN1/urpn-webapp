@@ -46,11 +46,11 @@
   --accent-ink: 22 15 25;
   --accent-soft: 55 20 48;
 
-  --gold-200: 235 215 162;
-  --gold-300: 231 201 140;
-  --gold-400: 223 192 130;
-  --gold-500: 216 181 111;
-  --gold-600: 185 149 79;
+  --gold-200: 219 208 177;
+  --gold-300: 204 191 155;
+  --gold-400: 187 173 137;
+  --gold-500: 166 151 116;
+  --gold-600: 141 128 99;
 }
 
 html.light {
@@ -92,11 +92,11 @@ html.light {
   --accent-ink: 255 255 255;
   --accent-soft: 246 231 243;
 
-  --gold-200: 122 84 24;
-  --gold-300: 122 84 24;
-  --gold-400: 136 96 30;
-  --gold-500: 154 110 36;
-  --gold-600: 122 88 30;
+  --gold-200: 105 94 70;
+  --gold-300: 105 94 70;
+  --gold-400: 121 108 80;
+  --gold-500: 137 123 94;
+  --gold-600: 111 100 75;
 
   color-scheme: light;
 }
@@ -211,7 +211,7 @@ svg {
     gap: 8px;
     min-height: 44px;
     padding: 0 22px;
-    border-radius: 999px;
+    border-radius: 8px;
     font-size: 14px;
     font-weight: 500;
     line-height: 1;
@@ -330,6 +330,15 @@ svg {
 }
 
 /* Public pages use one-time, low-distance reveals as sections enter view. */
+.event-card {
+  translate: 0 0;
+  transition: translate 260ms ease, box-shadow 260ms ease;
+}
+.event-card:hover,
+.event-card:focus-within {
+  translate: 0 -3px;
+}
+
 [data-reveal].reveal-ready {
   transition:
     opacity 520ms cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -449,5 +458,10 @@ svg {
   [data-reveal].reveal-ready:not(.is-visible) {
     opacity: 1;
     transform: none;
+  }
+
+  .event-card:hover,
+  .event-card:focus-within {
+    translate: none;
   }
 }

@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { MandateSection } from '@/components/MandateSection';
 
 export const metadata: Metadata = {
-  title: 'The Mandate · Unique Revival Prayer Network',
+  title: 'Who are we? · URPN',
   description:
     'Reviving people, territories and spheres back to their original ordination such that they operate from that standpoint, by the prophetic and apostolic spirit of Elijah, through intercession and the Word of God.',
 };
@@ -38,9 +38,8 @@ export default function MandatePage() {
     <div className="w-full pb-20 pt-8 sm:pb-28 sm:pt-12">
       <div className="container-page">
         <header className="rounded-3xl border border-line bg-surface p-7 sm:p-12 lg:p-16" data-reveal>
-          <p className="mono-label text-gold-300">UNIQUE REVIVAL PRAYER NETWORK POLICY DOCUMENT</p>
-          <h1 className="mt-4 text-[34px] font-semibold leading-[1.08] tracking-[-0.04em] text-cream-50 sm:text-[46px] lg:text-[54px]">
-            About URPN: who we are!
+          <h1 className="text-[34px] font-semibold leading-[1.08] tracking-[-0.04em] text-cream-50 sm:text-[46px] lg:text-[54px]">
+            Who are we?
           </h1>
           <p className="mt-6 text-[15px] leading-[1.75] text-cream-400 sm:text-[16px]">
             This session is divided into four streams, namely
@@ -53,9 +52,9 @@ export default function MandatePage() {
           </ol>
         </header>
 
-        <section className="mt-8 rounded-2xl border border-gold-500/30 bg-gold-500/[0.04] p-7 sm:p-10" data-reveal>
+        <section className="mt-8 rounded-2xl border border-line/70 bg-surface p-7 sm:p-10" data-reveal>
           <h2 className="text-[26px] font-semibold text-cream-50 sm:text-[34px]">The Mandate</h2>
-          <p className="mt-4 max-w-4xl text-[16px] leading-[1.8] text-cream-200 sm:text-[19px]">
+          <p className="mt-4 max-w-4xl text-[16px] leading-[1.8] text-cream-300 sm:text-[19px]">
             Reviving people, territories and spheres back to their original ordination such that they operate from that standpoint, by the prophetic and apostolic spirit of Elijah, through intercession and the Word of God.
           </p>
         </section>

@@ -124,7 +124,7 @@ export const TestimonyForm: React.FC = () => {
           particleCount: 110,
           spread: 82,
           origin: { y: 0.6 },
-          colors: ['#B05BA8', '#C894CB', '#D8B56F', '#FFFFFF', '#6A1557'],
+          colors: ['#6E1558', '#B05BA8', '#C8AFC4', '#FFFFFF'],
         });
       } catch (_) {}
     } catch (err: any) {
@@ -201,11 +201,11 @@ export const TestimonyForm: React.FC = () => {
 
   // ---------------------------- FORM ----------------------------
   return (
-    <div className="w-full max-w-xl mx-auto rounded-2xl border border-line bg-surface p-5 sm:p-8 md:p-9">
+    <div className="mx-auto w-full max-w-xl rounded-xl border border-line/70 bg-surface p-5 sm:p-8 md:p-9">
       <form onSubmit={handleSubmit} className="space-y-7">
         {/* Step 1 */}
         <div className="space-y-4">
-          <StepHeader n={1} title="Your Details" hint="So our team knows who to celebrate with." />
+          <StepHeader n={1} title="Your details" />
 
           <div>
             <label htmlFor="name" className="block text-xs font-semibold text-cream-300 mb-1.5">
@@ -251,15 +251,15 @@ export const TestimonyForm: React.FC = () => {
 
         {/* Step 2 */}
         <div className="space-y-4 pt-1">
-          <StepHeader n={2} title="Share Your Story" hint="Write it out, or record your voice or video — whatever you prefer." />
+          <StepHeader n={2} title="Your testimony" />
 
           {/* Write vs Record toggle */}
-          <div className="mx-auto flex w-full max-w-xs items-center gap-1 rounded-full border border-line bg-canvas p-1">
+          <div className="mx-auto flex w-full max-w-xs items-center gap-1 rounded-lg border border-line/70 bg-canvas p-1">
             <button
               type="button"
               onClick={() => { setMode('write'); setSubmitError(null); }}
               disabled={isSubmitting}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition cursor-pointer ${
+              className={`flex-1 flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition cursor-pointer ${
                 mode === 'write'
                   ? 'bg-accent text-accent-ink'
                   : 'text-cream-400 hover:text-cream-100 hover:bg-cream-50/5'
@@ -272,7 +272,7 @@ export const TestimonyForm: React.FC = () => {
               type="button"
               onClick={() => { setMode('record'); setSubmitError(null); }}
               disabled={isSubmitting}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition cursor-pointer ${
+              className={`flex-1 flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition cursor-pointer ${
                 mode === 'record'
                   ? 'bg-accent text-accent-ink'
                   : 'text-cream-400 hover:text-cream-100 hover:bg-cream-50/5'
@@ -323,8 +323,7 @@ export const TestimonyForm: React.FC = () => {
               className="mt-0.5 h-4 w-4 cursor-pointer rounded border-line bg-canvas accent-accent"
             />
             <label htmlFor="consent" className="text-xs text-cream-400 leading-relaxed cursor-pointer">
-              By submitting, I understand that my testimony and details will be received and reviewed
-              by the URPN pastoral team.
+              I agree that URPN may receive and review my testimony.
             </label>
           </div>
 
@@ -368,9 +367,7 @@ export const TestimonyForm: React.FC = () => {
 
           {!hasContent && (
             <p className="text-center text-[11px] text-cream-500 font-medium">
-              {mode === 'write'
-                ? 'Write your testimony above to enable submission.'
-                : 'Record your testimony in Step 2 to enable submission.'}
+              Add your testimony to continue.
             </p>
           )}
         </div>
@@ -379,7 +376,7 @@ export const TestimonyForm: React.FC = () => {
   );
 };
 
-const StepHeader: React.FC<{ n: number; title: string; hint: string }> = ({ n, title, hint }) => (
+const StepHeader: React.FC<{ n: number; title: string }> = ({ n, title }) => (
   <div className="border-b border-line-soft pb-3">
     <h3 className="flex items-center gap-2.5 text-sm font-medium text-cream-50">
       <span className="flex h-6 w-6 items-center justify-center rounded-md border border-line bg-canvas font-mono text-[10px] text-accent">
@@ -387,6 +384,5 @@ const StepHeader: React.FC<{ n: number; title: string; hint: string }> = ({ n, t
       </span>
       <span>{title}</span>
     </h3>
-    <p className="mt-1.5 pl-[34px] text-xs leading-relaxed text-cream-500">{hint}</p>
   </div>
 );

@@ -299,7 +299,7 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
     <div className="w-full flex flex-col items-center">
       {/* Mode Switcher Tabs */}
       {!recordedBlob && !isRecording && (
-        <div className="mb-6 flex items-center gap-0.5 rounded-full border border-line bg-canvas p-0.5">
+        <div className="mb-6 flex items-center gap-0.5 rounded-lg border border-line/70 bg-canvas p-0.5">
           <button
             type="button"
             onClick={() => {
@@ -307,7 +307,7 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
               setPermissionError(null);
             }}
             disabled={disabled}
-            className={`flex cursor-pointer items-center gap-1.5 rounded-full px-4 py-1.5 text-[11px] font-medium transition-colors ${
+            className={`flex cursor-pointer items-center gap-1.5 rounded-md px-4 py-1.5 text-[11px] font-medium transition-colors ${
               mediaType === 'audio'
                 ? 'bg-surface-raised text-cream-50'
                 : 'text-cream-500 hover:text-cream-100'
@@ -323,7 +323,7 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
               setPermissionError(null);
             }}
             disabled={disabled}
-            className={`flex cursor-pointer items-center gap-1.5 rounded-full px-4 py-1.5 text-[11px] font-medium transition-colors ${
+            className={`flex cursor-pointer items-center gap-1.5 rounded-md px-4 py-1.5 text-[11px] font-medium transition-colors ${
               mediaType === 'video'
                 ? 'bg-surface-raised text-cream-50'
                 : 'text-cream-500 hover:text-cream-100'
@@ -414,7 +414,7 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
                 className="mb-2"
               />
               <div className="flex items-center gap-2 text-cream-400 text-xs font-medium">
-                <Volume2 className="w-4 h-4 text-gold-400 animate-pulse" />
+                <Volume2 className="w-4 h-4 text-accent" />
                 <span>Listening • speak clearly from your heart</span>
               </div>
             </div>
@@ -423,14 +423,14 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
           {/* Recording Timer & Limit Bar */}
           {isRecording && (
             <div className="flex flex-col items-center mb-6 w-full max-w-xs">
-              <div className="text-5xl font-mono font-extrabold tracking-tight text-gold-300 drop-shadow-[0_2px_16px_rgba(237,165,30,0.35)] mb-2">
+              <div className="mb-2 font-mono text-5xl font-extrabold tracking-tight text-accent">
                 {formatTime(recordingDuration)}
               </div>
 
               <div className="w-full bg-ink-950 h-2.5 rounded-full overflow-hidden border border-line-soft mb-1.5">
                 <div
                   className={`h-full transition-all duration-300 ${
-                    remainingSeconds < 60 ? 'bg-red-500' : 'bg-gold-sheen'
+                    remainingSeconds < 60 ? 'bg-red-500' : 'bg-accent'
                   }`}
                   style={{
                     width: `${Math.min(100, (recordingDuration / currentMaxSeconds) * 100)}%`,
@@ -454,16 +454,16 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
                 type="button"
                 onClick={startRecording}
                 disabled={disabled}
-                className="group relative flex items-center justify-center gap-3 px-9 sm:px-11 py-4 bg-gold-sheen bg-[length:200%_auto] hover:bg-right text-gold-950 font-semibold text-base sm:text-lg rounded-2xl shadow-glow-gold-lg hover:scale-[1.04] active:scale-95 transition-all duration-500 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative flex items-center justify-center gap-3 rounded-lg bg-accent px-8 py-3.5 text-base font-semibold text-accent-ink shadow-sm transition-[background-color,transform] duration-200 hover:bg-accent-hover hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transform-none sm:px-10 sm:text-lg"
               >
-                <div className="w-8 h-8 rounded-full bg-ink-950/15 flex items-center justify-center">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-accent-ink/10">
                   {mediaType === 'video' ? (
-                    <Video className="w-5 h-5 text-gold-950" />
+                    <Video className="w-5 h-5 text-accent-ink" />
                   ) : (
-                    <Mic className="w-5 h-5 text-gold-950" />
+                    <Mic className="w-5 h-5 text-accent-ink" />
                   )}
                 </div>
-                <span>Start {mediaType === 'video' ? 'Video' : 'Voice'} Recording</span>
+                <span>Start recording</span>
               </button>
               <p className="mt-3 text-xs text-cream-500 flex items-center gap-1.5 font-medium">
                 <Clock className="w-3.5 h-3.5 text-gold-400" />
@@ -479,7 +479,7 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
               <button
                 type="button"
                 onClick={stopRecording}
-                className="group relative flex items-center justify-center gap-3 px-9 sm:px-11 py-4 bg-red-600 hover:bg-red-700 text-white font-semibold text-base sm:text-lg rounded-2xl shadow-lg hover:scale-[1.04] active:scale-95 transition-all duration-200 cursor-pointer animate-pulse"
+                className="group relative flex items-center justify-center gap-3 rounded-lg bg-red-600 px-8 py-3.5 text-base font-semibold text-white shadow-sm transition-transform duration-200 hover:scale-[1.01] active:scale-[0.99] sm:px-10 sm:text-lg"
               >
                 <Square className="w-5 h-5 fill-white" />
                 <span>Stop Recording</span>

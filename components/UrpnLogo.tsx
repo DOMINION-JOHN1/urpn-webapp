@@ -8,9 +8,9 @@ interface UrpnLogoProps {
 }
 
 const sizeMap = {
-  sm: { box: 'h-7 w-7', title: 'text-[13px]', sub: 'text-[6.5px]' },
-  md: { box: 'h-9 w-9', title: 'text-[15px]', sub: 'text-[7px]' },
-  lg: { box: 'h-12 w-12', title: 'text-xl', sub: 'text-[8px]' },
+  sm: { box: 'h-7 w-7', title: 'text-[13px]' },
+  md: { box: 'h-9 w-9', title: 'text-[15px]' },
+  lg: { box: 'h-12 w-12', title: 'text-xl' },
 };
 
 /**
@@ -39,16 +39,9 @@ export const UrpnLogo: React.FC<UrpnLogoProps> = ({
       </span>
 
       {showWordmark && (
-        <div className="flex flex-col justify-center leading-none">
-          <span
-            className={`font-semibold tracking-[-0.02em] text-cream-50 ${s.title}`}
-          >
+        <div className="flex items-center leading-none">
+          <span className={`font-semibold tracking-[-0.02em] text-cream-50 ${s.title}`}>
             URPN
-          </span>
-          <span
-            className={`mt-1 font-mono font-medium uppercase tracking-[0.14em] text-cream-500 ${s.sub}`}
-          >
-            Prayer Network
           </span>
         </div>
       )}
