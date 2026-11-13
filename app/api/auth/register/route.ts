@@ -28,26 +28,18 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: { name?: string; email?: string; phone?: string; password?: string };
+  let body: { email?: string; password?: string };
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
   }
 
-  const name = (body.name ?? '').trim().replace(/\s+/g, ' ');
   const email = (body.email ?? '').trim().toLowerCase();
-  const phone = (body.phone ?? '').trim();
   const password = body.password ?? '';
 
-  if (name.length < 2 || name.length > 80) {
-    return NextResponse.json({ error: 'Please enter your full name.' }, { status: 400 });
-  }
   if (!EMAIL_PATTERN.test(email) || email.length > 160) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
-  }
-  if (phone.replace(/[^0-9]/g, '').length < 7 || phone.length > 40) {
-    return NextResponse.json({ error: 'Please enter a valid phone number.' }, { status: 400 });
   }
   if (password.length < 8 || password.length > 200) {
     return NextResponse.json(
@@ -74,9 +66,9 @@ export async function POST(request: Request) {
 
       const user: StoredUser = {
         id: newId('usr'),
-        name,
+        name: '',
         email,
-        phone,
+        phone: '',
         passwordHash,
         // Public registration is for the open workforce pathway only. Staff
         // worker-portal accounts are provisioned by the office.

@@ -9,7 +9,6 @@ export async function POST(request: Request) {
   if (!user) {
     return NextResponse.json({ error: 'Please sign in first.' }, { status: 401 });
   }
-
   let body: { courseId?: string };
   try {
     body = await request.json();

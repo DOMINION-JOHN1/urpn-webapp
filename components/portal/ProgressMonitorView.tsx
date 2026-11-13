@@ -308,7 +308,7 @@ export function ProgressMonitorView({ data }: Props) {
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <p className="font-semibold text-cream-50 text-[13.5px] truncate">
-                          {worker.user.name}
+                          {worker.user.name || worker.user.email}
                         </p>
                         <span className="rounded-full border border-line bg-canvas px-2 py-0.2 font-mono text-[8.5px] uppercase tracking-wider text-cream-400">
                           {worker.user.role}

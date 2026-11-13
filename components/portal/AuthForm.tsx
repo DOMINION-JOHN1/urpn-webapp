@@ -24,11 +24,8 @@ export function AuthForm({
   const effectiveMode = isWorkerLocked ? 'signin' : initialMode;
 
   const [mode, setMode] = useState<Mode>(effectiveMode);
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +35,6 @@ export function AuthForm({
     setMode(next);
     setError(null);
     setPassword('');
-    setConfirm('');
   };
 
   const fillDemo = () => {
@@ -58,20 +54,8 @@ export function AuthForm({
     setError(null);
 
     if (mode === 'register') {
-      if (name.trim().length < 2) {
-        setError('Please enter your full name.');
-        return;
-      }
-      if (phone.trim().replace(/[^0-9]/g, '').length < 7) {
-        setError('Please enter a valid phone number.');
-        return;
-      }
       if (password.length < 8) {
         setError('Password must be at least 8 characters.');
-        return;
-      }
-      if (password !== confirm) {
-        setError('Those passwords do not match.');
         return;
       }
     }
@@ -79,10 +63,7 @@ export function AuthForm({
     setLoading(true);
     try {
       const endpoint = mode === 'signin' ? '/api/auth/login' : '/api/auth/register';
-      const payload =
-        mode === 'signin'
-          ? { email: email.trim(), password }
-          : { name: name.trim(), email: email.trim(), phone: phone.trim(), password };
+      const payload = { email: email.trim(), password };
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -156,46 +137,10 @@ export function AuthForm({
           ? isWorkerLocked
             ? 'Sign in with your in-house worker, minister, or pastor account to continue.'
             : 'Sign in to access your department audio lessons, track progress, or sit your exam.'
-          : 'Create a workforce account to join a department (Media, Technical, Ushering, Protocol, Choir, Welfare, Children).'}
+          : 'Create your account with an email and password. Add your name and profile details after signing in.'}
       </p>
 
       <form onSubmit={submit} className="mt-8 space-y-4" noValidate>
-        {mode === 'register' && (
-          <>
-            <div>
-              <label htmlFor="name" className="mb-1.5 block text-xs text-cream-300">
-                Full name
-              </label>
-              <input
-                id="name"
-                type="text"
-                autoComplete="name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                placeholder="Grace Adeyemi"
-                className="field"
-                disabled={loading}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="phone" className="mb-1.5 block text-xs text-cream-300">
-                Phone number
-              </label>
-              <input
-                id="phone"
-                type="tel"
-                autoComplete="tel"
-                value={phone}
-                onChange={(event) => setPhone(event.target.value)}
-                placeholder="+234 801 234 5678"
-                className="field"
-                disabled={loading}
-              />
-            </div>
-          </>
-        )}
-
         <div>
           <label htmlFor="email" className="mb-1.5 block text-xs text-cream-300">
             Email address
@@ -239,25 +184,6 @@ export function AuthForm({
             </button>
           </div>
         </div>
-
-        {mode === 'register' && (
-          <div>
-            <label htmlFor="confirm" className="mb-1.5 block text-xs text-cream-300">
-              Confirm password
-            </label>
-            <input
-              id="confirm"
-              type={showPassword ? 'text' : 'password'}
-              autoComplete="new-password"
-              value={confirm}
-              onChange={(event) => setConfirm(event.target.value)}
-              placeholder="Repeat your password"
-              className="field"
-              disabled={loading}
-              required
-            />
-          </div>
-        )}
 
         {error && (
           <div

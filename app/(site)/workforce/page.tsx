@@ -19,7 +19,7 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Become a Worker · Unique Revival Prayer Network',
   description:
-    'Step into your assignment. Join one of our 16 ministry departments: review conditions, complete the audio formation track, sit the timed exam, and earn your certificate to serve.',
+    'Step into your assignment. Join one of our 16 ministry departments: review conditions, complete the audio formation and timed exam, then attend physical observation, induction, and impartation.',
 };
 
 export default async function WorkforceHubPage() {
@@ -64,7 +64,7 @@ export default async function WorkforceHubPage() {
             </h1>
 
             <p className="mt-5 text-[15px] leading-[1.75] text-cream-400">
-              URPN is raising men and women who carry the altar into their spheres. Choose a ministry department, review the conditions required to join, listen to the audio teaching, pass the exam, and receive your verified certificate to serve.
+              URPN is raising men and women who carry the altar into their spheres. Choose a ministry department, review the conditions, complete the shared training and exam, then attend physical observation, induction, and impartation before serving.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -72,7 +72,7 @@ export default async function WorkforceHubPage() {
                 <div className="flex items-center gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/[0.08] px-4 py-2.5 text-xs text-cream-200">
                   <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                   <span>
-                    Signed in as <strong className="font-semibold text-cream-50">{user.name}</strong>
+                    Signed in as <strong className="font-semibold text-cream-50">{user.name || user.email}</strong>
                   </span>
                 </div>
               ) : (
@@ -122,7 +122,7 @@ export default async function WorkforceHubPage() {
               <span className="font-mono text-xs text-gold-400">01</span>
               <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Create account</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
-                Register with your name, email, and phone. No gatekeeping — open to every believer called to URPN.
+                Create your account with an email and password. Add your name and profile details after signing in.
               </p>
             </div>
 
@@ -144,9 +144,9 @@ export default async function WorkforceHubPage() {
               style={{ '--reveal-delay': '120ms' } as React.CSSProperties & { '--reveal-delay': string }}
             >
               <span className="font-mono text-xs text-gold-400">03</span>
-              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Take the training</h3>
+              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Complete training &amp; exam</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
-                Every department leads to the same workforce curriculum. Work through the lessons in your browser — progress is saved as you go.
+                Complete the shared workforce curriculum and timed exam. Your progress is saved as you go.
               </p>
             </div>
 
@@ -156,9 +156,9 @@ export default async function WorkforceHubPage() {
               style={{ '--reveal-delay': '180ms' } as React.CSSProperties & { '--reveal-delay': string }}
             >
               <span className="font-mono text-xs text-gold-400">04</span>
-              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Sit exam &amp; certify</h3>
+              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Physical observation &amp; induction</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
-                Pass the timed 20-minute exam to unlock your official verified certificate with your name on it.
+                Complete the observation and receive induction and impartation before beginning service.
               </p>
             </div>
           </div>

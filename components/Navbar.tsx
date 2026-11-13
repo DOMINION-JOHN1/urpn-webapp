@@ -8,6 +8,7 @@ import { UrpnLogo } from './UrpnLogo';
 import { ThemeToggle } from './ThemeToggle';
 
 const NAV_LINKS = [
+  { href: '/', label: 'Home' },
   { href: '/mandate', label: 'Mandate' },
   { href: '/gatherings', label: 'Gatherings' },
   { href: '/giving', label: 'Giving' },
@@ -40,9 +41,9 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-canvas">
       <div className="container-page flex h-[72px] items-center justify-between gap-6">
-        <Link href="/" aria-label="URPN home" className="shrink-0" onClick={() => setOpen(false)}>
+        <div className="shrink-0">
           <UrpnLogo size="md" />
-        </Link>
+        </div>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
           {NAV_LINKS.map((link) => (
@@ -94,7 +95,7 @@ export function Navbar() {
           <div>
             <div className="flex items-center justify-between pb-2">
               <span className="mono-label text-gold-400">Navigation</span>
-              <span className="font-mono text-[10px] text-cream-500">4 Sections</span>
+              <span className="font-mono text-[10px] text-cream-500">{NAV_LINKS.length} Sections</span>
             </div>
             <nav className="flex flex-col space-y-1.5 pt-2" aria-label="Mobile navigation">
               {NAV_LINKS.map((link, index) => {

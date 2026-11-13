@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { ArrowLeft } from 'lucide-react';
 import { requireUser } from '@/lib/server/auth';
 import { getCertificateForUser } from '@/lib/server/learning';
+import { hasCompleteProfile } from '@/lib/server/profile';
 import { CertificateActions } from '@/components/portal/CertificateActions';
 
 export const dynamic = 'force-dynamic';
@@ -33,6 +34,7 @@ export default async function CertificatePage({ params }: { params: { code: stri
   const result = await getCertificateForUser(user.id, params.code);
   if (!result) notFound();
   const { certificate, course } = result;
+  const profileComplete = hasCompleteProfile(user);
 
   const headerStore = headers();
   const host = headerStore.get('x-forwarded-host') ?? headerStore.get('host') ?? 'urpn.org';
@@ -40,6 +42,9 @@ export default async function CertificatePage({ params }: { params: { code: stri
   const verifyUrl = `${protocol}://${host}/verify/${certificate.code}`;
   const issued = longDate(certificate.issuedAt);
   const year = new Date(certificate.issuedAt).getFullYear();
+  const avatarUrl = user.avatarPath
+    ? `/api/portal/profile/avatar?v=${encodeURIComponent(user.avatarPath.split('/').pop() ?? '')}`
+    : null;
 
   return (
     <div className="print-page mx-auto max-w-4xl">
@@ -62,7 +67,17 @@ export default async function CertificatePage({ params }: { params: { code: stri
               {certificate.code} · Issued {issued}
             </p>
           </div>
-          <CertificateActions verifyUrl={verifyUrl} />
+          <CertificateActions
+            verifyUrl={verifyUrl}
+            fullName={result.name}
+            courseTitle={course?.title ?? 'URPN Training Track'}
+            issued={issued}
+            score={certificate.score}
+            year={year}
+            code={certificate.code}
+            avatarUrl={avatarUrl}
+            profileComplete={profileComplete}
+          />
         </div>
       </div>
 
@@ -97,11 +112,27 @@ export default async function CertificatePage({ params }: { params: { code: stri
             <p className="mt-6 font-serif text-[12px] italic text-[#6B614D]">
               This is to certify that
             </p>
+            <span className="relative mx-auto mt-3 block h-20 w-20 overflow-hidden rounded-full border border-gold-500/50 bg-white/70">
+              {avatarUrl ? (
+                <Image
+                  src={avatarUrl}
+                  alt="Certificate recipient portrait"
+                  fill
+                  sizes="80px"
+                  unoptimized
+                  className="object-cover"
+                />
+              ) : (
+                <span className="flex h-full items-center justify-center font-semibold text-[#6A1557]">
+                  {result.name.split(/\s+/).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'URPN'}
+                </span>
+              )}
+            </span>
             <h2
               className="mx-auto mt-3 max-w-2xl text-[30px] leading-tight text-[#1F1C14] sm:text-[42px]"
               style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
             >
-              {result.name}
+              {result.name || 'Complete profile to add your name'}
             </h2>
             <p className="mx-auto mt-4 max-w-lg font-serif text-[12px] leading-relaxed text-[#6B614D]">
               has successfully completed all lessons, readings, and the timed final examination of

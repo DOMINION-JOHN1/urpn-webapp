@@ -5,6 +5,10 @@ export interface StoredUser {
   name: string;
   email: string;
   phone: string;
+  birthday?: string;
+  address?: string;
+  avatarPath?: string;
+  avatarMimeType?: 'image/jpeg' | 'image/png' | 'image/webp';
   passwordHash: string;
   role: UserRole;
   createdAt: string;

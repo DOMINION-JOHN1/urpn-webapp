@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   Award,
@@ -35,6 +36,11 @@ function initials(name: string) {
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase() ?? '')
     .join('');
+}
+
+function avatarUrl(avatarPath?: string) {
+  if (!avatarPath) return null;
+  return `/api/portal/profile/avatar?v=${encodeURIComponent(avatarPath.split('/').pop() ?? '')}`;
 }
 
 function isActive(pathname: string, href: string, exact: boolean) {
@@ -147,15 +153,28 @@ export function PortalShell({ user, children }: PortalShellProps) {
           </Link>
 
           <div className="rounded-xl border border-line bg-surface/60 p-3">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-[11px] text-accent">
-                {initials(user.name)}
+            <Link
+              href="/portal/profile"
+              aria-label={`Open profile settings for ${user.name || user.email}`}
+              className="flex items-center gap-2.5 rounded-lg outline-offset-4"
+            >
+              <span className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent/10 font-mono text-[11px] text-accent">
+                {user.avatarPath ? (
+                  <Image
+                    src={avatarUrl(user.avatarPath)!}
+                    alt=""
+                    fill
+                    sizes="32px"
+                    unoptimized
+                    className="object-cover"
+                  />
+                ) : initials(user.name || user.email)}
               </span>
               <div className="min-w-0">
-                <p className="truncate text-[12.5px] font-medium text-cream-50">{user.name}</p>
+                <p className="truncate text-[12.5px] font-medium text-cream-50">{user.name || 'Complete your profile'}</p>
                 <p className="truncate text-[10.5px] text-cream-500">{user.email}</p>
               </div>
-            </div>
+            </Link>
             <div className="mt-2 border-t border-line-soft pt-1">
               <SignOutButton />
             </div>
@@ -170,9 +189,22 @@ export function PortalShell({ user, children }: PortalShellProps) {
             <UrpnLogo size="sm" />
           </Link>
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent/10 font-mono text-[10px] text-accent">
-              {initials(user.name)}
-            </span>
+            <Link
+              href="/portal/profile"
+              aria-label={`Open profile settings for ${user.name || user.email}`}
+              className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-accent/10 font-mono text-[10px] text-accent"
+            >
+              {user.avatarPath ? (
+                <Image
+                  src={avatarUrl(user.avatarPath)!}
+                  alt=""
+                  fill
+                  sizes="32px"
+                  unoptimized
+                  className="object-cover"
+                />
+              ) : initials(user.name || user.email)}
+            </Link>
             <ThemeToggle className="h-8 w-8" />
             <SignOutButton compact />
           </div>

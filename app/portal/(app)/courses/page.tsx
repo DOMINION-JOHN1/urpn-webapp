@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, Award, BookOpen, Timer } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Award, BookOpen, Timer, UserRound } from 'lucide-react';
 import { requireUser } from '@/lib/server/auth';
 import { getDashboardData } from '@/lib/server/learning';
+import { hasCompleteProfile } from '@/lib/server/profile';
 import { EnrollButton } from '@/components/portal/EnrollButton';
 import { getCourseDurationLabel, getLessonCount } from '@/lib/courses';
 
@@ -28,6 +29,24 @@ export default async function CoursesPage() {
           ? 'One shared course for every department. Complete the modules, pass the timed exam, and receive your workforce certificate.'
           : 'In-house training for ministers and pastors. Finish every lesson to unlock the final exam. Each track allows one timed attempt and issues a verifiable certificate on passing.'}
       </p>
+
+      {isWorkforce && !hasCompleteProfile(user) && (
+        <section className="mt-5 flex flex-col gap-4 border border-accent/25 bg-accent/[0.06] p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+          <div className="flex items-start gap-3">
+            <UserRound className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+            <div>
+              <h2 className="text-[13px] font-medium text-cream-50">Set up your profile</h2>
+              <p className="mt-1 text-[11.5px] leading-relaxed text-cream-400">
+                Add your name, birthday, address, and photo for your certificate.
+              </p>
+            </div>
+          </div>
+          <Link href="/portal/profile" className="btn btn-primary btn-sm w-full sm:w-auto">
+            Open profile
+            <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </Link>
+        </section>
+      )}
 
       <div className="mt-8 space-y-3">
         {data.courses.map((entry, index) => {

@@ -33,7 +33,7 @@ function formatDate(value: string) {
 export default async function PortalDashboardPage() {
   const user = await requireUser();
   const data = await getDashboardData(user.id);
-  const firstName = user.name.split(' ')[0] || user.name;
+  const firstName = user.name.trim().split(' ')[0] || user.email.split('@')[0];
 
   const examReady = data.courses.find(
     (course) => course.enrolled && course.percent === 100 && !course.attempt && !course.certificate
