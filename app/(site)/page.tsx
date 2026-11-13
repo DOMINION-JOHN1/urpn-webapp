@@ -6,24 +6,6 @@ import { MandateSection } from '@/components/MandateSection';
 import { MeetingSchedule } from '@/components/MeetingSchedule';
 import { MinistryGallery } from '@/components/MinistryGallery';
 
-const PILLARS = [
-  {
-    number: '01',
-    title: 'Revival fire',
-    body: 'A burning altar kept aflame — pursuing the presence of God until nations feel His weight.',
-  },
-  {
-    number: '02',
-    title: 'Prophetic intercession',
-    body: 'Standing in the gap by the spirit of Elijah, praying heaven’s blueprint over people and territories.',
-  },
-  {
-    number: '03',
-    title: 'Kingdom restoration',
-    body: 'Restoring people, families, and spheres back to their original divine ordination.',
-  },
-];
-
 export default function HomePage() {
   return (
     <div className="w-full">
@@ -90,44 +72,19 @@ export default function HomePage() {
       {/* ==================================================== MANDATE */}
       <section id="mandate" className="scroll-mt-24">
         <div className="container-page py-16 sm:py-20">
-          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20" data-reveal>
+          <div className="max-w-4xl" data-reveal>
             <div>
               <div className="flex items-center gap-3">
                 <span className="h-px w-6 bg-gold-500/70" />
-                <span className="mono-label text-gold-300">The apostolic mandate</span>
+                <span className="mono-label text-gold-300">The Mandate</span>
               </div>
-              <h2 className="mt-5 max-w-[15ch] text-[34px] font-semibold leading-[1.08] tracking-[-0.04em] text-cream-50 sm:text-[42px]">
-                Restoration is not repair.
-                <span className="block text-cream-500">It is a return to blueprint.</span>
+              <h2 className="mt-5 text-[34px] font-semibold leading-[1.08] tracking-[-0.04em] text-cream-50 sm:text-[42px]">
+                The Mandate
               </h2>
-              <p className="mt-6 max-w-md text-[14.5px] leading-[1.75] text-cream-400">
-                Before a life is rebuilt, heaven consults a design. URPN exists to recover
-                God’s original intention for people, families, spheres, and territories — standing
-                in the gap until the original design is restored.
+              <p className="mt-6 max-w-4xl text-[15px] leading-[1.8] text-cream-300 sm:text-[17px]">
+                Reviving people, territories and spheres back to their original ordination such that they operate from that standpoint, by the prophetic and apostolic spirit of Elijah, through intercession and the Word of God.
               </p>
             </div>
-
-            <figure className="lg:pt-10">
-              <blockquote className="border-l border-gold-500/50 pl-6 text-[21px] font-medium leading-[1.5] tracking-[-0.02em] text-cream-100 sm:text-[24px]">
-                “Restoring people, territories, and spheres back to their original ordination,
-                such that they operate from that standpoint.”
-              </blockquote>
-              <figcaption className="mt-5 pl-6 font-mono text-[10px] uppercase tracking-[0.18em] text-cream-500">
-                The apostolic mandate of URPN
-              </figcaption>
-            </figure>
-          </div>
-
-          <div className="mt-14 grid gap-8 border-t border-line-soft pt-10 md:grid-cols-3 md:gap-10" data-reveal>
-            {PILLARS.map((pillar) => (
-              <div key={pillar.number}>
-                <span className="mono-label text-cream-600">{pillar.number}</span>
-                <h3 className="mt-3 text-[17px] font-medium text-cream-50">{pillar.title}</h3>
-                <p className="mt-2 text-left text-[13.5px] leading-relaxed text-cream-400">
-                  {pillar.body}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

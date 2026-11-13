@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface GatheringPhoto {
   src: string;
@@ -139,7 +139,24 @@ export function MinistryGallery() {
   const [autoPlay, setAutoPlay] = useState(true);
   const [pausedByPointer, setPausedByPointer] = useState(false);
   const [inView, setInView] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(1);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
+  const lastIndex = Math.max(0, PHOTOS.length - visibleCount);
+
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      setVisibleCount(window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1);
+    };
+
+    updateVisibleCount();
+    window.addEventListener('resize', updateVisibleCount);
+    return () => window.removeEventListener('resize', updateVisibleCount);
+  }, []);
+
+  useEffect(() => {
+    setActiveIndex((index) => Math.min(index, lastIndex));
+  }, [lastIndex]);
 
   useEffect(() => {
     const element = carouselRef.current;
@@ -169,22 +186,22 @@ export function MinistryGallery() {
 
     const timer = window.setInterval(() => {
       if (document.visibilityState === 'visible') {
-        setActiveIndex((index) => (index + 1) % PHOTOS.length);
+        setActiveIndex((index) => (index >= lastIndex ? 0 : index + 1));
       }
     }, 5000);
 
     return () => window.clearInterval(timer);
-  }, [autoPlay, pausedByPointer, inView]);
+  }, [autoPlay, pausedByPointer, inView, lastIndex]);
 
   const showPrevious = () => {
-    setActiveIndex((index) => (index - 1 + PHOTOS.length) % PHOTOS.length);
+    setActiveIndex((index) => (index === 0 ? lastIndex : index - 1));
   };
 
   const showNext = () => {
-    setActiveIndex((index) => (index + 1) % PHOTOS.length);
+    setActiveIndex((index) => (index >= lastIndex ? 0 : index + 1));
   };
 
-  const activePhoto = PHOTOS[activeIndex];
+  const visibleEnd = Math.min(activeIndex + visibleCount, PHOTOS.length);
 
   return (
     <section className="border-b border-line" aria-labelledby="gallery-title">
@@ -199,13 +216,10 @@ export function MinistryGallery() {
               One family, many moments.
             </h2>
           </div>
-          <p className="max-w-sm text-[13.5px] leading-relaxed text-cream-400">
-            Worship, prayer, teaching, and care from the life of our church family.
-          </p>
         </div>
 
         <div
-          className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-12"
+          className="overflow-hidden"
           data-reveal
           ref={carouselRef}
           role="group"
@@ -219,75 +233,81 @@ export function MinistryGallery() {
               setPausedByPointer(false);
             }
           }}
+          onTouchStart={(event) => {
+            touchStartX.current = event.touches[0]?.clientX ?? null;
+          }}
+          onTouchEnd={(event) => {
+            if (touchStartX.current === null) return;
+            const distance = event.changedTouches[0].clientX - touchStartX.current;
+            if (Math.abs(distance) > 40) {
+              if (distance < 0) showNext();
+              else showPrevious();
+            }
+            touchStartX.current = null;
+          }}
         >
-          <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+          <div className="overflow-hidden" aria-live="off">
             <div
               className="flex transition-transform duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] motion-reduce:transition-none"
-              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-              aria-live="off"
+              style={{
+                width: `${(PHOTOS.length / visibleCount) * 100}%`,
+                transform: `translateX(-${(activeIndex * 100) / PHOTOS.length}%)`,
+              }}
             >
               {PHOTOS.map((photo, index) => (
                 <figure
                   key={photo.src}
-                  className="relative aspect-square w-full flex-none bg-canvas"
+                  className="min-w-0"
                   role="group"
                   aria-roledescription="slide"
                   aria-label={`${index + 1} of ${PHOTOS.length}`}
-                  aria-hidden={index !== activeIndex}
+                  aria-hidden={index < activeIndex || index >= visibleEnd}
+                  style={{ flex: `0 0 ${100 / PHOTOS.length}%`, paddingInline: '8px' }}
                 >
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    loading={index === activeIndex ? 'eager' : 'lazy'}
-                    sizes="(max-width: 768px) 100vw, 58vw"
-                    className="object-contain"
-                  />
+                  <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+                    <div className="relative aspect-[4/3] bg-canvas">
+                      <Image
+                        src={photo.src}
+                        alt={photo.alt}
+                        fill
+                        loading={index < visibleEnd && index >= activeIndex ? 'eager' : 'lazy'}
+                        sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                        className="object-contain"
+                      />
+                    </div>
+                    <figcaption className="min-h-[76px] px-4 py-3 sm:px-5">
+                      <p className="mono-label !text-[9px] text-gold-300">{photo.tag}</p>
+                      <p className="mt-1 text-[13px] font-medium leading-snug text-cream-100">
+                        {photo.caption}
+                      </p>
+                    </figcaption>
+                  </div>
                 </figure>
               ))}
             </div>
           </div>
 
-          <div className="flex flex-col justify-center">
-            <p className="mono-label text-gold-300">{activePhoto.tag}</p>
-            <h3 className="mt-3 text-[24px] font-semibold leading-tight tracking-[-0.03em] text-cream-50 sm:text-[30px]">
-              {activePhoto.caption}
-            </h3>
-            <p className="mt-3 max-w-sm text-[13px] leading-relaxed text-cream-400">
-              Moments from our gatherings as we worship, grow, and serve together.
-            </p>
-
-            <div className="mt-7 flex items-center justify-between gap-3 border-t border-line-soft pt-5">
-              <span className="font-mono text-[11px] tracking-[0.12em] text-cream-500" aria-live="off">
-                {String(activeIndex + 1).padStart(2, '0')} / {String(PHOTOS.length).padStart(2, '0')}
-              </span>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setAutoPlay((playing) => !playing)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-cream-300 transition-colors hover:border-line-strong hover:text-cream-50"
-                  aria-label={autoPlay ? 'Pause photo slideshow' : 'Play photo slideshow'}
-                  title={autoPlay ? 'Pause slideshow' : 'Play slideshow'}
-                >
-                  {autoPlay ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                </button>
-                <button
-                  type="button"
-                  onClick={showPrevious}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-cream-300 transition-colors hover:border-line-strong hover:text-cream-50"
-                  aria-label="Previous photo"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={showNext}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-cream-300 transition-colors hover:border-line-strong hover:text-cream-50"
-                  aria-label="Next photo"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
+          <div className="mt-5 flex items-center justify-between gap-3 border-t border-line-soft pt-4">
+            <span className="font-mono text-[11px] tracking-[0.12em] text-cream-500" aria-live="off">
+              {String(activeIndex + 1).padStart(2, '0')}–{String(visibleEnd).padStart(2, '0')} / {String(PHOTOS.length).padStart(2, '0')}
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={showPrevious}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-cream-300 transition-colors hover:border-line-strong hover:text-cream-50"
+                aria-label="Previous photos"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={showNext}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-cream-300 transition-colors hover:border-line-strong hover:text-cream-50"
+                aria-label="Next photos"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
             </div>
           </div>
         </div>

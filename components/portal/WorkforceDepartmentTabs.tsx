@@ -14,8 +14,8 @@ import {
   Sparkles,
   Users,
   Baby,
+  ArrowLeft,
   ArrowRight,
-  Layers,
   Palette,
   Megaphone,
   Flame,
@@ -112,46 +112,6 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
 
   return (
     <div>
-      {/* ---------------------------------------------------- DEPARTMENT SELECTOR */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-        <button
-          type="button"
-          onClick={() => setActiveSlug('all')}
-          className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-medium transition-all shrink-0 border ${
-            activeSlug === 'all'
-              ? 'border-accent bg-accent text-accent-ink font-semibold shadow-sm'
-              : 'border-line bg-surface text-cream-300 hover:border-line-strong hover:text-cream-50'
-          }`}
-        >
-          <Layers className="h-3.5 w-3.5" />
-          <span>All Departments</span>
-          <span className="ml-1 rounded-full bg-black/20 px-1.5 py-0.2 font-mono text-[10px]">
-            {departments.length}
-          </span>
-        </button>
-
-        {departments.map((department) => {
-          const Icon = ICONS[department.slug] || Sparkles;
-          const isSelected = activeSlug === department.slug;
-
-          return (
-            <button
-              key={department.slug}
-              type="button"
-              onClick={() => setActiveSlug(department.slug)}
-              className={`flex items-center gap-2 rounded-xl px-3.5 py-2.5 text-xs font-medium transition-all shrink-0 border ${
-                isSelected
-                  ? 'border-gold-400 bg-gold-400/15 text-gold-200 font-semibold shadow-sm'
-                  : 'border-line bg-surface text-cream-400 hover:border-line-strong hover:text-cream-50'
-              }`}
-            >
-              <Icon className="h-3.5 w-3.5 shrink-0" />
-              <span>{department.shortTitle}</span>
-            </button>
-          );
-        })}
-      </div>
-
       {/* ---------------------------------------------------- SINGLE DEPARTMENT VIEW */}
       {selected && (
         <div className="mt-6 rounded-3xl border border-line bg-surface p-6 sm:p-10 transition-all animate-fade-in">
@@ -159,6 +119,14 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
             const Icon = ICONS[selected.slug] || Sparkles;
             return (
               <div>
+                <button
+                  type="button"
+                  onClick={() => setActiveSlug('all')}
+                  className="mb-6 inline-flex items-center gap-2 text-xs font-medium text-cream-400 transition-colors hover:text-cream-50"
+                >
+                  <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
+                  All departments
+                </button>
                 {/* Header */}
                 <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                   <div className="flex items-start gap-4">
