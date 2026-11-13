@@ -6,35 +6,36 @@
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Dark theme — charcoal, dark magenta, gold. RGB triplets support opacity utilities. */
-  --canvas: 13 12 15;
-  --canvas-deep: 9 8 11;
-  --canvas-raised: 23 20 25;
-  --surface: 22 20 25;
-  --surface-raised: 29 25 33;
-  --surface-soft: 19 17 21;
-  --line: 43 38 49;
-  --line-soft: 34 30 39;
-  --line-strong: 59 52 66;
-  --text: 246 243 240;
-  --muted: 167 159 169;
-  --dim: 128 120 132;
-  --label: 162 148 126;
+  /* Dark theme — warm stone, parchment text, and dark magenta actions. */
+  --canvas: 22 18 15;
+  --canvas-deep: 13 10 8;
+  --canvas-raised: 31 26 21;
+  --surface: 27 23 19;
+  --surface-raised: 38 32 26;
+  --surface-soft: 22 19 15;
+  --line: 54 46 38;
+  --line-soft: 39 33 27;
+  --line-strong: 73 62 50;
+  --text: 244 238 225;
+  --muted: 178 165 145;
+  --dim: 139 126 106;
+  --label: 187 159 111;
 
-  --cream-50: 246 243 240;
-  --cream-100: 246 243 240;
-  --cream-200: 234 229 225;
-  --cream-300: 211 204 212;
-  --cream-400: 167 159 169;
-  --cream-500: 128 120 132;
-  --cream-600: 94 87 98;
+  --cream-50: 244 238 225;
+  --cream-100: 244 238 225;
+  --cream-200: 230 221 204;
+  --cream-300: 205 194 177;
+  --cream-400: 171 157 137;
+  --cream-500: 136 122 103;
+  --cream-600: 100 88 71;
 
-  --ink-950: 9 8 11;
-  --ink-900: 13 12 15;
-  --ink-850: 17 16 20;
-  --ink-800: 22 20 25;
-  --ink-700: 29 25 33;
-  --ink-600: 41 36 47;
+  --ink-950: 13 10 8;
+  --ink-900: 22 18 15;
+  --ink-850: 25 21 17;
+  --ink-800: 27 23 19;
+  --ink-700: 38 32 26;
+  --ink-600: 54 46 38;
+  --sand-grain: 235 219 188;
 
   --accent: 176 91 168;
   --accent-hover: 194 122 186;
@@ -43,43 +44,44 @@
   --accent-ink: 22 15 25;
   --accent-soft: 55 20 48;
 
-  --gold-200: 219 208 177;
-  --gold-300: 204 191 155;
-  --gold-400: 187 173 137;
-  --gold-500: 166 151 116;
-  --gold-600: 141 128 99;
+  --gold-200: 224 207 167;
+  --gold-300: 204 183 134;
+  --gold-400: 184 158 108;
+  --gold-500: 160 132 83;
+  --gold-600: 133 105 64;
 }
 
 html.light {
-  /* Light theme — paper-white surfaces with plum ink and magenta actions. */
-  --canvas: 245 241 246;
-  --canvas-deep: 239 233 241;
-  --canvas-raised: 250 247 251;
-  --surface: 255 255 255;
-  --surface-raised: 250 247 251;
-  --surface-soft: 246 242 247;
-  --line: 228 221 232;
-  --line-soft: 239 233 242;
-  --line-strong: 205 194 211;
-  --text: 27 19 26;
-  --muted: 96 82 92;
-  --dim: 122 108 119;
-  --label: 122 106 82;
+  /* Light theme — matte sand, clay, and plum ink. */
+  --canvas: 244 237 223;
+  --canvas-deep: 234 223 204;
+  --canvas-raised: 250 246 237;
+  --surface: 251 248 240;
+  --surface-raised: 245 238 224;
+  --surface-soft: 240 232 216;
+  --line: 222 210 188;
+  --line-soft: 233 222 203;
+  --line-strong: 187 169 139;
+  --text: 42 33 26;
+  --muted: 100 83 67;
+  --dim: 134 116 94;
+  --label: 127 97 58;
 
-  --cream-50: 27 19 26;
-  --cream-100: 35 26 33;
-  --cream-200: 57 46 55;
-  --cream-300: 63 51 61;
-  --cream-400: 79 65 75;
-  --cream-500: 96 82 92;
-  --cream-600: 122 108 119;
+  --cream-50: 42 33 26;
+  --cream-100: 54 44 35;
+  --cream-200: 72 60 48;
+  --cream-300: 91 76 60;
+  --cream-400: 112 96 78;
+  --cream-500: 145 127 108;
+  --cream-600: 172 155 135;
 
-  --ink-950: 241 234 239;
-  --ink-900: 247 242 245;
-  --ink-850: 251 248 250;
-  --ink-800: 255 255 255;
-  --ink-700: 234 226 232;
-  --ink-600: 226 216 224;
+  --ink-950: 234 223 204;
+  --ink-900: 244 237 223;
+  --ink-850: 249 246 237;
+  --ink-800: 251 248 240;
+  --ink-700: 230 220 200;
+  --ink-600: 219 207 186;
+  --sand-grain: 108 78 45;
 
   --accent: 110 21 88;
   --accent-hover: 90 16 75;
@@ -88,11 +90,11 @@ html.light {
   --accent-ink: 255 255 255;
   --accent-soft: 246 231 243;
 
-  --gold-200: 105 94 70;
-  --gold-300: 105 94 70;
-  --gold-400: 121 108 80;
-  --gold-500: 137 123 94;
-  --gold-600: 111 100 75;
+  --gold-200: 103 82 52;
+  --gold-300: 103 82 52;
+  --gold-400: 125 99 62;
+  --gold-500: 145 114 69;
+  --gold-600: 112 88 55;
 
   color-scheme: light;
 }
@@ -113,6 +115,10 @@ body {
   position: relative;
   font-family: var(--font-sans);
   background-color: rgb(var(--canvas));
+  background-image:
+    radial-gradient(circle at 18% 24%, rgb(var(--sand-grain) / 0.045) 0.55px, transparent 0.8px),
+    radial-gradient(circle at 72% 68%, rgb(var(--sand-grain) / 0.035) 0.5px, transparent 0.75px);
+  background-size: 13px 17px, 19px 23px;
   color: rgb(var(--text));
   min-height: 100dvh;
   letter-spacing: -0.006em;
@@ -306,6 +312,29 @@ svg {
   border: 1px solid rgb(var(--line));
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+}
+
+/* Matte, fine-grain paper texture for shared panels and cards. */
+.surface-card,
+.panel,
+.bg-canvas,
+.bg-canvas-deep,
+.bg-canvas-raised,
+.bg-surface,
+.bg-surface-raised,
+.bg-surface-soft {
+  background-image:
+    radial-gradient(circle at 22% 31%, rgb(var(--sand-grain) / 0.045) 0.55px, transparent 0.8px),
+    radial-gradient(circle at 74% 69%, rgb(var(--sand-grain) / 0.03) 0.5px, transparent 0.75px);
+  background-size: 13px 17px, 19px 23px;
+}
+
+.surface-card,
+.panel,
+.event-card,
+.event-card:hover,
+.event-card:focus-within {
+  box-shadow: none;
 }
 
 .text-gold-sheen {
