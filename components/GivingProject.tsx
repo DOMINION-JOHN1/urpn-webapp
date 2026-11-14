@@ -28,6 +28,16 @@ export function GivingProject() {
           Phase 1 is the purchase of 20 plots of land. The land-purchase flyer lists a ₦50 million
           project goal. The flyers below share the support, partnership, and land-purchase details.
         </p>
+        <a
+          href="https://paystack.shop/pay/dtv-yhtodu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-primary mt-6"
+          aria-label="Give through Paystack in a new tab"
+        >
+          Give via Paystack
+          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </a>
       </div>
 
       <div className="mt-9 grid max-w-5xl gap-5 md:grid-cols-2">
