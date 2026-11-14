@@ -124,7 +124,7 @@ export const TestimonyForm: React.FC = () => {
           particleCount: 110,
           spread: 82,
           origin: { y: 0.6 },
-          colors: ['#6E1558', '#B05BA8', '#C8AFC4', '#FFFFFF'],
+          colors: ['#6A1557', '#821D68', '#C8AFC4', '#FFFFFF'],
         });
       } catch (_) {}
     } catch (err: any) {
@@ -261,7 +261,7 @@ export const TestimonyForm: React.FC = () => {
               disabled={isSubmitting}
               className={`flex-1 flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition cursor-pointer ${
                 mode === 'write'
-                  ? 'bg-accent text-accent-ink'
+                  ? 'bg-accent-strong text-white hover:bg-accent-strong-hover'
                   : 'text-cream-400 hover:text-cream-100 hover:bg-cream-50/5'
               }`}
             >
@@ -274,7 +274,7 @@ export const TestimonyForm: React.FC = () => {
               disabled={isSubmitting}
               className={`flex-1 flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition cursor-pointer ${
                 mode === 'record'
-                  ? 'bg-accent text-accent-ink'
+                  ? 'bg-accent-strong text-white hover:bg-accent-strong-hover'
                   : 'text-cream-400 hover:text-cream-100 hover:bg-cream-50/5'
               }`}
             >
@@ -320,7 +320,7 @@ export const TestimonyForm: React.FC = () => {
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
               disabled={isSubmitting}
-              className="mt-0.5 h-4 w-4 cursor-pointer rounded border-line bg-canvas accent-accent"
+              className="mt-0.5 h-4 w-4 cursor-pointer rounded border-line bg-canvas accent-accent-strong"
             />
             <label htmlFor="consent" className="text-xs text-cream-400 leading-relaxed cursor-pointer">
               I agree that URPN may receive and review my testimony.
@@ -338,7 +338,7 @@ export const TestimonyForm: React.FC = () => {
           )}
 
           {isSubmitting && (
-            <div className="flex items-center gap-3 rounded-xl border border-accent/20 bg-accent/[0.06] p-4">
+            <div className="flex items-center gap-3 rounded-xl border border-accent-strong/20 bg-accent-strong/[0.06] p-4">
               <Loader2 className="w-5 h-5 text-gold-300 animate-spin shrink-0" />
               <div className="flex-1 text-xs">
                 <span className="font-bold text-gold-300 block">Please wait…</span>
@@ -379,7 +379,7 @@ export const TestimonyForm: React.FC = () => {
 const StepHeader: React.FC<{ n: number; title: string }> = ({ n, title }) => (
   <div className="border-b border-line-soft pb-3">
     <h3 className="flex items-center gap-2.5 text-sm font-medium text-cream-50">
-      <span className="flex h-6 w-6 items-center justify-center rounded-md border border-line bg-canvas font-mono text-[10px] text-accent">
+      <span className="flex h-6 w-6 items-center justify-center rounded-md border border-accent-strong/40 bg-accent-strong font-mono text-[10px] text-white">
         {n}
       </span>
       <span>{title}</span>

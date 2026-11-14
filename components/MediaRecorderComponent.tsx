@@ -414,7 +414,7 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
                 className="mb-2"
               />
               <div className="flex items-center gap-2 text-cream-400 text-xs font-medium">
-                <Volume2 className="w-4 h-4 text-accent" />
+                <Volume2 className="w-4 h-4 text-cream-300" />
                 <span>Listening • speak clearly from your heart</span>
               </div>
             </div>
@@ -423,14 +423,14 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
           {/* Recording Timer & Limit Bar */}
           {isRecording && (
             <div className="flex flex-col items-center mb-6 w-full max-w-xs">
-              <div className="mb-2 font-mono text-5xl font-extrabold tracking-tight text-accent">
+              <div className="mb-2 font-mono text-5xl font-extrabold tracking-tight text-cream-50">
                 {formatTime(recordingDuration)}
               </div>
 
               <div className="w-full bg-ink-950 h-2.5 rounded-full overflow-hidden border border-line-soft mb-1.5">
                 <div
                   className={`h-full transition-all duration-300 ${
-                    remainingSeconds < 60 ? 'bg-red-500' : 'bg-accent'
+                    remainingSeconds < 60 ? 'bg-red-500' : 'bg-accent-strong'
                   }`}
                   style={{
                     width: `${Math.min(100, (recordingDuration / currentMaxSeconds) * 100)}%`,
@@ -455,13 +455,13 @@ export const MediaRecorderComponent: React.FC<MediaRecorderComponentProps> = ({
                 onClick={startRecording}
                 disabled={disabled}
                 aria-label={mediaType === 'video' ? 'Start Video Recording' : 'Start Voice Recording'}
-                className="group relative flex items-center justify-center gap-3 rounded-lg bg-accent px-8 py-3.5 text-base font-semibold text-accent-ink shadow-sm transition-[background-color,transform] duration-200 hover:bg-accent-hover hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transform-none sm:px-10 sm:text-lg"
+                className="group relative flex items-center justify-center gap-3 rounded-lg bg-accent-strong px-8 py-3.5 text-base font-semibold text-white shadow-sm transition-[background-color,transform] duration-200 hover:bg-accent-strong-hover hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transform-none sm:px-10 sm:text-lg"
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-accent-ink/10">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-white/10">
                   {mediaType === 'video' ? (
-                    <Video className="w-5 h-5 text-accent-ink" />
+                    <Video className="w-5 h-5 text-white" />
                   ) : (
-                    <Mic className="w-5 h-5 text-accent-ink" />
+                    <Mic className="w-5 h-5 text-white" />
                   )}
                 </div>
                 <span>Start recording</span>

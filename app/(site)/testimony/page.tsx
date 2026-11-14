@@ -18,7 +18,7 @@ export default function TestimonyPage() {
 
       <div className="mt-8 grid items-start gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-12">
         <aside className="lg:sticky lg:top-28 lg:pt-7" data-reveal>
-          <blockquote className="border-l-2 border-accent/55 pl-5 text-[20px] font-medium leading-[1.55] tracking-[-0.02em] text-cream-100 sm:text-[23px]">
+          <blockquote className="border-l-2 border-accent-strong/55 pl-5 text-[20px] font-medium leading-[1.55] tracking-[-0.02em] text-cream-100 sm:text-[23px]">
             “And they overcame him by the blood of the Lamb, and by the word of their testimony.”
           </blockquote>
           <p className="mt-4 pl-5 font-mono text-[10px] uppercase tracking-[0.18em] text-cream-500">
