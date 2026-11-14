@@ -5,6 +5,8 @@ import { CalendarPlus, Clock, Flame, Moon, Sun, Zap } from 'lucide-react';
 interface MeetingEvent {
   title: string;
   poster?: string;
+  posterAlt?: string;
+  posterFit?: 'cover' | 'contain';
   schedule?: string;
   location?: string;
   icon: React.ReactNode;
@@ -29,6 +31,9 @@ const MEETINGS: MeetingEvent[] = [
   },
   {
     title: 'Daily weekday Prayers',
+    poster: '/gallery/congregation-prayer.jpeg',
+    posterAlt: 'URPN congregation gathered for prayer',
+    posterFit: 'cover',
     schedule: 'Daily weekday Prayers 4:00 pm at the URPN Family House',
     location: 'URPN Family House',
     icon: <Sun className="h-7 w-7" />,
@@ -88,10 +93,10 @@ export function MeetingSchedule() {
               {meeting.poster ? (
                 <Image
                   src={meeting.poster}
-                  alt={`${meeting.title} event flyer`}
+                  alt={meeting.posterAlt ?? `${meeting.title} event flyer`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                  className="object-contain p-2 transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:transform-none motion-reduce:transition-none"
+                  className={`${meeting.posterFit === 'cover' ? 'object-cover' : 'object-contain p-2'} transition-transform duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] group-hover:scale-[1.04] group-focus-within:scale-[1.025] motion-reduce:transform-none motion-reduce:transition-none`}
                 />
               ) : (
                 <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-surface/80 text-gold-300 shadow-sm">
@@ -101,9 +106,12 @@ export function MeetingSchedule() {
             </div>
 
             <div className="flex flex-1 items-start gap-3 p-5 pb-3 sm:p-6 sm:pb-3">
-              <Clock className="mt-1 h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
+              <Clock
+                className="mt-1 h-4 w-4 shrink-0 text-gold-400 transition-transform duration-500 group-hover:rotate-12 group-focus-within:rotate-6 motion-reduce:transform-none motion-reduce:transition-none"
+                aria-hidden="true"
+              />
               <div>
-                <h3 className="text-[18px] font-semibold leading-snug tracking-[-0.025em] text-cream-50">
+                <h3 className="text-[18px] font-semibold leading-snug tracking-[-0.025em] text-cream-50 transition-colors duration-300 group-hover:text-accent group-focus-within:text-accent motion-reduce:transition-none">
                   {meeting.title}
                 </h3>
                 {meeting.schedule && (

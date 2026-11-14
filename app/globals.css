@@ -358,7 +358,7 @@ svg {
 }
 .event-card:hover,
 .event-card:focus-within {
-  translate: 0 -3px;
+  translate: 0 -4px;
 }
 
 [data-reveal].reveal-ready {
