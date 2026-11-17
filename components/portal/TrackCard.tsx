@@ -15,19 +15,28 @@ function statusFor(course: DashboardCourse): {
   }
   if (course.attempt && course.attempt.status !== 'in_progress') {
     return {
-      label: 'Attempt used',
+      label: 'Final attempt used',
       className: 'border-line bg-canvas text-cream-500',
     };
   }
   if (course.attempt?.status === 'in_progress') {
     return {
-      label: 'Exam open',
+      label: 'Final exam open',
       className: 'border-gold-400/30 bg-gold-400/10 text-gold-300',
     };
   }
-  if (course.percent === 100) {
+  if (course.examUnlocked) {
     return {
-      label: 'Exam ready',
+      label: 'Final exam ready',
+      className: 'border-gold-400/30 bg-gold-400/10 text-gold-300',
+    };
+  }
+  if (
+    course.percent === 100 &&
+    Object.values(course.moduleExamStatuses).some((status) => !status.passed)
+  ) {
+    return {
+      label: 'Module exams',
       className: 'border-gold-400/30 bg-gold-400/10 text-gold-300',
     };
   }

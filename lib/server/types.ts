@@ -161,6 +161,14 @@ export interface WorkforceApplicantDepartment {
     positionSeconds: number;
     notes?: string;
   }>;
+  moduleExams: Array<{
+    moduleId: string;
+    title: string;
+    status: 'passed' | 'in_progress' | 'locked_out' | 'ready' | 'locked';
+    attemptCount: number;
+    score: number | null;
+    lockedUntil: string | null;
+  }>;
   attempt: {
     status: string;
     score: number | null;

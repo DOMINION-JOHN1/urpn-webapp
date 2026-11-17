@@ -1182,6 +1182,41 @@ export async function getAdminWorkforceData(): Promise<AdminWorkforceDashboardDa
             .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))[0] ?? null;
 
         const percent = courseLessons.length > 0 ? Math.round((completedCount / courseLessons.length) * 100) : 0;
+        const moduleStatusMap = moduleExamStatusesForCourse(db, user.id, matchedCourse, Boolean(cert));
+        const passedModuleExamIds = Object.entries(moduleStatusMap)
+          .filter(([, status]) => status.passed)
+          .map(([moduleId]) => moduleId);
+        const courseCompletedLessonIds = courseLessons
+          .filter((lesson) => progressMap.get(lesson.id)?.completedAt)
+          .map((lesson) => lesson.id);
+        const moduleExams = matchedCourse.modules.flatMap((module) => {
+          if (!module.exam) return [];
+          const status = moduleStatusMap[module.id];
+          const lockedUntil = status?.lockedUntil ?? null;
+          const examStatus: WorkforceApplicantDepartment['moduleExams'][number]['status'] =
+            status?.passed
+              ? 'passed'
+              : status?.attemptStatus === 'in_progress'
+                ? 'in_progress'
+                : lockedUntil && Date.parse(lockedUntil) > Date.now()
+                  ? 'locked_out'
+                  : isModuleExamUnlocked(
+                        matchedCourse,
+                        module.id,
+                        courseCompletedLessonIds,
+                        passedModuleExamIds
+                      )
+                    ? 'ready'
+                    : 'locked';
+          return [{
+            moduleId: module.id,
+            title: module.title,
+            status: examStatus,
+            attemptCount: status?.attemptCount ?? 0,
+            score: status?.score ?? null,
+            lockedUntil,
+          }];
+        });
         const moduleExamsPassed = matchedCourse.modules.every(
           (module) =>
             !module.exam ||
@@ -1218,6 +1253,7 @@ export async function getAdminWorkforceData(): Promise<AdminWorkforceDashboardDa
           totalLessons: courseLessons.length,
           percent,
           status,
+          moduleExams,
           lessons: courseLessons.map((l) => {
             const p = progressMap.get(l.id);
             return {

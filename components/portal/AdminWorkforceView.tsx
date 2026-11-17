@@ -168,6 +168,7 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
       'Lessons Completed',
       'Total Lessons',
       'Exam Status',
+      'Module Exam Progress',
       'Exam Score %',
       'Certificate Code',
       'Last Active At',
@@ -193,6 +194,13 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
       const examScores = applicant.departments
         .map((d) => (d.attempt?.score !== null && d.attempt?.score !== undefined ? `${d.attempt.score}%` : 'Not taken'))
         .join('; ') || 'N/A';
+      const moduleExamProgress = applicant.departments
+        .flatMap((department) =>
+          department.moduleExams.map((exam) =>
+            `${department.shortTitle} / ${exam.title}: ${exam.status}${exam.score !== null ? ` (${exam.score}%)` : ''}${exam.status === 'locked_out' && exam.lockedUntil ? ` until ${formatDateTime(exam.lockedUntil)}` : ''}`
+          )
+        )
+        .join('; ') || 'None';
 
       rows.push([
         `"${u.name || 'Not set'}"`,
@@ -209,6 +217,7 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
         String(totalCompleted),
         String(totalLessons),
         `"${applicant.overallStatus === 'certified' ? 'Passed' : applicant.overallStatus === 'exam_ready' ? 'Ready' : 'Incomplete'}"`,
+        `"${moduleExamProgress}"`,
         `"${applicant.highestScore !== null ? `${applicant.highestScore}%` : examScores}"`,
         `"${certCodes}"`,
         `"${formatDate(applicant.latestActivityAt)}"`,
@@ -771,6 +780,44 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
                                 </span>
                               </div>
 
+                              {dept.moduleExams.length > 0 && (
+                                <div className="rounded-lg border border-line-soft bg-canvas/40 p-3">
+                                  <span className="text-cream-500 block text-[10px] uppercase font-mono">
+                                    Module Exams
+                                  </span>
+                                  <ul className="mt-2 space-y-2">
+                                    {dept.moduleExams.map((exam) => (
+                                    <li
+                                      key={exam.moduleId}
+                                      className="flex items-start justify-between gap-3 text-[11px]"
+                                    >
+                                        <span className="text-cream-300">{exam.title}</span>
+                                        <span
+                                          className={`shrink-0 text-right font-medium ${
+                                            exam.status === 'passed'
+                                              ? 'text-emerald-400'
+                                              : exam.status === 'locked_out' ||
+                                                  exam.status === 'in_progress'
+                                                ? 'text-gold-300'
+                                                : 'text-cream-500'
+                                          }`}
+                                        >
+                                          {exam.status === 'passed'
+                                            ? `PASSED${exam.score !== null ? ` · ${exam.score}%` : ''}`
+                                            : exam.status === 'in_progress'
+                                              ? 'IN PROGRESS'
+                                              : exam.status === 'locked_out'
+                                                ? `LOCKED UNTIL ${formatDateTime(exam.lockedUntil)}`
+                                                : exam.status === 'ready'
+                                                  ? `READY${exam.attemptCount ? ` · ${exam.attemptCount} attempts` : ''}`
+                                                  : 'LOCKED'}
+                                        </span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+
                               {/* Exam Attempt */}
                               <div className="rounded-lg border border-line-soft bg-canvas/40 p-3 text-xs">
                                 <span className="text-cream-500 block text-[10px] uppercase font-mono">
@@ -780,20 +827,32 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
                                   <div className="mt-1 flex items-center justify-between">
                                     <span
                                       className={`font-semibold ${
-                                        dept.attempt.passed
-                                          ? 'text-emerald-400'
-                                          : 'text-amber-400'
+                                        dept.attempt.status === 'in_progress'
+                                          ? 'text-gold-300'
+                                          : dept.attempt.passed
+                                            ? 'text-emerald-400'
+                                            : 'text-amber-400'
                                       }`}
                                     >
-                                      {dept.attempt.passed ? 'PASSED' : 'NEEDS RETAKE'} · {dept.attempt.score}%
+                                      {dept.attempt.status === 'in_progress'
+                                        ? 'IN PROGRESS'
+                                        : `${dept.attempt.passed ? 'PASSED' : 'NOT PASSED'} · ${dept.attempt.score}%`}
                                     </span>
                                     <span className="font-mono text-[10px] text-cream-500">
                                       {formatDate(dept.attempt.submittedAt)}
                                     </span>
                                   </div>
+                                ) : dept.status === 'exam_ready' ? (
+                                  <span className="mt-1 block font-medium text-gold-300">
+                                    Final exam unlocked · Ready to take
+                                  </span>
+                                ) : dept.moduleExams.some((exam) => exam.status !== 'passed') ? (
+                                  <span className="mt-1 block text-cream-500">
+                                    Pass all required module exams to unlock the final exam
+                                  </span>
                                 ) : dept.percent === 100 ? (
                                   <span className="mt-1 block font-medium text-gold-300">
-                                    Exam Unlocked · Ready to take
+                                    Final exam unlocked · Ready to take
                                   </span>
                                 ) : (
                                   <span className="mt-1 block text-cream-500">
