@@ -186,7 +186,7 @@ export function CurriculumAccordion({
                   />
                   <div className="min-w-0">
                     <p className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-gold-400 truncate">
-                      <span>MODULE {modIndex + 1} · WEEK {module.week}</span>
+                      <span>MODULE {modIndex + 1}</span>
                       {!isModUnlocked && enrolled && (
                         <Lock className="h-2.5 w-2.5 text-cream-500 inline" />
                       )}

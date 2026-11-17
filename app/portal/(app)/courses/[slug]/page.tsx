@@ -310,7 +310,7 @@ export default async function CourseOverviewPage({
       <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-line-soft py-3.5 text-[11px] text-cream-500">
         <span className="inline-flex items-center gap-1.5">
           <Clock3 className="h-3.5 w-3.5" aria-hidden="true" />
-          {course.weeks} weeks
+          Self-paced
         </span>
         <span className="inline-flex items-center gap-1.5">
           <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />

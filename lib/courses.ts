@@ -122,7 +122,7 @@ const FOUNDATION: Course = {
   shortTitle: 'Foundation',
   tagline: 'The mandate, the altar, and your place in it.',
   description:
-    'Every worker begins here. In four weeks you will meet the apostolic mandate of URPN, learn how to keep a personal altar burning, settle your identity before your assignment, and discover how to hear God for the sphere He has given you.',
+    'Every worker begins here. At your own pace, explore the apostolic mandate of URPN, learn how to keep a personal altar burning, settle your identity before your assignment, and discover how to hear God for the sphere He has given you.',
   audience: 'Every new worker, volunteer, and member of the URPN family.',
   track: 'leadership',
   conditions: [],

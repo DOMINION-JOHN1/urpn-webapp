@@ -102,7 +102,9 @@ export default async function CoursesPage() {
                       {course.exam.durationMinutes} min final exam · {course.exam.passMark}% to pass
                     </span>
                     <span className="font-mono text-[9.5px] uppercase tracking-[0.1em]">
-                      {getCourseDurationLabel(course)} · {course.weeks} weeks
+                      {getCourseDurationLabel(course) === 'Self-paced'
+                        ? 'Self-paced'
+                        : `Self-paced · ${getCourseDurationLabel(course)} estimated`}
                     </span>
                   </div>
                 </div>
