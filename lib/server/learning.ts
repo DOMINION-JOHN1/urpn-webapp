@@ -1,4 +1,4 @@
-import { randomBytes } from 'node:crypto';
+import { randomBytes, randomInt } from 'node:crypto';
 import type {
   Attempt,
   Certificate,
@@ -22,11 +22,15 @@ import {
   getAllLessons,
   getLesson,
   getCoursesForRole,
+  isModuleExamUnlocked,
   type Course,
+  type CourseModule,
+  type ExamSettings,
   type CourseSlug,
   type Lesson,
 } from '../courses';
 import { getExamDefinition, type ExamQuestion } from '../exam-bank';
+import { getModuleExamDefinition } from '../module-exam-bank';
 
 export const EXAM_GRACE_SECONDS = 60;
 
@@ -50,8 +54,20 @@ export interface CourseOverview {
   positions: Record<string, number>;
   notes: Record<string, string>;
   attempt: Attempt | null;
+  moduleExamStatuses: Record<string, ModuleExamStatus>;
+  passedModuleExamIds: string[];
   certificate: Certificate | null;
   examUnlocked: boolean;
+}
+
+export interface ModuleExamStatus {
+  attemptId: string | null;
+  attemptStatus: Attempt['status'] | null;
+  score: number | null;
+  passed: boolean;
+  creditedByCertificate: boolean;
+  attemptCount: number;
+  lockedUntil: string | null;
 }
 
 export interface DashboardCourse extends CourseOverview {
@@ -81,6 +97,39 @@ function completedIds(db: Database, userId: string, course: Course): string[] {
     .map((entry) => entry.lessonId);
 }
 
+function moduleExamStatusesForCourse(
+  db: Database,
+  userId: string,
+  course: Course,
+  hasCertificate: boolean
+): Record<string, ModuleExamStatus> {
+  const statuses: Record<string, ModuleExamStatus> = {};
+  for (const module of course.modules) {
+    if (!module.exam) continue;
+    const attempts = db.attempts
+      .filter(
+        (entry) =>
+          entry.userId === userId &&
+          entry.courseId === course.slug &&
+          entry.moduleId === module.id
+      )
+      .sort((a, b) => Date.parse(a.startedAt) - Date.parse(b.startedAt));
+    const latest = attempts[attempts.length - 1] ?? null;
+    const passedAttempt = attempts.find((entry) => entry.passed === true) ?? null;
+    const lockoutAttempt = [...attempts].reverse().find((entry) => entry.lockoutUntil) ?? null;
+    statuses[module.id] = {
+      attemptId: latest?.id ?? null,
+      attemptStatus: latest?.status ?? null,
+      score: latest?.score ?? null,
+      passed: Boolean(passedAttempt || hasCertificate),
+      creditedByCertificate: Boolean(hasCertificate && !passedAttempt),
+      attemptCount: attempts.length,
+      lockedUntil: lockoutAttempt?.lockoutUntil ?? null,
+    };
+  }
+  return statuses;
+}
+
 function courseOverviewFromDb(
   db: Database,
   userId: string,
@@ -89,18 +138,30 @@ function courseOverviewFromDb(
   const lessons = getAllLessons(course);
   const completed = completedIds(db, userId, course);
   const completedSet = new Set(completed);
-  const nextLesson = lessons.find((lesson) => !completedSet.has(lesson.id)) ?? null;
   const enrollment = db.enrollments.find(
     (entry) => entry.userId === userId && entry.courseId === course.slug
   );
-  const attempt =
-    db.attempts
-      .filter((entry) => entry.userId === userId && entry.courseId === course.slug)
-      .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))[0] ?? null;
   const certificate =
     db.certificates.find(
       (entry) => entry.userId === userId && entry.courseId === course.slug
     ) ?? null;
+  const courseAttempts = db.attempts
+    .filter((entry) => entry.userId === userId && entry.courseId === course.slug);
+  const attempt =
+    courseAttempts
+      .filter((entry) => !entry.moduleId)
+      .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))[0] ?? null;
+  const moduleExamStatuses = moduleExamStatusesForCourse(
+    db,
+    userId,
+    course,
+    Boolean(certificate)
+  );
+  const passedModuleExamIds = Object.entries(moduleExamStatuses)
+    .filter(([, status]) => status.passed)
+    .map(([moduleId]) => moduleId);
+  const nextLesson = getFirstUnlockedIncompleteLesson(course, completed, passedModuleExamIds);
+  const allModuleExamsPassed = Object.values(moduleExamStatuses).every((status) => status.passed);
 
   const positions: Record<string, number> = {};
   const notes: Record<string, string> = {};
@@ -131,8 +192,10 @@ function courseOverviewFromDb(
     positions,
     notes,
     attempt,
+    moduleExamStatuses,
+    passedModuleExamIds,
     certificate,
-    examUnlocked: completed.length === lessons.length && !certificate,
+    examUnlocked: completed.length === lessons.length && allModuleExamsPassed && !certificate,
   };
 }
 
@@ -158,7 +221,8 @@ export async function isEnrolled(userId: string, courseSlug: string): Promise<bo
 export function isLessonUnlocked(
   course: Course,
   completedLessonIds: string[],
-  lessonId: string
+  lessonId: string,
+  passedModuleExamIds: string[] = []
 ): boolean {
   const lessons = getAllLessons(course);
   const targetIndex = lessons.findIndex((l) => l.id === lessonId);
@@ -171,16 +235,37 @@ export function isLessonUnlocked(
       return false;
     }
   }
+  const targetModule = getLesson(course, lessonId)?.module;
+  const targetModuleIndex = targetModule
+    ? course.modules.findIndex((module) => module.id === targetModule.id)
+    : -1;
+  if (targetModuleIndex >= 0) {
+    const passed = new Set(passedModuleExamIds);
+    if (
+      course.modules
+        .slice(0, targetModuleIndex)
+        .some((module) => module.exam && !passed.has(module.id))
+    ) {
+      return false;
+    }
+  }
   return true;
 }
 
 export function getFirstUnlockedIncompleteLesson(
   course: Course,
-  completedLessonIds: string[]
+  completedLessonIds: string[],
+  passedModuleExamIds: string[] = []
 ): Lesson | null {
   const lessons = getAllLessons(course);
   const completedSet = new Set(completedLessonIds);
-  return lessons.find((l) => !completedSet.has(l.id)) ?? null;
+  return (
+    lessons.find(
+      (lesson) =>
+        !completedSet.has(lesson.id) &&
+        isLessonUnlocked(course, completedLessonIds, lesson.id, passedModuleExamIds)
+    ) ?? null
+  );
 }
 
 export async function getDashboardData(userId: string): Promise<DashboardData> {
@@ -314,6 +399,19 @@ export async function recordLessonProgress(
     );
     if (!enrolled) return { ok: false, error: 'You are not enrolled in this course.' };
 
+    const completedBefore = completedIds(db, input.userId, course);
+    const hasCertificate = db.certificates.some(
+      (entry) => entry.userId === input.userId && entry.courseId === course.slug
+    );
+    const passedBefore = Object.entries(
+      moduleExamStatusesForCourse(db, input.userId, course, hasCertificate)
+    )
+      .filter(([, status]) => status.passed)
+      .map(([moduleId]) => moduleId);
+    if (!isLessonUnlocked(course, completedBefore, lesson.id, passedBefore)) {
+      return { ok: false, error: 'Complete the earlier lessons and module exams first.' };
+    }
+
     const now = new Date().toISOString();
     const existing = db.progress.find(
       (entry) =>
@@ -381,12 +479,85 @@ export async function recordLessonProgress(
   });
 }
 
-function publicQuestions(slug: CourseSlug, ids?: string[]): PublicExamQuestion[] {
-  const questions = getExamDefinition(slug).questions;
-  const selected = ids
-    ? questions.filter((question) => ids.includes(question.id))
-    : questions;
+function questionBank(course: Course, moduleId?: string): ExamQuestion[] {
+  if (moduleId) return getModuleExamDefinition(moduleId)?.questions ?? [];
+  return getExamDefinition(course.slug).questions;
+}
+
+function examSettings(course: Course, moduleId?: string): ExamSettings | undefined {
+  if (!moduleId) return course.exam;
+  return course.modules.find((module) => module.id === moduleId)?.exam;
+}
+
+function publicQuestions(
+  course: Course,
+  ids?: string[],
+  moduleId?: string
+): PublicExamQuestion[] {
+  const questions = questionBank(course, moduleId);
+  const selected = ids ? questions.filter((question) => ids.includes(question.id)) : questions;
   return selected.map(({ id, prompt, options }) => ({ id, prompt, options }));
+}
+
+function attemptsForExam(
+  db: Database,
+  userId: string,
+  course: Course,
+  moduleId?: string
+): Attempt[] {
+  return db.attempts
+    .filter(
+      (entry) =>
+        entry.userId === userId &&
+        entry.courseId === course.slug &&
+        (moduleId ? entry.moduleId === moduleId : !entry.moduleId)
+    )
+    .sort((a, b) => Date.parse(a.startedAt) - Date.parse(b.startedAt));
+}
+
+function applyModuleLockout(db: Database, attempt: Attempt, now: number): void {
+  if (!attempt.moduleId || attempt.passed !== false) return;
+  const history = attemptsForExam(db, attempt.userId, getCourse(attempt.courseId)!, attempt.moduleId);
+  const currentIndex = history.findIndex((entry) => entry.id === attempt.id);
+  const earlier = history.slice(0, currentIndex);
+  let lastLockoutIndex = -1;
+  for (let index = earlier.length - 1; index >= 0; index -= 1) {
+    if (earlier[index].lockoutUntil) {
+      lastLockoutIndex = index;
+      break;
+    }
+  }
+  const failuresSinceLockout = history
+    .slice(lastLockoutIndex + 1, currentIndex + 1)
+    .filter((entry) => entry.passed === false && entry.status !== 'in_progress').length;
+  if (failuresSinceLockout >= 3) {
+    attempt.lockoutUntil = new Date(now + 24 * 60 * 60 * 1000).toISOString();
+  }
+}
+
+function shuffle<T>(values: T[]): T[] {
+  const shuffled = [...values];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const other = randomInt(index + 1);
+    [shuffled[index], shuffled[other]] = [shuffled[other], shuffled[index]];
+  }
+  return shuffled;
+}
+
+function pickRotatedQuestions(
+  questions: ExamQuestion[],
+  count: number,
+  earlierAttempts: Attempt[]
+): string[] {
+  const previousSets = new Set(
+    earlierAttempts.map((attempt) => [...attempt.questionIds].sort().join('|'))
+  );
+  let selection: string[] = [];
+  for (let tries = 0; tries < 12; tries += 1) {
+    selection = shuffle(questions.map((question) => question.id)).slice(0, count);
+    if (!previousSets.has([...selection].sort().join('|'))) return selection;
+  }
+  return selection;
 }
 
 export type StartAttemptResult =
@@ -399,17 +570,34 @@ export type StartAttemptResult =
     }
   | {
       ok: false;
-      error: 'not_enrolled' | 'incomplete' | 'already_attempted' | 'not_found';
+      error:
+        | 'not_enrolled'
+        | 'incomplete'
+        | 'already_attempted'
+        | 'already_passed'
+        | 'locked'
+        | 'not_found';
       missingLessons?: number;
+      lockedUntil?: string;
       attempt?: Attempt | null;
     };
 
 export async function startExamAttempt(
   userId: string,
-  courseSlug: string
+  courseSlug: string,
+  moduleId?: string
 ): Promise<StartAttemptResult> {
   const course = getCourse(courseSlug);
   if (!course) return { ok: false, error: 'not_found' };
+  const module = moduleId ? course.modules.find((entry) => entry.id === moduleId) : undefined;
+  const settings = examSettings(course, moduleId);
+  const questions = questionBank(course, moduleId);
+  if (moduleId && (!module?.exam || !questions.length)) {
+    return { ok: false, error: 'not_found' };
+  }
+  if (!settings || questions.length < settings.questionCount) {
+    return { ok: false, error: 'not_found' };
+  }
 
   return mutateDb((db): StartAttemptResult => {
     const enrolled = db.enrollments.some(
@@ -417,48 +605,91 @@ export async function startExamAttempt(
     );
     if (!enrolled) return { ok: false, error: 'not_enrolled' };
 
-    const existing = db.attempts.find(
-      (entry) => entry.userId === userId && entry.courseId === course.slug
-    );
+    const history = attemptsForExam(db, userId, course, moduleId);
     const now = Date.now();
-
-    if (existing) {
-      const expires = Date.parse(existing.expiresAt);
-      if (existing.status === 'in_progress' && expires > now) {
+    const active = [...history].reverse().find((entry) => entry.status === 'in_progress');
+    if (active) {
+      const expires = Date.parse(active.expiresAt);
+      if (expires > now) {
         return {
           ok: true,
-          attempt: existing,
-          questions: publicQuestions(course.slug, existing.questionIds),
+          attempt: active,
+          questions: publicQuestions(course, active.questionIds, moduleId),
           remainingSeconds: Math.ceil((expires - now) / 1000),
           resumed: true,
         };
       }
-      if (existing.status === 'in_progress') {
-        existing.status = 'expired';
-        existing.submittedAt = new Date(now).toISOString();
-        existing.score = existing.score ?? 0;
-        existing.passed = false;
-        existing.reason = 'time_expired';
+      active.status = 'expired';
+      active.submittedAt = new Date(now).toISOString();
+      active.score = active.score ?? 0;
+      active.passed = false;
+      active.reason = 'time_expired';
+      applyModuleLockout(db, active, now);
+    }
+
+    if (moduleId && module) {
+      if (db.certificates.some((entry) => entry.userId === userId && entry.courseId === course.slug)) {
+        return { ok: false, error: 'already_passed', attempt: history.find((entry) => entry.passed) ?? null };
       }
-      return { ok: false, error: 'already_attempted', attempt: existing };
+      if (history.some((entry) => entry.passed === true)) {
+        return { ok: false, error: 'already_passed', attempt: history.find((entry) => entry.passed) ?? null };
+      }
+      const lockout = [...history].reverse().find((entry) => entry.lockoutUntil);
+      if (lockout?.lockoutUntil && Date.parse(lockout.lockoutUntil) > now) {
+        return { ok: false, error: 'locked', lockedUntil: lockout.lockoutUntil, attempt: lockout };
+      }
+
+      const completed = completedIds(db, userId, course);
+      const certified = db.certificates.some(
+        (entry) => entry.userId === userId && entry.courseId === course.slug
+      );
+      const passedIds = Object.entries(
+        moduleExamStatusesForCourse(db, userId, course, certified)
+      )
+        .filter(([, status]) => status.passed)
+        .map(([id]) => id);
+      if (!isModuleExamUnlocked(course, moduleId, completed, passedIds)) {
+        const moduleIndex = course.modules.findIndex((entry) => entry.id === moduleId);
+        const neededLessons = course.modules
+          .slice(0, moduleIndex + 1)
+          .flatMap((entry) => entry.lessons)
+          .filter((lesson) => !completed.includes(lesson.id)).length;
+        return { ok: false, error: 'incomplete', missingLessons: neededLessons };
+      }
+    } else {
+      const existing = history[history.length - 1];
+      if (existing) return { ok: false, error: 'already_attempted', attempt: existing };
+
+      const completed = completedIds(db, userId, course);
+      const lessons = getAllLessons(course);
+      const certified = db.certificates.some(
+        (entry) => entry.userId === userId && entry.courseId === course.slug
+      );
+      const passedIds = Object.entries(
+        moduleExamStatusesForCourse(db, userId, course, certified)
+      )
+        .filter(([, status]) => status.passed)
+        .map(([id]) => id);
+      if (
+        completed.length < lessons.length ||
+        course.modules.some((entry) => entry.exam && !passedIds.includes(entry.id))
+      ) {
+        return { ok: false, error: 'incomplete', missingLessons: lessons.length - completed.length };
+      }
     }
 
-    const lessons = getAllLessons(course);
-    const done = completedIds(db, userId, course);
-    if (done.length < lessons.length) {
-      return { ok: false, error: 'incomplete', missingLessons: lessons.length - done.length };
-    }
-
-    const definition = getExamDefinition(course.slug);
-    const questionIds = definition.questions.map((question) => question.id);
+    const questionIds = moduleId
+      ? pickRotatedQuestions(questions, settings.questionCount, history)
+      : questions.map((question) => question.id);
     const startedAt = new Date(now).toISOString();
     const attempt: Attempt = {
       id: newId('att'),
       userId,
       courseId: course.slug,
+      ...(moduleId ? { moduleId } : {}),
       questionIds,
       startedAt,
-      expiresAt: new Date(now + course.exam.durationMinutes * 60 * 1000).toISOString(),
+      expiresAt: new Date(now + settings.durationMinutes * 60 * 1000).toISOString(),
       submittedAt: null,
       status: 'in_progress',
       answers: null,
@@ -471,8 +702,8 @@ export async function startExamAttempt(
     return {
       ok: true,
       attempt,
-      questions: publicQuestions(course.slug, questionIds),
-      remainingSeconds: course.exam.durationMinutes * 60,
+      questions: publicQuestions(course, questionIds, moduleId),
+      remainingSeconds: settings.durationMinutes * 60,
       resumed: false,
     };
   });
@@ -485,8 +716,9 @@ function gradeAttempt(
   status: 'submitted' | 'expired',
   reason: SubmitReason
 ): { correct: number; total: number; unanswered: number; score: number; passed: boolean } {
-  const questions: ExamQuestion[] = getExamDefinition(course.slug).questions.filter(
-    (question) => attempt.questionIds.includes(question.id)
+  const settings = examSettings(course, attempt.moduleId);
+  const questions: ExamQuestion[] = questionBank(course, attempt.moduleId).filter((question) =>
+    attempt.questionIds.includes(question.id)
   );
   let correct = 0;
   let unanswered = 0;
@@ -500,7 +732,7 @@ function gradeAttempt(
   }
   const total = questions.length;
   const score = total ? Math.round((correct / total) * 100) : 0;
-  const passed = status === 'submitted' && score >= course.exam.passMark;
+  const passed = status === 'submitted' && score >= (settings?.passMark ?? course.exam.passMark);
   attempt.answers = answers;
   attempt.score = score;
   attempt.passed = passed;
@@ -600,9 +832,12 @@ export async function submitExamAttempt(input: {
     const reason: SubmitReason = late ? 'time_expired' : input.reason;
     const graded = gradeAttempt(course, attempt, cleanAnswers, status, reason);
     attempt.submittedAt = new Date(now).toISOString();
+    if (attempt.moduleId && !graded.passed) {
+      applyModuleLockout(db, attempt, now);
+    }
 
     const certificate =
-      graded.passed && !late
+      graded.passed && !late && !attempt.moduleId
         ? issueCertificate(db, input.userId, course.slug, attempt.id, graded.score)
         : null;
 
@@ -623,6 +858,9 @@ export async function getAttemptForUser(
 ): Promise<{
   attempt: Attempt;
   course: Course;
+  module: CourseModule | null;
+  exam: ExamSettings;
+  attemptNumber: number;
   certificate: Certificate | null;
   correct: number;
   total: number;
@@ -634,6 +872,12 @@ export async function getAttemptForUser(
   if (!attempt) return null;
   const course = getCourse(attempt.courseId);
   if (!course) return null;
+  const module = attempt.moduleId
+    ? course.modules.find((entry) => entry.id === attempt.moduleId) ?? null
+    : null;
+  const exam = examSettings(course, attempt.moduleId);
+  if (!exam) return null;
+  const history = attemptsForExam(db, userId, course, attempt.moduleId);
   const certificate =
     db.certificates.find(
       (entry) => entry.userId === userId && entry.courseId === attempt.courseId
@@ -641,7 +885,16 @@ export async function getAttemptForUser(
   const total = attempt.questionIds.length;
   const correct =
     attempt.score === null ? 0 : Math.round((attempt.score / 100) * total);
-  return { attempt, course, certificate, correct, total };
+  return {
+    attempt,
+    course,
+    module,
+    exam,
+    attemptNumber: history.findIndex((entry) => entry.id === attempt.id) + 1,
+    certificate,
+    correct,
+    total,
+  };
 }
 
 export async function getCertificateForUser(

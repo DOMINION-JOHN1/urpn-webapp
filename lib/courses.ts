@@ -2499,6 +2499,27 @@ export function getAllLessons(course: Course): Lesson[] {
   return course.modules.flatMap((module) => module.lessons);
 }
 
+/** A module exam opens after its own lessons and every earlier module are complete. */
+export function isModuleExamUnlocked(
+  course: Course,
+  moduleId: string,
+  completedLessonIds: string[],
+  passedModuleExamIds: string[]
+): boolean {
+  const moduleIndex = course.modules.findIndex((module) => module.id === moduleId);
+  if (moduleIndex < 0) return false;
+
+  const completed = new Set(completedLessonIds);
+  const passed = new Set(passedModuleExamIds);
+  return course.modules.slice(0, moduleIndex + 1).every((module, index) => {
+    const lessonsComplete = module.lessons.every((lesson) => completed.has(lesson.id));
+    const earlierExamPassed = course.modules
+      .slice(0, index)
+      .every((previous) => !previous.exam || passed.has(previous.id));
+    return lessonsComplete && earlierExamPassed;
+  });
+}
+
 export function getLesson(
   course: Course,
   lessonId: string

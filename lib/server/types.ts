@@ -45,6 +45,8 @@ export interface Attempt {
   id: string;
   userId: string;
   courseId: string;
+  /** Present for module-specific exams; absent for the course certification exam. */
+  moduleId?: string;
   questionIds: string[];
   startedAt: string;
   expiresAt: string;
@@ -54,6 +56,8 @@ export interface Attempt {
   score: number | null;
   passed: boolean | null;
   reason: SubmitReason | null;
+  /** Set after the third failed module-exam attempt. */
+  lockoutUntil?: string;
 }
 
 export interface Certificate {

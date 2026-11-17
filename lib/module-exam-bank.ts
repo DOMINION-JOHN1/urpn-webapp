@@ -727,3 +727,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
     },
   ] },
 };
+
+export function getModuleExamDefinition(moduleId: string): ExamDefinition | undefined {
+  return MODULE_EXAM_BANKS[moduleId];
+}
