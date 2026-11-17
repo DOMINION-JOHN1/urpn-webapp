@@ -942,7 +942,10 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
     'URPN IN FOCUS',
     'https://drive.google.com/file/d/1PlFtl8FlaHtSckNl2Z9MT8G10wcCMfgk/view?usp=drive_link',
     1,
-    { summary: 'URPN IN FOCUS course material.' }
+    {
+      summary: 'URPN IN FOCUS course material.',
+      exam: { durationMinutes: 25, passMark: 70, questionCount: 20 },
+    }
   ),
   linkedWorkforceModule(
     'wt-m8',

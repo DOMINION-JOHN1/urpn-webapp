@@ -1148,6 +1148,368 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
         "explanation": "In STEWARDSHIP III, Apostle Ada addresses workforce members transitioning into marriage and parenthood. Altar sustenance requires intentional grace and discipline across all life seasons. Failing to cultivate deep spiritual capacity before major transitions allows domestic cares to extinguish one's altar fire."
     },
   ] },
+  "wt-urpn-focus": { questions: [
+    {
+      "id": "urpn-focus-01",
+      "prompt": "Scenario: A team lead in URPN attempts to draft a new operational strategy for their department based on current secular trends and personal ambition, titling it \"Vision 2027 Mandate.\" Question: According to URPN Module 1, why is this approach fundamentally flawed regarding a divine mandate?",
+      "options": [
+        "Mandates can only be rewritten every five years by executive board vote.",
+        "A divine mandate is an authoritative, non-negotiable command pre-ordained by God, not a human political manifesto or personal proposal.",
+        "Mandates are optional guidelines meant to adapt to popular culture.",
+        "A mandate is set by organizational consensus rather than divine revelation."
+      ],
+      "answer": 1,
+      "explanation": "A divine mandate is an authoritative, non-negotiable commission ordained by God; it is not a political manifesto or human creation."
+    },
+    {
+      "id": "urpn-focus-02",
+      "prompt": "Scenario: A new volunteer asks why URPN focuses heavily on territorial prayer meetings and sphere alignment rather than solely hosting general weekend service gatherings. Question: What is the exact mandate of URPN as taught in Module 1?",
+      "options": [
+        "To build large cathedral networks across major commercial cities.",
+        "To restore people, territories, and spheres to their original ordination such that they operate from that standpoint through intercession, the Word of God, and the prophetic and apostolic spirit of Elijah.",
+        "To train political candidates exclusively for public office.",
+        "To replace traditional church structures with corporate business networking hubs."
+      ],
+      "answer": 1,
+      "explanation": "URPN's mandate is restoring people, territories, and spheres back to their original ordination by the prophetic and apostolic spirit of Elijah, intercession, and the Word of God."
+    },
+    {
+      "id": "urpn-focus-03",
+      "prompt": "Scenario: A worker assigned to lead an intercessory unit feels under-equipped and wants to rely solely on public speaking techniques to drive spiritual meetings. Question: Based on the \"Empowerment\" attribute of a divine mandate, what must be operational within a worker to express URPN's mandate effectively?",
+      "options": [
+        "Formal credentials in public relations and event management.",
+        "At least one of the operational empowerments: the apostolic/prophetic spirit of Elijah, a grace for prayer and intercession, or balance in the seasoned Word of God.",
+        "Financial sponsorship from corporate organizations.",
+        "Personal charismatic popularity among peers."
+      ],
+      "answer": 1,
+      "explanation": "Every divine mandate carries empowerment; workers in URPN must operate in at least one of these pillars: apostolic/prophetic grace, prayer/intercession, or the seasoned Word of God."
+    },
+    {
+      "id": "urpn-focus-04",
+      "prompt": "Scenario: A department head begins referring to a ministry initiative as \"my personal project\" and refuses to report financial or operational progress to ministry leadership. Question: How does this behavior violate the principle of \"Stewardship\" in divine mandates?",
+      "options": [
+        "Stewardship allows total independence once a task is assigned.",
+        "Stewardship entails accountability, recognizing that the work belongs entirely to God's kingdom and not to the individual.",
+        "Stewardship applies only to financial treasurers, not department heads.",
+        "Stewardship means delegating all responsibilities to subordinates without oversight."
+      ],
+      "answer": 1,
+      "explanation": "Stewardship is an essential attribute of a mandate, demanding accountability and the understanding that the work belongs to God's kingdom, not man."
+    },
+    {
+      "id": "urpn-focus-05",
+      "prompt": "Scenario: A minister within URPN decides to alter the core spiritual focus of their assignment because they feel a secular ministry model would yield faster numerical growth. Question: What analogy does Module 1 use to illustrate why a divine mandate is non-negotiable and directed by God?",
+      "options": [
+        "A builder modifying blueprints based on personal preference.",
+        "The human hand moving in obedience to the brain's directive to carry out its intended purpose.",
+        "A driver choosing any destination regardless of passenger instructions.",
+        "A merchant bargaining over market prices."
+      ],
+      "answer": 1,
+      "explanation": "God is like the brain and head of the body; every mandate is non-negotiable, and workers act as physical assistants obeying the Head."
+    },
+    {
+      "id": "urpn-focus-06",
+      "prompt": "Scenario: A worker insists on copying another international ministry's fundraising methods and operational posture, arguing that \"if it works there, we must do it here.\" Question: Why does URPN teaching emphasize that divine mandates have boundaries and limitations?",
+      "options": [
+        "Because assignments are not generic; divine mandates are controlled by God's specific instructions rather than external imitation.",
+        "Because URPN lacks the budget to execute international strategies.",
+        "Because boundaries are designed to restrict personal creativity permanently.",
+        "Because scriptures prohibit learning from other ministries under any circumstance."
+      ],
+      "answer": 0,
+      "explanation": "Divine mandates have boundaries and limitations because kingdom assignments are specific, not generic, and cannot be fulfilled by blind imitation."
+    },
+    {
+      "id": "urpn-focus-07",
+      "prompt": "Scenario: A leader attempts to carry out a massive territorial outreach entirely alone, rejecting volunteer assistance because they believe divine mandates are meant to be executed by single individuals. Question: What foundational scriptural principle regarding divine mandates is this leader ignoring?",
+      "options": [
+        "Leaders should perform all work to ensure maximum spiritual quality.",
+        "Divine mandates are created to operate in partnership and with burden-bearers, as no mandate is designed to function in isolation.",
+        "Partnership is only necessary when a leader experiences physical illness.",
+        "God only partners with angels, not human variables."
+      ],
+      "answer": 1,
+      "explanation": "No divine mandate is created to operate in isolation; God designs mandates to function through human partnership and burden-bearers."
+    },
+    {
+      "id": "urpn-focus-08",
+      "prompt": "Scenario: A participant reads in scripture that Abraham had multiple wives and argues that modern kingdom workers can adopt polygamy under the guise of \"following the fathers of faith.\" Question: According to Module 1, how should workers interpret and apply the lives of biblical figures?",
+      "options": [
+        "Replicate every physical action and cultural mistake recorded in scripture.",
+        "Emulate their endurance, faith, and divine attributes, not replicate their specific actions or human limitations out of historical dispensations.",
+        "Ignore Old Testament figures completely.",
+        "Assume all actions in scripture are direct commandments for today."
+      ],
+      "answer": 1,
+      "explanation": "Believers are instructed to follow the faith, nature, and endurance of biblical fathers, not to blindly copy their personal actions or historical dispensations."
+    },
+    {
+      "id": "urpn-focus-09",
+      "prompt": "Scenario: A department head in URPN is asked to translate the broad mandate of \"Restoration\" into actionable clarity for their team. Question: How does Module 1 define \"Vision\" in relation to a divine mandate?",
+      "options": [
+        "A financial budget for five years.",
+        "A mental picture of a mandate that makes abstract purpose actionable and interesting.",
+        "A legal document detailing organizational liability.",
+        "A strict rulebook governing daily attire."
+      ],
+      "answer": 1,
+      "explanation": "Vision is defined as a mental picture of a mandate, turning broad divine purpose into clear, actionable, and compelling imagery."
+    },
+    {
+      "id": "urpn-focus-10",
+      "prompt": "Scenario: A worker is drafting a strategy document for an upcoming campaign and needs to structure a proper \"Mission\" statement. Question: According to Module 1, what two key components define a \"Mission\"?",
+      "options": [
+        "A budget allocation and a list of sponsors.",
+        "An assignment and a specific period/timeframe for fulfillment.",
+        "A title and a promotional logo.",
+        "A public venue and a guest speaker list."
+      ],
+      "answer": 1,
+      "explanation": "A mission is defined by two key elements: the specific assignment and the period/timeframe within which it must be achieved."
+    },
+    {
+      "id": "urpn-focus-11",
+      "prompt": "Scenario: The URPN mission team is planning an outreach to a troubled territory. Some members suggest focusing purely on secular entertainment to draw a crowd, leaving out spiritual engagement. Question: What are the primary tools specified in URPN's mission statements to achieve restoration in territories and families?",
+      "options": [
+        "Social media marketing and secular entertainment.",
+        "Prophetic intercession and the seasoned Word of God.",
+        "Political lobbying and commercial trade.",
+        "Educational scholarships and sports tournaments."
+      ],
+      "answer": 1,
+      "explanation": "URPN's mission achieves territorial and personal restoration through prophetic intercession and the seasoned Word of God."
+    },
+    {
+      "id": "urpn-focus-12",
+      "prompt": "Scenario: During a prayer session, a worker believes that \"prophetic intercession\" simply means shouting loudly and making spontaneous predictions without scriptural foundation. Question: How is \"prophetic intercession\" defined within URPN training?",
+      "options": [
+        "Praying loudly to impress listeners.",
+        "Praying precisely according to the revealed mind and intention of God, insisting on His will.",
+        "Using complex theological jargon during public prayer.",
+        "Reciting memorized historical prayers without spiritual discernment."
+      ],
+      "answer": 1,
+      "explanation": "Prophetic intercession is not empty chanting; it is discerning the mind of God for a season and praying to insist on His revealed will."
+    },
+    {
+      "id": "urpn-focus-13",
+      "prompt": "Scenario: The URPN Media and Technical team prepares for a major conference. They wonder if their technical duties contribute directly to the spiritual mandate of the house. Question: According to Module 1, how should specialized departments (choir, ushering, admin, media) align with the mandate?",
+      "options": [
+        "By operating as independent secular service contractors.",
+        "By channeling their service to build God in the minds of people and foster spiritual intimacy, aligning with the spirit of the house mandate.",
+        "By focusing strictly on technical perfection while ignoring the spiritual atmosphere.",
+        "By letting the preaching team handle all spiritual impact while they focus on logistics."
+      ],
+      "answer": 1,
+      "explanation": "Every department—from choir to media and ushering—must express the spirit of the house mandate, carrying an aura of prayer, worship, and intimacy."
+    },
+    {
+      "id": "urpn-focus-14",
+      "prompt": "Scenario: A workforce participant feels guilty because they excel at graphic design and logistics rather than preaching on the altar, wondering if they are failing the general mandate. Question: How does Module 1 clarify the relationship between the generic mandate and an individual's specific mandate?",
+      "options": [
+        "Everyone must perform the exact same altar duties regardless of grace.",
+        "Within the generic mandate shared by the body, each worker must discover their specific function and labor to contribute to the whole.",
+        "Specific gifts are irrelevant to kingdom service.",
+        "Only ordained pastors possess a valid mandate in URPN."
+      ],
+      "answer": 1,
+      "explanation": "While URPN shares a generic corporate mandate, every individual member must discover their specific mandate and grace to build up the entire body."
+    },
+    {
+      "id": "urpn-focus-15",
+      "prompt": "Scenario: A trainee asks why URPN holds strict operational tenets and beliefs, wondering if they are just arbitrary opinions. Question: What are \"Tenets\" as defined in Module 1?",
+      "options": [
+        "Temporary guidelines that change weekly.",
+        "Principles and virtues most surely believed among us, backed by scriptural evidence and eyewitness reports for spiritual buildup.",
+        "Political rules created for civil administration.",
+        "Optional suggestions that workers can disregard at will."
+      ],
+      "answer": 1,
+      "explanation": "Tenets are core beliefs most surely believed among us, rooted in scriptural truth, eyewitness reports, and spiritual verification."
+    },
+    {
+      "id": "urpn-focus-16",
+      "prompt": "Scenario: A worker is asked by a peer to compromise moral standards and engage in an ungodly act as a \"sacrificial favor\" to preserve a friendship. Question: How does URPN's tenet on \"Sacrificial Living\" address this situation?",
+      "options": [
+        "Sacrifices should be made for friends regardless of moral standing.",
+        "We live sacrificially unto God, but righteously unto men—sacrifices for men must strictly operate within the boundaries of righteousness.",
+        "Compromising for peers is acceptable if it prevents conflict.",
+        "Sacrificial living applies only to financial giving, not personal conduct."
+      ],
+      "answer": 1,
+      "explanation": "URPN's tenet specifies sacrificial living unto God and living righteously unto men; sacrifices made for people must never violate righteousness."
+    },
+    {
+      "id": "urpn-focus-17",
+      "prompt": "Scenario: A member wants to give an offering to God but purposefully selects items they stole or remnants they no longer value or use. Question: Based on King David's example in 2 Samuel 24 cited in Module 1, what defines true sacrificial giving?",
+      "options": [
+        "Giving whatever is most convenient and cheap.",
+        "Offering to God that which is truly one's own and involves personal cost or discomfort, out of love and submission.",
+        "Giving items belonging to others to avoid personal loss.",
+        "Giving only when guaranteed an immediate financial return."
+      ],
+      "answer": 1,
+      "explanation": "Sacrificial giving means offering unto God what is genuinely yours and what costs or discomforts you, driven by love and submission."
+    },
+    {
+      "id": "urpn-focus-18",
+      "prompt": "Scenario: A participant claims that spiritual maturity means they should only be ministered to, rather than engaging in physical service in ministry departments. Question: What does the tenet of \"Service to God and Man\" require of URPN workers (referencing Romans 12:1)?",
+      "options": [
+        "Retreating from physical labor to focus solely on meditation.",
+        "Presenting their physical bodies as a living, holy, and acceptable sacrifice to serve God and humanity in practical duties.",
+        "Serving only high-ranking leaders while ignoring general members.",
+        "Expecting monetary compensation for every departmental task."
+      ],
+      "answer": 1,
+      "explanation": "Service requires present physical commitment—presenting our bodies holy and acceptable unto God for practical kingdom labor."
+    },
+    {
+      "id": "urpn-focus-19",
+      "prompt": "Scenario: A young minister decides to detach from all spiritual accountability, claiming, \"I answer only to God directly; I don't need any spiritual authority or covenant father over my life.\" Question: According to Module 1, why is submission to spiritual authority and covenant parenting an essential tenet?",
+      "options": [
+        "Because spiritual fathers control workers' personal financial assets.",
+        "Because God nurtures, forms, and anchors believers through spiritual leaders and covenant parenting, providing spiritual coverage and alignment.",
+        "Because workers are legally required to sign contract agreements with leaders.",
+        "Because spiritual parenting is a modern human invention with no scriptural backing."
+      ],
+      "answer": 1,
+      "explanation": "URPN believes in submission to spiritual authority and covenant parenting, through which believers are nurtured, admonished, and formed in Christ."
+    },
+    {
+      "id": "urpn-focus-20",
+      "prompt": "Scenario: A believer argues that because New Testament believers are free from the Old Testament law, the practice of tithing has no remaining relevance or principle today. Question: How does Module 1 explain the enduring spiritual principle behind tithing?",
+      "options": [
+        "Tithing was entirely abolished with no remaining spiritual principle.",
+        "While ceremonial laws ended, tithing carries an enduring covenant principle of returning 1/10th of income to ensure meat in God's house and honor God as Provider.",
+        "Tithing is a penalty fee imposed on church members.",
+        "Tithing is only mandatory for Old Testament priests."
+      ],
+      "answer": 1,
+      "explanation": "Beyond Old Testament law, tithing operates as a kingdom principle ensuring sustenance for God's house and protection against spiritual devourers."
+    },
+    {
+      "id": "urpn-focus-21",
+      "prompt": "Scenario: A worker receives their monthly income and wonders where their tithe should be primarily directed. Question: What guidance does Module 1 provide regarding where a worker should pay their tithe?",
+      "options": [
+        "To any secular commercial venture of their choosing.",
+        "To the house of God/altar where they are spiritually fed, discipled, and under whose priesthood they are nurtured.",
+        "Saved in a personal bank account for emergency expenses.",
+        "Distributed as casual gifts to personal friends."
+      ],
+      "answer": 1,
+      "explanation": "Tithes should go to the spiritual house and altar where you are blessed, nurtured, and fed by your spiritual priesthood."
+    },
+    {
+      "id": "urpn-focus-22",
+      "prompt": "Scenario: A member combines their regular offering, seed, and tithe into one random amount without understanding their distinct spiritual definitions. Question: How does Module 1 distinguish between a Tithe, an Offering, and a Seed?",
+      "options": [
+        "They are identical terms with no structural difference.",
+        "Tithe is 1/10th of income unto God; Offering is presented in honor whenever appearing before God; Seed is sown toward a specific faith petition.",
+        "Tithe is optional; Offering is 10%; Seed is only for buying property.",
+        "Seed is paid to government; Tithe is paid to charity; Offering is paid to church."
+      ],
+      "answer": 1,
+      "explanation": "Module 1 distinguishes these: Tithe is 1/10th of income, Offering is brought in honor when appearing before God, and Seed is sown toward a specific petition."
+    },
+    {
+      "id": "urpn-focus-23",
+      "prompt": "Scenario: A committee wants to introduce a popular event topic solely because it will attract mass crowds, even though prayer reveals God is directing the ministry toward a different theme. Question: Which tenet of URPN is violated when human popularity overrides divine direction?",
+      "options": [
+        "Human Worship.",
+        "Supremacy of the Will of God.",
+        "Societal Adaptation.",
+        "Organizational Autonomy."
+      ],
+      "answer": 1,
+      "explanation": "URPN holds to the supremacy of the will of God; topic selections and ministry directions are governed strictly by God's ultimate will, not popular appeal."
+    },
+    {
+      "id": "urpn-focus-24",
+      "prompt": "Scenario: A leader attempts to force an outreach program during a season when God has instructed the ministry to engage in quiet consecration and retreat. Question: What principle regarding \"Spiritual Timing and Seasons\" (Ecclesiastes 3) must workers understand?",
+      "options": [
+        "Divine assignments can be launched at any time regardless of spiritual alignment.",
+        "Kingdom moves operate under spiritual ordinances, times, and seasons; acting outside God's timing leads to friction and inefficiency.",
+        "Seasons only refer to physical weather patterns like rainy or dry seasons.",
+        "Timing is determined strictly by the civil calendar year."
+      ],
+      "answer": 1,
+      "explanation": "URPN recognizes spiritual times, seasons, and ordinances; divine assignments are tied to spiritual timing set by God."
+    },
+    {
+      "id": "urpn-focus-25",
+      "prompt": "Scenario: An usher greets an invited minister with deep respect, but later observes another individual showering unscriptural flatteries and groveling to gain personal favors from the minister. Question: How does Module 1 distinguish true \"Honor Practice\" from \"Human Worship / Eye-Service\"?",
+      "options": [
+        "Honor is bilateral respect giving due worth based on divine order; human worship forces or inflates honor beyond truth, degenerating into flattery and coercion.",
+        "Human worship is recommended for rapid promotion in ministry.",
+        "Honor means ignoring leaders completely to stay humble.",
+        "Flattery is acceptable if it makes the guest speaker feel welcome."
+      ],
+      "answer": 0,
+      "explanation": "True honor renders to everyone their due in righteousness; human worship forces honor, flatters excessively, or elevates man beyond scriptural bounds."
+    },
+    {
+      "id": "urpn-focus-26",
+      "prompt": "Scenario: A worker hears acquaintances spreading false allegations and malicious rumors about their ministry leadership in public. Question: What is the proper, honor-based posture recommended in Module 1 for a URPN worker in such a scenario?",
+      "options": [
+        "Join in the gossip to avoid feeling left out.",
+        "Honorably defend the leadership and ministry with truth and righteousness, without engaging in ungodly brawls.",
+        "Quietly validate the lies to maintain social popularity.",
+        "Engage in physical fights with the critics."
+      ],
+      "answer": 1,
+      "explanation": "Workers are admonished to defend their spiritual house and leaders honorably and truthfully according to righteous standards."
+    },
+    {
+      "id": "urpn-focus-27",
+      "prompt": "Scenario: A department prepares a presentation with shabby work, broken equipment, and unedited slides, claiming \"God only looks at the heart, so quality doesn't matter.\" Question: Which core tenets of URPN directly confront this mindset?",
+      "options": [
+        "Tenet of Minimal Effort.",
+        "Tenets of Excellence and Prosperity—believing that God's work deserves high quality, order, and resources for kingdom expansion.",
+        "Tenet of Ascetic Poverty.",
+        "Tenet of Informal Service."
+      ],
+      "answer": 1,
+      "explanation": "URPN explicitly holds tenets of Excellence and Financial/Resource Prosperity to expand kingdom assignments with quality and honor."
+    },
+    {
+      "id": "urpn-focus-28",
+      "prompt": "Scenario: A committee proposes a major change to the spiritual doctrine of URPN. The President reviews it and vetoes the proposal based on divine direction. Question: What authority does the President of URPN hold according to the organizational hierarchy in Module 1?",
+      "options": [
+        "Advisory power only, subservient to majority vote.",
+        "Vectoral power and exclusive reserved authority as the spiritual head to guard the ministry's spiritual direction and mandate.",
+        "No authority over spiritual matters, only financial oversight.",
+        "Temporary authority that rotates monthly among workers."
+      ],
+      "answer": 1,
+      "explanation": "The office of the President serves as the overall spiritual head, holding vectoral power and exclusive reserved authority over spiritual decisions."
+    },
+    {
+      "id": "urpn-focus-29",
+      "prompt": "Scenario: An individual wants to join the official URPN workforce but openly rejects the ministry's mandate, vision, and spiritual discipline. Question: What are the foundational criteria for workforce membership outlined in Module 1?",
+      "options": [
+        "Being a financial donor regardless of spiritual status.",
+        "Being born again, believing in Christ, subscribing to the mandate/vision of URPN, submitting to spiritual discipline, and completing training certification.",
+        "Having a university degree in business management.",
+        "Simply attending Sunday services for two consecutive weeks."
+      ],
+      "answer": 1,
+      "explanation": "Workforce criteria require personal salvation, alignment with URPN's mandate/vision, submission to discipline, ambassadorial speech, and completing workforce training."
+    },
+    {
+      "id": "urpn-focus-30",
+      "prompt": "Scenario: A leader is managing project funds for a ministry program and wants to ensure their stewardship aligns with scriptural standards. Question: What two key pillars does Module 1 emphasize regarding leadership handling of ministry funds?",
+      "options": [
+        "Secrecy and personal discretion.",
+        "Accountability (doing God's work faithfully) and Transparency (openness and integrity before the leadership and body).",
+        "Speed of execution and minimal record-keeping.",
+        "Borrowing without documentation."
+      ],
+      "answer": 1,
+      "explanation": "Expenditure and financial stewardship by leaders must stand firmly on accountability (doing God's work) and transparency (openness before the body)."
+    }
+  ] },
 };
 
 export function getModuleExamDefinition(moduleId: string): ExamDefinition | undefined {
