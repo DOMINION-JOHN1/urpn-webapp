@@ -71,6 +71,7 @@ export default async function CertificatePage({ params }: { params: { code: stri
             verifyUrl={verifyUrl}
             fullName={result.name}
             courseTitle={course?.title ?? 'URPN Training Track'}
+            departmentName={certificate.departmentName}
             issued={issued}
             score={certificate.score}
             year={year}
@@ -144,6 +145,11 @@ export default async function CertificatePage({ params }: { params: { code: stri
             >
               {course?.title ?? 'URPN Training Track'}
             </h3>
+            {certificate.departmentName && (
+              <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[#7A6A4A]">
+                Department · {certificate.departmentName}
+              </p>
+            )}
             <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.2em] text-[#7A6A4A]">
               Final score · {certificate.score}% · Passed
             </p>

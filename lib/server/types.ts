@@ -23,6 +23,8 @@ export interface Enrollment {
   enrolledAt: string;
   /** When the worker accepted the department conditions (null for staff tracks). */
   conditionsAcceptedAt: string | null;
+  /** Workforce department selected when the member applied. */
+  departmentSlug?: string;
 }
 
 export interface LessonProgress {
@@ -62,6 +64,8 @@ export interface Certificate {
   attemptId: string;
   score: number;
   issuedAt: string;
+  /** Snapshot of the workforce department at the time of certification. */
+  departmentName?: string;
 }
 
 export interface Database {
@@ -103,6 +107,7 @@ export interface AdminWorkerEnrollment {
     code: string;
     score: number;
     issuedAt: string;
+    departmentName?: string;
   } | null;
 }
 
@@ -163,6 +168,7 @@ export interface WorkforceApplicantDepartment {
     code: string;
     score: number;
     issuedAt: string;
+    departmentName?: string;
   } | null;
 }
 

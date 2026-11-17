@@ -7,6 +7,7 @@ import { Check, Copy, Download, Loader2, Printer, Share2 } from 'lucide-react';
 type CertificateShareData = {
   fullName: string;
   courseTitle: string;
+  departmentName?: string;
   issued: string;
   score: number;
   year: number;
@@ -141,7 +142,10 @@ async function buildCertificateImage(data: CertificateShareData): Promise<Blob> 
 
   context.fillStyle = '#6a1557';
   context.font = '600 18px Arial, sans-serif';
-  const scoreY = courseBottom + 30;
+  const departmentBottom = data.departmentName
+    ? drawWrappedText(context, `Department · ${data.departmentName}`, center, courseBottom + 34, 1200, 28)
+    : courseBottom;
+  const scoreY = departmentBottom + 36;
   context.fillText(`FINAL SCORE  ·  ${data.score}%  ·  PASSED`, center, scoreY);
 
   context.strokeStyle = '#d8cfbe';

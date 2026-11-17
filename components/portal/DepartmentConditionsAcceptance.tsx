@@ -11,6 +11,7 @@ import {
   ArrowRight,
   AlertCircle,
 } from 'lucide-react';
+import type { Department } from '@/lib/courses';
 
 interface Props {
   courseSlug: string;
@@ -18,6 +19,9 @@ interface Props {
   conditions: string[];
   enrolled: boolean;
   conditionsAcceptedAt?: string | null;
+  departments: Department[];
+  departmentSlug?: string | null;
+  requireDepartmentSelection?: boolean;
 }
 
 export function DepartmentConditionsAcceptance({
@@ -26,17 +30,29 @@ export function DepartmentConditionsAcceptance({
   conditions,
   enrolled,
   conditionsAcceptedAt,
+  departments,
+  departmentSlug: initialDepartmentSlug,
+  requireDepartmentSelection = false,
 }: Props) {
   const router = useRouter();
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const [departmentSlug, setDepartmentSlug] = useState(() =>
+    departments.some((department) => department.slug === initialDepartmentSlug)
+      ? initialDepartmentSlug ?? ''
+      : ''
+  );
 
   if (conditions.length === 0) return null;
 
   const handleAccept = async () => {
-    if (!agreed) {
+    if (requireDepartmentSelection && !departmentSlug) {
+      setError('Choose the ministry department you are applying to join.');
+      return;
+    }
+    if (!enrolled && !agreed) {
       setError('Please check the box to confirm you accept the department conditions.');
       return;
     }
@@ -48,7 +64,11 @@ export function DepartmentConditionsAcceptance({
       const response = await fetch('/api/portal/enroll', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ courseId: courseSlug, acceptConditions: true }),
+        body: JSON.stringify({
+          courseId: courseSlug,
+          acceptConditions: true,
+          ...(departmentSlug ? { departmentSlug } : {}),
+        }),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
@@ -68,6 +88,7 @@ export function DepartmentConditionsAcceptance({
         year: 'numeric',
       })
     : null;
+  const selectedDepartment = departments.find((department) => department.slug === departmentSlug);
 
   // If already enrolled and conditions accepted
   if (enrolled) {
@@ -88,11 +109,19 @@ export function DepartmentConditionsAcceptance({
                 )}
               </div>
               <h2 className="mt-1 text-[16px] font-semibold text-cream-50">
-                Department conditions acknowledged
+                {selectedDepartment ? `${selectedDepartment.title} application` : 'Department selection needed'}
               </h2>
               <p className="mt-0.5 text-[12.5px] leading-relaxed text-cream-400">
                 You are enrolled in the {courseTitle}. Complete every lesson below to unlock your final exam and receive your certificate.
               </p>
+              {requireDepartmentSelection && !selectedDepartment && (
+                <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                  <DepartmentSelect departments={departments} value={departmentSlug} onChange={setDepartmentSlug} />
+                  <button type="button" onClick={handleAccept} disabled={loading || !departmentSlug} className="btn btn-primary btn-sm shrink-0 disabled:opacity-50">
+                    {loading ? 'Saving…' : 'Save department'}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -162,6 +191,22 @@ export function DepartmentConditionsAcceptance({
         ))}
       </div>
 
+      {requireDepartmentSelection && (
+        <div className="mt-5">
+          <label className="mb-2 block text-[12px] font-medium text-cream-200" htmlFor="application-department">
+            Department you are applying to join
+          </label>
+          <DepartmentSelect
+            departments={departments}
+            value={departmentSlug}
+            onChange={(value) => {
+              setDepartmentSlug(value);
+              if (error) setError(null);
+            }}
+          />
+        </div>
+      )}
+
       <div className="mt-6 border-t border-line-soft pt-5">
         <label className="flex items-start gap-3 cursor-pointer select-none">
           <input
@@ -212,6 +257,30 @@ export function DepartmentConditionsAcceptance({
         </div>
       </div>
     </div>
+  );
+}
+
+function DepartmentSelect({
+  departments,
+  value,
+  onChange,
+}: {
+  departments: Department[];
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <select
+      id="application-department"
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+      className="min-h-11 w-full rounded-lg border border-line bg-canvas px-3 py-2.5 text-[13px] text-cream-100 focus:border-accent focus:outline-none"
+    >
+      <option value="">Choose a department</option>
+      {departments.map((department) => (
+        <option key={department.slug} value={department.slug}>{department.title}</option>
+      ))}
+    </select>
   );
 }
 

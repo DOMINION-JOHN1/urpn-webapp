@@ -66,13 +66,6 @@ export function Navbar() {
             Become a worker
             <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
           </Link>
-          <Link
-            href="/portal/login"
-            className="btn btn-secondary btn-sm hidden sm:inline-flex"
-            title="In-house staff and leadership portal"
-          >
-            Staff sign in 🔒
-          </Link>
           <ThemeToggle />
           <button
             type="button"
@@ -135,14 +128,6 @@ export function Navbar() {
                 >
                   <span>Become a worker</span>
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
-                <Link
-                  href="/portal/login"
-                  onClick={() => setOpen(false)}
-                  className="btn btn-secondary w-full justify-between"
-                >
-                  <span>Staff portal sign in</span>
-                  <span className="text-[12px]">🔒</span>
                 </Link>
                 <Link
                   href="/install"

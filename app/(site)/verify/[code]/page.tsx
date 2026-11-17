@@ -70,6 +70,14 @@ export default async function VerifyCertificatePage({
                     {result.course?.title ?? 'URPN training'}
                   </dd>
                 </div>
+                {result.certificate.departmentName && (
+                  <div className="flex items-start justify-between gap-4 py-3">
+                    <dt className="mono-label !text-[8.5px]">Department</dt>
+                    <dd className="text-right text-[13px] text-cream-200">
+                      {result.certificate.departmentName}
+                    </dd>
+                  </div>
+                )}
                 <div className="flex items-start justify-between gap-4 py-3">
                   <dt className="mono-label !text-[8.5px]">Issued</dt>
                   <dd className="text-right text-[13px] text-cream-200">

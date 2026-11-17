@@ -7,7 +7,6 @@ import {
   Headphones,
   ShieldCheck,
   UserPlus,
-  ArrowUpRight,
 } from 'lucide-react';
 import { WORKFORCE_DEPARTMENTS, WORKFORCE_TRAINING } from '@/lib/courses';
 import { getSessionUser } from '@/lib/server/auth';
@@ -206,25 +205,6 @@ export default async function WorkforceHubPage() {
             status={trainingStatus}
             isAuthenticated={Boolean(user)}
           />
-        </section>
-
-        {/* ============================================================ LOCK NOTICE ON WORKER PORTAL */}
-        <section className="mt-16 rounded-2xl border border-line bg-surface/50 p-6 sm:p-8" data-reveal>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="max-w-xl">
-              <span className="mono-label text-gold-300">Church Staff &amp; Leadership</span>
-              <h3 className="mt-1.5 text-[18px] font-semibold text-cream-50">
-                Are you an in-house minister or pastor?
-              </h3>
-              <p className="mt-1 text-[12.5px] leading-relaxed text-cream-400">
-                The original Worker Portal is reserved for in-house leadership formation tracks (Ministers Training &amp; Pastors Training). Access is provisioned directly by church administration.
-              </p>
-            </div>
-            <Link href="/portal/login" className="btn btn-secondary shrink-0">
-              Staff portal sign in 🔒
-              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-            </Link>
-          </div>
         </section>
       </div>
     </div>

@@ -71,7 +71,9 @@ export function WorkforceDepartmentTabs({ departments, training, status, isAuthe
 
   const selected = departments.find((d) => d.slug === activeSlug);
 
-  const courseHref = `/portal/courses/${training.slug}`;
+  const courseHref = selected
+    ? `/portal/courses/${training.slug}?department=${encodeURIComponent(selected.slug)}`
+    : `/portal/courses/${training.slug}`;
   const startHref = isAuthenticated
     ? courseHref
     : `/workforce/register?next=${encodeURIComponent(courseHref)}`;

@@ -176,6 +176,11 @@ export function CurriculumAccordion({
               {/* Module Lessons */}
               {isOpen && (
                 <div className="border-t border-line-soft bg-canvas/40 px-2 py-1.5 space-y-1">
+                  {module.summary && (
+                    <p className="px-2.5 py-2 text-[11px] leading-relaxed text-cream-400">
+                      {module.summary}
+                    </p>
+                  )}
                   {module.lessons.map((lesson) => {
                     const isComplete = completedSet.has(lesson.id);
                     const isUnlocked = enrolled && Boolean(isUnlockedMap[lesson.id]);
@@ -186,14 +191,21 @@ export function CurriculumAccordion({
                       return (
                         <div
                           key={lesson.id}
-                          className="flex items-center justify-between rounded-lg px-2.5 py-2 text-xs opacity-50 cursor-not-allowed select-none bg-surface/20"
+                          className="flex items-start justify-between gap-3 rounded-lg px-2.5 py-2 text-xs opacity-50 cursor-not-allowed select-none bg-surface/20"
                           title="Complete previous lesson to unlock this topic"
                         >
-                          <div className="flex items-center gap-2.5 min-w-0">
+                          <div className="flex min-w-0 items-start gap-2.5">
                             <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-cream-700/50 bg-canvas text-cream-600">
                               <Lock className="h-2.5 w-2.5" />
                             </span>
-                            <span className="truncate text-cream-400 text-[12px]">{lesson.title}</span>
+                            <span className="min-w-0">
+                              <span className="block text-cream-400 text-[12px]">{lesson.title}</span>
+                              {lesson.summary && (
+                                <span className="mt-0.5 block text-[10px] leading-relaxed text-cream-600">
+                                  {lesson.summary}
+                                </span>
+                              )}
+                            </span>
                           </div>
                           <span className="font-mono text-[9px] text-cream-600 shrink-0 flex items-center gap-1">
                             <Lock className="h-2.5 w-2.5" />
@@ -207,7 +219,7 @@ export function CurriculumAccordion({
                       <Link
                         key={lesson.id}
                         href={`/portal/courses/${course.slug}/lessons/${lesson.id}`}
-                        className={`flex items-center justify-between rounded-lg px-2.5 py-2 text-xs transition-colors ${
+                        className={`flex items-start justify-between gap-3 rounded-lg px-2.5 py-2 text-xs transition-colors ${
                           isActive
                             ? 'bg-accent/15 text-accent font-medium shadow-sm'
                             : isComplete
@@ -233,7 +245,14 @@ export function CurriculumAccordion({
                               <span className="h-1.5 w-1.5 rounded-full bg-cream-400/60" />
                             )}
                           </span>
-                          <span className="truncate text-[12px]">{lesson.title}</span>
+                          <span className="min-w-0">
+                            <span className="block text-[12px]">{lesson.title}</span>
+                            {lesson.summary && (
+                              <span className="mt-0.5 block text-[10px] font-normal leading-relaxed text-cream-500">
+                                {lesson.summary}
+                              </span>
+                            )}
+                          </span>
                         </div>
 
                         <div className="flex items-center gap-2 shrink-0">

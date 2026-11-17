@@ -343,13 +343,10 @@ export default function MandatePage() {
                 Enroll in the worker training school, complete the formation track, and receive your ministry certification.
               </p>
             </div>
-            <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+            <div className="flex w-full flex-col gap-2 sm:w-auto">
               <Link href="/workforce" className="btn btn-primary btn-sm w-full sm:w-auto">
                 Become a worker
                 <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Link>
-              <Link href="/portal/login" className="btn btn-secondary btn-sm w-full sm:w-auto">
-                Staff portal sign in 🔒
               </Link>
             </div>
           </div>

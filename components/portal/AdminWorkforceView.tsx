@@ -243,13 +243,8 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
   return (
     <div className="space-y-8">
       {/* ---------------------------------------------------- TOP HERO / HEADER */}
-      <div className="relative overflow-hidden rounded-3xl border border-line bg-surface p-6 sm:p-8 lg:p-10">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_300px_at_85%_0%,rgba(204,108,66,0.12),transparent_70%)]"
-        />
-
-        <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div className="rounded-2xl border border-line bg-surface p-5 sm:p-7">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2.5">
               <span className="flex h-2 w-2 rounded-full bg-emerald-400" />
@@ -260,8 +255,8 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
               Workforce Administration Dashboard
             </h1>
 
-            <p className="mt-2.5 text-[13.5px] leading-relaxed text-cream-400">
-              Review and manage every member who has registered for the workforce across our 16 ministry departments. Track department choices, monitor training progress, inspect exam results, and verify certifications before physical induction.
+            <p className="mt-2 text-[13px] leading-relaxed text-cream-400">
+              Applications, department choices, course progress, and certificates.
             </p>
           </div>
 
@@ -290,43 +285,40 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
         {/* Card 1: Total Applicants */}
         <div className="rounded-2xl border border-line bg-surface p-5">
           <div className="flex items-center justify-between text-cream-500">
-            <span className="mono-label !text-[9.5px]">Workforce Applicants</span>
+            <span className="mono-label !text-[9.5px]">Applicants</span>
             <Users className="h-4 w-4 text-cream-400" />
           </div>
           <p className="mt-2 text-[28px] font-semibold text-cream-50">
             {data.summary.totalApplicants}
           </p>
-          <p className="mt-1 text-xs text-cream-500">Registered candidate members</p>
         </div>
 
         {/* Card 2: Assigned Departments */}
         <div className="rounded-2xl border border-line bg-surface p-5">
           <div className="flex items-center justify-between text-cream-500">
-            <span className="mono-label !text-[9.5px]">Department Placements</span>
+            <span className="mono-label !text-[9.5px]">Departments Chosen</span>
             <ShieldCheck className="h-4 w-4 text-accent" />
           </div>
           <p className="mt-2 text-[28px] font-semibold text-cream-50">
             {data.summary.withDepartments}
           </p>
-          <p className="mt-1 text-xs text-cream-500">Accepted department conditions</p>
         </div>
 
         {/* Card 3: In Active Training */}
         <div className="rounded-2xl border border-line bg-surface p-5">
           <div className="flex items-center justify-between text-cream-500">
-            <span className="mono-label !text-[9.5px]">In Active Training</span>
+            <span className="mono-label !text-[9.5px]">In Training</span>
             <Headphones className="h-4 w-4 text-sky-400" />
           </div>
           <p className="mt-2 text-[28px] font-semibold text-cream-50">
             {data.summary.inTraining}
           </p>
-          <p className="mt-1 text-xs text-cream-500">Listening to curriculum lessons</p>
         </div>
 
         {/* Card 4: Certified & Exam Ready */}
         <div className="rounded-2xl border border-line bg-surface p-5">
           <div className="flex items-center justify-between text-cream-500">
-            <span className="mono-label !text-[9.5px]">Certified / Exam Ready</span>
+            <span className="mono-label !text-[9.5px]">Certified · Exam Ready</span>
             <Award className="h-4 w-4 text-gold-400" />
           </div>
           <p className="mt-2 text-[28px] font-semibold text-cream-50">
@@ -335,73 +327,6 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
           <p className="mt-1 text-xs text-cream-500">
             {data.summary.certified} certified · {data.summary.examReady} ready
           </p>
-        </div>
-      </div>
-
-      {/* ---------------------------------------------------- DEPARTMENT QUICK CHIPS */}
-      <div className="rounded-2xl border border-line bg-surface/60 p-4 sm:p-5">
-        <div className="flex items-center justify-between">
-          <span className="mono-label !text-[9.5px] text-cream-400">
-            Quick Filter by Ministry Department
-          </span>
-          <span className="font-mono text-[10px] text-cream-500">
-            16 Departments Total
-          </span>
-        </div>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => setDepartmentFilter('all')}
-            className={`rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors ${
-              departmentFilter === 'all'
-                ? 'bg-accent text-white shadow-sm'
-                : 'border border-line bg-canvas/40 text-cream-400 hover:bg-surface hover:text-cream-50'
-            }`}
-          >
-            All Departments ({data.summary.totalApplicants})
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setDepartmentFilter('unassigned')}
-            className={`rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors ${
-              departmentFilter === 'unassigned'
-                ? 'bg-accent text-white shadow-sm'
-                : 'border border-line bg-canvas/40 text-cream-400 hover:bg-surface hover:text-cream-50'
-            }`}
-          >
-            Awaiting Selection ({data.applicants.filter((a) => a.totalDepartments === 0).length})
-          </button>
-
-          {WORKFORCE_DEPARTMENTS.map((dept) => {
-            const count = data.summary.departmentCounts[dept.slug] || 0;
-            const isSelected = departmentFilter === dept.slug;
-            return (
-              <button
-                key={dept.slug}
-                type="button"
-                onClick={() => setDepartmentFilter(dept.slug)}
-                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors ${
-                  isSelected
-                    ? 'bg-accent text-white shadow-sm'
-                    : count > 0
-                      ? 'border border-emerald-500/30 bg-emerald-500/[0.08] text-cream-200 hover:bg-emerald-500/[0.15]'
-                      : 'border border-line bg-canvas/30 text-cream-500 hover:bg-surface hover:text-cream-300'
-                }`}
-              >
-                <span>{dept.shortTitle}</span>
-                {count > 0 && (
-                  <span
-                    className={`rounded-full px-1.5 py-0.2 font-mono text-[10px] ${
-                      isSelected ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-300'
-                    }`}
-                  >
-                    {count}
-                  </span>
-                )}
-              </button>
-            );
-          })}
         </div>
       </div>
 

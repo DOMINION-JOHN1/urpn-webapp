@@ -49,8 +49,10 @@ function LessonIcon({ kind }: { kind: 'video' | 'audio' | 'reading' }) {
 
 export default async function CourseOverviewPage({
   params,
+  searchParams,
 }: {
   params: { slug: string };
+  searchParams?: { department?: string };
 }) {
   const user = await requireUser();
   const course = getCourse(params.slug);
@@ -262,6 +264,9 @@ export default async function CourseOverviewPage({
             conditions={course.conditions}
             enrolled={overview.enrolled}
             conditionsAcceptedAt={overview.conditionsAcceptedAt}
+            departments={WORKFORCE_DEPARTMENTS}
+            departmentSlug={overview.departmentSlug ?? searchParams?.department ?? null}
+            requireDepartmentSelection={course.slug === 'workforce-training'}
           />
         </div>
       )}

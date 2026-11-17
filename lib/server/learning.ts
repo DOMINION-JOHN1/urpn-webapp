@@ -41,6 +41,7 @@ export interface CourseOverview {
   enrolled: boolean;
   conditionsAccepted: boolean;
   conditionsAcceptedAt: string | null;
+  departmentSlug: string | null;
   completedLessonIds: string[];
   completedCount: number;
   totalLessons: number;
@@ -121,6 +122,7 @@ function courseOverviewFromDb(
     enrolled: Boolean(enrollment),
     conditionsAccepted,
     conditionsAcceptedAt: enrollment?.conditionsAcceptedAt ?? null,
+    departmentSlug: enrollment?.departmentSlug ?? null,
     completedLessonIds: completed,
     completedCount: completed.length,
     totalLessons: lessons.length,
@@ -236,10 +238,18 @@ export async function getDashboardData(userId: string): Promise<DashboardData> {
 export async function enrollInCourse(
   userId: string,
   courseSlug: string,
-  acceptConditions = true
+  acceptConditions = true,
+  departmentSlug?: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
   const course = getCourse(courseSlug);
   if (!course) return { ok: false, error: 'Course not found.' };
+  const isSharedWorkforceCourse = course.slug === WORKFORCE_TRAINING.slug;
+  const selectedDepartment = departmentSlug
+    ? WORKFORCE_DEPARTMENTS.find((department) => department.slug === departmentSlug)
+    : undefined;
+  if (isSharedWorkforceCourse && !selectedDepartment) {
+    return { ok: false, error: 'Choose a ministry department before applying.' };
+  }
 
   await mutateDb((db) => {
     const existing = db.enrollments.find(
@@ -249,6 +259,9 @@ export async function enrollInCourse(
       if (!existing.conditionsAcceptedAt && acceptConditions) {
         existing.conditionsAcceptedAt = new Date().toISOString();
       }
+      if (isSharedWorkforceCourse && !existing.departmentSlug && selectedDepartment) {
+        existing.departmentSlug = selectedDepartment.slug;
+      }
       return;
     }
     db.enrollments.push({
@@ -257,6 +270,9 @@ export async function enrollInCourse(
       courseId: course.slug,
       enrolledAt: new Date().toISOString(),
       conditionsAcceptedAt: acceptConditions ? new Date().toISOString() : null,
+      ...(isSharedWorkforceCourse && selectedDepartment
+        ? { departmentSlug: selectedDepartment.slug }
+        : {}),
     });
   });
 
@@ -508,6 +524,12 @@ function issueCertificate(
   const code = `URPN-${randomBytes(2).toString('hex').toUpperCase()}-${randomBytes(2)
     .toString('hex')
     .toUpperCase()}`;
+  const enrollment = db.enrollments.find(
+    (entry) => entry.userId === userId && entry.courseId === courseSlug
+  );
+  const departmentName = enrollment?.departmentSlug
+    ? WORKFORCE_DEPARTMENTS.find((department) => department.slug === enrollment.departmentSlug)?.title
+    : undefined;
   const certificate: Certificate = {
     id: newId('cert'),
     code,
@@ -516,6 +538,7 @@ function issueCertificate(
     attemptId,
     score,
     issuedAt: new Date().toISOString(),
+    ...(departmentName ? { departmentName } : {}),
   };
   db.certificates.push(certificate);
   return certificate;
@@ -747,6 +770,7 @@ export async function getAdminProgressData(): Promise<AdminMonitorData> {
               code: cert.code,
               score: cert.score,
               issuedAt: cert.issuedAt,
+              departmentName: cert.departmentName,
             }
           : null,
       };
@@ -852,7 +876,11 @@ export async function getAdminWorkforceData(): Promise<AdminWorkforceDashboardDa
         );
       })
       .map((enr) => {
-        const deptMeta = WORKFORCE_DEPARTMENTS.find((d) => d.slug === enr.courseId);
+        const isSharedWorkforceEnrollment = enr.courseId === WORKFORCE_TRAINING.slug;
+        const deptSlug = isSharedWorkforceEnrollment
+          ? enr.departmentSlug
+          : enr.courseId;
+        const deptMeta = WORKFORCE_DEPARTMENTS.find((d) => d.slug === deptSlug);
         const matchedCourse = ALL_COURSES.find((c) => c.slug === enr.courseId) ?? WORKFORCE_TRAINING;
 
         if (deptMeta) {
@@ -888,8 +916,12 @@ export async function getAdminWorkforceData(): Promise<AdminWorkforceDashboardDa
               : 'not_started';
 
         return {
-          courseSlug: enr.courseId,
-          courseTitle: deptMeta ? `${deptMeta.title}` : matchedCourse.title,
+          courseSlug: deptMeta?.slug ?? (isSharedWorkforceEnrollment ? 'unassigned' : enr.courseId),
+          courseTitle: deptMeta
+            ? deptMeta.title
+            : isSharedWorkforceEnrollment
+              ? 'Awaiting department selection'
+              : matchedCourse.title,
           courseCode: deptMeta?.code ?? matchedCourse.code,
           shortTitle: deptMeta?.shortTitle ?? matchedCourse.shortTitle,
           enrolledAt: enr.enrolledAt,
@@ -963,7 +995,7 @@ export async function getAdminWorkforceData(): Promise<AdminWorkforceDashboardDa
         createdAt: user.createdAt,
       },
       departments,
-      totalDepartments: departments.length,
+      totalDepartments: departments.filter((department) => department.courseSlug !== 'unassigned').length,
       overallStatus,
       latestActivityAt: latestActivity ?? user.createdAt,
       highestScore,

@@ -881,12 +881,12 @@ const readingLesson = (
 // are taken to this same curriculum and exam.
 // ===========================================================================
 
-export const SHARED_WORKFORCE_WEEKS = 9;
+export const SHARED_WORKFORCE_WEEKS = 7;
 
 export const SHARED_WORKFORCE_OUTCOMES = [
   'Explain the URPN mandate, vision, structure, and service units.',
   'Grow in Christian character, spiritual formation, and daily discipline.',
-  'Serve with excellence, honour, communication, and faithful stewardship.',
+    'Serve with excellence, honour, and faithful stewardship.',
 ];
 
 export const SHARED_WORKFORCE_EXAM = {
@@ -936,6 +936,7 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
     'URPN IN FOCUS',
     'https://drive.google.com/file/d/1PlFtl8FlaHtSckNl2Z9MT8G10wcCMfgk/view?usp=drive_link',
     1,
+    { summary: 'URPN IN FOCUS course material.' }
   ),
   linkedWorkforceModule(
     'wt-m8',
@@ -953,40 +954,60 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
     }
   ),
   linkedWorkforceModule(
-    'wt-m2',
-    'wt-stewardship-1',
-    'Stewardship I',
-    'https://t.me/AdahVictorAdejoh/985',
-    3
-  ),
-  linkedWorkforceModule(
-    'wt-m3',
-    'wt-stewardship-2',
-    'Stewardship II',
-    'https://t.me/AdahVictorAdejoh/1008',
-    4
-  ),
-  linkedWorkforceModule(
-    'wt-m4',
-    'wt-stewardship-3',
-    'Stewardship III',
-    'https://t.me/AdahVictorAdejoh/1018',
-    5,
-  ),
-  linkedWorkforceModule(
     'wt-m9',
     'wt-kingdom',
     'Concept of the Kingdom',
     'https://drive.google.com/file/d/11Nzr4vgUFxeGMfsNS9DL0nUzVWIpy99l/view?usp=drive_link',
-    6,
-    { resourceLabel: 'Kingdom Conquest' }
+    3,
+    { summary: 'Kingdom Conquest course material.', resourceLabel: 'Kingdom Conquest' }
   ),
+  {
+    id: 'wt-m-stewardship',
+    title: 'Stewardship',
+    week: 4,
+    summary: 'Three linked lessons on stewardship.',
+    lessons: [
+      {
+        id: 'wt-stewardship-1',
+        title: 'Stewardship I',
+        kind: 'reading',
+        summary: 'Open the first Stewardship course material.',
+        estimatedMinutes: 0,
+        resourceUrl: 'https://t.me/AdahVictorAdejoh/985',
+        resourceLabel: 'Stewardship I',
+        body: [],
+        keyPoints: [],
+      },
+      {
+        id: 'wt-stewardship-2',
+        title: 'Stewardship II',
+        kind: 'reading',
+        summary: 'Open the second Stewardship course material.',
+        estimatedMinutes: 0,
+        resourceUrl: 'https://t.me/AdahVictorAdejoh/1008',
+        resourceLabel: 'Stewardship II',
+        body: [],
+        keyPoints: [],
+      },
+      {
+        id: 'wt-stewardship-3',
+        title: 'Stewardship III',
+        kind: 'reading',
+        summary: 'Open the third Stewardship course material.',
+        estimatedMinutes: 0,
+        resourceUrl: 'https://t.me/AdahVictorAdejoh/1018',
+        resourceLabel: 'Stewardship III',
+        body: [],
+        keyPoints: [],
+      },
+    ],
+  },
   linkedWorkforceModule(
     'wt-m1',
     'wt-excellence',
     'EXCELLENCE; the culture of the throne',
     'https://drive.google.com/file/d/1eTIghEPpTcXP59UkQmhQ-uym1Wqk9Z47/view?usp=drive_link',
-    7,
+    5,
     {
       summary:
         "Teaching on becoming a valuable, value-driven worker; it's a core agenda for URPN as a workforce member, which is a means of kingdom advancement.",
@@ -1005,7 +1026,7 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
     'wt-management',
     'Management',
     'https://drive.google.com/file/d/1zmIrXHm1dw0X_XHBY8G5AaMa_-zF_-lE/view?usp=drive_link',
-    8,
+    6,
     {
       summary: 'Time management, critical thinking, and problem-solving.',
       body: [
@@ -1022,7 +1043,8 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
     'wt-communication',
     'URPN Community Life',
     'https://drive.google.com/file/d/1ov78XiBhG6jkVDbhH3hMHxB6Jo-O0H2s/view?usp=drive_link',
-    9
+    7,
+    { summary: 'URPN community life course material.' }
   ),
 ];
 
@@ -1037,9 +1059,9 @@ export const WORKFORCE_TRAINING: Course = {
   shortTitle: 'Workforce Training',
   icon: 'sparkles',
   track: 'workforce',
-  tagline: 'Nine course materials for every worker.',
+  tagline: 'Nine lessons across seven modules.',
   description:
-    'The shared curriculum for intending URPN workers across all departments. Study the nine linked course materials and complete the certification exam.',
+    'The shared curriculum for intending URPN workers across all departments. Study the seven modules and complete the certification exam.',
   audience: 'Every intending URPN workforce member, across all departments.',
   conditions: [
     'Born again and committed to the vision of URPN.',
