@@ -48,6 +48,8 @@ export interface Attempt {
   /** Present for module-specific exams; absent for the course certification exam. */
   moduleId?: string;
   questionIds: string[];
+  /** Displayed option index -> original answer-bank index, saved for grading and resume. */
+  optionOrders?: Record<string, number[]>;
   startedAt: string;
   expiresAt: string;
   submittedAt: string | null;

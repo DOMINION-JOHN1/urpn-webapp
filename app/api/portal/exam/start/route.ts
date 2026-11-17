@@ -2,8 +2,16 @@ import { NextResponse } from 'next/server';
 import { getSessionUser } from '@/lib/server/auth';
 import { startExamAttempt } from '@/lib/server/learning';
 import { canAccessCourse, getCourse } from '@/lib/courses';
+import type { Attempt } from '@/lib/server/types';
 
 export const dynamic = 'force-dynamic';
+
+function publicAttempt(attempt: Attempt | null | undefined) {
+  if (!attempt) return attempt;
+  const result = { ...attempt };
+  delete result.optionOrders;
+  return result;
+}
 
 export async function POST(request: Request) {
   const user = await getSessionUser();
@@ -45,14 +53,14 @@ export async function POST(request: Request) {
         code: result.error,
         missingLessons: result.missingLessons,
         lockedUntil: result.lockedUntil,
-        attempt: result.attempt,
+        attempt: publicAttempt(result.attempt),
       },
       { status }
     );
   }
 
   return NextResponse.json({
-    attempt: result.attempt,
+    attempt: publicAttempt(result.attempt),
     questions: result.questions,
     remainingSeconds: result.remainingSeconds,
     resumed: result.resumed,

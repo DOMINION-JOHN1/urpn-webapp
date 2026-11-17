@@ -2234,8 +2234,29 @@ const BANK: Record<CourseSlug, ExamDefinition> = {
   drama: { questions: SHARED_WORKFORCE_QUESTIONS },
 };
 
+const SHARED_WORKFORCE_OPTION_COPY: Record<string, string> = {
+  'wtq-01': "Restore God's original design.",
+  'wtq-02': 'Teams that serve with their gifts.',
+  'wtq-03': 'The old nature versus the new nature.',
+  'wtq-04': 'Serve from sonship, not for attention.',
+  'wtq-05': "Disciple people for the Kingdom's purpose.",
+  'wtq-07': 'Greatness is expressed through serving others.',
+  'wtq-10': 'The Jerusalem church described in Acts.',
+  'wtq-11': 'Address grievances respectfully.',
+  'wtq-12': 'Discern timing, then sow and reap in step with God.',
+};
+
 export function getExamDefinition(slug: CourseSlug): ExamDefinition {
-  return BANK[slug];
+  const definition = BANK[slug];
+  return {
+    questions: definition.questions.map((question) => {
+      const conciseAnswer = SHARED_WORKFORCE_OPTION_COPY[question.id];
+      if (!conciseAnswer) return question;
+      const options = [...question.options];
+      options[question.answer] = conciseAnswer;
+      return { ...question, options };
+    }),
+  };
 }
 
 export function getExamQuestionCount(slug: CourseSlug): number {

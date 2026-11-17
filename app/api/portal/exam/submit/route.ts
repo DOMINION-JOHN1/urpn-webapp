@@ -2,11 +2,18 @@ import { NextResponse } from 'next/server';
 import { getSessionUser } from '@/lib/server/auth';
 import { getAttemptForUser, submitExamAttempt } from '@/lib/server/learning';
 import { canAccessCourse } from '@/lib/courses';
-import type { SubmitReason } from '@/lib/server/types';
+import type { Attempt, SubmitReason } from '@/lib/server/types';
 
 export const dynamic = 'force-dynamic';
 
 const REASONS: SubmitReason[] = ['submitted', 'tab_left', 'time_expired'];
+
+function publicAttempt(attempt: Attempt | undefined) {
+  if (!attempt) return attempt;
+  const result = { ...attempt };
+  delete result.optionOrders;
+  return result;
+}
 
 export async function POST(request: Request) {
   const user = await getSessionUser();
@@ -53,7 +60,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     ok: true,
-    attempt: result.attempt,
+    attempt: publicAttempt(result.attempt),
     certificate: result.certificate,
     correct: result.correct,
     total: result.total,

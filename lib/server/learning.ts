@@ -492,14 +492,47 @@ function examSettings(course: Course, moduleId?: string): ExamSettings | undefin
 function publicQuestions(
   course: Course,
   ids?: string[],
-  moduleId?: string
+  moduleId?: string,
+  optionOrders?: Record<string, number[]>
 ): PublicExamQuestion[] {
   const questions = questionBank(course, moduleId);
   const questionById = new Map(questions.map((question) => [question.id, question]));
   const selected = ids
     ? ids.map((id) => questionById.get(id)).filter((question): question is ExamQuestion => Boolean(question))
     : questions;
-  return selected.map(({ id, prompt, options }) => ({ id, prompt, options }));
+  return selected.map(({ id, prompt, options }) => {
+    const order = optionOrders?.[id];
+    const validOrder = order?.length === options.length
+      && new Set(order).size === options.length
+      && order.every((index) => Number.isInteger(index) && index >= 0 && index < options.length);
+    return {
+      id,
+      prompt,
+      options: validOrder
+        ? order.map((index) => options[index]).filter((option): option is string => option !== undefined)
+        : options,
+    };
+  });
+}
+
+function createOptionOrders(questions: ExamQuestion[], questionIds: string[]): Record<string, number[]> {
+  const questionsById = new Map(questions.map((question) => [question.id, question]));
+  const selectedQuestions = questionIds
+    .map((id) => questionsById.get(id))
+    .filter((question): question is ExamQuestion => Boolean(question));
+  return Object.fromEntries(selectedQuestions.map((question) => {
+    const answerPosition = randomInt(question.options.length);
+    const distractors = shuffle(question.options
+      .map((_, index) => index)
+      .filter((index) => index !== question.answer));
+    const order = Array<number>(question.options.length);
+    order[answerPosition] = question.answer;
+    let distractorIndex = 0;
+    for (let index = 0; index < order.length; index += 1) {
+      if (index !== answerPosition) order[index] = distractors[distractorIndex++];
+    }
+    return [question.id, order];
+  }));
 }
 
 function attemptsForExam(
@@ -617,7 +650,7 @@ export async function startExamAttempt(
         return {
           ok: true,
           attempt: active,
-          questions: publicQuestions(course, active.questionIds, moduleId),
+          questions: publicQuestions(course, active.questionIds, moduleId, active.optionOrders),
           remainingSeconds: Math.ceil((expires - now) / 1000),
           resumed: true,
         };
@@ -684,6 +717,7 @@ export async function startExamAttempt(
     const questionIds = moduleId
       ? pickRotatedQuestions(questions, settings.questionCount, history)
       : questions.map((question) => question.id);
+    const optionOrders = createOptionOrders(questions, questionIds);
     const startedAt = new Date(now).toISOString();
     const attempt: Attempt = {
       id: newId('att'),
@@ -691,6 +725,7 @@ export async function startExamAttempt(
       courseId: course.slug,
       ...(moduleId ? { moduleId } : {}),
       questionIds,
+      optionOrders,
       startedAt,
       expiresAt: new Date(now + settings.durationMinutes * 60 * 1000).toISOString(),
       submittedAt: null,
@@ -705,7 +740,7 @@ export async function startExamAttempt(
     return {
       ok: true,
       attempt,
-      questions: publicQuestions(course, questionIds, moduleId),
+      questions: publicQuestions(course, questionIds, moduleId, optionOrders),
       remainingSeconds: settings.durationMinutes * 60,
       resumed: false,
     };
@@ -731,7 +766,8 @@ function gradeAttempt(
       unanswered += 1;
       continue;
     }
-    if (answer === question.answer) correct += 1;
+    const originalAnswerIndex = attempt.optionOrders?.[question.id]?.[answer] ?? answer;
+    if (originalAnswerIndex === question.answer) correct += 1;
   }
   const total = questions.length;
   const score = total ? Math.round((correct / total) * 100) : 0;
