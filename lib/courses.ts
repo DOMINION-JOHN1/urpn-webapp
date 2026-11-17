@@ -84,6 +84,14 @@ export interface CourseModule {
   week: number;
   summary: string;
   lessons: Lesson[];
+  /** A module-specific exam, available after its lessons and prior exams are complete. */
+  exam?: ExamSettings;
+}
+
+export interface ExamSettings {
+  durationMinutes: number;
+  passMark: number;
+  questionCount: number;
 }
 
 export interface Course {
@@ -104,11 +112,7 @@ export interface Course {
   outcomes: string[];
   prerequisites: string[];
   modules: CourseModule[];
-  exam: {
-    durationMinutes: number;
-    passMark: number;
-    questionCount: number;
-  };
+  exam: ExamSettings;
 }
 
 const FOUNDATION: Course = {
@@ -906,6 +910,7 @@ function linkedWorkforceModule(
     body?: string[];
     keyPoints?: string[];
     resourceLabel?: string;
+    exam?: ExamSettings;
   }
 ): CourseModule {
   return {
@@ -926,6 +931,7 @@ function linkedWorkforceModule(
         keyPoints: options?.keyPoints ?? [],
       },
     ],
+    ...(options?.exam ? { exam: options.exam } : {}),
   };
 }
 
@@ -959,7 +965,11 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
     'Concept of the Kingdom',
     'https://drive.google.com/file/d/11Nzr4vgUFxeGMfsNS9DL0nUzVWIpy99l/view?usp=drive_link',
     3,
-    { summary: 'Kingdom Conquest course material.', resourceLabel: 'Kingdom Conquest' }
+    {
+      summary: 'Kingdom Conquest course material.',
+      resourceLabel: 'Kingdom Conquest',
+      exam: { durationMinutes: 25, passMark: 70, questionCount: 20 },
+    }
   ),
   {
     id: 'wt-m-stewardship',
@@ -1036,6 +1046,7 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         'Time management',
         'Critical thinking and problem-solving',
       ],
+      exam: { durationMinutes: 25, passMark: 70, questionCount: 20 },
     }
   ),
   linkedWorkforceModule(
