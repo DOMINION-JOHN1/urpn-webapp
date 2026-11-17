@@ -22,6 +22,10 @@ export function EnrollButton({
   const [error, setError] = useState<string | null>(null);
 
   const enroll = async () => {
+    if (courseId === 'workforce-training') {
+      router.push(`/portal/courses/${courseSlug}`);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -55,7 +59,7 @@ export function EnrollButton({
           </>
         ) : (
           <>
-            {label}
+            {courseId === 'workforce-training' ? 'Choose department' : label}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </>
         )}

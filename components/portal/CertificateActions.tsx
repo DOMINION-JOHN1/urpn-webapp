@@ -178,6 +178,7 @@ export function CertificateActions({
   verifyUrl,
   fullName,
   courseTitle,
+  departmentName,
   issued,
   score,
   year,
@@ -207,6 +208,7 @@ export function CertificateActions({
         verifyUrl,
         fullName,
         courseTitle,
+        departmentName,
         issued,
         score,
         year,
@@ -242,6 +244,7 @@ export function CertificateActions({
         verifyUrl,
         fullName,
         courseTitle,
+        departmentName,
         issued,
         score,
         year,
@@ -251,7 +254,7 @@ export function CertificateActions({
       const file = new File([blob], `URPN-Certificate-${code}.png`, { type: 'image/png' });
       const shareData = {
         title: `${fullName} · URPN certificate`,
-        text: `Certificate of completion · ${courseTitle}`,
+        text: `Certificate of completion · ${courseTitle}${departmentName ? ` · ${departmentName}` : ''}`,
         url: verifyUrl,
         files: [file],
       };
