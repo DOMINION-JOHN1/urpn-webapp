@@ -65,8 +65,12 @@ export default async function LessonPage({
 
   // Strict sequential lock enforcement:
   // If this lesson is locked, redirect to first incomplete unlocked lesson
-  if (!isLessonUnlocked(course, overview.completedLessonIds, params.lessonId)) {
-    const firstUnlocked = getFirstUnlockedIncompleteLesson(course, overview.completedLessonIds);
+  if (!isLessonUnlocked(course, overview.completedLessonIds, params.lessonId, overview.passedModuleExamIds)) {
+    const firstUnlocked = getFirstUnlockedIncompleteLesson(
+      course,
+      overview.completedLessonIds,
+      overview.passedModuleExamIds
+    );
     redirect(
       firstUnlocked
         ? `/portal/courses/${course.slug}/lessons/${firstUnlocked.id}`
@@ -80,6 +84,16 @@ export default async function LessonPage({
   const next = index < lessons.length - 1 ? lessons[index + 1] : null;
   const completed = new Set(overview.completedLessonIds);
   const isComplete = completed.has(lesson.id);
+  const moduleExamAfterLesson =
+    found.module.exam &&
+    found.module.lessons[found.module.lessons.length - 1]?.id === lesson.id &&
+    !overview.moduleExamStatuses[found.module.id]?.passed;
+  const nextHref = moduleExamAfterLesson
+    ? `/portal/courses/${course.slug}/exam?moduleId=${found.module.id}`
+    : next
+      ? `/portal/courses/${course.slug}/lessons/${next.id}`
+      : undefined;
+  const nextTitle = moduleExamAfterLesson ? `${found.module.title} exam` : next?.title;
 
   const lessonHref = (id: string) => `/portal/courses/${course.slug}/lessons/${id}`;
 
@@ -161,6 +175,7 @@ export default async function LessonPage({
           <CurriculumAccordion
             course={course}
             completedLessonIds={overview.completedLessonIds}
+            moduleExamStatuses={overview.moduleExamStatuses}
             activeLessonId={lesson.id}
             enrolled={overview.enrolled}
             compact
@@ -199,8 +214,8 @@ export default async function LessonPage({
             allLessons={lessons.map((l) => ({ id: l.id, title: l.title }))}
             initialCompletedCount={overview.completedCount}
             totalLessons={lessons.length}
-            nextHref={next ? lessonHref(next.id) : undefined}
-            nextTitle={next?.title}
+            nextHref={nextHref}
+            nextTitle={nextTitle}
             previousHref={previous ? lessonHref(previous.id) : undefined}
             previousTitle={previous?.title}
             userEmail={user.email}
@@ -227,6 +242,7 @@ export default async function LessonPage({
               <CurriculumAccordion
                 course={course}
                 completedLessonIds={overview.completedLessonIds}
+                moduleExamStatuses={overview.moduleExamStatuses}
                 activeLessonId={lesson.id}
                 enrolled={overview.enrolled}
                 compact

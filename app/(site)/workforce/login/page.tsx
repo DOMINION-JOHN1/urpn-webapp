@@ -81,7 +81,7 @@ export default async function WorkforceLoginPage({
             <span className="block text-cream-500">Pick up where you left off.</span>
           </h2>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream-400">
-            Sign in to continue listening to your department lessons, sit the timed exam, or access your certificates.
+            Sign in to continue your lessons and module exams, sit the final certification exam, or access your certificates.
           </p>
 
           <div className="mt-8 space-y-px overflow-hidden rounded-xl border border-line bg-line">
@@ -116,7 +116,7 @@ export default async function WorkforceLoginPage({
             </li>
             <li className="flex items-center gap-2.5">
               <Award className="h-4 w-4 text-gold-400" aria-hidden="true" />
-              Pass your exam to earn your certificate
+              Pass the final certification exam to earn your certificate
             </li>
           </ul>
         </div>

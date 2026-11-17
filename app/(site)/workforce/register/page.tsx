@@ -81,7 +81,7 @@ export default async function WorkforceRegisterPage({
             <span className="block text-cream-500">Equipped for every good work.</span>
           </h2>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream-400">
-            Review department conditions, complete the shared training and timed exam, then attend physical observation, induction, and impartation before serving.
+            Review department conditions, complete the shared training and module exams, then pass the final timed exam before physical observation, induction, and impartation.
           </p>
 
           <div className="mt-8 space-y-px overflow-hidden rounded-xl border border-line bg-line">

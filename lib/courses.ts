@@ -1011,6 +1011,7 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         keyPoints: [],
       },
     ],
+    exam: { durationMinutes: 25, passMark: 70, questionCount: 20 },
   },
   linkedWorkforceModule(
     'wt-m1',
@@ -1072,12 +1073,12 @@ export const WORKFORCE_TRAINING: Course = {
   track: 'workforce',
   tagline: 'Nine lessons across seven modules.',
   description:
-    'The shared curriculum for intending URPN workers across all departments. Study the seven modules and complete the certification exam.',
+    'The shared curriculum for intending URPN workers across all departments. Complete the module exams, then pass the final certification exam.',
   audience: 'Every intending URPN workforce member, across all departments.',
   conditions: [
     'Born again and committed to the vision of URPN.',
     'Willing to be trained, corrected, and held accountable.',
-    'Committed to completing the lessons and the certification exam.',
+    'Committed to completing the lessons, module exams, and final certification exam.',
   ],
   weeks: SHARED_WORKFORCE_WEEKS,
   outcomes: SHARED_WORKFORCE_OUTCOMES,

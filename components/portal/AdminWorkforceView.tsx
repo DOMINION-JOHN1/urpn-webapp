@@ -824,7 +824,7 @@ export function AdminWorkforceView({ data, currentUser }: Props) {
                                 </div>
                               ) : (
                                 <p className="text-[11px] text-cream-500">
-                                  Certificate awarded automatically upon scoring 80%+ on the exam.
+                                  The certificate follows completion of required module exams and a 70% pass on the final certification exam.
                                 </p>
                               )}
                             </div>

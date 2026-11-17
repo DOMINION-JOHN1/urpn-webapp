@@ -23,6 +23,7 @@ import {
   formatLessonDuration,
   getCourse,
   getLessonCount,
+  isModuleExamUnlocked,
   lessonKindLabel,
   WORKFORCE_DEPARTMENTS,
 } from '@/lib/courses';
@@ -71,11 +72,30 @@ export default async function CourseOverviewPage({
 
   const overview = await getCourseOverview(user.id, course);
   const total = getLessonCount(course);
-  const completed = new Set(overview.completedLessonIds);
-  const nextId = overview.nextLesson?.id ?? null;
   const attempt = overview.attempt;
   const certificate = overview.certificate;
-  const examAvailable = overview.enrolled && overview.percent === 100;
+  const examAvailable = overview.enrolled && overview.examUnlocked;
+  const activeModuleExam = course.modules.find(
+    (module) => overview.moduleExamStatuses[module.id]?.attemptStatus === 'in_progress'
+  );
+  const pendingModuleExam = course.modules.find(
+    (module) => module.exam && !overview.moduleExamStatuses[module.id]?.passed
+  );
+  const pendingModuleExamStatus = pendingModuleExam
+    ? overview.moduleExamStatuses[pendingModuleExam.id]
+    : undefined;
+  const pendingModuleExamReady = pendingModuleExam
+    ? isModuleExamUnlocked(
+        course,
+        pendingModuleExam.id,
+        overview.completedLessonIds,
+        overview.passedModuleExamIds
+      )
+    : false;
+  const pendingModuleExamLocked = Boolean(
+    pendingModuleExamStatus?.lockedUntil &&
+      Date.parse(pendingModuleExamStatus.lockedUntil) > Date.now()
+  );
 
   const examCard = certificate ? (
     <div className="rounded-2xl border border-gold-500/25 bg-gold-500/[0.05] p-5">
@@ -93,6 +113,24 @@ export default async function CourseOverviewPage({
       >
         View certificate
         <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+      </Link>
+    </div>
+  ) : activeModuleExam ? (
+    <div className="rounded-2xl border border-gold-400/30 bg-surface p-5">
+      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold-400/10 text-gold-300">
+        <Timer className="h-4 w-4" aria-hidden="true" />
+      </span>
+      <p className="mono-label mt-4 !text-gold-300">Module exam in progress</p>
+      <p className="mt-2 text-[15px] font-medium text-cream-50">{activeModuleExam.title}</p>
+      <p className="mt-1 text-[11.5px] leading-relaxed text-cream-400">
+        Your timer is running. Return before it expires.
+      </p>
+      <Link
+        href={`/portal/courses/${course.slug}/exam?moduleId=${activeModuleExam.id}`}
+        className="btn btn-primary btn-sm mt-4 w-full"
+      >
+        Resume exam
+        <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
       </Link>
     </div>
   ) : attempt && attempt.status === 'in_progress' ? (
@@ -133,6 +171,39 @@ export default async function CourseOverviewPage({
         View result
         <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
       </Link>
+    </div>
+  ) : pendingModuleExam ? (
+    <div className="rounded-2xl border border-gold-500/25 bg-gold-500/[0.05] p-5">
+      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gold-400/10 text-gold-300">
+        {pendingModuleExamLocked ? <Lock className="h-4 w-4" aria-hidden="true" /> : <Timer className="h-4 w-4" aria-hidden="true" />}
+      </span>
+      <p className="mono-label mt-4 !text-gold-300">Module exam</p>
+      <p className="mt-2 text-[15px] font-medium text-cream-50">{pendingModuleExam.title}</p>
+      <p className="mt-1 text-[11.5px] leading-relaxed text-cream-400">
+        {pendingModuleExamLocked
+          ? `Locked until ${new Date(pendingModuleExamStatus!.lockedUntil!).toLocaleString('en-GB', { timeZone: 'Africa/Lagos', dateStyle: 'medium', timeStyle: 'short' })}. Review this module before retrying.`
+          : `${pendingModuleExam.exam!.questionCount} questions · ${pendingModuleExam.exam!.durationMinutes} minutes · ${pendingModuleExam.exam!.passMark}% to pass.`}
+      </p>
+      {!pendingModuleExamLocked && pendingModuleExamReady && (
+        <Link
+          href={`/portal/courses/${course.slug}/exam?moduleId=${pendingModuleExam.id}`}
+          className="btn btn-primary btn-sm mt-4 w-full"
+        >
+          {pendingModuleExamStatus?.attemptCount ? 'Retake module exam' : 'Start module exam'}
+          <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+        </Link>
+      )}
+      {pendingModuleExamLocked && (
+        <Link
+          href={`/portal/courses/${course.slug}#module-${pendingModuleExam.id}`}
+          className="btn btn-secondary btn-sm mt-4 w-full"
+        >
+          Review this module
+        </Link>
+      )}
+      {!pendingModuleExamLocked && !pendingModuleExamReady && (
+        <p className="mt-3 text-[10.5px] text-cream-500">Complete this and earlier modules to unlock the exam.</p>
+      )}
     </div>
   ) : examAvailable ? (
     <div className="rounded-2xl border border-gold-500/25 bg-gold-500/[0.05] p-5">
@@ -201,11 +272,13 @@ export default async function CourseOverviewPage({
           <span className="rounded-full border border-line bg-canvas px-2.5 py-0.5 font-mono text-[8.5px] uppercase tracking-[0.1em] text-cream-400">
             {certificate
               ? 'Certified'
+              : activeModuleExam
+                ? 'Module exam open'
               : attempt
                 ? attempt.status === 'in_progress'
                   ? 'Exam open'
                   : 'Attempt used'
-                : overview.percent === 100
+                : overview.examUnlocked
                   ? 'Exam ready'
                   : 'In progress'}
           </span>
@@ -294,6 +367,7 @@ export default async function CourseOverviewPage({
           <CurriculumAccordion
             course={course}
             completedLessonIds={overview.completedLessonIds}
+            moduleExamStatuses={overview.moduleExamStatuses}
             enrolled={overview.enrolled}
             showHeader
           />
@@ -326,6 +400,8 @@ export default async function CourseOverviewPage({
                 <dd className="text-cream-300">
                   {certificate
                     ? 'Passed'
+                    : activeModuleExam
+                      ? `${activeModuleExam.title} in progress`
                     : attempt
                       ? attempt.status === 'in_progress'
                         ? 'In progress'

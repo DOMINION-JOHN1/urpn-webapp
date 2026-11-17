@@ -26,7 +26,7 @@ export default async function CoursesPage() {
       </h1>
       <p className="mt-2 max-w-xl text-[13.5px] leading-relaxed text-cream-400">
         {isWorkforce
-          ? 'One shared course for every department. Complete the modules, pass the timed exam, and receive your workforce certificate.'
+          ? 'One shared course for every department. Complete the module exams, pass the final certification exam, and receive your workforce certificate.'
           : 'In-house training for ministers and pastors. Finish every lesson to unlock the final exam. Each track allows one timed attempt and issues a verifiable certificate on passing.'}
       </p>
 
@@ -53,8 +53,16 @@ export default async function CoursesPage() {
           const { course } = entry;
           const status = entry.certificate
             ? { label: 'Certified', className: 'border-gold-400/30 bg-gold-400/10 text-gold-300' }
-            : entry.percent === 100
-              ? { label: 'Exam ready', className: 'border-gold-400/30 bg-gold-400/10 text-gold-300' }
+            : entry.attempt?.status === 'in_progress'
+              ? { label: 'Final exam in progress', className: 'border-gold-400/30 bg-gold-400/10 text-gold-300' }
+              : entry.attempt
+              ? { label: 'Final attempt used', className: 'border-line bg-canvas text-cream-400' }
+              : entry.examUnlocked
+                ? { label: 'Final exam ready', className: 'border-gold-400/30 bg-gold-400/10 text-gold-300' }
+                : entry.percent === 100 && isWorkforce
+                  ? { label: 'Module exams', className: 'border-gold-400/30 bg-gold-400/10 text-gold-300' }
+                  : entry.percent === 100
+                    ? { label: 'Exam ready', className: 'border-gold-400/30 bg-gold-400/10 text-gold-300' }
               : entry.enrolled
                 ? { label: 'In progress', className: 'border-line bg-canvas text-cream-300' }
                 : { label: 'Not started', className: 'border-line bg-canvas text-cream-500' };
@@ -91,7 +99,7 @@ export default async function CoursesPage() {
                     </span>
                     <span className="inline-flex items-center gap-1.5">
                       <Timer className="h-3.5 w-3.5" aria-hidden="true" />
-                      {course.exam.durationMinutes} min exam · {course.exam.passMark}% to pass
+                      {course.exam.durationMinutes} min final exam · {course.exam.passMark}% to pass
                     </span>
                     <span className="font-mono text-[9.5px] uppercase tracking-[0.1em]">
                       {getCourseDurationLabel(course)} · {course.weeks} weeks
@@ -127,7 +135,7 @@ export default async function CoursesPage() {
                         href={`/portal/courses/${course.slug}`}
                         className="btn btn-primary btn-sm w-full"
                       >
-                        {entry.percent === 100 ? 'Go to final exam' : 'Continue course'}
+                        {entry.examUnlocked ? 'Go to final exam' : 'Continue course'}
                         <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </Link>
                     ) : (
@@ -158,9 +166,10 @@ export default async function CoursesPage() {
 
       <div className="mt-6 rounded-xl border border-line bg-canvas/50 p-4">
         <p className="text-[11.5px] leading-relaxed text-cream-500">
-          <span className="text-cream-300">A note on the exam:</span> the timer starts when you
-          begin, the tab cannot be left without closing the attempt, and only one attempt is
-          allowed per track. Make sure you have a quiet 25–35 minutes before you start.
+          <span className="text-cream-300">A note on the exam:</span>{' '}
+          {isWorkforce
+            ? 'Each module exam has 20 questions and a 25-minute limit. Score at least 70% to pass. After three failed attempts, that module exam locks for 24 hours; use the wait to review the module. The final certification exam allows one attempt.'
+            : 'The timer starts when you begin, the tab cannot be left without closing the attempt, and only one attempt is allowed per track. Make sure you have a quiet 25–35 minutes before you start.'}
         </p>
       </div>
     </div>

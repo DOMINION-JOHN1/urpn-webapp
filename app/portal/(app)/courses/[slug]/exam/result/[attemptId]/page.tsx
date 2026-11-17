@@ -19,6 +19,7 @@ import { requireUser } from '@/lib/server/auth';
 import { getAttemptForUser } from '@/lib/server/learning';
 import { canAccessCourse } from '@/lib/courses';
 import { getExamDefinition } from '@/lib/exam-bank';
+import { getModuleExamDefinition } from '@/lib/module-exam-bank';
 
 export const dynamic = 'force-dynamic';
 
@@ -51,25 +52,38 @@ export default async function ExamResultPage({
   const user = await requireUser();
   const result = await getAttemptForUser(user.id, params.attemptId);
   if (!result) notFound();
-  const { attempt, course, certificate, correct, total } = result;
+  const { attempt, course, module, exam, attemptNumber, certificate, correct, total } = result;
 
   if (course.slug !== params.slug) notFound();
   if (!canAccessCourse(user.role, course)) {
     redirect(user.role === 'workforce' ? '/workforce' : '/portal');
   }
   if (attempt.status === 'in_progress') {
-    redirect(`/portal/courses/${course.slug}/exam`);
+    redirect(
+      attempt.moduleId
+        ? `/portal/courses/${course.slug}/exam?moduleId=${attempt.moduleId}`
+        : `/portal/courses/${course.slug}/exam`
+    );
   }
 
   const score = attempt.score ?? 0;
-  const passed = Boolean(attempt.passed && certificate);
+  const passed = attempt.moduleId
+    ? Boolean(attempt.passed)
+    : Boolean(attempt.passed && certificate);
+  const lockedUntil = attempt.lockoutUntil;
+  const isLockedOut = Boolean(lockedUntil && Date.parse(lockedUntil) > Date.now());
   const unanswered = attempt.questionIds.filter(
     (id) => typeof attempt.answers?.[id] !== 'number'
   ).length;
 
-  const questions = getExamDefinition(course.slug).questions.filter((question) =>
+  const questionBank = attempt.moduleId
+    ? getModuleExamDefinition(attempt.moduleId)?.questions ?? []
+    : getExamDefinition(course.slug).questions;
+  const questions = questionBank.filter((question) =>
     attempt.questionIds.includes(question.id)
   );
+  const moduleIndex = module ? course.modules.findIndex((entry) => entry.id === module.id) : -1;
+  const nextModule = moduleIndex >= 0 ? course.modules[moduleIndex + 1] ?? null : null;
 
   return (
     <div>
@@ -129,8 +143,10 @@ export default async function ExamResultPage({
               </h1>
               <p className="mt-2 max-w-md text-[12.5px] leading-relaxed text-cream-400">
                 {passed
-                  ? `You have completed the ${course.title} and met the ${course.exam.passMark}% pass mark.`
-                  : `The pass mark for ${course.title} is ${course.exam.passMark}%. You scored ${score}%.`}
+                  ? module
+                    ? `You passed the ${module.title} module exam with the ${exam.passMark}% pass mark. The next module is unlocked.`
+                    : `You have completed the ${course.title} and met the ${exam.passMark}% pass mark.`
+                  : `The pass mark${module ? ` for ${module.title}` : ` for ${course.title}`} is ${exam.passMark}%. You scored ${score}%.`}
               </p>
             </div>
           </div>
@@ -149,7 +165,9 @@ export default async function ExamResultPage({
             </div>
             <div className="rounded-lg border border-line bg-canvas/50 p-3">
               <p className="mono-label !text-[8px]">Attempt</p>
-              <p className="mt-1 text-[16px] font-semibold text-cream-50">1/1</p>
+              <p className="mt-1 text-[16px] font-semibold text-cream-50">
+                {module ? `#${attemptNumber}` : '1/1'}
+              </p>
             </div>
           </div>
         </div>
@@ -183,6 +201,66 @@ export default async function ExamResultPage({
             Open certificate
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
+        </div>
+      ) : passed && module ? (
+        <div className="mt-5 flex flex-col gap-5 rounded-2xl border border-gold-500/25 bg-gold-500/[0.05] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div>
+            <p className="text-[15px] font-medium text-cream-50">Module exam passed.</p>
+            <p className="mt-1 max-w-lg text-[12px] leading-relaxed text-cream-400">
+              You can continue to the next module. Your workforce certificate is awarded after the final certification exam.
+            </p>
+          </div>
+          {nextModule?.lessons[0] ? (
+            <Link
+              href={`/portal/courses/${course.slug}/lessons/${nextModule.lessons[0].id}`}
+              className="btn btn-primary shrink-0"
+            >
+              Continue to {nextModule.title}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          ) : (
+            <Link href={`/portal/courses/${course.slug}`} className="btn btn-primary shrink-0">
+              Back to training
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          )}
+        </div>
+      ) : module ? (
+        <div className="mt-5 flex flex-col gap-5 rounded-2xl border border-line bg-surface p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div className="flex items-start gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-canvas text-cream-500">
+              <Lock className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div>
+              <p className="text-[15px] font-medium text-cream-50">
+                {isLockedOut ? 'This module exam is locked for 24 hours.' : 'Review the module and try again.'}
+              </p>
+              <p className="mt-1 max-w-lg text-[12px] leading-relaxed text-cream-400">
+                {isLockedOut
+                  ? `You can retry after ${formatDate(lockedUntil!)}. Use the wait to go through ${module.title} again.`
+                  : `You may retry ${module.title} with a fresh set of 20 questions. After three failed attempts, the exam locks for 24 hours.`}
+              </p>
+              <p className="mt-2 font-mono text-[9.5px] text-cream-600">
+                Attempt reference: {attempt.id}
+              </p>
+            </div>
+          </div>
+          <div className="flex shrink-0 flex-col gap-2 sm:items-end">
+            <Link
+              href={`/portal/courses/${course.slug}#module-${module.id}`}
+              className="btn btn-secondary"
+            >
+              Review {module.title}
+            </Link>
+            {!isLockedOut && (
+              <Link
+                href={`/portal/courses/${course.slug}/exam?moduleId=${module.id}`}
+                className="text-[11px] text-cream-500 hover:text-cream-50"
+              >
+                Retake with a new question set
+              </Link>
+            )}
+          </div>
         </div>
       ) : (
         <div className="mt-5 flex flex-col gap-5 rounded-2xl border border-line bg-surface p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">

@@ -495,7 +495,10 @@ function publicQuestions(
   moduleId?: string
 ): PublicExamQuestion[] {
   const questions = questionBank(course, moduleId);
-  const selected = ids ? questions.filter((question) => ids.includes(question.id)) : questions;
+  const questionById = new Map(questions.map((question) => [question.id, question]));
+  const selected = ids
+    ? ids.map((id) => questionById.get(id)).filter((question): question is ExamQuestion => Boolean(question))
+    : questions;
   return selected.map(({ id, prompt, options }) => ({ id, prompt, options }));
 }
 
@@ -975,14 +978,29 @@ export async function getAdminProgressData(): Promise<AdminMonitorData> {
       const completedCount = allLessons.filter((l) => progressMap.get(l.id)?.completedAt).length;
       const cert = userCertificates.find((c) => c.courseId === enr.courseId) ?? null;
       const attempt = userAttempts
-        .filter((a) => a.courseId === enr.courseId)
+        .filter((a) => a.courseId === enr.courseId && !a.moduleId)
         .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))[0] ?? null;
 
       const percent =
         allLessons.length > 0 ? Math.round((completedCount / allLessons.length) * 100) : 0;
+      const moduleExamsPassed =
+        !course ||
+        course.modules.every(
+          (module) =>
+            !module.exam ||
+            Boolean(
+              cert ||
+                userAttempts.some(
+                  (entry) =>
+                    entry.courseId === course.slug &&
+                    entry.moduleId === module.id &&
+                    entry.passed === true
+                )
+            )
+        );
       const status: 'certified' | 'exam_ready' | 'in_progress' | 'not_started' = cert
         ? 'certified'
-        : percent === 100
+        : percent === 100 && moduleExamsPassed
           ? 'exam_ready'
           : completedCount > 0
             ? 'in_progress'
@@ -1155,14 +1173,31 @@ export async function getAdminWorkforceData(): Promise<AdminWorkforceDashboardDa
         const attempt =
           userAttempts
             .filter(
-              (a) => a.courseId === enr.courseId || a.courseId === matchedCourse.slug || a.courseId === WORKFORCE_TRAINING.slug
+              (a) =>
+                !a.moduleId &&
+                (a.courseId === enr.courseId ||
+                  a.courseId === matchedCourse.slug ||
+                  a.courseId === WORKFORCE_TRAINING.slug)
             )
             .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))[0] ?? null;
 
         const percent = courseLessons.length > 0 ? Math.round((completedCount / courseLessons.length) * 100) : 0;
+        const moduleExamsPassed = matchedCourse.modules.every(
+          (module) =>
+            !module.exam ||
+            Boolean(
+              cert ||
+                userAttempts.some(
+                  (entry) =>
+                    entry.courseId === matchedCourse.slug &&
+                    entry.moduleId === module.id &&
+                    entry.passed === true
+                )
+            )
+        );
         const status: 'certified' | 'exam_ready' | 'in_progress' | 'not_started' = cert
           ? 'certified'
-          : percent === 100
+          : percent === 100 && moduleExamsPassed
             ? 'exam_ready'
             : completedCount > 0
               ? 'in_progress'

@@ -18,7 +18,7 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: 'Become a Worker · Unique Revival Prayer Network',
   description:
-    'Join one of our 16 ministry departments. Complete workforce training, pass the exam and receive certification before physical observation, induction, and impartation.',
+    'Join one of our 16 ministry departments. Complete workforce training and module exams, then pass the final exam before physical observation, induction, and impartation.',
 };
 
 export default async function WorkforceHubPage() {
@@ -64,8 +64,8 @@ export default async function WorkforceHubPage() {
 
             <p className="mt-5 text-[15px] leading-[1.75] text-cream-400">
               URPN is raising men and women who carry the altar into their spheres. Choose a
-              ministry department, complete the shared training, pass the exam, and receive your
-              certificate before physical observation, induction, and impartation.
+              ministry department, complete the shared training and module exams, then pass the
+              final certification exam before physical observation, induction, and impartation.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -159,9 +159,9 @@ export default async function WorkforceHubPage() {
               style={{ '--reveal-delay': '180ms' } as React.CSSProperties & { '--reveal-delay': string }}
             >
               <span className="font-mono text-xs text-gold-400">04</span>
-              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Pass exam &amp; get certified</h3>
+              <h3 className="mt-2.5 text-[15px] font-medium text-cream-50">Pass the final exam &amp; get certified</h3>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-cream-400">
-                Pass the timed exam to receive your workforce certificate.
+                Pass the final timed exam to receive your workforce certificate.
               </p>
             </div>
 

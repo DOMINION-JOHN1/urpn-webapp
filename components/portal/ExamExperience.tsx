@@ -33,6 +33,8 @@ interface AttemptPayload {
 }
 
 interface ExamExperienceProps {
+  moduleId?: string;
+  examTitle?: string;
   course: {
     slug: string;
     title: string;
@@ -55,7 +57,12 @@ function clock(totalSeconds: number) {
   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
-export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) {
+export function ExamExperience({
+  course,
+  hasOpenAttempt,
+  moduleId,
+  examTitle,
+}: ExamExperienceProps) {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>('intro');
   const [understood, setUnderstood] = useState(false);
@@ -84,7 +91,7 @@ export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) 
       const response = await fetch('/api/portal/exam/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ courseId: course.slug }),
+        body: JSON.stringify({ courseId: course.slug, ...(moduleId ? { moduleId } : {}) }),
       });
       const payload = await response.json().catch(() => ({}));
 
@@ -111,7 +118,7 @@ export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) 
       setError(err instanceof Error ? err.message : 'Could not start the exam.');
       setStarting(false);
     }
-  }, [course.slug, router]);
+  }, [course.slug, moduleId, router]);
 
   const submit = useCallback(
     async (reason: 'submitted' | 'tab_left' | 'time_expired') => {
@@ -240,6 +247,8 @@ export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) 
 
   const question = questions[current];
   const lowTime = secondsLeft <= 120;
+  const displayExamTitle = examTitle ?? `${course.shortTitle} final exam`;
+  const examTypeLabel = moduleId ? 'Module exam' : 'Final exam';
 
   /* ------------------------------------------------------------------ intro */
   if (mode === 'intro') {
@@ -256,14 +265,15 @@ export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) 
 
         <div className="mt-5 flex items-center gap-3">
           <span className="h-px w-6 bg-gold-500/70" />
-          <span className="mono-label text-gold-300">Final exam</span>
+          <span className="mono-label text-gold-300">{examTypeLabel}</span>
         </div>
         <h1 className="mt-4 text-[30px] font-semibold leading-[1.1] tracking-[-0.04em] text-cream-50 sm:text-[38px]">
-          {course.shortTitle} final exam.
+          {displayExamTitle}.
         </h1>
         <p className="mt-3 max-w-xl text-[13.5px] leading-[1.75] text-cream-400">
-          You have completed the lessons. This is the examination for the {course.title}. Read the
-          rules carefully — there is only one attempt.
+          {moduleId
+            ? `You have completed the ${displayExamTitle} lessons. Read the rules carefully before you begin.`
+            : `You have completed the lessons. This is the examination for the ${course.title}. Read the rules carefully — there is only one attempt.`}
         </p>
 
         {hasOpenAttempt && (
@@ -285,7 +295,7 @@ export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) 
           {[
             { label: 'Questions', value: String(course.questionCount) },
             { label: 'Time limit', value: `${course.durationMinutes} min` },
-            { label: 'Attempts', value: '1' },
+            { label: moduleId ? 'Retry rule' : 'Attempts', value: moduleId ? '24h / 3 fails' : '1' },
             { label: 'Pass mark', value: `${course.passMark}%` },
           ].map((item) => (
             <div key={item.label} className="bg-surface p-4">
@@ -317,7 +327,9 @@ export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) 
             </li>
             <li className="flex gap-2.5">
               <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-cream-500" />
-              One attempt only. There is no retake and no reset.
+              {moduleId
+                ? 'You can retry after a failed attempt. After every three failures, this exam locks for 24 hours. Review the module during the wait; each retry uses a rotated set of questions.'
+                : 'One attempt only. There is no retake and no reset.'}
             </li>
             <li className="flex gap-2.5">
               <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-cream-500" />
@@ -338,8 +350,9 @@ export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) 
             className="mt-0.5 h-4 w-4 rounded border-line bg-canvas accent-accent"
           />
           <span className="text-[12px] leading-relaxed text-cream-300">
-            I understand the rules. I have a quiet place, a stable connection, and I am ready to
-            use my only attempt.
+            {moduleId
+              ? 'I understand the rules. I have a quiet place, a stable connection, and I am ready to begin this module exam.'
+              : 'I understand the rules. I have a quiet place, a stable connection, and I am ready to use my only attempt.'}
           </span>
         </label>
 
@@ -395,9 +408,9 @@ export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) 
             </span>
             <div className="min-w-0">
               <p className="truncate font-mono text-[9px] uppercase tracking-[0.14em] text-cream-500">
-                {course.code} · Final exam
+                {course.code} · {examTypeLabel}
               </p>
-              <p className="truncate text-[12px] text-cream-200">{course.title}</p>
+              <p className="truncate text-[12px] text-cream-200">{displayExamTitle}</p>
             </div>
           </div>
 
@@ -626,7 +639,9 @@ export function ExamExperience({ course, hasOpenAttempt }: ExamExperienceProps) 
                   </span>
                 </>
               )}{' '}
-              You cannot retake this exam.
+              {moduleId
+                ? 'Submitting closes this attempt. You can retry before the 24-hour lockout begins after three failed attempts.'
+                : 'You cannot retake this exam.'}
             </p>
             <div className="mt-5 flex gap-2">
               <button

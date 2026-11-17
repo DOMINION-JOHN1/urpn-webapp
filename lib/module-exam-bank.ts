@@ -726,6 +726,428 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
         "explanation": "Genuine unity and one accord create a spiritual environment where the corporate anointing flows smoothly from the head to every part of the body."
     },
   ] },
+  "wt-m-stewardship": { questions: [
+    {
+        "id": "stewardship-01",
+        "prompt": "Scenario: Brother Caleb, a newly appointed URPN intercessory team lead, receives a powerful prophetic insight during a midnight prayer watch concerning his city's territorial shift. Excited by the revelation, he immediately posts a stylized image on his WhatsApp status with the caption: \"There is no flight without a fight. — C.O. Divine Blueprints Unlocked! Happy New Month!\" He spends the next two hours monitoring views and comments while skipping his scheduled morning Word study. According to URPN teaching on the secret place and spiritual stewardship, what is the primary spiritual vulnerability Brother Caleb has exposed himself to?",
+        "options": [
+            "He failed to copyright his prophetic quote, allowing others to claim his spiritual insight.",
+            "He operated in public visibility while allowing his secret place to starve, risking spiritual attack because his life is not under an active governing secret altar.",
+            "He posted on WhatsApp instead of Facebook, where URPN's primary territorial audience resides.",
+            "He broke the territorial law of intercession by revealing a secret before praying for 40 consecutive days."
+        ],
+        "answer": 1,
+        "explanation": "Apostle Ada Victor Adjo explicitly teaches in STEWARDSHIP II that posting spiritual experiences or quotes on social media (WhatsApp, Facebook) while one's secret place is starving creates a dangerous spiritual exposure. Your true life and authority are formed in secret communion with God, not in public online visibility. Exposing an unbuilt life without a robust, governing secret altar leaves a worker naked before territorial forces."
+    },
+    {
+        "id": "stewardship-02",
+        "prompt": "Scenario: Sister Miriam, a departmental executive in URPN workforce, states during a leadership retreat: \"I have the Holy Spirit inside me, and Hebrews 1 says God speaks through His Son. Therefore, I do not need any human leader to give me directives or correct my spiritual convictions; I report directly to God.\" Based on Apostle Ada Victor Adjo’s teaching on spiritual balance and hearing God, how should senior leadership evaluate Sister Miriam’s stance?",
+        "options": [
+            "She is demonstrating the ideal, fully matured Spirit-led maturity required of all endtime kingdom agents.",
+            "She has adopted a dangerous spiritual imbalance—rejecting God-ordained human oversight while falsely assuming personal immunity from deception.",
+            "She is correct because the Law of Moses has been completely abolished, including all ministerial oversight.",
+            "She should be immediately excommunicated for committing an unpardonable sin against the set man."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II, Apostle Ada highlights two dangerous generational imbalances: (1) those who feel they hear God alone and don't need human leadership, and (2) those who rely solely on human leaders and never seek God personally. While Hebrews 1 states God speaks by His Son, scripture also establishes that \"the less is blessed of the better.\" Rejecting God-ordained human structure and discipling oversight under the guise of direct hearing leads to self-deception and rebellion."
+    },
+    {
+        "id": "stewardship-03",
+        "prompt": "Scenario: Minister Jude notices that whenever he devotes extended hours to deep meditation on the Word day and night (Psalm 1:1–3), his decision-making in his secular career becomes remarkably precise, and his projects prosper effortlessly without ethical compromise. What exact spiritual mechanism explains this outcome according to URPN teaching?",
+        "options": [
+            "The Word functions as an automatic financial spell that forces non-believers to favor Christians.",
+            "Staying long in meditation causes a kingdom colonization over his spirit, transforming self so that all his actions proceed strictly from kingdom dictates.",
+            "Academic and professional success is purely a product of intellectual luck, unrelated to secret place consecration.",
+            "Meditation builds mental speed, enabling a person to outsmart business competitors through human craftiness."
+        ],
+        "answer": 1,
+        "explanation": "Grounded in Psalm 1:1–3 and STEWARDSHIP II, when a believer spends extended space meditating on the Word day and night, a spiritual \"colonization\" takes place. Self is transformed into alignment with the Kingdom of God. Consequently, whatever the believer touches prospers because their actions are no longer driven by fleshly impulses, but by divine dictates operating through a renewed mind."
+    },
+    {
+        "id": "stewardship-04",
+        "prompt": "Scenario: A workforce member who repented of a moral failure six months ago is consistently burdened by overwhelming guilt. Whenever called upon to serve at the altar, he retreats, believing his past abortion and sexual impurity permanently disqualify him from carrying divine glory and that Satan will destroy him if he steps forward. How does URPN doctrine diagnose this brother's condition, and what is the biblical remedy?",
+        "options": [
+            "He is operating under the Spirit of Adoption, which uses perpetual guilt to keep ministers humble.",
+            "He is trapped under the spirit of bondage and demonic leverage of unchecked guilt, failing to realize that God keeps no record of repented sin under the Fatherhood revelation.",
+            "He must perform seven public penances and fast for 100 days before God will consider forgiving his past.",
+            "He is correct; any minister who sins after ordination can never be restored to active workforce service."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II, Apostle Ada explains the contrast in Romans 8 between the Spirit of Bondage (which induces fear and guilt) and the Spirit of Adoption (which brings the revelation of Abba Father). When sin is repented of, God makes no record of it (Isaiah 43:25). If guilt is not biblically processed, Satan leverages it to keep believers in perpetual bondage, stripping them of boldness to serve."
+    },
+    {
+        "id": "stewardship-05",
+        "prompt": "Scenario: An intercessor receives rapid visual signals and atmospheric shifts during territorial prayer meetings but constantly misinterprets them, leading to false alarms and confusion among team members. What root cause does Apostle Ada Victor Adjo assign to a believer’s inability to accurately decode spiritual witnesses?",
+        "options": [
+            "The Holy Spirit is deliberately giving false signals to test the team's patience.",
+            "The intercessor's spirit man lacks the necessary spiritual voltage/energy, caused by inconsistent prayer, insufficient Word intake, and lax consecration.",
+            "The intercessor needs to purchase a specialized prophetic decoding manual from external ministries.",
+            "Interpreting spiritual signals is exclusively reserved for ordained apostles, not workforce members."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II, spiritual witnesses (dreams, visions, internal knowings, prophetic promptings) require a sufficient \"spiritual voltage\" or energy level in the spirit man to be accurately decoded. This voltage is generated through four disciplined habits: consistent prayer, deep Word intake, waiting/meditation, and strict consecration. Without these, spiritual signals become garbled or misinterpreted."
+    },
+    {
+        "id": "stewardship-06",
+        "prompt": "Scenario: A young minister desires the public power demonstrated in Jesus’ earthly ministry—healing the sick and commanding territorial respect. However, he refuses to observe private prayer watches, claiming that public enthusiasm and corporate gatherings are sufficient to generate ministry impact. What core principle of URPN stewardship does this minister violate?",
+        "options": [
+            "Public manifestation is an automatic birthright of church membership requiring no personal discipline.",
+            "True essence and spiritual authority are formed exclusively in hidden, disciplined secret place communion; public power without private death is a fatal illusion.",
+            "Ministry impact is determined solely by the quality of sound equipment and media packaging.",
+            "Fasting and secret place prayer were only necessary for Old Testament prophets."
+        ],
+        "answer": 1,
+        "explanation": "As emphasized in STEWARDSHIP II, Jesus spent 40 days in fasting and long nights in prayer before demonstrating public power. Public miracles and authority are merely the visible fruit of a hidden, cultivated secret place. Attempting to manifest public power without hidden death and secret place communion is a dangerous illusion that leads to spiritual collapse."
+    },
+    {
+        "id": "stewardship-07",
+        "prompt": "Scenario: A worker routinely exaggerates ministry statistics and tells calculated lies to her unit head to cover up missed assignments. When confronted privately, she feels no internal prick of conscience, guilt, or remorse whatsoever. According to URPN teaching on spiritual health, what condition does this reflect?",
+        "options": [
+            "She has reached high spiritual liberty where legalistic guilt no longer affects her.",
+            "She has developed a dangerous bulletproof conscience and an emergency spiritual state bordering on a reprobate mind.",
+            "She is displaying administrative wisdom by protecting her unit's public image.",
+            "The Holy Spirit does not monitor administrative reporting, only prayer meetings."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II, the Holy Spirit ministers to a believer's spirit through the conscience. When a worker routinely lies, exaggerates, or compromises without feeling any conviction or grief, it indicates a seared conscience—an emergency spiritual state bordering on a reprobate mind where spiritual sensitivity has been deadened."
+    },
+    {
+        "id": "stewardship-08",
+        "prompt": "Scenario: Facing a severe financial bottleneck, a workforce member enters a 3-day dry fast and issues an ultimatum in prayer: \"God, if You do not release 500,000 Naira into my account by Friday 5 PM, I will stop attending kingdom meetings and prove that serving You is a waste.\" How does URPN stewardship evaluate this approach to prayer?",
+        "options": [
+            "It is a commended act of violent faith that forces God to respond immediately.",
+            "It misapprehends seeking God, which must flow from an internal quest and hunger; God cannot be coerced by fleshly ultimatums or transactional demands.",
+            "It is the exact method Abraham used to receive Isaac from God.",
+            "It demonstrates proper workforce authority over divine financial reserves."
+        ],
+        "answer": 1,
+        "explanation": "STEWARDSHIP II teaches that seeking God is an internal quest and hunger driven from the inside out. God cannot be manipulated, crushed, or coerced by human ultimatums or transactional demands. True seeking arises from recognizing a deep spiritual need, not demanding material responses on human deadlines."
+    },
+    {
+        "id": "stewardship-09",
+        "prompt": "Scenario: An intercessor suffers a prolonged season of spiritual dryness due to personal negligence. Although his spiritual fire has dimmed to a faint, smoking flax, he feels a persistent, uncomfortable inner ache whenever he skips corporate prayer. What does URPN teaching reveal about this intercessor’s status?",
+        "options": [
+            "He is completely rejected by God and must be re-baptized before praying again.",
+            "As long as a smoking flax and an undying quest remain in his heart, divine mercy can rekindle his altar when alignment and discipline return.",
+            "Smoking flax is proof that a worker has received the highest dimension of apostolic grace.",
+            "Spiritual ache is a psychological disorder caused by over-attending church programs."
+        ],
+        "answer": 1,
+        "explanation": "Drawing from STEWARDSHIP II and Isaiah 42:3, God will not break a bruised reed nor quench a smoking flax. As long as an undying quest and a faint smoke of desire remain in a believer’s heart, divine mercy can step in, reignite the altar, and restore lost spiritual capacity (just as Samson's hair began to grow again)."
+    },
+    {
+        "id": "stewardship-10",
+        "prompt": "Scenario: A unit coordinator is given a financial grant meant for purchasing outreach materials for an upcoming territorial crusade. Observing that his personal attire looks outdated for his platform appearance, he diverts 60% of the funds to purchase expensive designer suits, reasoning that \"looking prosperous advances the Kingdom image.\" Why does this action directly breach the Law of Stewardship?",
+        "options": [
+            "Designer suits are forbidden for all URPN workforce members.",
+            "The Law of Stewardship states that every resource entrusted by God must first profit and advance His Kingdom directly, not personal vanity or self-indulgence.",
+            "He should have used 100% of the money for suits instead of only 60%.",
+            "Outreach materials should always be obtained for free through sponsorship."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II & III, the Law of Stewardship (derived from 2 Corinthians 4:7) dictates that every resource, asset, or grace committed into a believer's hands must first profit and advance the Kingdom of God. Diverting kingdom resources for personal vanity or self-aggrandizement directly violates this fundamental law."
+    },
+    {
+        "id": "stewardship-11",
+        "prompt": "Scenario: A dedicated church member spends 25 years actively attending services, ushering faithfully, and participating in annual anniversaries. However, he never seeks divine revelation regarding his specific territorial assignment, nor does he cultivate his spiritual gifts to deliver his family from generational bondages. At the eternal audit, how will this life be classified according to URPN teaching?",
+        "options": [
+            "As a highly successful Christian life because he maintained uninterrupted church membership.",
+            "As an unprofitable and wasted life, because lifetime is a finite spiritual currency given to discover and unveil God's specific glory in time.",
+            "As an automatic qualification for the highest apostolic crown in eternity.",
+            "As an acceptable life, provided he paid his tithes regularly."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II & III, Apostle Ada emphasizes that lifetime is a spiritual currency given by God. Believers are placed on earth to discover, steward, and unveil God's specific glory. Spending decades in routine church attendance without fulfilling one's divine blueprint results in being categorized as an unprofitable servant at the eternal audit (Matthew 25)."
+    },
+    {
+        "id": "stewardship-12",
+        "prompt": "Scenario: A male discipling leader in URPN is assigned three young female believers for spiritual grounding. Within two months, he begins a romantic relationship with one of them and initiates physical intimacy, claiming: \"God revealed to me in a dream that she is my marital destiny, so I am taking what is mine.\" What fundamental error regarding kingdom custody did this leader commit?",
+        "options": [
+            "He failed to inform the set man before starting the relationship.",
+            "He confused bread (what is meant for consumption) with seed (what is entrusted to keep, disciple, and protect), eating what God gave him strictly to steward.",
+            "He should have initiated romantic relationships with all three sisters simultaneously to avoid partiality.",
+            "Discipling leaders are strictly forbidden from ever marrying anyone within the ministry."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II, Apostle Ada shares a solemn warning: \"Don't eat a thing God gives you to keep.\" God gives bread to the eater and seed to the sower. Disciples and workforce members placed under a leader's care are seeds to be nurtured and protected for the Kingdom, not bread to be consumed for personal or fleshly gratification."
+    },
+    {
+        "id": "stewardship-13",
+        "prompt": "Scenario: A senior administrator in URPN consistently uses her platform to train younger workers, connect them to vocational opportunities, and build their spiritual capacity without demanding financial kickbacks or personal subservience. Years later, when she encounters a severe life crisis, these same mentored workers step in to support her morally, spiritually, and financially. Which scriptural parable and principle does this scenario illustrate?",
+        "options": [
+            "The Parable of the Sower and rocky ground reception.",
+            "The Parable of the Unjust Steward (Luke 16), demonstrating that faithful impact creates an enduring voice and spiritual reservoir that speaks in future seasons.",
+            "The Law of the Old Testament Tithe and ceremonial cleansing.",
+            "The principle of apostolic commercialization and fee-based mentorship."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP III, Apostle Ada dissects the Parable of the Unjust Steward (Luke 16:1–13). The central lesson Jesus commends is using present authority and resources to impact and elevate others. Faithful impact creates a voice and spiritual reservoir (\"making friends of unrighteous mammon\") that speaks for and supports the steward in future seasons."
+    },
+    {
+        "id": "stewardship-14",
+        "prompt": "Scenario: An ordained intercessor assigned to watch over a specific campus community abandons her prayer watch to pursue social media influence and entertainment. During her period of prayerlessness, a wave of cult violence and moral collapse sweeps through the campus. According to Apostle Ada Victor Adjo's teaching on stewardship, what is the intercessor’s spiritual standing regarding this tragedy?",
+        "options": [
+            "She is entirely blameless because humans possess free will to commit crimes.",
+            "She is an unprofitable and wicked steward whose negligence at her assigned gate makes her spiritually accountable for the lives lost.",
+            "She should be commended for prioritizing social media evangelism over quiet intercession.",
+            "Campus security issues are purely governmental affairs unrelated to spiritual altars."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II & III, an intercessor is a watchman stationed at a gate. Neglecting one's intercessory watch allows territorial darkness to plunder lives. In kingdom stewardship, a worker who fails to stand at their assigned gate is held spiritually accountable for the resulting destruction, making them an unprofitable steward."
+    },
+    {
+        "id": "stewardship-15",
+        "prompt": "Scenario: A prophetically gifted worker in URPN establishes a private consultation standard: members seeking personal prophetic declarations or intercessory prayers must pay a mandatory \"altar activation fee\" of 20,000 Naira. How does URPN stewardship evaluate this practice?",
+        "options": [
+            "It is a legitimate method of securing ministry operational funding.",
+            "It is a corrupt merchandising of divine grace; what was received freely must be imparted freely without commercial price tags.",
+            "It is acceptable provided 10% of the collection is remitted to URPN treasury.",
+            "Prophetic grace cannot operate unless money physically touches the prophet's hands."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II, Apostle Ada explicitly condemns placing price tags on spiritual graces, anointing, or prayers (\"freely you have received, freely give\"). Merchandising divine grace turns kingdom resources into commercial trade, bringing divine judgment upon the minister."
+    },
+    {
+        "id": "stewardship-16",
+        "prompt": "Scenario: A unit head asserts: \"Since God knows my heart and sees my private sacrifices, I do not need to submit financial reports, attendance records, or activity summaries to URPN leadership.\" Which dimension of stewardship accounting does this posture violate?",
+        "options": [
+            "None; divine accounting completely eliminates human accountability.",
+            "Double Accounting—a true steward must give account both before God in eternity and before men in time through structured workforce evaluation.",
+            "The principle of silent ministry where no records are ever kept.",
+            "The rule of apostolic independence where unit heads govern without oversight."
+        ],
+        "answer": 1,
+        "explanation": "Grounded in 1 Corinthians 4:1–2 and STEWARDSHIP III, stewardship requires Double Accounting: (1) accounting before God for lifetime and grace, and (2) accounting before men in time for ministry execution and administrative faithfulness. Despising human accountability is a sign of rebellion, not spiritual maturity."
+    },
+    {
+        "id": "stewardship-17",
+        "prompt": "Scenario: A URPN sub-unit possesses two functional public address systems. A neighboring church branch down the street experiences an equipment breakdown on the eve of their crusade and requests to borrow one unit. The URPN sub-unit head refuses, stating: \"We bought this with our sub-unit offerings; kingdom assets must not be shared with outside assemblies.\" What flaw in stewardship understanding is manifested here?",
+        "options": [
+            "Excellent asset protection discipline.",
+            "Ignorance of the Body of Christ principle, failing to understand that all resources belong to God and are meant for global kingdom advancement.",
+            "Compliance with international inter-church competition laws.",
+            "Proper execution of territorial exclusivity doctrines."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II, Apostle Ada notes that all kingdom assets belong to God, not to individual sub-units or local assemblies. Refusing to support another branch of the Body of Christ out of unit selfishness reveals a failure to understand global kingdom advancement."
+    },
+    {
+        "id": "stewardship-18",
+        "prompt": "Scenario: A minister accumulates 100,000 online followers, fills stadiums, and is hailed across news media as the most successful revivalist of his generation. However, upon divine evaluation, his heavenly record indicates zero kingdom profit. How is this disparity explained in URPN stewardship doctrine?",
+        "options": [
+            "Heaven's accounting software made an error in data calculation.",
+            "Earthly ratings measure popularity, crowd size, and media metrics, whereas heavenly success is evaluated strictly by divine glory unveiled and territorial realignment.",
+            "Popular ministers are automatically demoted in heaven to maintain equality.",
+            "Social media followers are counted as negative points in divine audits."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II & III, human rating systems rely on crowd size, media publicity, and external applause. Heavenly evaluation, however, measures profit strictly by how much divine glory was unveiled, how many lives were transformed, and how much territory was realigned to God's original ordination."
+    },
+    {
+        "id": "stewardship-19",
+        "prompt": "Scenario: Brother Peter, eager to manifest apostolic power rapidly, decides on his own initiative to embark on a 50-day dry fast without spiritual instruction, leadership clearance, or medical wisdom. On Day 12, he collapses with severe organ failure and is rushed to intensive care. How does URPN distinguish Peter's action from genuine kingdom sacrifice?",
+        "options": [
+            "Peter displayed supreme faith that God was obligated to honor regardless of wisdom.",
+            "Sufferings that lead to divine glory must be prescribed by God; self-selected, arbitrary hardship is fleshly pride and foolishness, not kingdom temperance.",
+            "Fasting beyond 3 days is forbidden for all Christian believers.",
+            "Organ failure is proof that the fast was accepted by God."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II & III, Apostle Ada teaches that true spiritual sufferings must be prescribed by God. Self-designed, extreme asceticism born of personal ambition or spiritual pride is fleshly foolishness, not kingdom temperance, and often results in physical or spiritual destruction."
+    },
+    {
+        "id": "stewardship-20",
+        "prompt": "Scenario: Apostle Ada Victor Adjo teaches that every believer carries an internal dimension of divine glory (star, moon, or sun glory), but this glory remains trapped and unmanifested at salvation. What is the precise spiritual mechanism (Apocalypto) by which this hidden glory is unveiled?",
+        "options": [
+            "Through purchasing specialized anointed oil and cloths from ministry stores.",
+            "Through enduring God-prescribed sufferings that break and subdue the veil of flesh, allowing the internal divine content to be disclosed.",
+            "Through obtaining multiple academic degrees in theology.",
+            "Through declaring positive affirmations in front of a mirror daily."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II & III, the Greek word Apocalypto means to unveil or disclose. Every believer carries inner glory, but it is veiled by the flesh. God uses prescribed sufferings (discipline, fasting, subduing physical appetites, enduring trials) to strip away the veil of flesh so the inner divine treasure can shine forth."
+    },
+    {
+        "id": "stewardship-21",
+        "prompt": "Scenario: A gifted singer alters her gospel lyrics and compromises URPN's consecration standards to secure a lucrative contract with an earthly entertainment label. She gains wealth and international fame within months, declaring: \"God has finally glorified me!\" How does URPN evaluate this outcome?",
+        "options": [
+            "As genuine divine promotion confirming her spiritual alignment.",
+            "As obtaining a corruptible, vain glory through compromise, which will collapse under eternal audit because she refused the cross.",
+            "As an acceptable marketplace ministry strategy.",
+            "As proof that consecration is irrelevant to divine destiny."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II, Apostle Ada contrasts corruptible, vain glory (obtained through compromise and self-promotion) with incorruptible kingdom glory. Compromising consecration to gain earthly fame produces a temporary, vain glory that will be burned at the judgment seat of Christ."
+    },
+    {
+        "id": "stewardship-22",
+        "prompt": "Scenario: A workforce member’s divine assignment was structured by God to take 40 days of intensive consecration to unlock. However, due to persistent murmuring, rebellion against correction, and breaking prayer watches, he remains on the same foundational stage after 12 years. What spiritual reality explains his prolonged stagnation?",
+        "options": [
+            "God altered His mind and decided to cancel his destiny permanently.",
+            "Inconsistency and spiritual carryovers debit a worker's account, forcing God to keep them in the wilderness until self is thoroughly crucified.",
+            "Demonic altars from his village are stronger than the power of God.",
+            "12 years is the standard mandatory waiting period for all spiritual gifts."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP III, spiritual carryovers occur when a believer fails to pass divine tests of obedience, submission, and temperance. Just as Israel turned a 40-day journey into a 40-year wilderness due to murmuring and rebellion, inconsistent workers prolong their making process through spiritual carryovers."
+    },
+    {
+        "id": "stewardship-23",
+        "prompt": "Scenario: A young worker receives a genuine vision of himself ministering to thousands across African nations. Overflowing with zeal, he immediately quits his job, prints flyers naming himself \"Global Apostle,\" and schedules international crusades despite having no prayer altar or leadership backing. Within six months, he suffers severe embarrassment and financial ruin. What principle of divine timing and sonship was violated?",
+        "options": [
+            "Visions are always false and should be ignored completely.",
+            "Sons do not reveal themselves; it is the Father's sole prerogative to show forth His sons when process has made them pleasurable to Him.",
+            "He did not spend enough money on social media advertising.",
+            "International ministry is reserved exclusively for citizens of Western nations."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP III, scripture states: \"This is My beloved Son, in whom I am well pleased.\" It is the Father's prerogative to unveil His sons when process has made them pleasurable to Him. Self-advertisement and premature exposure without divine clearance and mature altars lead to ruin."
+    },
+    {
+        "id": "stewardship-24",
+        "prompt": "Scenario: During a critical 7-day territorial prayer watch, a worker struggles continuously with gluttony, consuming heavy meals late at night and sleeping through his midnight intercessory watches. He defends himself saying: \"Eating food is not a sin; grace covers my tiredness.\" According to 1 Corinthians 9:25 and URPN teaching, what does this behavior reveal?",
+        "options": [
+            "High spiritual maturity that recognizes Christian liberty.",
+            "A total lack of temperance (moderation); a worker who cannot bring his physical appetite under subjection cannot handle spiritual mastery or higher glory.",
+            "That midnight prayers are harmful to human physical health.",
+            "That grace automatically prays on behalf of sleeping workers."
+        ],
+        "answer": 1,
+        "explanation": "Grounded in 1 Corinthians 9:25 and STEWARDSHIP II, anyone striving for mastery must be temperate in all things. An inability to control bodily appetites (food, sleep, comfort) proves that a worker cannot handle the spiritual subjection required for higher dimensions of authority."
+    },
+    {
+        "id": "stewardship-25",
+        "prompt": "Scenario: A minister continually boasts about how he prayed for 10 hours daily while on campus eight years ago. However, his current daily life involves zero personal prayer, constant media consumption, and frequent temper tantrums. How does URPN assess his present spiritual standing?",
+        "options": [
+            "He remains a high-voltage spiritual authority based on past credit.",
+            "He is living on obsolete spiritual memories while his current altar is dead, rendering his present witness powerless and exposed.",
+            "Past prayer hours are bankable assets that cover a minister for lifetime without fresh labor.",
+            "Campus prayer records automatically exempt a minister from post-graduation altars."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP III, Apostle Ada warns against relying on obsolete spiritual achievements (\"I prayed 10 hours daily five years ago\"). Altars must be maintained daily. Living on past spiritual glory while present altars lie in ruins leaves a worker powerless against current territorial demands."
+    },
+    {
+        "id": "stewardship-26",
+        "prompt": "Scenario: A newly recruited workforce member complains bitterly about URPN’s rigorous discipling schedule, early morning prayer calls, and strict consecration guidelines, calling it \"unnecessary oppression.\" What foundational truth regarding youth and spiritual formation should be explained to him?",
+        "options": [
+            "He should leave ministry immediately and return after age 60.",
+            "Bearing the yoke in one's youth is God's merciful training ground to build spiritual capacity before heavy territorial responsibilities arrive.",
+            "Discipling guidelines are designed to punish young workers for fun.",
+            "True Christianity requires no discipline or sacrifice whatsoever."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP II & III, bearing the yoke in one's youth (Lamentations 3:27) is framed as divine mercy. Submitting to rigorous discipling and spiritual watches while young builds the endurance, character, and spiritual capacity required to carry heavy territorial mantles in adulthood."
+    },
+    {
+        "id": "stewardship-27",
+        "prompt": "Scenario: A URPN missionary deployed to an unreached, hostile territory faces severe financial constraint, rough lodging, and intense opposition. Yet, he rejoices daily and labors with intense passion, seeing lives transformed. What deep understanding sustains his joy amidst suffering?",
+        "options": [
+            "He is being secretly paid a massive covert salary by international donors.",
+            "He understands that sharing in Christ's prescribed sufferings is the legal prerequisite for sharing in His unveiled glory and territorial reign.",
+            "He is seeking public martyrdom to become famous in church history books.",
+            "He suffers from a psychological inability to feel physical pain."
+        ],
+        "answer": 1,
+        "explanation": "Grounded in Romans 8:17–18 and STEWARDSHIP II, legal inheritance of kingdom authority requires fellowship in Christ's sufferings. True kingdom agents rejoice in hardship because they understand that current prescribed sufferings are producing an eternal weight of unveiled glory."
+    },
+    {
+        "id": "stewardship-28",
+        "prompt": "Scenario: Brother Joseph is assigned to set up plastic chairs and sweep the venue before corporate meetings. Feeling overqualified due to his university degree, he neglects the setup, stands by the entrance with folded arms, and demands to be placed directly on the prophetic intercession leadership panel. Which fundamental law of faithfulness has Brother Joseph broken?",
+        "options": [
+            "The law of territorial expansion through diplomatic negotiation.",
+            "He that is unfaithful in least (small, humble tasks) will never be entrusted with much or granted higher spiritual authority.",
+            "University graduates are scripturally exempt from manual sanctuary labor.",
+            "Chair setup is a task reserved exclusively for uneducated church members."
+        ],
+        "answer": 1,
+        "explanation": "Grounded in Luke 16:10 and STEWARDSHIP III, faithfulness in the least (humble, unglamorous service like clearing chairs or sweeping) is God's mandatory testing ground. Despising small assignments proves unfaithfulness, permanently blocking advancement to major leadership roles."
+    },
+    {
+        "id": "stewardship-29",
+        "prompt": "Scenario: An assistant unit head systematically criticizes her unit leader behind his back, countermands his instructions, and secretly builds a loyal faction among the workforce to prepare for her own upcoming ministry launch. Based on scriptural laws of stewardship regarding \"another man's work\" (Luke 16:12), what is the guaranteed spiritual outcome for her future ministry?",
+        "options": [
+            "God will reward her ambition with rapid international growth.",
+            "Being unfaithful in another man's assignment guarantees that God will never commit her own true divine assignment to her.",
+            "She will receive a double portion of her leader's mantle through rebellion.",
+            "Faction building is a recognized spiritual gift for administrative advancement."
+        ],
+        "answer": 1,
+        "explanation": "In Luke 16:12 and STEWARDSHIP III, Jesus establishes that if a worker is unfaithful in that which belongs to another man, no one—including God—will give them their own divine assignment. Rebellion and sabotage in another leader's vision abort one's own ministry destiny."
+    },
+    {
+        "id": "stewardship-30",
+        "prompt": "Scenario: A believer publicly posts photos of Apostle Ada Victor Adjo on Instagram, captioning him \"My Father, My Mentor!\" However, he never attends discipling classes, refuses accountability for his personal life, and ignores ministerial corrections. How does URPN classify this type of relationship?",
+        "options": [
+            "Authentic covenant sonship operating in modern digital space.",
+            "Ghost-sonship—a superficial, deceptive title that provides zero spiritual coverage, discipling alignment, or legitimate fatherhood.",
+            "The highest form of spiritual honor recognized in endtime revival movements.",
+            "A valid administrative arrangement where distance eliminates the need for obedience."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP III, Apostle Ada exposes \"ghost-sonship\"—claiming senior ministers as spiritual fathers on social media for status while refusing personal contact, discipling, accountability, and correction. Ghost-sonship yields zero spiritual coverage or legitimate impartation."
+    },
+    {
+        "id": "stewardship-31",
+        "prompt": "Scenario: Sister Hannah has quietly and faithfully interceded for a small, obscure local cell group of four members for four years without public recognition or promotion. Meanwhile, others are chasing large platform titles. How does divine promotion operate in Hannah's situation according to URPN teaching?",
+        "options": [
+            "She has been forgotten by God and is wasting her youth in obscurity.",
+            "Faithfulness at one's assigned local gate is God's divine system for promotion; when her season comes, God Himself will lift her from the dunghill to sit among princes.",
+            "She should immediately resign and join a larger ministry with better media coverage.",
+            "Promotion is strictly earned by lobbying senior ministers during regional conventions."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP III, divine promotion comes from God alone (Psalm 75:6–7). Remaining faithful at one's assigned local gate—even over a small flock in obscurity—is God's exact system for elevating stewards to sit among princes when their appointed season arrives."
+    },
+    {
+        "id": "stewardship-32",
+        "prompt": "Scenario: A student workforce member in URPN fails four university courses in one semester. He justifies his academic disaster by stating: \"I spent all my time in church halls praying and holding night watches; school is worldly, but Jesus is my focus.\" How does URPN workforce culture evaluate this student's explanation?",
+        "options": [
+            "Commends him as a heroic martyr for the gospel who should drop out of school.",
+            "Identifies his conduct as indiscipline and spiritual laziness; true kingdom agents balance spiritual fervor with academic/secular excellence, refusing to let the sanctuary become a refuge for failure.",
+            "Blames the university professors for demonic witch-hunting.",
+            "Advises him to forge his academic transcripts to protect the ministry's image."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP III, Apostle Ada explicitly rebukes students who fail their academic courses and blame church activities. URPN workforce culture demands discipline: true kingdom agents balance spiritual fervor with academic/secular excellence (e.g., studying 2 hours daily and maintaining prayer altars), refusing to allow church to become an excuse for failure."
+    },
+    {
+        "id": "stewardship-33",
+        "prompt": "Scenario: After an explosive Kingdom Might session where heavy spiritual impartation and fire were released, a workforce member goes home, eats a heavy meal, and watches comedy movies for six hours without praying, reviewing session notes, or meditating on the Word. Three days later, he feels completely dry and empty. What happened to the impartation he received?",
+        "options": [
+            "The set man secretly withdrew the impartation remotely.",
+            "Impartation functions as a catalyst requiring post-meeting regurgitation, prayer, and continuity; without stewardship, impartations leak away and turn to ash.",
+            "Impartations are temporary emotional highs that naturally expire after 48 hours.",
+            "Demonic forces stole the impartation because he did not sow a financial seed immediately."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP III, impartations act as catalysts that speed up spiritual growth. However, if a worker fails to steward an impartation through post-meeting regurgitation (re-listening to messages, quiet reflection, deep prayer, and Word study), the grace leaks away and the fire turns to ash."
+    },
+    {
+        "id": "stewardship-34",
+        "prompt": "Scenario: A URPN revival deployment team arrives in a community plagued by ancestral idolatry, youth gang violence, and systemic poverty. According to URPN’s core mission statement, what is their ultimate objective in this territory?",
+        "options": [
+            "To build a commercial shopping complex to generate revenue for the team.",
+            "To realign the people, families, and territory back to their original divine ordination so they operate from God's intended blueprint.",
+            "To force all community members to adopt Western cultural habits.",
+            "To conduct a single 1-hour service and immediately depart without follow-up."
+        ],
+        "answer": 1,
+        "explanation": "The official mission statement of URPN (proclaimed at the beginning of every teaching session) is: \"Realigning people, families, and territories back to their original ordination such that they operate from that standpoint.\" Every deployment aims to restore divine order and blueprints to territories."
+    },
+    {
+        "id": "stewardship-35",
+        "prompt": "Scenario: A formerly fiery campus prayer leader gets married and has two children. Within three years, she completely abandons her personal prayer altar, stops reading the Word, and drops out of workforce service, claiming: \"Family care, cooking, and children have made it impossible to maintain a spiritual life.\" What solemn warning does URPN offer regarding life transitions and altar sustenance?",
+        "options": [
+            "Marriage automatically terminates a believer's spiritual responsibility to God.",
+            "Altar sustenance requires intentional grace and discipline through every life season; failing to build robust capacity before transitions allows the cares of life to quench one's flame.",
+            "Mothers are forbidden from praying or reading the Bible until their children reach age 18.",
+            "Husband and children are demonic distractions designed to destroy all female destinies."
+        ],
+        "answer": 1,
+        "explanation": "In STEWARDSHIP III, Apostle Ada addresses workforce members transitioning into marriage and parenthood. Altar sustenance requires intentional grace and discipline across all life seasons. Failing to cultivate deep spiritual capacity before major transitions allows domestic cares to extinguish one's altar fire."
+    },
+  ] },
 };
 
 export function getModuleExamDefinition(moduleId: string): ExamDefinition | undefined {

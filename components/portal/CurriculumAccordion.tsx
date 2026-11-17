@@ -12,11 +12,22 @@ import {
   MonitorPlay,
 } from 'lucide-react';
 import type { Course, Lesson } from '@/lib/courses';
-import { formatLessonDuration, getAllLessons } from '@/lib/courses';
+import { formatLessonDuration, getAllLessons, isModuleExamUnlocked } from '@/lib/courses';
+
+interface ModuleExamUiStatus {
+  attemptId: string | null;
+  attemptStatus: 'in_progress' | 'submitted' | 'expired' | null;
+  score: number | null;
+  passed: boolean;
+  creditedByCertificate: boolean;
+  attemptCount: number;
+  lockedUntil: string | null;
+}
 
 interface Props {
   course: Course;
   completedLessonIds: string[];
+  moduleExamStatuses?: Record<string, ModuleExamUiStatus>;
   activeLessonId?: string;
   enrolled: boolean;
   compact?: boolean;
@@ -27,6 +38,7 @@ interface Props {
 export function CurriculumAccordion({
   course,
   completedLessonIds,
+  moduleExamStatuses = {},
   activeLessonId,
   enrolled,
   compact = false,
@@ -35,16 +47,26 @@ export function CurriculumAccordion({
 }: Props) {
   const allLessons = getAllLessons(course);
   const completedSet = new Set(completedLessonIds);
+  const passedModuleExamIds = Object.entries(moduleExamStatuses)
+    .filter(([, status]) => status.passed)
+    .map(([moduleId]) => moduleId);
 
-  // Compute sequential lock status for each lesson
-  // Lesson 0 is unlocked. Lesson i is unlocked only if all preceding lessons are completed!
+  // Compute sequential lock status for each lesson, including module exam gates.
   const isUnlockedMap: Record<string, boolean> = {};
-  allLessons.forEach((lesson, index) => {
-    if (index === 0) {
-      isUnlockedMap[lesson.id] = true;
-    } else {
-      const prevLesson = allLessons[index - 1];
-      isUnlockedMap[lesson.id] = completedSet.has(prevLesson.id) && Boolean(isUnlockedMap[prevLesson.id]);
+  let earlierModulesComplete = true;
+  let earlierModuleExamsPassed = true;
+  course.modules.forEach((module) => {
+    let previousLessonComplete = true;
+    const moduleUnlocked = earlierModulesComplete && earlierModuleExamsPassed;
+    module.lessons.forEach((lesson) => {
+      isUnlockedMap[lesson.id] = moduleUnlocked && previousLessonComplete;
+      if (!completedSet.has(lesson.id)) previousLessonComplete = false;
+    });
+    if (!module.lessons.every((lesson) => completedSet.has(lesson.id))) {
+      earlierModulesComplete = false;
+    }
+    if (module.exam && !passedModuleExamIds.includes(module.id)) {
+      earlierModuleExamsPassed = false;
     }
   });
 
@@ -55,8 +77,14 @@ export function CurriculumAccordion({
   course.modules.forEach((mod, idx) => {
     const hasActive = mod.lessons.some((l) => l.id === activeLessonId);
     const hasIncompleteUnlocked = mod.lessons.some((l) => !completedSet.has(l.id) && isUnlockedMap[l.id]);
+    const hasPendingExam = Boolean(
+      mod.exam &&
+      mod.lessons.every((lesson) => completedSet.has(lesson.id)) &&
+      !moduleExamStatuses[mod.id]?.passed &&
+      isModuleExamUnlocked(course, mod.id, completedLessonIds, passedModuleExamIds)
+    );
 
-    if (hasActive) {
+    if (hasActive || hasPendingExam) {
       initialOpenModules[mod.id] = true;
       openedFirstActiveOrIncomplete = true;
     } else if (!openedFirstActiveOrIncomplete && (hasIncompleteUnlocked || idx === 0)) {
@@ -75,6 +103,9 @@ export function CurriculumAccordion({
 
   const completedCount = allLessons.filter((l) => completedSet.has(l.id)).length;
   const remainingForExam = Math.max(0, allLessons.length - completedCount);
+  const remainingModuleExams = course.modules.filter(
+    (module) => module.exam && !moduleExamStatuses[module.id]?.passed
+  ).length;
   const percent = allLessons.length ? Math.round((completedCount / allLessons.length) * 100) : 0;
 
   return (
@@ -92,9 +123,11 @@ export function CurriculumAccordion({
             <div className="flex items-center gap-1.5 font-mono text-[11px] text-gold-400">
               <Lock className="h-3 w-3" />
               <span>
-                {remainingForExam === 0
+                {remainingForExam === 0 && remainingModuleExams === 0
                   ? 'Final Exam unlocked!'
-                  : `${remainingForExam} more to unlock Final Exam`}
+                  : remainingForExam > 0
+                    ? `${remainingForExam} more lesson${remainingForExam === 1 ? '' : 's'} to unlock Final Exam`
+                    : `${remainingModuleExams} module exam${remainingModuleExams === 1 ? '' : 's'} to unlock Final Exam`}
               </span>
             </div>
           </div>
@@ -121,11 +154,20 @@ export function CurriculumAccordion({
           const modCompleted = module.lessons.filter((l) => completedSet.has(l.id)).length;
           const isModComplete = modCompleted === module.lessons.length && module.lessons.length > 0;
           const isModUnlocked = module.lessons.some((l) => isUnlockedMap[l.id]);
+          const examStatus = moduleExamStatuses[module.id];
+          const isModuleExamReady = Boolean(
+            module.exam &&
+            isModuleExamUnlocked(course, module.id, completedLessonIds, passedModuleExamIds)
+          );
+          const isLockedOut = Boolean(
+            examStatus?.lockedUntil && Date.parse(examStatus.lockedUntil) > Date.now()
+          );
           const isOpen = Boolean(openMap[module.id]);
 
           return (
             <div
               key={module.id}
+              id={`module-${module.id}`}
               className={`overflow-hidden rounded-xl border transition-colors ${
                 isOpen ? 'border-line bg-surface' : 'border-line-soft bg-surface/60 hover:bg-surface'
               }`}
@@ -263,6 +305,49 @@ export function CurriculumAccordion({
                       </Link>
                     );
                   })}
+                  {module.exam && enrolled && (
+                    <div className="mx-1 my-2 rounded-lg border border-line bg-surface/80 p-3">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                          <p className="mono-label !text-[8px]">Module exam</p>
+                          <p className="mt-1 text-[12px] font-medium text-cream-100">
+                            {module.title}
+                          </p>
+                          <p className="mt-1 text-[10px] text-cream-500">
+                            {module.exam.questionCount} questions · {module.exam.durationMinutes} min · {module.exam.passMark}% to pass
+                          </p>
+                          {examStatus?.passed ? (
+                            <p className="mt-1 text-[10px] text-emerald-400">
+                              {examStatus.creditedByCertificate ? 'Satisfied by your certificate' : `Passed${examStatus.score !== null ? ` · ${examStatus.score}%` : ''}`}
+                            </p>
+                          ) : !isModComplete ? (
+                            <p className="mt-1 text-[10px] text-cream-500">Complete this module to unlock its exam.</p>
+                          ) : !isModuleExamReady ? (
+                            <p className="mt-1 text-[10px] text-cream-500">Pass earlier module exams to unlock this exam.</p>
+                          ) : isLockedOut ? (
+                            <p className="mt-1 text-[10px] leading-relaxed text-gold-300">
+                              Locked until {new Date(examStatus!.lockedUntil!).toLocaleString('en-GB', { timeZone: 'Africa/Lagos', dateStyle: 'medium', timeStyle: 'short' })}. Review this module before retrying.
+                            </p>
+                          ) : null}
+                        </div>
+                        {examStatus?.passed && examStatus.attemptId ? (
+                          <Link
+                            href={`/portal/courses/${course.slug}/exam/result/${examStatus.attemptId}`}
+                            className="btn btn-secondary btn-sm shrink-0"
+                          >
+                            View result
+                          </Link>
+                        ) : !examStatus?.passed && isModComplete && isModuleExamReady && !isLockedOut ? (
+                          <Link
+                            href={`/portal/courses/${course.slug}/exam?moduleId=${module.id}`}
+                            className="btn btn-primary btn-sm shrink-0"
+                          >
+                            {examStatus?.attemptStatus === 'in_progress' ? 'Resume exam' : examStatus?.attemptCount ? 'Retake exam' : 'Start exam'}
+                          </Link>
+                        ) : null}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

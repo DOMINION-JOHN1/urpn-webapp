@@ -16,7 +16,7 @@ import { requireUser } from '@/lib/server/auth';
 import { getDashboardData } from '@/lib/server/learning';
 import { TrackCard } from '@/components/portal/TrackCard';
 import { InstallAppButton } from '@/components/InstallAppButton';
-import { formatLessonDuration, lessonKindLabel } from '@/lib/courses';
+import { formatLessonDuration, isModuleExamUnlocked, lessonKindLabel } from '@/lib/courses';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,10 +39,39 @@ export default async function PortalDashboardPage() {
   const firstName = user.name.trim().split(' ')[0] || user.email.split('@')[0];
 
   const examReady = data.courses.find(
-    (course) => course.enrolled && course.percent === 100 && !course.attempt && !course.certificate
+    (course) => course.enrolled && course.examUnlocked && !course.attempt && !course.certificate
   );
   const openAttempt = data.courses.find(
     (course) => course.attempt?.status === 'in_progress'
+  );
+  const moduleExams = data.courses.flatMap((entry) =>
+    entry.course.modules
+      .filter((module) => module.exam)
+      .map((module) => ({
+        course: entry.course,
+        module,
+        status: entry.moduleExamStatuses[module.id],
+        completedLessonIds: entry.completedLessonIds,
+        passedModuleExamIds: entry.passedModuleExamIds,
+      }))
+  );
+  const activeModuleExam = moduleExams.find(
+    (entry) => entry.status?.attemptStatus === 'in_progress'
+  );
+  const lockedModuleExam = moduleExams.find(
+    (entry) => entry.status?.lockedUntil && Date.parse(entry.status.lockedUntil) > Date.now()
+  );
+  const readyModuleExam = moduleExams.find(
+    (entry) =>
+      !entry.status?.passed &&
+      entry.status?.attemptStatus !== 'in_progress' &&
+      !(entry.status?.lockedUntil && Date.parse(entry.status.lockedUntil) > Date.now()) &&
+      isModuleExamUnlocked(
+        entry.course,
+        entry.module.id,
+        entry.completedLessonIds,
+        entry.passedModuleExamIds
+      )
   );
   const usedAttempt = data.courses.find(
     (course) =>
@@ -138,6 +167,30 @@ export default async function PortalDashboardPage() {
             </Link>
           </div>
         </section>
+      ) : activeModuleExam ? (
+        <section className="mt-5 rounded-2xl border border-gold-400/30 bg-surface p-5 sm:p-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="mono-label flex items-center gap-2 !text-gold-300">
+                <Timer className="h-3.5 w-3.5" aria-hidden="true" />
+                Module exam in progress
+              </p>
+              <h2 className="mt-2 text-[20px] font-semibold text-cream-50">
+                {activeModuleExam.module.title} — exam still open
+              </h2>
+              <p className="mt-1 text-[12.5px] text-cream-400">
+                Return before the timer runs out. Leaving the tab closes the attempt.
+              </p>
+            </div>
+            <Link
+              href={`/portal/courses/${activeModuleExam.course.slug}/exam?moduleId=${activeModuleExam.module.id}`}
+              className="btn btn-primary shrink-0"
+            >
+              Resume exam
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
       ) : openAttempt ? (
         <section className="mt-5 rounded-2xl border border-gold-400/30 bg-surface p-5 sm:p-6">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
@@ -158,6 +211,55 @@ export default async function PortalDashboardPage() {
               className="btn btn-primary shrink-0"
             >
               Resume exam
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
+      ) : readyModuleExam ? (
+        <section className="mt-5 rounded-2xl border border-gold-500/25 bg-gold-500/[0.05] p-5 sm:p-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="mono-label !text-gold-300">Module exam ready</p>
+              <h2 className="mt-2 text-[20px] font-semibold text-cream-50">
+                You have finished {readyModuleExam.module.title}.
+              </h2>
+              <p className="mt-1 text-[12.5px] text-cream-400">
+                {readyModuleExam.module.exam!.questionCount} questions ·{' '}
+                {readyModuleExam.module.exam!.durationMinutes} minutes ·{' '}
+                {readyModuleExam.module.exam!.passMark}% to pass.
+              </p>
+            </div>
+            <Link
+              href={`/portal/courses/${readyModuleExam.course.slug}/exam?moduleId=${readyModuleExam.module.id}`}
+              className="btn btn-primary shrink-0"
+            >
+              {readyModuleExam.status?.attemptCount ? 'Retake module exam' : 'Start module exam'}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
+      ) : lockedModuleExam ? (
+        <section className="mt-5 rounded-2xl border border-gold-400/30 bg-surface p-5 sm:p-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="mono-label !text-gold-300">Module exam locked</p>
+              <h2 className="mt-2 text-[20px] font-semibold text-cream-50">
+                Review {lockedModuleExam.module.title} before retrying.
+              </h2>
+              <p className="mt-1 text-[12.5px] text-cream-400">
+                The exam unlocks after{' '}
+                {new Date(lockedModuleExam.status!.lockedUntil!).toLocaleString('en-GB', {
+                  timeZone: 'Africa/Lagos',
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                })}.
+              </p>
+            </div>
+            <Link
+              href={`/portal/courses/${lockedModuleExam.course.slug}#module-${lockedModuleExam.module.id}`}
+              className="btn btn-secondary shrink-0"
+            >
+              Review module
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
