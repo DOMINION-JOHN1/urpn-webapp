@@ -960,6 +960,7 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         'The concept of the old and new man',
         'Fruit of the Spirit for daily living',
       ],
+      exam: { durationMinutes: 25, passMark: 70, questionCount: 20 },
     }
   ),
   linkedWorkforceModule(
@@ -1033,6 +1034,7 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
         'Kingdom advancement through excellence',
         'Self-sufficiency and proficiency',
       ],
+      exam: { durationMinutes: 25, passMark: 70, questionCount: 20 },
     }
   ),
   linkedWorkforceModule(

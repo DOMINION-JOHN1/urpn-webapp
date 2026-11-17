@@ -1510,6 +1510,825 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Expenditure and financial stewardship by leaders must stand firmly on accountability (doing God's work) and transparency (openness before the body)."
     }
   ] },
+  "wt-m1": { questions: [
+    {
+      "number": 1,
+      "prompt": "A department head at URPN notices that while the media team has acquired high-end 4K cameras and elaborate stage lighting, production quality frequently collapses during live broadcasts due to misaligned cues, delayed graphics, and disorganized stream management. When queried, the team lead argues that \"the altar is fully decorated and modern.\" Based on Pastor Steven’s definition of Throne Culture, how should the department head evaluate and correct this situation?",
+      "options": [
+        "Commend the team for establishing external aesthetic standards while arranging a technical training seminar on camera operations.",
+        "Identify that the team is attempting to build \"from the outside in\" rather than \"from the inside out,\" failing to realize that true excellence is the degree to which an assignment is executed flawlessly through an aligned mind and internal coordination.",
+        "Conclude that the technical failure is caused by territorial spiritual warfare in the environment and mandate a 3-day emergency fast for the team.",
+        "Reassign the team lead immediately because technical equipment should automatically guarantee flawless operational output."
+      ],
+      "id": "throne-culture-01",
+      "answer": 1,
+      "explanation": "Pastor Steven defines excellence as starting from the inside out. Decorating an altar or buying 4K cameras without internal coordination, mental alignment, and procedural discipline is an error of building \"from the outside in.\" True throne culture demands flawless presentation originating from an aligned mind."
+    },
+    {
+      "number": 2,
+      "prompt": "In \"The Culture of Your Throne,\" Pastor Steven highlights the devil’s strategic target in spiritual warfare, contrasting it with superficial external issues. A workforce member under your supervision is constantly anxious about their physical wardrobe and financial status, while tolerating persistent compromise in their thought patterns and mental discipline. What foundational insight must you impart to reorient their spiritual warfare strategy?",
+      "options": [
+        "The devil is primarily targeting their financial resources to starve their ministry vision.",
+        "The devil does not care about external attire or material wealth; his primary objective is to bend the mind, because if he corrupts the internal operating system, the entire person is compromised.",
+        "Spiritual warfare is fought by changing one's physical environment and cutting off all financial obligations.",
+        "External attire directly dictates spiritual authority in the secret place, so wardrobe adjustment must precede mental alignment."
+      ],
+      "id": "throne-culture-02",
+      "answer": 1,
+      "explanation": "The teaching establishes that the devil is not primarily fighting your physical clothes or bank balance; he targets your mind. If he succeeds in bending your operating system (like metal or blood bending), your entire output becomes dysfunctional."
+    },
+    {
+      "number": 3,
+      "prompt": "During a spiritual review of a minister’s discernment, Jesus’ healing of the blind man who initially reported seeing \"men as trees\" is analyzed. What does this specific biblical narrative demonstrate regarding a workforce member's effectiveness in kingdom service?",
+      "options": [
+        "It proves that spiritual vision always requires a two-stage laying on of hands before physical sight can manifest.",
+        "It symbolizes a fundamental mental dysfunctionality where perception is distorted, proving that if a minister views human beings or assignments through a bent operating system, their leadership output will be dysfunctional.",
+        "It indicates that the minister is experiencing an advanced prophetic revelation where human beings are spiritually classified as trees of righteousness.",
+        "It demonstrates that external environmental factors can temporarily blind even anointed leaders from recognizing their brethren."
+      ],
+      "id": "throne-culture-03",
+      "answer": 1,
+      "explanation": "When Jesus healed the man who saw \"men as trees,\" it illustrated a distorted mental perception. In ministry, if a leader's internal operating system is dysfunctional, they will misinterpret people, assignments, and divine protocols, producing distorted leadership."
+    },
+    {
+      "number": 4,
+      "prompt": "Pastor Steven contrasts the order of heaven in Revelation with chaotic earthly settlements (referencing Maraba vs. Maitama/Asokoro in Abuja). How does this distinction establish the ultimate origin and standard of Christian excellence?",
+      "options": [
+        "God is a prototype who evolved His operational standards over time through observation of earthly kingdoms.",
+        "Heaven is characterized by absolute coordination, decor, and structural harmony because God is the supreme Origin of order, making throne culture the baseline expectation for every ministry presentation.",
+        "Earthly ministry decor must copy federal capital architecture to attract high-net-worth individuals into the church.",
+        "Administrative coordination is only necessary for large urban churches, whereas rural or smaller ministries are exempt from throne decor standards."
+      ],
+      "id": "throne-culture-04",
+      "answer": 1,
+      "explanation": "God is not a prototype; He is the absolute Origin. The Book of Revelation showcases exquisite heavenly coordination, decor, and structural order. Earthly ministry must reflect this divine baseline because heaven is orderly, coordinated, and flawless."
+    },
+    {
+      "number": 5,
+      "prompt": "A team lead attempts to define excellence using popular corporate cliches about \"doing your best despite flaws.\" According to the Oxford definition cited in the teaching alongside the spiritual definition, what is the precise standard of excellence required in throne service?",
+      "options": [
+        "Achieving a passing grade of 70% while maintaining a positive religious attitude.",
+        "The quality of being outstanding and extremely good, presented flawlessly, beautifully, and attractively.",
+        "Doing moderate work while relying on the grace of God to cover all administrative gaps.",
+        "Completing assignments quickly regardless of aesthetic or structural flaws."
+      ],
+      "id": "throne-culture-05",
+      "answer": 1,
+      "explanation": "Citing the Oxford dictionary alongside spiritual definitions, excellence is the quality of being outstanding and extremely good—presented flawlessly, beautifully, and attractively. It rejects sloppy, \"passing grade\" Christianity."
+    },
+    {
+      "number": 6,
+      "prompt": "During a workforce evaluation, a volunteer claims that because they possess a powerful spiritual gift of prophecy, they do not need to refine their administrative delivery or speech posture. Which dimension of Christian excellence outlined in the teaching directly refutes this posture?",
+      "options": [
+        "Wholehearted devotion requires abandoning spiritual gifts in favor of administrative duties.",
+        "Stewardship of gifts dictates that possessing a divine endowment is insufficient; the vessel must develop the capacity and refinement to present that gift flawlessly.",
+        "The model of Christ permits spiritual giftedness to override protocol whenever an emergency arises.",
+        "A spirit of excellence is only granted to Old Testament figures like Daniel, whereas New Testament believers rely strictly on unrefined grace."
+      ],
+      "id": "throne-culture-06",
+      "answer": 1,
+      "explanation": "Possessing a spiritual gift is only one dimension of Christian excellence. Stewardship of gifts requires the minister to refine their operational capacity, communication, and administrative delivery so the gift is presented without flaw."
+    },
+    {
+      "number": 7,
+      "prompt": "A ministry team is setting up an altar for an upcoming apostolic conference. The team lead focuses exclusively on buying expensive flower arrangements and stage banners, while leaving the microphones uncalibrated, the stage floor dusty, and the background cables tangled. How does Pastor Steven’s teaching diagnose this approach?",
+      "options": [
+        "It represents a balanced approach that prioritizes visual impact over hidden technicalities.",
+        "It is a critical error of starting from the \"outside in,\" decorating the exterior while ignoring internal flawlessness, coordination, and fundamental operational order.",
+        "It is an act of faith, expecting God to manifest His glory over the uncalibrated sound system.",
+        "It aligns with throne culture by ensuring the primary visual centerpiece is established first."
+      ],
+      "id": "throne-culture-07",
+      "answer": 1,
+      "explanation": "Focusing on visual stage flowers while leaving sound uncalibrated and cables tangled is the classic mistake of starting from the outside in. Excellence requires foundational order before exterior embellishment."
+    },
+    {
+      "number": 8,
+      "prompt": "An intercessor in URPN claims that as long as they spend six hours praying in tongues, their physical presentation, posture, and workplace punctuality do not matter to God. How does the teaching evaluate the relationship between spiritual devotion and professional presentation?",
+      "options": [
+        "Spiritual prayer fully neutralizes any negative impression created by poor physical posture or tardiness.",
+        "Wholehearted devotion integrates internal spiritual alignment with external excellence, ensuring that spiritual depth is matched by outward order and honor.",
+        "Physical presentation is a worldly distraction that true intercessors must actively reject.",
+        "Punctuality is a secular business metric that has no bearing on kingdom governance."
+      ],
+      "id": "throne-culture-08",
+      "answer": 1,
+      "explanation": "Wholehearted devotion does not isolate prayer from outward presentation. True spiritual depth expresses itself through physical order, punctuality, refined posture, and honor in public service."
+    },
+    {
+      "number": 9,
+      "prompt": "Why does Pastor Steven emphasize that heaven's throne room in the Book of Revelation displays exquisite coordination and decor among angelic hosts?",
+      "options": [
+        "Because angels compete with one another for administrative promotion based on visual appearance.",
+        "Because throne culture reflects the very nature of God, demonstrating that spiritual royalty manifests through absolute discipline, order, and refined presentation.",
+        "Because John the Beloved added artistic embellishments to the text that were not originally present in the vision.",
+        "Because decor was introduced into heaven only after the fall of Lucifer to restore visual harmony. Module 2: Personal Responsibility, Deception & Capacity Building"
+      ],
+      "id": "throne-culture-09",
+      "answer": 1,
+      "explanation": "Angelic hosts in Revelation operate with decor and coordination because throne culture reflects the nature of God. Divine royalty requires order, protocol, and polished execution."
+    },
+    {
+      "number": 10,
+      "prompt": "A department head at URPN has consistently failed to deliver monthly operational reports, blaming their poor childhood background, a lack of parental support, and the harsh economic conditions in Kogi State. Sitting across from them in an appraisal session, how should a senior trainer apply Pastor Steven’s \"hard truth\" of personal accountability?",
+      "options": [
+        "Sympathize with their background, excuse the missing reports, and assign another worker to write their reports permanently.",
+        "Firmly inform them that while their background and environment may present challenges, where they currently find themselves in life and service is entirely their own fault and decision, and they must agitate to lift the yoke.",
+        "Advise them to relocate immediately to Abuja or Lagos, as no one can achieve excellence while residing in Kogi State.",
+        "Recommend a deliverance session to break generational curses originating from their uncle's house."
+      ],
+      "id": "throne-culture-10",
+      "answer": 1,
+      "explanation": "Pastor Steven delivers the hard truth: wherever you currently find yourself in life, spiritual depth, or career is entirely your own fault and decision. You cannot blame your parents, uncle, background, or Kogi State. You must agitate for the yoke to be lifted."
+    },
+    {
+      "number": 11,
+      "prompt": "According to the teaching, what scriptural spiritual law governs the breaking of limitations, poverty, and stagnation in a believer’s life?",
+      "options": [
+        "The law of passive waiting, where God removes burdens without human participation.",
+        "The law of agitation: the day you agitate and refuse to tolerate stagnation, the yoke will be broken and lifted from off your shoulders.",
+        "The law of environmental blame, which legally shifts responsibility to corrupt national leaders.",
+        "The law of financial substitution, where giving seed money eliminates the need for personal work."
+      ],
+      "id": "throne-culture-11",
+      "answer": 1,
+      "explanation": "Scripture establishes that the day you agitate against stagnation and refuse to tolerate limitations, the yoke is broken from off your neck. Passive waiting prolongs captivity."
+    },
+    {
+      "number": 12,
+      "prompt": "A workforce member routinely promises to execute complex media tasks but fails repeatedly. However, they convince themselves that they are the most dedicated worker in the ministry because they \"have good intentions.\" How does Apostle Ada Victor Adjo (quoted in the teaching) define this psychological condition?",
+      "options": [
+        "Holy optimism in the face of operational adversity.",
+        "The greatest and most dangerous form of deception: self-deception, where a person lies to themselves and actually believes their own lie.",
+        "Prophetic foresight that sees future completion despite present collapse.",
+        "Subconscious defense mechanism caused by workplace fatigue."
+      ],
+      "id": "throne-culture-12",
+      "answer": 1,
+      "explanation": "Apostle Ada Victor Adjo teaches that the worst form of deception is self-deception—when an individual lies to themselves about their capacity or commitment and actually believes their own lie."
+    },
+    {
+      "number": 13,
+      "prompt": "During a 21-local government data processing project cited by Pastor Steven, a critical operational collapse occurred. Work meant for 42 trained personnel fell entirely upon a single competent individual, causing them severe physical exhaustion. What was the root cause of this systemic failure?",
+      "options": [
+        "The regional office failed to provide high-speed internet routers for the field staff.",
+        "The field personnel lacked the capacity to perform the work, focusing instead on breakfast, lunch, and snapping photos for social media status updates.",
+        "The project manager refused to delegate duties to local government representatives.",
+        "Spiritual opposition in the 21 local governments blocked data entry servers."
+      ],
+      "id": "throne-culture-13",
+      "answer": 1,
+      "explanation": "In the 21 local government data exercise, personnel lacked operational capacity and discipline. Instead of executing data entry, they focused on eating breakfast, lunch, and posting social media status updates, forcing 1 person to do the work of 42 people."
+    },
+    {
+      "number": 14,
+      "prompt": "When a workforce member lacks operational capacity and fails in their assigned responsibility, who ultimately bears the cascading negative impact within the ministry hierarchy?",
+      "options": [
+        "Only the negligent workforce member experiences any inconvenience.",
+        "The failure cascades upward, causing direct stress, operational suffering, and wasted energy for department heads, team leads, and top ministry leadership (Martins, Papa, Apostle).",
+        "The external congregation bears the full spiritual burden, while ministry leaders remain completely unaffected.",
+        "The ministry's financial auditors are the only individuals who note the failure."
+      ],
+      "id": "throne-culture-14",
+      "answer": 1,
+      "explanation": "Workforce irresponsibility does not remain isolated; it cascades upward. When team members fail, department heads, senior pastors, and apostolic leadership (Martins, Papa, Apostle) suffer severe operational stress and wasted energy."
+    },
+    {
+      "number": 15,
+      "prompt": "Two ministry volunteers are sent to represent URPN at an inter-ministry conference. Instead of taking notes, networking, and mastering the conference materials, they spend the entire time taking selfies at the food queue and posting \"Chilling at the conference\" on WhatsApp. How does Pastor Steven analyze this behavioral pattern?",
+      "options": [
+        "A commendable display of workforce joy and relaxed fellowship.",
+        "A severe manifestation of low capacity and irresponsibility, where individuals prioritize peripheral stomach comfort and social validation over functional competence.",
+        "Effective social media outreach promoting the ministry's brand image.",
+        "Acceptable behavior provided they submit a brief oral summary upon return."
+      ],
+      "id": "throne-culture-15",
+      "answer": 1,
+      "explanation": "Prioritizing food queues and selfie updates during kingdom assignments reveals low capacity and misplaced priorities. Workforce members must focus on functional competence over stomach comfort."
+    },
+    {
+      "number": 16,
+      "prompt": "A leader leaves a dirty water bottle on the conference room table after a meeting. Three weeks later, the bottle remains in the exact same spot because everyone assumed \"it is not my official job to clean it.\" What operational principle does Pastor Steven draw from this exact scenario?",
+      "options": [
+        "Leadership will eventually step in and clean it once they notice the bottle.",
+        "Irresponsibility preserves dirt; unless an individual takes personal responsibility to move an object or solve a problem, it will remain unchanged for 300 days unless an earthquake moves it.",
+        "The janitorial staff should be immediately suspended for administrative negligence.",
+        "Leaving items untouched tests the patience and submission of junior workforce members."
+      ],
+      "id": "throne-culture-16",
+      "answer": 1,
+      "explanation": "The dirty bottle left on the table for weeks proves that irresponsibility preserves stagnation. Unless someone assumes personal responsibility, a dirty situation will remain unchanged for 300 days."
+    },
+    {
+      "number": 17,
+      "prompt": "A minister in URPN claims that their bank balance of N10,000 and their inability to explain basic ministry doctrines are entirely caused by the national economic recession. Applying Pastor Steven’s framework of internal perception, how should this claim be evaluated?",
+      "options": [
+        "Validated completely, because macro-economic indicators dictate individual financial and intellectual limits.",
+        "Rejected, because the N10,000 in their account and their intellectual ignorance represent their own personal decision not to know, grow, or build capacity.",
+        "Corrected by explaining that spiritual leaders are exempt from reading books once ordained.",
+        "Re-framed as a spiritual sign of humility and prophetic asceticism."
+      ],
+      "id": "throne-culture-17",
+      "answer": 1,
+      "explanation": "A low bank balance or lack of doctrinal knowledge is a personal decision to remain uneducated and passive. With global tools and books available, ignorance is a choice."
+    },
+    {
+      "number": 18,
+      "prompt": "A young brother moves to a new city on the promise of a major business partnership, only to discover his relative wants him to bake bread inside the house. After three months of frustration, he sits idly blaming his relative for ruining his life. What counsel does Pastor Steven offer to break this cycle?",
+      "options": [
+        "Continue confronting the relative daily until financial compensation is paid.",
+        "Stop blaming the brother, accept personal responsibility for the current reality, sit down, register for school or work, and move life forward independently.",
+        "Return to the village immediately and report the relative to family elders.",
+        "Wait patiently in the house for five years until divine intervention shifts the business. Module 3: Environmental Transcendence, Association & Mindset Expansion"
+      ],
+      "id": "throne-culture-18",
+      "answer": 1,
+      "explanation": "Blaming a relative for past mistakes achieves nothing. A mature leader stops complaining, takes responsibility, registers for school or work, and builds their own future."
+    },
+    {
+      "number": 19,
+      "prompt": "A minister residing in a localized, under-resourced town complains that the noisy environment and lack of modern infrastructure prevent them from expanding their mind or producing high-level work. What primary spiritual and intellectual mechanism does Pastor Steven prescribe to transcend one's physical environment?",
+      "options": [
+        "Relocating illegally to a foreign nation without a visa or divine direction.",
+        "Immersing oneself in rigorous study of quality books and the Word of God, which shuts out environmental noise and transports the mind beyond immediate surroundings.",
+        "Purchasing expensive noise-canceling headphones while keeping reading habits unchanged.",
+        "Complaining publicly on social media to attract foreign ministry sponsors."
+      ],
+      "id": "throne-culture-19",
+      "answer": 1,
+      "explanation": "Study is the portal of environmental transcendence. By embedding oneself in quality books and scriptures, a person shuts out localized noise and expands their mental capacity beyond their immediate town."
+    },
+    {
+      "number": 20,
+      "prompt": "Apostle Ada Victor Adjo is quoted as advocating a rigorous reading habit to build spiritual and intellectual capacity. What vivid illustration is used in the teaching to demonstrate the scale of study required for mastery?",
+      "options": [
+        "Memorizing one chapter of scripture per day for thirty consecutive years.",
+        "Reading a stack of books on a single specific subject that, when piled together, matches the physical height of the reader.",
+        "Collecting thousands of PDF e-books on a smartphone without reading them.",
+        "Reading the entire Bible in three different translations every month."
+      ],
+      "id": "throne-culture-20",
+      "answer": 1,
+      "explanation": "Apostle Ada Victor Adjo’s reading habit is illustrated by a stack of books on a single topic matching his physical height, demonstrating the extreme diligence needed for spiritual mastery."
+    },
+    {
+      "number": 21,
+      "prompt": "When studying the biographies of past revivalists in books like God's Generals, what critical wisdom must a growing workforce member extract to safeguard their own life and assignment?",
+      "options": [
+        "Assume that every historical revivalist lived a flawless life worthy of blind imitation.",
+        "Understand historical spiritual patterns, recognizing how great men walked with God while identifying the specific traps, divinations, and errors that caused their downfall.",
+        "Avoid reading Christian history entirely, as it causes unnecessary fear regarding ministry work.",
+        "Focus exclusively on the miracles performed, ignoring the personal lives and deaths of the generals."
+      ],
+      "id": "throne-culture-21",
+      "answer": 1,
+      "explanation": "Reading Christian history (God's Generals) exposes historical patterns. It teaches ministers how to walk with God while highlighting the pitfalls, divinations, and traps that ruined past leaders."
+    },
+    {
+      "number": 22,
+      "prompt": "A team lead notices that a workforce member is maintaining an intimate friendship with a cynical, compromised former leader who constantly speaks against URPN's authority. When confronted, the worker replies, \"Jesus left the 99 to seek the 1 lost sheep, so I am staying close to save him.\" How does Pastor Steven’s teaching address this reasoning?",
+      "options": [
+        "Endorse the worker's evangelistic compassion and encourage them to spend more time with the cynical person.",
+        "Correct the worker by pointing out that they are not Jesus; attempting to save 1 toxic individual while risking contamination will cost them their own spiritual life and destroy the 99 preserved brethren.",
+        "Mandate that the worker bring the cynical person to the altar by force during service.",
+        "Suggest that the 99 brethren should all visit the cynical person's home together."
+      ],
+      "id": "throne-culture-22",
+      "answer": 1,
+      "explanation": "Leaving the 99 to seek 1 lost sheep is Jesus’ divine role. A human worker who exposes themselves to toxic, rebellious individuals risks spiritual infection, losing their own soul and destroying the 99 preserved brethren."
+    },
+    {
+      "number": 23,
+      "prompt": "What scriptural law of human relationship and identity formation is illustrated by the story of Pastor Steven and his younger brother whose voices and physical faces were indistinguishable to family and technology?",
+      "options": [
+        "The law of genetic inheritance over spiritual grace.",
+        "The law of intense association: whoever you associate with continuously will define your mannerisms, voice, thinking, perception, and life outcomes.",
+        "The law of vocal mimicry in administrative management.",
+        "The law of environmental immunity, proving that physical proximity has no effect on character."
+      ],
+      "id": "throne-culture-23",
+      "answer": 1,
+      "explanation": "Continuous association produces identity alignment. Spending extended time with a person or environment causes you to adopt their voice, mannerisms, thought patterns, and outcomes."
+    },
+    {
+      "number": 24,
+      "prompt": "A local URPN fellowship center has tolerated broken chairs, dangling unaligned speakers, and cobwebs in the auditorium corners for years because \"God looks at the heart, not the hall.\" What happens when a workforce member visits a highly organized, excellent ministry environment (like COZA, as cited in the teaching)?",
+      "options": [
+        "They become prideful and demand immediate resignation from URPN.",
+        "Their internal threshold of tolerance shifts; upon returning, the previously accepted cobwebs and misaligned speakers become intolerable and irritating, driving them to clean and organize.",
+        "They realize that administrative excellence is a sin of worldly vanity.",
+        "They report the organized church to ministry elders for excessive commercialism."
+      ],
+      "id": "throne-culture-24",
+      "answer": 1,
+      "explanation": "Exposure to high-level excellence (e.g., COZA standards) raises an individual's internal threshold. Upon returning home, previously tolerated dirt, cobwebs, and misaligned equipment become unacceptable."
+    },
+    {
+      "number": 25,
+      "prompt": "A senior worker discovers that an old secondary school friend constantly pulls them toward worldly compromise, spiritual coldness, and low thinking. Applying Pastor Steven's personal discipline of \"editing associations,\" what decisive action should be taken?",
+      "options": [
+        "Maintain constant communication on WhatsApp while praying silently in the secret place.",
+        "Ruthlessly edit and cut off the toxic association—blocking calls, deleting numbers across devices—to preserve personal destiny and spiritual health.",
+        "Invite the friend to become the co-lead of an intercessory department to force their conversion.",
+        "Pretend to agree with the friend's compromised lifestyle to avoid hurting their feelings."
+      ],
+      "id": "throne-culture-25",
+      "answer": 1,
+      "explanation": "Preserving destiny requires ruthless association editing. Compromised, non-edifying relationships must be blocked and deleted across all platforms to protect spiritual health."
+    },
+    {
+      "number": 26,
+      "prompt": "Pastor Steven uses the analogy of a white man's professional online job interview being ruined by background noise. What specific environmental elements were disrupting the $3,000/month negotiation?",
+      "options": [
+        "Heavy highway traffic and street vendors shouting outside the window.",
+        "Domestic chickens clucking, goats bleating, and dogs barking in the family compound during the interview.",
+        "Poor cellular network signal and electricity failure in Kogi State.",
+        "Loud music played by neighbors celebrating a birthday party."
+      ],
+      "id": "throne-culture-26",
+      "answer": 1,
+      "explanation": "The teaching illustrates environmental disruption through domestic chickens clucking and dogs barking in a family compound during a high-stakes $3,000/month remote job interview."
+    },
+    {
+      "number": 27,
+      "prompt": "What simple Chinese proverb cited in the teaching highlights the exact moment when spiritual growth, intellectual elevation, and divine instruction become accessible to a believer?",
+      "options": [
+        "\"A journey of a thousand miles begins with a single step.\"",
+        "\"When the student is ready, the teacher will appear.\"",
+        "\"The best time to plant a tree was twenty years ago.\"",
+        "\"He who moves a mountain begins by carrying away small stones.\" Module 4: Spiritual Consistency, Mental Models & Life Blueprinting"
+      ],
+      "id": "throne-culture-27",
+      "answer": 1,
+      "explanation": "The Chinese proverb states: \"When the student is ready, the teacher will appear.\" The moment an individual commits to excellence, divine instruction and mentors manifest."
+    },
+    {
+      "number": 28,
+      "prompt": "In the testimony regarding Brother Goodness (who studied law at KSU), what specific lifestyle habit demonstrated his embodiment of the spirit of excellence long before he rose to international ministry platforms?",
+      "options": [
+        "He only attended fellowship when scheduled to deliver the main sermon.",
+        "He consistently dressed in full suit and tie for ordinary fellowship meetings—even wearing a tie to play football—and prepared for a 5-minute offering call as if preparing for a national address.",
+        "He memorized the entire legal dictionary to impress foreign conference organizers.",
+        "He refused to speak to anyone who did not hold a law degree."
+      ],
+      "id": "throne-culture-28",
+      "answer": 1,
+      "explanation": "Brother Goodness embodied throne culture in school by wearing suits to ordinary meetings and football games, while spending an entire week preparing for a 5-minute offering message."
+    },
+    {
+      "number": 29,
+      "prompt": "According to Pastor Steven, how is a spiritual atmosphere or \"spirit of excellence\" attracted and anchored into an individual's life over time?",
+      "options": [
+        "Through a single dramatic laying on of hands by an anointed apostle.",
+        "Through unbroken, behind-the-scenes consistency in small, unseen assignments and personal discipline.",
+        "By purchasing expensive imported suits and ministerial rings.",
+        "By publicly criticizing others who display substandard performance."
+      ],
+      "id": "throne-culture-29",
+      "answer": 1,
+      "explanation": "Excellence is a spirit attracted through unbroken consistency. Diligence in unseen, minor assignments pulls down spiritual grace for public impact."
+    },
+    {
+      "number": 30,
+      "prompt": "Explain the mental model titled \"The Master of the Opposite\" as presented in the teaching. How does it apply to a workforce member who struggles with spiritual dryness and prayerlessness?",
+      "options": [
+        "It proves that if you stop praying, God will automatically assign an angel to pray on your behalf.",
+        "Whatever habit you practice consistently, you become an effortless master of it; if you consistently neglect prayer, you become a \"master of prayerlessness,\" eventually attracting a spirit of spiritual dryness.",
+        "It states that praying for 5 minutes is spiritual equivalent to praying for 5 hours due to divine symmetry.",
+        "It asserts that opposite spiritual forces cancel each other out, leaving the believer in neutral grace."
+      ],
+      "id": "throne-culture-30",
+      "answer": 1,
+      "explanation": "Under \"Master of the Opposite,\" whatever you do consistently becomes your master skill. If you consistently skip prayer, you become an effortless master of prayerlessness, attracting spiritual dryness."
+    },
+    {
+      "number": 31,
+      "prompt": "What scriptural passage is cited to explain the psychological and spiritual concept of \"Tension of the Opposite,\" where an individual experiences an internal war between their desires and their actions?",
+      "options": [
+        "Genesis 1:1–5",
+        "Romans 7:15–19",
+        "Revelation 4:1–11",
+        "1 Corinthians 13:1–8"
+      ],
+      "id": "throne-culture-31",
+      "answer": 1,
+      "explanation": "Romans 7:15–19 articulates the \"Tension of the Opposite\"—the internal struggle where a person desires good but finds themselves doing the opposite due to unaligned flesh."
+    },
+    {
+      "number": 32,
+      "prompt": "Pastor Steven shares a personal testimony about purchasing high-quality ceramic plates and polished cutlery to eat his meals, explicitly forbidding himself from eating directly out of the cooking pot. What was the underlying psychological and spiritual objective of this discipline?",
+      "options": [
+        "To show off his financial prosperity to his family members.",
+        "To condition his mind to reject a slave/poverty mindset, reinforcing his identity as royalty redeemed by the King of Kings, who deserves honor even in hidden personal habits.",
+        "To satisfy strict nutritional guidelines mandated by his doctor.",
+        "To practice restaurant etiquette in preparation for foreign ministry travels."
+      ],
+      "id": "throne-culture-32",
+      "answer": 1,
+      "explanation": "Buying quality plates and cutlery while refusing to eat out of the cooking pot was a deliberate mental conditioning exercise to kill a slave mindset and reinforce royal dignity."
+    },
+    {
+      "number": 33,
+      "prompt": "A workforce team lead has demonstrated remarkable skill in small tasks. However, whenever they are about to be promoted to oversee major regional operations, they suddenly develop intense anxiety, make careless errors, and shrink back. How does Pastor Steven explain this phenomenon using the \"Arsenal FC\" football analogy?",
+      "options": [
+        "It is a manifestation of the \"Fear of Failure,\" where the leader lacks basic technical skills.",
+        "It is the \"Fear of Success,\" a mental condition where individuals subconsciously dread the elevated responsibility, visibility, and congratulatory pressure of winning, causing them to sabotage themselves near the finish line.",
+        "It is caused by physical fatigue resulting from over-studying.",
+        "It represents divine restraint blocking the leader from stepping into premature pride."
+      ],
+      "id": "throne-culture-33",
+      "answer": 1,
+      "explanation": "The \"Fear of Success\" occurs when an individual dreads the heightened expectations, visibility, and congratulatory pressure of winning, causing them to choke near victory (like Arsenal FC losing key matches near the trophy)."
+    },
+    {
+      "number": 34,
+      "prompt": "During a live practical exercise in the teaching, a sister was asked to share her future aspirations. She hesitated to say she wanted an international master's scholarship, initially framing it small. What core lesson did Pastor Steven draw from her hesitation?",
+      "options": [
+        "Believers should keep their dreams secret to prevent demonic attack.",
+        "God gave human beings the capacity to dream big, yet believers routinely think small, borrow small, and limit their divine blueprints through subconscious fear and low self-worth.",
+        "Scholarship applications should only be pursued within one's home state.",
+        "Publicly declaring a vision invalidates the divine grace required to fulfill it."
+      ],
+      "id": "throne-culture-34",
+      "answer": 1,
+      "explanation": "God gave humans the capacity to dream big, yet believers frequently shrink their visions, borrow small, and limit their divine blueprints due to subconscious fear."
+    },
+    {
+      "number": 35,
+      "prompt": "What explicit assignment does Pastor Steven lay upon every workforce member regarding their personal life, ministry calling, and divine destiny?",
+      "options": [
+        "Wait passively for ministry leadership to write a career roadmap for them.",
+        "Sit down quietly with God and draft a meticulous 5-year written blueprint capturing spiritual growth, intellectual elevation, physical presentation, and financial expansion.",
+        "Resign from secular employment to spend 24 hours daily inside the church building.",
+        "Fast for 40 days without setting any practical goals or written plans."
+      ],
+      "id": "throne-culture-35",
+      "answer": 1,
+      "explanation": "Every workforce member is commanded to sit down with God and write a meticulous 5-year divine blueprint covering spiritual growth, intellectual capacity, physical order, and financial expansion."
+    }
+  ] },
+  "wt-m8": { questions: [
+    {
+      "id": "believer-warfare-01",
+      "prompt": "Scenario: A ministry leader in URPN is organizing a regional workforce seminar in Kogi state. Instead of focusing solely on numerical attendance, the leader insists on restructuring the participants' spiritual mindset to receive a new move of God. Question: Based on Luke 5:36–39 as taught in the audio, why is a structural recalibration of believers necessary before a major move of God manifests?",
+      "options": [
+        "Because older believers refuse to contribute financially to regional outreaches.",
+        "Because putting new wine into old wine skins destroys both the wine and the skin; God must rebuild Christians so His move is not lost.",
+        "Because secular authorities require formal organizational restructuring before granting permits.",
+        "Because the move of God is meant strictly for newly converted teenagers."
+      ],
+      "answer": 1,
+      "explanation": "Because putting new wine into old wine skins destroys both the wine and the skin; God must rebuild Christians so His move is not lost."
+    },
+    {
+      "id": "believer-warfare-02",
+      "prompt": "Scenario: A newly appointed intercessor asks why URPN insists on strict spiritual standards and lifestyle regulations for all workforce volunteers. Question: According to the teaching, where is the ground norm and culture of the Kingdom of Zion derived?",
+      "options": [
+        "In secular legal constitutions adapted for church administration.",
+        "In personal opinions formulated by popular ministry vote.",
+        "In the Kingdom's constitution (the Word of God), which dictates the culture and laws every citizen must yield to.",
+        "In historical tradition passed down without scriptural reference."
+      ],
+      "answer": 2,
+      "explanation": "In the Kingdom's constitution (the Word of God), which dictates the culture and laws every citizen must yield to."
+    },
+    {
+      "id": "believer-warfare-03",
+      "prompt": "Scenario: During a Bible study on Genesis 1–2, a worker asks how Adam operated before the fall and why sin was non-existent in his daily routine. Question: What were the two feeding patterns that sustained Adam's original civilization in the spirit?",
+      "options": [
+        "Commercial trade and intellectual philosophy.",
+        "Daily intercessory warfare and fasting rituals.",
+        "Fellowship with God at the cool of the day and eating from the Tree of Life.",
+        "Physical exercise and dietary restrictions."
+      ],
+      "answer": 2,
+      "explanation": "Fellowship with God at the cool of the day and eating from the Tree of Life."
+    },
+    {
+      "id": "believer-warfare-04",
+      "prompt": "Scenario: A trainee wonders why human beings naturally lie, steal, or exhibit malice without needing formal instruction. Question: How does the teaching explain the shift in human civilization following Adam’s disobedience in Genesis 3?",
+      "options": [
+        "Humanity lost the life of God and inherited a fallen civilization governed by the power of the flesh.",
+        "God commanded humanity to learn evil as a test of endurance.",
+        "Society failed to establish adequate public school systems.",
+        "Physical blood was completely removed from the human body."
+      ],
+      "answer": 0,
+      "explanation": "Humanity lost the life of God and inherited a fallen civilization governed by the power of the flesh."
+    },
+    {
+      "id": "believer-warfare-05",
+      "prompt": "Scenario: A believer claims that salvation is merely an insurance policy for heaven and has no relevance to their current daily lifestyle patterns on earth. Question: How does Apostle Ada Victor Adjo define the relationship between redemption in Christ and Adam's lost template (Romans 8:1–4)?",
+      "options": [
+        "Redemption is strictly a future promise that takes effect after physical death.",
+        "Redemption is the restoration of Adam’s original template, enabling believers in Christ to walk after the spirit and not after the flesh.",
+        "Redemption grants total liberty to satisfy bodily cravings without consequence.",
+        "Redemption replaces spiritual laws with human philosophical guidelines."
+      ],
+      "answer": 1,
+      "explanation": "Redemption is the restoration of Adam’s original template, enabling believers in Christ to walk after the spirit and not after the flesh."
+    },
+    {
+      "id": "believer-warfare-06",
+      "prompt": "Scenario: A counselor is helping a believer who feels constantly torn between worldly desires and spiritual convictions. The counselor draws a spiritual equation based on Romans 8:2. Question: What are the two opposing laws and their corresponding operational patterns?",
+      "options": [
+        "The Law of Moses (walk in wealth) vs. The Law of Prophets (walk in poverty).",
+        "The Law of the Spirit of Life in Christ Jesus (walk after the spirit) vs. The Law of Sin and Death (walk after the flesh).",
+        "The Law of Consent (walk in isolation) vs. The Law of Faith (walk in community).",
+        "The Law of Grace (no rules) vs. The Law of Works (strict ritualism)."
+      ],
+      "answer": 1,
+      "explanation": "The Law of the Spirit of Life in Christ Jesus (walk after the spirit) vs. The Law of Sin and Death (walk after the flesh)."
+    },
+    {
+      "id": "believer-warfare-07",
+      "prompt": "Scenario: Apostle Ada Victor Adjo shared his personal testimony of giving his life to Christ at Remnant Christian Network (RCN), detailing how he eventually deleted all worldly music from his phone without external compulsion. Question: What spiritual principle does this testimony illustrate regarding the Law of the Spirit of Life?",
+      "options": [
+        "Believers should be publicly coerced into destroying personal property.",
+        "The colonization of God’s law over a believer’s life is a gradual process that brings every area into obedience as they yield.",
+        "Listening to secular music automatically revokes a person’s salvation.",
+        "Spiritual growth happens instantaneously without ongoing transformation."
+      ],
+      "answer": 1,
+      "explanation": "The colonization of God’s law over a believer’s life is a gradual process that brings every area into obedience as they yield."
+    },
+    {
+      "id": "believer-warfare-08",
+      "prompt": "Scenario: A worker believes that \"walking in the spirit\" means displaying extreme emotional displays or speaking in tongues during public gatherings while disobeying God's revealed directives in secret. Question: What is the simple, core definition of \"walking in the spirit\" given in the audio?",
+      "options": [
+        "Performing public miracles to gain leadership recognition.",
+        "Living by the will of God and consistently giving God pleasure.",
+        "Memorizing theological Greek and Hebrew definitions.",
+        "Fasting 40 days to prove personal spiritual superiority."
+      ],
+      "answer": 1,
+      "explanation": "Living by the will of God and consistently giving God pleasure."
+    },
+    {
+      "id": "believer-warfare-09",
+      "prompt": "Scenario: A department head argues, \"God gave us brains so He can rest, so we should rely entirely on human logic rather than seeking spiritual guidance for our plans.\" Question: How does the teaching respond to relying on uncolonized human intellect?",
+      "options": [
+        "Human logic is always superior to spiritual promptings in administrative matters.",
+        "If the mind/brain has not been colonized by God, it remains subject to the law of sin and death.",
+        "God never operates through human intellect under any circumstances.",
+        "Intellect replaces the need for the Holy Ghost after salvation."
+      ],
+      "answer": 1,
+      "explanation": "If the mind/brain has not been colonized by God, it remains subject to the law of sin and death."
+    },
+    {
+      "id": "believer-warfare-10",
+      "prompt": "Scenario: A worker is preparing a foundational discipleship class and needs to clearly define the status of individuals based on Romans 10:10. Question: According to the audio teaching, who is an unbeliever and who is a believer?",
+      "options": [
+        "An unbeliever is anyone outside your denomination; a believer is anyone inside it.",
+        "An unbeliever is unsaved and ruled by fleshly appetites; a believer has accepted Christ in their heart, confessed Him, and become a bondservant to Christ.",
+        "An unbeliever is an uneducated person; a believer is an educated Christian.",
+        "An unbeliever is someone who doesn't pay tithes; a believer is someone who pays tithes."
+      ],
+      "answer": 1,
+      "explanation": "An unbeliever is unsaved and ruled by fleshly appetites; a believer has accepted Christ in their heart, confessed Him, and become a bondservant to Christ."
+    },
+    {
+      "id": "believer-warfare-11",
+      "prompt": "Scenario: A student asks whether Christianity should be classified alongside world religions like Hinduism or Islam. Question: How is Christianity defined in the light of Acts 11:26 in this message?",
+      "options": [
+        "Christianity is a religious system based on ancient rituals.",
+        "Christianity is not a religion, but a culture and way of life where believers live as \"little Christs\" after the spirit.",
+        "Christianity is a political movement designed for territorial governance.",
+        "Christianity is an intellectual philosophy reserved for theologians."
+      ],
+      "answer": 1,
+      "explanation": "Christianity is not a religion, but a culture and way of life where believers live as \"little Christs\" after the spirit."
+    },
+    {
+      "id": "believer-warfare-12",
+      "prompt": "Scenario: A church member attends services faithfully and speaks in tongues, yet continually engages in fornication, malice, and uncontrolled fleshly habits. Question: How does the message scripturally define a \"carnal believer\" (1 Corinthians 3:1–3)?",
+      "options": [
+        "An unbeliever pretending to be a pastor.",
+        "A saved person whose spirit is regenerated, but whose soul remains ruled by the dictates of the flesh rather than the Spirit.",
+        "A believer who has lost their physical eyesight.",
+        "A Christian who refuses to engage in public church activities."
+      ],
+      "answer": 1,
+      "explanation": "A saved person whose spirit is regenerated, but whose soul remains ruled by the dictates of the flesh rather than the Spirit."
+    },
+    {
+      "id": "believer-warfare-13",
+      "prompt": "Scenario: A mentor uses a diagram of a tripartite human being (spirit, soul, body) to explain spiritual warfare to a mentee. Question: In this structural model, what are the respective roles of the Spirit, Flesh, and Soul?",
+      "options": [
+        "Spirit = Body’s slave; Flesh = Heavenly realm; Soul = Physical earth.",
+        "Spirit = God’s government house; Flesh = Devil’s government house; Soul = The contested territory being ruled.",
+        "Spirit = Intellect; Flesh = Emotion; Soul = Physical bones.",
+        "Spirit = The past; Flesh = The present; Soul = The future."
+      ],
+      "answer": 1,
+      "explanation": "Spirit = God’s government house; Flesh = Devil’s government house; Soul = The contested territory being ruled."
+    },
+    {
+      "id": "believer-warfare-14",
+      "prompt": "Scenario: A intercessor asks why both God and demonic forces place such intense focus on capturing the human soul. Question: Why is man’s soul the central battleground for kingdom dominion on earth?",
+      "options": [
+        "Because spiritual kingdoms can only rule and dominate the physical earth through human agents.",
+        "Because the soul is physical matter that can be sold for monetary currency.",
+        "Because angels do not possess spiritual intelligence.",
+        "Because the earth operates independently of human decisions."
+      ],
+      "answer": 0,
+      "explanation": "Because spiritual kingdoms can only rule and dominate the physical earth through human agents."
+    },
+    {
+      "id": "believer-warfare-15",
+      "prompt": "Scenario: A Christian counselor references Romans 6:16 to explain why a believer keeps falling into addiction despite being born again. Question: What does the \"Law of Consent\" dictate regarding spiritual governance?",
+      "options": [
+        "Believers are forced into sin by irresistible demonic power without choice.",
+        "Whomever you yield your members to obey, you become a slave to that master—whether of sin unto death or obedience unto righteousness.",
+        "Consent is only required in civil court proceedings.",
+        "Yielding to the flesh has no effect on spiritual authority."
+      ],
+      "answer": 1,
+      "explanation": "Whomever you yield your members to obey, you become a slave to that master—whether of sin unto death or obedience unto righteousness."
+    },
+    {
+      "id": "believer-warfare-16",
+      "prompt": "Scenario: A believer asks, \"If my spirit was made completely new at salvation, why do I still need to renew my mind daily?\" Question: How does the teaching explain the difference between spirit regeneration and soul transformation (Philippians 2:13 / Romans 12:2)?",
+      "options": [
+        "The spirit is saved instantly, but the soul must be transformed progressively through yieldedness because it was previously accustomed to sin.",
+        "The soul is transformed instantly, but the spirit requires 40 years of purification.",
+        "Mind renewal is only required for church workers, not regular believers.",
+        "Salvation does not affect the human spirit at all."
+      ],
+      "answer": 0,
+      "explanation": "The spirit is saved instantly, but the soul must be transformed progressively through yieldedness because it was previously accustomed to sin."
+    },
+    {
+      "id": "believer-warfare-17",
+      "prompt": "Scenario: A leader notices that a worker is constantly preoccupied with worldly gossip, lustful trends, and material greed, showing zero interest in spiritual matters. Question: According to Romans 8:5, what does a person's mental preoccupation reveal?",
+      "options": [
+        "They simply have a creative personality.",
+        "Those who are after the flesh mind the things of the flesh, revealing that their soul is governed by the flesh.",
+        "They are operating in advanced prophetic discernment.",
+        "Mental thoughts have no connection to spiritual governance."
+      ],
+      "answer": 1,
+      "explanation": "Those who are after the flesh mind the things of the flesh, revealing that their soul is governed by the flesh."
+    },
+    {
+      "id": "believer-warfare-18",
+      "prompt": "Scenario: A volunteer attempts to live a \"hybrid\" lifestyle—spending Friday nights in worldly drunkenness and Saturday mornings leading intercession. Question: What does Galatians 5:16–17 state regarding neutrality between the flesh and the spirit?",
+      "options": [
+        "The flesh and spirit complement each other to create a balanced lifestyle.",
+        "The flesh lusts against the Spirit, and the Spirit against the flesh; they are contrary to one another, eliminating neutrality.",
+        "Believers can alternate between flesh and spirit without spiritual friction.",
+        "The Spirit eventually condones fleshly habits if performed in secret."
+      ],
+      "answer": 1,
+      "explanation": "The flesh lusts against the Spirit, and the Spirit against the flesh; they are contrary to one another, eliminating neutrality."
+    },
+    {
+      "id": "believer-warfare-19",
+      "prompt": "Scenario: A veteran minister asks when the internal struggle against fleshly appetites will finally end. Question: According to the teaching (citing 1 Corinthians 15:52), how long does the battle between the flesh and the spirit last?",
+      "options": [
+        "It ends after completing 21 days of water fasting.",
+        "It ends five years after a person is ordained as a minister.",
+        "It persists continuously until the last trumpet sounds and believers receive their glorified bodies.",
+        "It ends as soon as a believer breaks generational family curses."
+      ],
+      "answer": 2,
+      "explanation": "It persists continuously until the last trumpet sounds and believers receive their glorified bodies."
+    },
+    {
+      "id": "believer-warfare-20",
+      "prompt": "Scenario: A young zealot wants to travel to major cities to cast out territorial principalities, but habitually succumbs to secret lust and uncontrolled anger. Question: What warning does Apostle Ada Victor Adjo give regarding territorial warfare and personal flesh mastery?",
+      "options": [
+        "Territorial principalities only respect believers with university degrees.",
+        "You cannot take territories or spheres for God if you have not first mastered the basic warfare of subduing your own flesh.",
+        "Territorial warfare automatically cleanses a worker’s secret sins.",
+        "Mastery over the flesh is irrelevant when operating in spiritual gifts."
+      ],
+      "answer": 1,
+      "explanation": "You cannot take territories or spheres for God if you have not first mastered the basic warfare of subduing your own flesh."
+    },
+    {
+      "id": "believer-warfare-21",
+      "prompt": "Scenario: A Bible study group analyzes the life of Samson, noting how he performed mighty exploits yet died tragically in enemy captivity. Question: What key lesson does Samson’s downfall provide regarding spiritual warfare?",
+      "options": [
+        "Physical strength is the most important spiritual asset.",
+        "A minister can take territory through divine grace, but will ultimately be brought down if they fail to master fleshly appetites (like Delilah).",
+        "God withdrew Samson's calling because he refused to fast.",
+        "Enemies can defeat a believer even when the believer lives in total purity."
+      ],
+      "answer": 1,
+      "explanation": "A minister can take territory through divine grace, but will ultimately be brought down if they fail to master fleshly appetites (like Delilah)."
+    },
+    {
+      "id": "believer-warfare-22",
+      "prompt": "Scenario: When Potiphar’s wife enticed Joseph in private, he fled, declaring, \"How can I do this great wickedness and sin against God?\" Question: What was the spiritual outcome of Joseph mastering his fleshly temptation?",
+      "options": [
+        "He lost all favor and died in prison.",
+        "He proved he was a man qualified to legislate and rule over a foreign territory (Egypt).",
+        "He was immediately translated to heaven without dying.",
+        "He lost his administrative gifts."
+      ],
+      "answer": 1,
+      "explanation": "He proved he was a man qualified to legislate and rule over a foreign territory (Egypt)."
+    },
+    {
+      "id": "believer-warfare-23",
+      "prompt": "Scenario: A departmental leader evaluates team members who exhibit envy, strife, and outburst of wrath (Galatians 5:19–23). Question: How does Galatians 5 classify these behaviors, and what is required of those in Christ?",
+      "options": [
+        "They are minor personality flaws that automatically produce spiritual fruit.",
+        "They are works of the flesh, and those who belong to Christ must crucify the flesh with its affections and lusts.",
+        "They are spiritual gifts meant for spiritual warfare.",
+        "They are cultural traits that should be celebrated in church."
+      ],
+      "answer": 1,
+      "explanation": "They are works of the flesh, and those who belong to Christ must crucify the flesh with its affections and lusts."
+    },
+    {
+      "id": "believer-warfare-24",
+      "prompt": "Scenario: A believer asks: \"If Christ already crucified the flesh on the cross (Galatians 5:24), why does Romans 8:13 command me to 'mortify' the deeds of the body?\" Question: How does the teaching distinguish between Crucifixion and Mortification?",
+      "options": [
+        "Crucifixion broke the legal power of sin at the cross; Mortification is the practical daily killing/starving of fleshly affections through the Spirit.",
+        "Crucifixion is performed by angels; Mortification is performed by demonic spirits.",
+        "They are contradictory statements with no spiritual harmony.",
+        "Mortification applies only to Old Testament believers."
+      ],
+      "answer": 0,
+      "explanation": "Crucifixion broke the legal power of sin at the cross; Mortification is the practical daily killing/starving of fleshly affections through the Spirit."
+    },
+    {
+      "id": "believer-warfare-25",
+      "prompt": "Scenario: A minister explains why certain worldly desires wither away while others grow stronger in a believer’s life. Question: What basic spiritual principle governs mortification in Romans 8:13?",
+      "options": [
+        "Things grow when you feed them and die when you starve them; feeding the spirit starves the flesh.",
+        "Desires die automatically regardless of what you pay attention to.",
+        "Feeding the flesh strengthens the human spirit.",
+        "Starving the body physically destroys the human spirit permanently."
+      ],
+      "answer": 0,
+      "explanation": "Things grow when you feed them and die when you starve them; feeding the spirit starves the flesh."
+    },
+    {
+      "id": "believer-warfare-26",
+      "prompt": "Scenario: A worker complains that their spiritual life feels weak, sluggish, and constantly overcome by fleshly temptations. Question: What three spiritual exercises must a believer consistently engage in to awaken and fatten their spirit man?",
+      "options": [
+        "Public speaking, financial investments, and political lobbying.",
+        "Routine long-stretch prayer, long-stretch fasting, and consistent study of the Word.",
+        "Watching moral movies, attending social rallies, and resting.",
+        "Reading self-help literature, travelling, and networking."
+      ],
+      "answer": 1,
+      "explanation": "Routine long-stretch prayer, long-stretch fasting, and consistent study of the Word."
+    },
+    {
+      "id": "believer-warfare-27",
+      "prompt": "Scenario: A believer excuses themselves from spiritual fasting routines, claiming, \"My stomach shakes whenever I skip breakfast, so my body cannot handle fasting.\" Question: How does the teaching expose this response as a tactic of the flesh/devil?",
+      "options": [
+        "The body’s shaking is physical proof that fasting is dangerous.",
+        "The devil uses gluttonous appetite and deceptive physical excuses to keep the spirit man lean and maintain control over the believer.",
+        "Skipping meals automatically revokes spiritual authority.",
+        "Believers should only fast when they feel physical comfort."
+      ],
+      "answer": 1,
+      "explanation": "The devil uses gluttonous appetite and deceptive physical excuses to keep the spirit man lean and maintain control over the believer."
+    },
+    {
+      "id": "believer-warfare-28",
+      "prompt": "Scenario: A student notes that while Colossians 3:5 speaks of \"mortifying\" sexual immorality through the Spirit, Colossians 3:8 commands believers to \"put off\" anger, malice, and dirty language. Question: How does the message distinguish between spiritual mortification and personal discipline?",
+      "options": [
+        "Mortification kills deep fleshly urges through the Spirit; \"putting off\" requires personal, deliberate discipline to undress oneself from wrong behavioral clothes.",
+        "\"Putting off\" is performed by church leaders on behalf of members.",
+        "Mortification is optional, while personal discipline is forbidden.",
+        "Both terms mean ignoring sin until it disappears naturally."
+      ],
+      "answer": 0,
+      "explanation": "Mortification kills deep fleshly urges through the Spirit; \"putting off\" requires personal, deliberate discipline to undress oneself from wrong behavioral clothes."
+    },
+    {
+      "id": "believer-warfare-29",
+      "prompt": "Scenario: A believer notices that looking at certain social media pages always triggers lustful thoughts. Instead of unfollowing the pages, they try to pray while continuing to view the content. Question: What practical discipline does the audio mandate for energizing the spirit (referencing Jesus' command to cut off an offending hand)?",
+      "options": [
+        "Continue viewing the content to test your spiritual immunity.",
+        "Uproot sinful thought-seeds immediately and cut off any trigger, media, or environment that causes you to sin.",
+        "Blame generational curses for your social media habits.",
+        "Wait for an angel to block the websites for you."
+      ],
+      "answer": 1,
+      "explanation": "Uproot sinful thought-seeds immediately and cut off any trigger, media, or environment that causes you to sin."
+    },
+    {
+      "id": "believer-warfare-30",
+      "prompt": "Scenario: A trainee asks for a comprehensive summary of God’s complete redemption plan for man from start to finish. Question: What are the three distinct stages of redemption outlined at the conclusion of the teaching?",
+      "options": [
+        "1) Water baptism, 2) Church membership, 3) Financial prosperity.",
+        "1) Salvation of the spirit (from Christ), 2) Progressive transformation of the soul (by the Holy Ghost), 3) Reward of a glorified body (at the last trumpet).",
+        "1) Repentance, 2) Ordination as a pastor, 3) Physical burial.",
+        "1) Moral education, 2) Social reform, 3) Reincarnation."
+      ],
+      "answer": 1,
+      "explanation": "1) Salvation of the spirit (from Christ), 2) Progressive transformation of the soul (by the Holy Ghost), 3) Reward of a glorified body (at the last trumpet)."
+    }
+  ] },
 };
 
 export function getModuleExamDefinition(moduleId: string): ExamDefinition | undefined {
