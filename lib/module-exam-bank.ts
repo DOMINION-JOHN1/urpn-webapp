@@ -1148,7 +1148,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
         "explanation": "In STEWARDSHIP III, Apostle Ada addresses workforce members transitioning into marriage and parenthood. Altar sustenance requires intentional grace and discipline across all life seasons. Failing to cultivate deep spiritual capacity before major transitions allows domestic cares to extinguish one's altar fire."
     },
   ] },
-  "wt-urpn-focus": { questions: [
+  "wt-m7": { questions: [
     {
       "id": "urpn-focus-01",
       "prompt": "Scenario: A team lead in URPN attempts to draft a new operational strategy for their department based on current secular trends and personal ambition, titling it \"Vision 2027 Mandate.\" Question: According to URPN Module 1, why is this approach fundamentally flawed regarding a divine mandate?",
