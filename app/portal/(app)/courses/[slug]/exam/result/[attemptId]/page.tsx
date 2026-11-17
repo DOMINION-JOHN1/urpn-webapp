@@ -6,20 +6,15 @@ import {
   ArrowLeft,
   ArrowRight,
   Award,
-  Check,
   CheckCircle2,
-  ChevronDown,
   Clock3,
   Lock,
   RotateCcw,
-  X,
   XCircle,
 } from 'lucide-react';
 import { requireUser } from '@/lib/server/auth';
 import { getAttemptForUser } from '@/lib/server/learning';
 import { canAccessCourse } from '@/lib/courses';
-import { getExamDefinition } from '@/lib/exam-bank';
-import { getModuleExamDefinition } from '@/lib/module-exam-bank';
 
 export const dynamic = 'force-dynamic';
 
@@ -76,12 +71,6 @@ export default async function ExamResultPage({
     (id) => typeof attempt.answers?.[id] !== 'number'
   ).length;
 
-  const questionBank = attempt.moduleId
-    ? getModuleExamDefinition(attempt.moduleId)?.questions ?? []
-    : getExamDefinition(course.slug).questions;
-  const questions = questionBank.filter((question) =>
-    attempt.questionIds.includes(question.id)
-  );
   const moduleIndex = module ? course.modules.findIndex((entry) => entry.id === module.id) : -1;
   const nextModule = moduleIndex >= 0 ? course.modules[moduleIndex + 1] ?? null : null;
 
@@ -286,86 +275,6 @@ export default async function ExamResultPage({
         </div>
       )}
 
-      <details className="group mt-6 rounded-2xl border border-line bg-surface">
-        <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4">
-          <div>
-            <p className="mono-label">Review</p>
-            <p className="mt-1 text-[13px] text-cream-200">
-              See every question, your answer, and the explanation.
-            </p>
-          </div>
-          <ChevronDown
-            className="h-4 w-4 text-cream-500 transition-transform group-open:rotate-180"
-            aria-hidden="true"
-          />
-        </summary>
-        <ol className="divide-y divide-line-soft border-t border-line-soft">
-          {questions.map((question, index) => {
-            const given = attempt.answers?.[question.id];
-            const isCorrect = given === question.answer;
-            return (
-              <li key={question.id} className="px-5 py-5">
-                <div className="flex items-start gap-3">
-                  <span
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md border font-mono text-[10px] ${
-                      isCorrect
-                        ? 'border-gold-400/30 bg-gold-400/10 text-gold-300'
-                        : 'border-red-900/50 bg-red-950/30 text-red-300'
-                    }`}
-                  >
-                    {isCorrect ? (
-                      <Check className="h-3.5 w-3.5" aria-hidden="true" />
-                    ) : (
-                      <X className="h-3.5 w-3.5" aria-hidden="true" />
-                    )}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[13px] font-medium leading-relaxed text-cream-50">
-                      {index + 1}. {question.prompt}
-                    </p>
-                    <div className="mt-3 space-y-1.5">
-                      {question.options.map((option, optionIndex) => {
-                        const isAnswer = optionIndex === question.answer;
-                        const isGiven = optionIndex === given;
-                        return (
-                          <p
-                            key={option}
-                            className={`rounded-lg border px-3 py-2 text-[11.5px] leading-relaxed ${
-                              isAnswer
-                                ? 'border-gold-500/30 bg-gold-500/[0.05] text-cream-200'
-                                : isGiven
-                                  ? 'border-red-900/50 bg-red-950/20 text-red-200'
-                                  : 'border-line-soft text-cream-500'
-                            }`}
-                          >
-                            <span className="mr-2 font-mono text-[9px] text-cream-600">
-                              {String.fromCharCode(65 + optionIndex)}
-                            </span>
-                            {option}
-                            {isAnswer && (
-                              <span className="ml-2 font-mono text-[8.5px] uppercase tracking-[0.1em] text-gold-300">
-                                Correct
-                              </span>
-                            )}
-                            {isGiven && !isAnswer && (
-                              <span className="ml-2 font-mono text-[8.5px] uppercase tracking-[0.1em] text-red-300">
-                                Your answer
-                              </span>
-                            )}
-                          </p>
-                        );
-                      })}
-                    </div>
-                    <p className="mt-3 border-l border-line pl-3 text-[11px] leading-relaxed text-cream-400">
-                      {question.explanation}
-                    </p>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </details>
     </div>
   );
 }
