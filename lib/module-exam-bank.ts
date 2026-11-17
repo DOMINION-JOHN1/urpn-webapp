@@ -1512,7 +1512,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
   ] },
   "wt-m1": { questions: [
     {
-      "number": 1,
       "prompt": "A department head at URPN notices that while the media team has acquired high-end 4K cameras and elaborate stage lighting, production quality frequently collapses during live broadcasts due to misaligned cues, delayed graphics, and disorganized stream management. When queried, the team lead argues that \"the altar is fully decorated and modern.\" Based on Pastor Steven’s definition of Throne Culture, how should the department head evaluate and correct this situation?",
       "options": [
         "Commend the team for establishing external aesthetic standards while arranging a technical training seminar on camera operations.",
@@ -1525,7 +1524,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Pastor Steven defines excellence as starting from the inside out. Decorating an altar or buying 4K cameras without internal coordination, mental alignment, and procedural discipline is an error of building \"from the outside in.\" True throne culture demands flawless presentation originating from an aligned mind."
     },
     {
-      "number": 2,
       "prompt": "In \"The Culture of Your Throne,\" Pastor Steven highlights the devil’s strategic target in spiritual warfare, contrasting it with superficial external issues. A workforce member under your supervision is constantly anxious about their physical wardrobe and financial status, while tolerating persistent compromise in their thought patterns and mental discipline. What foundational insight must you impart to reorient their spiritual warfare strategy?",
       "options": [
         "The devil is primarily targeting their financial resources to starve their ministry vision.",
@@ -1538,7 +1536,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "The teaching establishes that the devil is not primarily fighting your physical clothes or bank balance; he targets your mind. If he succeeds in bending your operating system (like metal or blood bending), your entire output becomes dysfunctional."
     },
     {
-      "number": 3,
       "prompt": "During a spiritual review of a minister’s discernment, Jesus’ healing of the blind man who initially reported seeing \"men as trees\" is analyzed. What does this specific biblical narrative demonstrate regarding a workforce member's effectiveness in kingdom service?",
       "options": [
         "It proves that spiritual vision always requires a two-stage laying on of hands before physical sight can manifest.",
@@ -1551,7 +1548,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "When Jesus healed the man who saw \"men as trees,\" it illustrated a distorted mental perception. In ministry, if a leader's internal operating system is dysfunctional, they will misinterpret people, assignments, and divine protocols, producing distorted leadership."
     },
     {
-      "number": 4,
       "prompt": "Pastor Steven contrasts the order of heaven in Revelation with chaotic earthly settlements (referencing Maraba vs. Maitama/Asokoro in Abuja). How does this distinction establish the ultimate origin and standard of Christian excellence?",
       "options": [
         "God is a prototype who evolved His operational standards over time through observation of earthly kingdoms.",
@@ -1564,7 +1560,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "God is not a prototype; He is the absolute Origin. The Book of Revelation showcases exquisite heavenly coordination, decor, and structural order. Earthly ministry must reflect this divine baseline because heaven is orderly, coordinated, and flawless."
     },
     {
-      "number": 5,
       "prompt": "A team lead attempts to define excellence using popular corporate cliches about \"doing your best despite flaws.\" According to the Oxford definition cited in the teaching alongside the spiritual definition, what is the precise standard of excellence required in throne service?",
       "options": [
         "Achieving a passing grade of 70% while maintaining a positive religious attitude.",
@@ -1577,7 +1572,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Citing the Oxford dictionary alongside spiritual definitions, excellence is the quality of being outstanding and extremely good—presented flawlessly, beautifully, and attractively. It rejects sloppy, \"passing grade\" Christianity."
     },
     {
-      "number": 6,
       "prompt": "During a workforce evaluation, a volunteer claims that because they possess a powerful spiritual gift of prophecy, they do not need to refine their administrative delivery or speech posture. Which dimension of Christian excellence outlined in the teaching directly refutes this posture?",
       "options": [
         "Wholehearted devotion requires abandoning spiritual gifts in favor of administrative duties.",
@@ -1590,7 +1584,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Possessing a spiritual gift is only one dimension of Christian excellence. Stewardship of gifts requires the minister to refine their operational capacity, communication, and administrative delivery so the gift is presented without flaw."
     },
     {
-      "number": 7,
       "prompt": "A ministry team is setting up an altar for an upcoming apostolic conference. The team lead focuses exclusively on buying expensive flower arrangements and stage banners, while leaving the microphones uncalibrated, the stage floor dusty, and the background cables tangled. How does Pastor Steven’s teaching diagnose this approach?",
       "options": [
         "It represents a balanced approach that prioritizes visual impact over hidden technicalities.",
@@ -1603,7 +1596,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Focusing on visual stage flowers while leaving sound uncalibrated and cables tangled is the classic mistake of starting from the outside in. Excellence requires foundational order before exterior embellishment."
     },
     {
-      "number": 8,
       "prompt": "An intercessor in URPN claims that as long as they spend six hours praying in tongues, their physical presentation, posture, and workplace punctuality do not matter to God. How does the teaching evaluate the relationship between spiritual devotion and professional presentation?",
       "options": [
         "Spiritual prayer fully neutralizes any negative impression created by poor physical posture or tardiness.",
@@ -1616,7 +1608,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Wholehearted devotion does not isolate prayer from outward presentation. True spiritual depth expresses itself through physical order, punctuality, refined posture, and honor in public service."
     },
     {
-      "number": 9,
       "prompt": "Why does Pastor Steven emphasize that heaven's throne room in the Book of Revelation displays exquisite coordination and decor among angelic hosts?",
       "options": [
         "Because angels compete with one another for administrative promotion based on visual appearance.",
@@ -1629,7 +1620,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Angelic hosts in Revelation operate with decor and coordination because throne culture reflects the nature of God. Divine royalty requires order, protocol, and polished execution."
     },
     {
-      "number": 10,
       "prompt": "A department head at URPN has consistently failed to deliver monthly operational reports, blaming their poor childhood background, a lack of parental support, and the harsh economic conditions in Kogi State. Sitting across from them in an appraisal session, how should a senior trainer apply Pastor Steven’s \"hard truth\" of personal accountability?",
       "options": [
         "Sympathize with their background, excuse the missing reports, and assign another worker to write their reports permanently.",
@@ -1642,7 +1632,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Pastor Steven delivers the hard truth: wherever you currently find yourself in life, spiritual depth, or career is entirely your own fault and decision. You cannot blame your parents, uncle, background, or Kogi State. You must agitate for the yoke to be lifted."
     },
     {
-      "number": 11,
       "prompt": "According to the teaching, what scriptural spiritual law governs the breaking of limitations, poverty, and stagnation in a believer’s life?",
       "options": [
         "The law of passive waiting, where God removes burdens without human participation.",
@@ -1655,7 +1644,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Scripture establishes that the day you agitate against stagnation and refuse to tolerate limitations, the yoke is broken from off your neck. Passive waiting prolongs captivity."
     },
     {
-      "number": 12,
       "prompt": "A workforce member routinely promises to execute complex media tasks but fails repeatedly. However, they convince themselves that they are the most dedicated worker in the ministry because they \"have good intentions.\" How does Apostle Ada Victor Adjo (quoted in the teaching) define this psychological condition?",
       "options": [
         "Holy optimism in the face of operational adversity.",
@@ -1668,7 +1656,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Apostle Ada Victor Adjo teaches that the worst form of deception is self-deception—when an individual lies to themselves about their capacity or commitment and actually believes their own lie."
     },
     {
-      "number": 13,
       "prompt": "During a 21-local government data processing project cited by Pastor Steven, a critical operational collapse occurred. Work meant for 42 trained personnel fell entirely upon a single competent individual, causing them severe physical exhaustion. What was the root cause of this systemic failure?",
       "options": [
         "The regional office failed to provide high-speed internet routers for the field staff.",
@@ -1681,7 +1668,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "In the 21 local government data exercise, personnel lacked operational capacity and discipline. Instead of executing data entry, they focused on eating breakfast, lunch, and posting social media status updates, forcing 1 person to do the work of 42 people."
     },
     {
-      "number": 14,
       "prompt": "When a workforce member lacks operational capacity and fails in their assigned responsibility, who ultimately bears the cascading negative impact within the ministry hierarchy?",
       "options": [
         "Only the negligent workforce member experiences any inconvenience.",
@@ -1694,7 +1680,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Workforce irresponsibility does not remain isolated; it cascades upward. When team members fail, department heads, senior pastors, and apostolic leadership (Martins, Papa, Apostle) suffer severe operational stress and wasted energy."
     },
     {
-      "number": 15,
       "prompt": "Two ministry volunteers are sent to represent URPN at an inter-ministry conference. Instead of taking notes, networking, and mastering the conference materials, they spend the entire time taking selfies at the food queue and posting \"Chilling at the conference\" on WhatsApp. How does Pastor Steven analyze this behavioral pattern?",
       "options": [
         "A commendable display of workforce joy and relaxed fellowship.",
@@ -1707,7 +1692,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Prioritizing food queues and selfie updates during kingdom assignments reveals low capacity and misplaced priorities. Workforce members must focus on functional competence over stomach comfort."
     },
     {
-      "number": 16,
       "prompt": "A leader leaves a dirty water bottle on the conference room table after a meeting. Three weeks later, the bottle remains in the exact same spot because everyone assumed \"it is not my official job to clean it.\" What operational principle does Pastor Steven draw from this exact scenario?",
       "options": [
         "Leadership will eventually step in and clean it once they notice the bottle.",
@@ -1720,7 +1704,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "The dirty bottle left on the table for weeks proves that irresponsibility preserves stagnation. Unless someone assumes personal responsibility, a dirty situation will remain unchanged for 300 days."
     },
     {
-      "number": 17,
       "prompt": "A minister in URPN claims that their bank balance of N10,000 and their inability to explain basic ministry doctrines are entirely caused by the national economic recession. Applying Pastor Steven’s framework of internal perception, how should this claim be evaluated?",
       "options": [
         "Validated completely, because macro-economic indicators dictate individual financial and intellectual limits.",
@@ -1733,7 +1716,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "A low bank balance or lack of doctrinal knowledge is a personal decision to remain uneducated and passive. With global tools and books available, ignorance is a choice."
     },
     {
-      "number": 18,
       "prompt": "A young brother moves to a new city on the promise of a major business partnership, only to discover his relative wants him to bake bread inside the house. After three months of frustration, he sits idly blaming his relative for ruining his life. What counsel does Pastor Steven offer to break this cycle?",
       "options": [
         "Continue confronting the relative daily until financial compensation is paid.",
@@ -1746,7 +1728,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Blaming a relative for past mistakes achieves nothing. A mature leader stops complaining, takes responsibility, registers for school or work, and builds their own future."
     },
     {
-      "number": 19,
       "prompt": "A minister residing in a localized, under-resourced town complains that the noisy environment and lack of modern infrastructure prevent them from expanding their mind or producing high-level work. What primary spiritual and intellectual mechanism does Pastor Steven prescribe to transcend one's physical environment?",
       "options": [
         "Relocating illegally to a foreign nation without a visa or divine direction.",
@@ -1759,7 +1740,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Study is the portal of environmental transcendence. By embedding oneself in quality books and scriptures, a person shuts out localized noise and expands their mental capacity beyond their immediate town."
     },
     {
-      "number": 20,
       "prompt": "Apostle Ada Victor Adjo is quoted as advocating a rigorous reading habit to build spiritual and intellectual capacity. What vivid illustration is used in the teaching to demonstrate the scale of study required for mastery?",
       "options": [
         "Memorizing one chapter of scripture per day for thirty consecutive years.",
@@ -1772,7 +1752,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Apostle Ada Victor Adjo’s reading habit is illustrated by a stack of books on a single topic matching his physical height, demonstrating the extreme diligence needed for spiritual mastery."
     },
     {
-      "number": 21,
       "prompt": "When studying the biographies of past revivalists in books like God's Generals, what critical wisdom must a growing workforce member extract to safeguard their own life and assignment?",
       "options": [
         "Assume that every historical revivalist lived a flawless life worthy of blind imitation.",
@@ -1785,7 +1764,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Reading Christian history (God's Generals) exposes historical patterns. It teaches ministers how to walk with God while highlighting the pitfalls, divinations, and traps that ruined past leaders."
     },
     {
-      "number": 22,
       "prompt": "A team lead notices that a workforce member is maintaining an intimate friendship with a cynical, compromised former leader who constantly speaks against URPN's authority. When confronted, the worker replies, \"Jesus left the 99 to seek the 1 lost sheep, so I am staying close to save him.\" How does Pastor Steven’s teaching address this reasoning?",
       "options": [
         "Endorse the worker's evangelistic compassion and encourage them to spend more time with the cynical person.",
@@ -1798,7 +1776,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Leaving the 99 to seek 1 lost sheep is Jesus’ divine role. A human worker who exposes themselves to toxic, rebellious individuals risks spiritual infection, losing their own soul and destroying the 99 preserved brethren."
     },
     {
-      "number": 23,
       "prompt": "What scriptural law of human relationship and identity formation is illustrated by the story of Pastor Steven and his younger brother whose voices and physical faces were indistinguishable to family and technology?",
       "options": [
         "The law of genetic inheritance over spiritual grace.",
@@ -1811,7 +1788,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Continuous association produces identity alignment. Spending extended time with a person or environment causes you to adopt their voice, mannerisms, thought patterns, and outcomes."
     },
     {
-      "number": 24,
       "prompt": "A local URPN fellowship center has tolerated broken chairs, dangling unaligned speakers, and cobwebs in the auditorium corners for years because \"God looks at the heart, not the hall.\" What happens when a workforce member visits a highly organized, excellent ministry environment (like COZA, as cited in the teaching)?",
       "options": [
         "They become prideful and demand immediate resignation from URPN.",
@@ -1824,7 +1800,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Exposure to high-level excellence (e.g., COZA standards) raises an individual's internal threshold. Upon returning home, previously tolerated dirt, cobwebs, and misaligned equipment become unacceptable."
     },
     {
-      "number": 25,
       "prompt": "A senior worker discovers that an old secondary school friend constantly pulls them toward worldly compromise, spiritual coldness, and low thinking. Applying Pastor Steven's personal discipline of \"editing associations,\" what decisive action should be taken?",
       "options": [
         "Maintain constant communication on WhatsApp while praying silently in the secret place.",
@@ -1837,7 +1812,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Preserving destiny requires ruthless association editing. Compromised, non-edifying relationships must be blocked and deleted across all platforms to protect spiritual health."
     },
     {
-      "number": 26,
       "prompt": "Pastor Steven uses the analogy of a white man's professional online job interview being ruined by background noise. What specific environmental elements were disrupting the $3,000/month negotiation?",
       "options": [
         "Heavy highway traffic and street vendors shouting outside the window.",
@@ -1850,7 +1824,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "The teaching illustrates environmental disruption through domestic chickens clucking and dogs barking in a family compound during a high-stakes $3,000/month remote job interview."
     },
     {
-      "number": 27,
       "prompt": "What simple Chinese proverb cited in the teaching highlights the exact moment when spiritual growth, intellectual elevation, and divine instruction become accessible to a believer?",
       "options": [
         "\"A journey of a thousand miles begins with a single step.\"",
@@ -1863,7 +1836,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "The Chinese proverb states: \"When the student is ready, the teacher will appear.\" The moment an individual commits to excellence, divine instruction and mentors manifest."
     },
     {
-      "number": 28,
       "prompt": "In the testimony regarding Brother Goodness (who studied law at KSU), what specific lifestyle habit demonstrated his embodiment of the spirit of excellence long before he rose to international ministry platforms?",
       "options": [
         "He only attended fellowship when scheduled to deliver the main sermon.",
@@ -1876,7 +1848,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Brother Goodness embodied throne culture in school by wearing suits to ordinary meetings and football games, while spending an entire week preparing for a 5-minute offering message."
     },
     {
-      "number": 29,
       "prompt": "According to Pastor Steven, how is a spiritual atmosphere or \"spirit of excellence\" attracted and anchored into an individual's life over time?",
       "options": [
         "Through a single dramatic laying on of hands by an anointed apostle.",
@@ -1889,7 +1860,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Excellence is a spirit attracted through unbroken consistency. Diligence in unseen, minor assignments pulls down spiritual grace for public impact."
     },
     {
-      "number": 30,
       "prompt": "Explain the mental model titled \"The Master of the Opposite\" as presented in the teaching. How does it apply to a workforce member who struggles with spiritual dryness and prayerlessness?",
       "options": [
         "It proves that if you stop praying, God will automatically assign an angel to pray on your behalf.",
@@ -1902,7 +1872,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Under \"Master of the Opposite,\" whatever you do consistently becomes your master skill. If you consistently skip prayer, you become an effortless master of prayerlessness, attracting spiritual dryness."
     },
     {
-      "number": 31,
       "prompt": "What scriptural passage is cited to explain the psychological and spiritual concept of \"Tension of the Opposite,\" where an individual experiences an internal war between their desires and their actions?",
       "options": [
         "Genesis 1:1–5",
@@ -1915,7 +1884,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Romans 7:15–19 articulates the \"Tension of the Opposite\"—the internal struggle where a person desires good but finds themselves doing the opposite due to unaligned flesh."
     },
     {
-      "number": 32,
       "prompt": "Pastor Steven shares a personal testimony about purchasing high-quality ceramic plates and polished cutlery to eat his meals, explicitly forbidding himself from eating directly out of the cooking pot. What was the underlying psychological and spiritual objective of this discipline?",
       "options": [
         "To show off his financial prosperity to his family members.",
@@ -1928,7 +1896,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Buying quality plates and cutlery while refusing to eat out of the cooking pot was a deliberate mental conditioning exercise to kill a slave mindset and reinforce royal dignity."
     },
     {
-      "number": 33,
       "prompt": "A workforce team lead has demonstrated remarkable skill in small tasks. However, whenever they are about to be promoted to oversee major regional operations, they suddenly develop intense anxiety, make careless errors, and shrink back. How does Pastor Steven explain this phenomenon using the \"Arsenal FC\" football analogy?",
       "options": [
         "It is a manifestation of the \"Fear of Failure,\" where the leader lacks basic technical skills.",
@@ -1941,7 +1908,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "The \"Fear of Success\" occurs when an individual dreads the heightened expectations, visibility, and congratulatory pressure of winning, causing them to choke near victory (like Arsenal FC losing key matches near the trophy)."
     },
     {
-      "number": 34,
       "prompt": "During a live practical exercise in the teaching, a sister was asked to share her future aspirations. She hesitated to say she wanted an international master's scholarship, initially framing it small. What core lesson did Pastor Steven draw from her hesitation?",
       "options": [
         "Believers should keep their dreams secret to prevent demonic attack.",
@@ -1954,7 +1920,6 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "God gave humans the capacity to dream big, yet believers frequently shrink their visions, borrow small, and limit their divine blueprints due to subconscious fear."
     },
     {
-      "number": 35,
       "prompt": "What explicit assignment does Pastor Steven lay upon every workforce member regarding their personal life, ministry calling, and divine destiny?",
       "options": [
         "Wait passively for ministry leadership to write a career roadmap for them.",
