@@ -34,6 +34,7 @@ function formatDate(value: string) {
 export default async function PortalDashboardPage() {
   const user = await requireUser();
   if (user.role === 'workforce') redirect('/workforce');
+  if (user.role === 'admin') redirect('/portal/admin');
   const data = await getDashboardData(user.id);
   const firstName = user.name.trim().split(' ')[0] || user.email.split('@')[0];
 

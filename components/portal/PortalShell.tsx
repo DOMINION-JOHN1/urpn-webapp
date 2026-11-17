@@ -12,6 +12,7 @@ import {
   Globe,
   ArrowUpRight,
   Users,
+  ShieldCheck,
 } from 'lucide-react';
 import { UrpnLogo } from '@/components/UrpnLogo';
 import { InstallAppButton } from '@/components/InstallAppButton';
@@ -51,6 +52,7 @@ function isActive(pathname: string, href: string, exact: boolean) {
 export function PortalShell({ user, children }: PortalShellProps) {
   const pathname = usePathname();
   const isWorkforce = user.role === 'workforce';
+  const isAdmin = user.role === 'admin';
 
   const tracks = LEADERSHIP_TRACKS;
 
@@ -58,6 +60,13 @@ export function PortalShell({ user, children }: PortalShellProps) {
     ? [
         { href: '/workforce', label: 'Home', icon: LayoutGrid, exact: true },
         { href: '/portal/courses', label: 'Courses', icon: BookOpen, exact: false },
+        { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
+      ]
+    : isAdmin
+    ? [
+        { href: '/portal/admin', label: 'Admin Dashboard', icon: ShieldCheck, exact: true },
+        { href: '/portal/monitor', label: 'Progress Monitor', icon: Users, exact: false },
+        { href: '/portal/courses', label: 'Leadership tracks', icon: GraduationCap, exact: false },
         { href: '/portal/certificates', label: 'Certificates', icon: Award, exact: false },
       ]
     : [
@@ -69,9 +78,9 @@ export function PortalShell({ user, children }: PortalShellProps) {
 
   const mobileNav = [
     {
-      href: isWorkforce ? '/workforce' : '/portal',
-      label: isWorkforce ? 'Home' : 'Overview',
-      icon: LayoutGrid,
+      href: isWorkforce ? '/workforce' : isAdmin ? '/portal/admin' : '/portal',
+      label: isWorkforce ? 'Home' : isAdmin ? 'Admin' : 'Overview',
+      icon: isAdmin ? ShieldCheck : LayoutGrid,
       exact: true,
     },
     { href: '/portal/courses', label: isWorkforce ? 'Courses' : 'Training', icon: BookOpen, exact: false },
@@ -180,7 +189,14 @@ export function PortalShell({ user, children }: PortalShellProps) {
                 ) : initials(user.name || user.email)}
               </span>
               <div className="min-w-0">
-                <p className="truncate text-[12.5px] font-medium text-cream-50">{user.name || 'Complete your profile'}</p>
+                <div className="flex items-center gap-1.5">
+                  <p className="truncate text-[12.5px] font-medium text-cream-50">{user.name || 'Complete your profile'}</p>
+                  {isAdmin && (
+                    <span className="shrink-0 rounded bg-gold-400/20 px-1 py-0.5 font-mono text-[8.5px] font-semibold uppercase tracking-wider text-gold-300">
+                      Admin
+                    </span>
+                  )}
+                </div>
                 <p className="truncate text-[10.5px] text-cream-500">{user.email}</p>
               </div>
             </Link>

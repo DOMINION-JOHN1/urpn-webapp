@@ -8,11 +8,16 @@ import type {
   AdminMonitorData,
   AdminWorkerProgress,
   AdminWorkerEnrollment,
+  AdminWorkforceDashboardData,
+  WorkforceApplicant,
+  WorkforceApplicantDepartment,
 } from './types';
 import { mutateDb, newId, readDb } from './db';
 import {
   COURSES,
   ALL_COURSES,
+  WORKFORCE_DEPARTMENTS,
+  WORKFORCE_TRAINING,
   getCourse,
   getAllLessons,
   getLesson,
@@ -779,6 +784,209 @@ export async function getAdminProgressData(): Promise<AdminMonitorData> {
       activeEnrolled,
       completedTracks,
       totalCertificates,
+    },
+  };
+}
+
+export async function getAdminWorkforceData(): Promise<AdminWorkforceDashboardData> {
+  const db = await readDb();
+
+  // Everyone who has applied for workforce:
+  // Either their user role is 'workforce', or they have registered enrollments in workforce/departments.
+  const workforceUsers = db.users.filter(
+    (u) =>
+      u.role === 'workforce' ||
+      db.enrollments.some(
+        (e) =>
+          e.userId === u.id &&
+          (e.courseId === WORKFORCE_TRAINING.slug ||
+            WORKFORCE_DEPARTMENTS.some((dept) => dept.slug === e.courseId))
+      )
+  );
+
+  const departmentCounts: Record<string, number> = {};
+  for (const dept of WORKFORCE_DEPARTMENTS) {
+    departmentCounts[dept.slug] = 0;
+  }
+
+  const sharedWorkforceLessons = getAllLessons(WORKFORCE_TRAINING);
+
+  const applicants: WorkforceApplicant[] = workforceUsers.map((user) => {
+    const userEnrollments = db.enrollments.filter((e) => e.userId === user.id);
+    const userProgress = db.progress.filter((p) => p.userId === user.id);
+    const userAttempts = db.attempts.filter((a) => a.userId === user.id);
+    const userCertificates = db.certificates.filter((c) => c.userId === user.id);
+
+    let latestActivity: string | null = null;
+    let highestScore: number | null = null;
+
+    for (const p of userProgress) {
+      if (!latestActivity || Date.parse(p.updatedAt) > Date.parse(latestActivity)) {
+        latestActivity = p.updatedAt;
+      }
+    }
+    for (const a of userAttempts) {
+      if (a.score !== null && (highestScore === null || a.score > highestScore)) {
+        highestScore = a.score;
+      }
+      if (!latestActivity || Date.parse(a.startedAt) > Date.parse(latestActivity)) {
+        latestActivity = a.startedAt;
+      }
+    }
+    for (const cert of userCertificates) {
+      if (highestScore === null || cert.score > highestScore) {
+        highestScore = cert.score;
+      }
+      if (!latestActivity || Date.parse(cert.issuedAt) > Date.parse(latestActivity)) {
+        latestActivity = cert.issuedAt;
+      }
+    }
+
+    // Map each enrollment to department progress
+    const departments: WorkforceApplicantDepartment[] = userEnrollments
+      .filter((enr) => {
+        return (
+          enr.courseId === WORKFORCE_TRAINING.slug ||
+          WORKFORCE_DEPARTMENTS.some((dept) => dept.slug === enr.courseId) ||
+          ALL_COURSES.some((c) => c.slug === enr.courseId)
+        );
+      })
+      .map((enr) => {
+        const deptMeta = WORKFORCE_DEPARTMENTS.find((d) => d.slug === enr.courseId);
+        const matchedCourse = ALL_COURSES.find((c) => c.slug === enr.courseId) ?? WORKFORCE_TRAINING;
+
+        if (deptMeta) {
+          departmentCounts[deptMeta.slug] = (departmentCounts[deptMeta.slug] || 0) + 1;
+        }
+
+        const courseLessons = getAllLessons(matchedCourse);
+        // Include progress matching either this course slug or the shared workforce training slug
+        const courseProgress = userProgress.filter(
+          (p) => p.courseId === enr.courseId || p.courseId === matchedCourse.slug || p.courseId === WORKFORCE_TRAINING.slug
+        );
+        const progressMap = new Map(courseProgress.map((p) => [p.lessonId, p]));
+
+        const completedCount = courseLessons.filter((l) => progressMap.get(l.id)?.completedAt).length;
+        const cert =
+          userCertificates.find(
+            (c) => c.courseId === enr.courseId || c.courseId === matchedCourse.slug || c.courseId === WORKFORCE_TRAINING.slug
+          ) ?? null;
+        const attempt =
+          userAttempts
+            .filter(
+              (a) => a.courseId === enr.courseId || a.courseId === matchedCourse.slug || a.courseId === WORKFORCE_TRAINING.slug
+            )
+            .sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt))[0] ?? null;
+
+        const percent = courseLessons.length > 0 ? Math.round((completedCount / courseLessons.length) * 100) : 0;
+        const status: 'certified' | 'exam_ready' | 'in_progress' | 'not_started' = cert
+          ? 'certified'
+          : percent === 100
+            ? 'exam_ready'
+            : completedCount > 0
+              ? 'in_progress'
+              : 'not_started';
+
+        return {
+          courseSlug: enr.courseId,
+          courseTitle: deptMeta ? `${deptMeta.title}` : matchedCourse.title,
+          courseCode: deptMeta?.code ?? matchedCourse.code,
+          shortTitle: deptMeta?.shortTitle ?? matchedCourse.shortTitle,
+          enrolledAt: enr.enrolledAt,
+          conditionsAcceptedAt: enr.conditionsAcceptedAt,
+          completedCount,
+          totalLessons: courseLessons.length,
+          percent,
+          status,
+          lessons: courseLessons.map((l) => {
+            const p = progressMap.get(l.id);
+            return {
+              id: l.id,
+              title: l.title,
+              isCompleted: Boolean(p?.completedAt),
+              completedAt: p?.completedAt ?? null,
+              positionSeconds: p?.positionSeconds ?? 0,
+              notes: p?.notes,
+            };
+          }),
+          attempt: attempt
+            ? {
+                status: attempt.status,
+                score: attempt.score,
+                passed: attempt.passed,
+                submittedAt: attempt.submittedAt,
+                reason: attempt.reason,
+              }
+            : null,
+          certificate: cert
+            ? {
+                code: cert.code,
+                score: cert.score,
+                issuedAt: cert.issuedAt,
+              }
+            : null,
+        };
+      });
+
+    // Check shared progress if not enrolled specifically in department yet
+    const sharedProgress = userProgress.filter((p) => p.courseId === WORKFORCE_TRAINING.slug);
+    const sharedCompleted = sharedWorkforceLessons.filter((l) =>
+      sharedProgress.some((p) => p.lessonId === l.id && p.completedAt)
+    ).length;
+
+    let overallStatus: 'certified' | 'exam_ready' | 'in_progress' | 'applied' = 'applied';
+    if (departments.some((d) => d.status === 'certified') || userCertificates.length > 0) {
+      overallStatus = 'certified';
+    } else if (
+      departments.some((d) => d.status === 'exam_ready') ||
+      sharedCompleted === sharedWorkforceLessons.length
+    ) {
+      overallStatus = 'exam_ready';
+    } else if (
+      departments.some((d) => d.status === 'in_progress') ||
+      sharedCompleted > 0 ||
+      userProgress.length > 0
+    ) {
+      overallStatus = 'in_progress';
+    }
+
+    return {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        birthday: user.birthday,
+        address: user.address,
+        avatarPath: user.avatarPath,
+        role: user.role,
+        createdAt: user.createdAt,
+      },
+      departments,
+      totalDepartments: departments.length,
+      overallStatus,
+      latestActivityAt: latestActivity ?? user.createdAt,
+      highestScore,
+    };
+  });
+
+  applicants.sort((a, b) => Date.parse(b.user.createdAt) - Date.parse(a.user.createdAt));
+
+  const totalApplicants = applicants.length;
+  const withDepartments = applicants.filter((a) => a.totalDepartments > 0).length;
+  const inTraining = applicants.filter((a) => a.overallStatus === 'in_progress').length;
+  const examReady = applicants.filter((a) => a.overallStatus === 'exam_ready').length;
+  const certified = applicants.filter((a) => a.overallStatus === 'certified').length;
+
+  return {
+    applicants,
+    summary: {
+      totalApplicants,
+      withDepartments,
+      inTraining,
+      examReady,
+      certified,
+      departmentCounts,
     },
   };
 }

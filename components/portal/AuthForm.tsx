@@ -81,6 +81,11 @@ export function AuthForm({
         throw new Error(data.error || 'Something went wrong. Please try again.');
       }
 
+      if (data.user?.role === 'admin') {
+        window.location.replace('/portal/admin');
+        return;
+      }
+
       if (mode === 'register' || portalType === 'workforce') {
         // Complete a document navigation after the response sets the session
         // cookie so protected portal routes read the new session immediately.
@@ -143,15 +148,15 @@ export function AuthForm({
       <form onSubmit={submit} className="mt-8 space-y-4" noValidate>
         <div>
           <label htmlFor="email" className="mb-1.5 block text-xs text-cream-300">
-            Email address
+            {isStaffPortal ? 'Email address or username' : 'Email address'}
           </label>
           <input
             id="email"
-            type="email"
-            autoComplete="email"
+            type={isStaffPortal ? 'text' : 'email'}
+            autoComplete={isStaffPortal ? 'username' : 'email'}
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            placeholder="you@example.com"
+            placeholder={isStaffPortal ? 'uniquerevivalprayernetwork or email' : 'you@example.com'}
             className="field"
             disabled={loading}
             required

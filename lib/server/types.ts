@@ -112,6 +112,9 @@ export interface AdminWorkerProgress {
     name: string;
     email: string;
     phone: string;
+    birthday?: string;
+    address?: string;
+    avatarPath?: string;
     role: UserRole;
     createdAt: string;
   };
@@ -127,5 +130,69 @@ export interface AdminMonitorData {
     activeEnrolled: number;
     completedTracks: number;
     totalCertificates: number;
+  };
+}
+
+export interface WorkforceApplicantDepartment {
+  courseSlug: string;
+  courseTitle: string;
+  courseCode: string;
+  shortTitle: string;
+  enrolledAt: string;
+  conditionsAcceptedAt: string | null;
+  completedCount: number;
+  totalLessons: number;
+  percent: number;
+  status: 'certified' | 'exam_ready' | 'in_progress' | 'not_started';
+  lessons: Array<{
+    id: string;
+    title: string;
+    isCompleted: boolean;
+    completedAt: string | null;
+    positionSeconds: number;
+    notes?: string;
+  }>;
+  attempt: {
+    status: string;
+    score: number | null;
+    passed: boolean | null;
+    submittedAt: string | null;
+    reason: string | null;
+  } | null;
+  certificate: {
+    code: string;
+    score: number;
+    issuedAt: string;
+  } | null;
+}
+
+export interface WorkforceApplicant {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    birthday?: string;
+    address?: string;
+    avatarPath?: string;
+    role: UserRole;
+    createdAt: string;
+  };
+  departments: WorkforceApplicantDepartment[];
+  totalDepartments: number;
+  overallStatus: 'certified' | 'exam_ready' | 'in_progress' | 'applied';
+  latestActivityAt: string;
+  highestScore: number | null;
+}
+
+export interface AdminWorkforceDashboardData {
+  applicants: WorkforceApplicant[];
+  summary: {
+    totalApplicants: number;
+    withDepartments: number;
+    inTraining: number;
+    examReady: number;
+    certified: number;
+    departmentCounts: Record<string, number>;
   };
 }

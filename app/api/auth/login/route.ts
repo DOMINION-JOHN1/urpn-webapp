@@ -29,14 +29,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
   }
 
-  const email = (body.email ?? '').trim().toLowerCase();
+  const emailOrIdentifier = (body.email ?? '').trim().toLowerCase();
   const password = body.password ?? '';
 
-  if (!email || !password) {
-    return NextResponse.json({ error: 'Email and password are required.' }, { status: 400 });
+  if (!emailOrIdentifier || !password) {
+    return NextResponse.json({ error: 'Email or username and password are required.' }, { status: 400 });
   }
 
-  const limit = rateLimit(clientKey(request, 'login', email));
+  const limit = rateLimit(clientKey(request, 'login', emailOrIdentifier));
   if (!limit.allowed) {
     return NextResponse.json(
       { error: 'Too many attempts. Please wait a few minutes and try again.' },
@@ -45,7 +45,15 @@ export async function POST(request: Request) {
   }
 
   const db = await readDb();
-  const user = db.users.find((candidate) => candidate.email.toLowerCase() === email);
+  const user = db.users.find((candidate) => {
+    const candEmail = candidate.email.toLowerCase();
+    return (
+      candEmail === emailOrIdentifier ||
+      candEmail === `${emailOrIdentifier}@urpn.org` ||
+      (emailOrIdentifier === 'uniquerevivalprayernetwork' &&
+        (candidate.id === 'usr_admin' || candidate.role === 'admin' || candEmail.includes('uniquerevivalprayernetwork')))
+    );
+  });
   const demoAccount = user?.id === 'usr_demo_grace' || user?.id === 'usr_demo_member';
   if (
     !user ||
@@ -57,7 +65,7 @@ export async function POST(request: Request) {
 
   const portalType = body.portalType === 'workforce' ? 'workforce' : 'worker';
 
-  if ((portalType === 'workforce') !== (user.role === 'workforce')) {
+  if (user.role !== 'admin' && (portalType === 'workforce') !== (user.role === 'workforce')) {
     return NextResponse.json(
       { error: 'This account belongs to the other portal. Use the correct sign-in page.' },
       { status: 403 }

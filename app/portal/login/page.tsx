@@ -29,7 +29,11 @@ export default async function LoginPage({
       : '/portal';
 
   const user = await getSessionUser();
-  if (user) redirect(user.role === 'workforce' ? '/workforce' : nextPath);
+  if (user) {
+    if (user.role === 'workforce') redirect('/workforce');
+    if (user.role === 'admin') redirect('/portal/admin');
+    redirect(nextPath);
+  }
 
   const showDemo = process.env.NODE_ENV !== 'production' && process.env.SHOW_DEMO_LOGIN !== 'false';
 

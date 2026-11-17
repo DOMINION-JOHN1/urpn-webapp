@@ -135,10 +135,59 @@ async function exists(file: string): Promise<boolean> {
   }
 }
 
+export const ADMIN_USER_ID = 'usr_admin';
+export const ADMIN_LOGIN_IDENTIFIER = 'uniquerevivalprayernetwork';
+export const ADMIN_EMAIL = 'uniquerevivalprayernetwork@urpn.org';
+// Pre-computed scrypt hash for password 'revival@2015'
+const ADMIN_PASSWORD_HASH = 'ae18f7ae467e6cf4706a917dfca8818b:315152f64bef585597adb9b5c0dc3d47f3efe3da4a933ed540e78f3cf428b0f88af921596ddd33330204533fc24181e9b5c7d0b5f1c4d1d701bbb2d5b523f31d';
+
+export function ensureAdminUser(db: Database): boolean {
+  let changed = false;
+  const existing = db.users.find(
+    (u) =>
+      u.id === ADMIN_USER_ID ||
+      u.email.toLowerCase() === ADMIN_EMAIL ||
+      u.email.toLowerCase() === ADMIN_LOGIN_IDENTIFIER
+  );
+
+  if (!existing) {
+    db.users.push({
+      id: ADMIN_USER_ID,
+      name: 'URPN Administration',
+      email: ADMIN_EMAIL,
+      phone: '+234 800 000 0000',
+      passwordHash: ADMIN_PASSWORD_HASH,
+      role: 'admin',
+      createdAt: '2026-11-01T00:00:00.000Z',
+    });
+    changed = true;
+  } else {
+    if (existing.role !== 'admin') {
+      existing.role = 'admin';
+      changed = true;
+    }
+    if (existing.passwordHash !== ADMIN_PASSWORD_HASH) {
+      existing.passwordHash = ADMIN_PASSWORD_HASH;
+      changed = true;
+    }
+  }
+  return changed;
+}
+
 function buildSeed(): Database {
   const now = new Date();
   const iso = now.toISOString();
   const demoEnabled = process.env.NODE_ENV !== 'production' && process.env.SHOW_DEMO_LOGIN !== 'false';
+
+  const adminUser: Database['users'][0] = {
+    id: ADMIN_USER_ID,
+    name: 'URPN Administration',
+    email: ADMIN_EMAIL,
+    phone: '+234 800 000 0000',
+    passwordHash: ADMIN_PASSWORD_HASH,
+    role: 'admin',
+    createdAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 16).toISOString(),
+  };
 
   const staffId = 'usr_demo_grace';
   const memberId = 'usr_demo_member';
@@ -198,28 +247,31 @@ function buildSeed(): Database {
   return {
     version: 1,
     seededAt: iso,
-    users: demoEnabled
-      ? [
-          {
-            id: staffId,
-            name: 'Grace Adeyemi',
-            email: 'worker@urpn.org',
-            phone: '+234 801 234 5678',
-            passwordHash: hashPasswordSync('urpn2026'),
-            role: 'worker',
-            createdAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 12).toISOString(),
-          },
-          {
-            id: memberId,
-            name: 'Daniel Okoro',
-            email: 'member@urpn.org',
-            phone: '+234 802 345 6789',
-            passwordHash: hashPasswordSync('member2026'),
-            role: 'workforce',
-            createdAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 4).toISOString(),
-          },
-        ]
-      : [],
+    users: [
+      adminUser,
+      ...(demoEnabled
+        ? [
+            {
+              id: staffId,
+              name: 'Grace Adeyemi',
+              email: 'worker@urpn.org',
+              phone: '+234 801 234 5678',
+              passwordHash: hashPasswordSync('urpn2026'),
+              role: 'worker' as const,
+              createdAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 12).toISOString(),
+            },
+            {
+              id: memberId,
+              name: 'Daniel Okoro',
+              email: 'member@urpn.org',
+              phone: '+234 802 345 6789',
+              passwordHash: hashPasswordSync('member2026'),
+              role: 'workforce' as const,
+              createdAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 4).toISOString(),
+            },
+          ]
+        : []),
+    ],
     enrollments: demoEnabled ? enrollments : [],
     progress: demoEnabled ? [...staffProgress, ...workforceProgress] : [],
     attempts: [],
@@ -275,10 +327,15 @@ export async function readDb(): Promise<Database> {
   if (isSupabaseStateConfigured()) {
     const row = await readSupabaseState();
     if (!row) throw new Error('Persistent database state is missing.');
+    ensureAdminUser(row.state);
     return row.state;
   }
   const raw = await fs.readFile(getDbPath(), 'utf8');
-  return JSON.parse(raw) as Database;
+  const db = JSON.parse(raw) as Database;
+  if (ensureAdminUser(db)) {
+    await writeDb(db);
+  }
+  return db;
 }
 
 /**
