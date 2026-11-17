@@ -511,7 +511,7 @@ export function LessonPlayer({
                   Reading
                 </span>
                 <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-cream-500">
-                  {lesson.estimatedMinutes} min read
+                  {lesson.estimatedMinutes > 0 ? `${lesson.estimatedMinutes} min read` : 'Overview'}
                 </span>
               </div>
               <div className="prose-urpn px-5 py-6 sm:px-7 sm:py-8">

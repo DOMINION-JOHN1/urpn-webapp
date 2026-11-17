@@ -882,12 +882,11 @@ const readingLesson = (
 // Facilitators: Martin Ochu, Dominion John, Adama Stephen.
 // ===========================================================================
 
-export const SHARED_WORKFORCE_WEEKS = 6;
+export const SHARED_WORKFORCE_WEEKS = 8;
 
 export const SHARED_WORKFORCE_OUTCOMES = [
   'Explain the URPN mandate, vision, structure, and service units.',
   'Grow in Christian character, spiritual formation, and daily discipline.',
-  'Carry a kingdom mindset into your assignment and sphere of influence.',
   'Serve with excellence, honour, communication, and faithful stewardship.',
 ];
 
@@ -902,23 +901,30 @@ function linkedWorkforceModule(
   lessonId: string,
   title: string,
   resourceUrl: string,
-  week: number
+  week: number,
+  options?: {
+    summary?: string;
+    body?: string[];
+    keyPoints?: string[];
+    resourceLabel?: string;
+  }
 ): CourseModule {
   return {
     id: moduleId,
     title,
     week,
-    summary: '',
+    summary: options?.summary ?? '',
     lessons: [
       {
         id: lessonId,
         title,
         kind: 'reading',
-        summary: '',
+        summary: options?.summary ?? '',
         estimatedMinutes: 0,
         resourceUrl,
-        resourceLabel: title,
-        body: [],
+        resourceLabel: options?.resourceLabel ?? title,
+        body: options?.body ?? [],
+        keyPoints: options?.keyPoints ?? [],
       },
     ],
   };
@@ -927,45 +933,91 @@ function linkedWorkforceModule(
 export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
   linkedWorkforceModule(
     'wt-m1',
-    'wt-kingdom',
-    'Kingdom Conquest',
-    'https://drive.google.com/file/d/11Nzr4vgUFxeGMfsNS9DL0nUzVWIpy99l/view?usp=drive_link',
-    1
+    'wt-excellence',
+    'EXCELLENCE; the culture of the throne',
+    'https://drive.google.com/file/d/1eTIghEPpTcXP59UkQmhQ-uym1Wqk9Z47/view?usp=drive_link',
+    1,
+    {
+      summary:
+        "Teaching on becoming a valuable, value-driven worker; it's a core agenda for URPN as a workforce member, which is a means of kingdom advancement.",
+      body: [
+        'Facilitator: Adama Stephen',
+        "Value: Teaching on becoming a valuable, value-driven worker; it's a core agenda for URPN as a workforce member, which is a means of kingdom advancement.",
+      ],
+      keyPoints: [
+        'The importance of excellent service',
+        'Kingdom advancement through excellence',
+        'Self-sufficiency and proficiency',
+      ],
+    }
   ),
   linkedWorkforceModule(
     'wt-m2',
-    'wt-excellence',
-    'The Culture Of Your Throne',
-    'https://drive.google.com/file/d/1eTIghEPpTcXP59UkQmhQ-uym1Wqk9Z47/view?usp=drive_link',
+    'wt-stewardship-1',
+    'Stewardship I',
+    'https://t.me/AdahVictorAdejoh/985',
     2
   ),
   linkedWorkforceModule(
     'wt-m3',
-    'wt-service',
-    'The Place Of Your Stewardship',
-    'https://drive.google.com/file/d/1zkeZSEAoIyoIWCn_IFErOEqEEerN7vOr/view?usp=drive_link',
+    'wt-stewardship-2',
+    'Stewardship II',
+    'https://t.me/AdahVictorAdejoh/1008',
     3
   ),
   linkedWorkforceModule(
     'wt-m4',
-    'wt-management',
-    'Time Management',
-    'https://drive.google.com/file/d/1zmIrXHm1dw0X_XHBY8G5AaMa_-zF_-lE/view?usp=drive_link',
+    'wt-stewardship-3',
+    'Stewardship III',
+    'https://t.me/AdahVictorAdejoh/1018',
     4
   ),
   linkedWorkforceModule(
     'wt-m5',
-    'wt-communication',
-    'URPN Community Life',
-    'https://drive.google.com/file/d/1ov78XiBhG6jkVDbhH3hMHxB6Jo-O0H2s/view?usp=drive_link',
-    5
+    'wt-management',
+    'Management',
+    'https://drive.google.com/file/d/1zmIrXHm1dw0X_XHBY8G5AaMa_-zF_-lE/view?usp=drive_link',
+    5,
+    {
+      summary: 'Facilitator: Adama Stephen · Time management, critical thinking, and problem-solving.',
+      body: [
+        'Facilitator: Adama Stephen',
+        'Time management, critical thinking, and problem-solving.',
+      ],
+      keyPoints: [
+        'Time management',
+        'Critical thinking and problem-solving',
+      ],
+    }
   ),
   linkedWorkforceModule(
     'wt-m6',
+    'wt-communication',
+    'URPN Community Life',
+    'https://drive.google.com/file/d/1ov78XiBhG6jkVDbhH3hMHxB6Jo-O0H2s/view?usp=drive_link',
+    6
+  ),
+  linkedWorkforceModule(
+    'wt-m7',
     'wt-urpn-focus',
     'URPN IN FOCUS',
     'https://drive.google.com/file/d/1PlFtl8FlaHtSckNl2Z9MT8G10wcCMfgk/view?usp=drive_link',
-    6
+    7
+  ),
+  linkedWorkforceModule(
+    'wt-m8',
+    'wt-christian-character',
+    'Christian Character & Spiritual Formation',
+    'https://t.me/c/1167258724/1902',
+    8,
+    {
+      summary: 'Formation in Christian character, the new life in Christ, and the Fruit of the Spirit in daily living.',
+      body: [
+        'Definition of basic concepts',
+        'The concept of the old and new man',
+        'Fruit of the Spirit for daily living',
+      ],
+    }
   ),
 ];
 
@@ -980,9 +1032,9 @@ export const WORKFORCE_TRAINING: Course = {
   shortTitle: 'Workforce Training',
   icon: 'sparkles',
   track: 'workforce',
-  tagline: 'Six course materials for every worker.',
+  tagline: 'Eight course materials for every worker.',
   description:
-    'The shared curriculum for intending URPN workers across all departments. Study the six linked course materials and complete the certification exam.',
+    'The shared curriculum for intending URPN workers across all departments. Study the eight linked course materials and complete the certification exam.',
   audience: 'Every intending URPN workforce member, across all departments.',
   conditions: [
     'Born again and committed to the vision of URPN.',
