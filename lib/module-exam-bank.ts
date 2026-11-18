@@ -737,11 +737,11 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "He broke the territorial law of intercession by revealing a secret before praying for 40 consecutive days."
         ],
         "answer": 1,
-        "explanation": "Apostle Ada Victor Adjo explicitly teaches in STEWARDSHIP II that posting spiritual experiences or quotes on social media (WhatsApp, Facebook) while one's secret place is starving creates a dangerous spiritual exposure. Your true life and authority are formed in secret communion with God, not in public online visibility. Exposing an unbuilt life without a robust, governing secret altar leaves a worker naked before territorial forces."
+        "explanation": "Apostle Adah Victor Adejoh explicitly teaches in STEWARDSHIP II that posting spiritual experiences or quotes on social media (WhatsApp, Facebook) while one's secret place is starving creates a dangerous spiritual exposure. Your true life and authority are formed in secret communion with God, not in public online visibility. Exposing an unbuilt life without a robust, governing secret altar leaves a worker naked before territorial forces."
     },
     {
         "id": "stewardship-02",
-        "prompt": "Scenario: Sister Miriam, a departmental executive in URPN workforce, states during a leadership retreat: \"I have the Holy Spirit inside me, and Hebrews 1 says God speaks through His Son. Therefore, I do not need any human leader to give me directives or correct my spiritual convictions; I report directly to God.\" Based on Apostle Ada Victor Adjo’s teaching on spiritual balance and hearing God, how should senior leadership evaluate Sister Miriam’s stance?",
+        "prompt": "Scenario: Sister Miriam, a departmental executive in URPN workforce, states during a leadership retreat: \"I have the Holy Spirit inside me, and Hebrews 1 says God speaks through His Son. Therefore, I do not need any human leader to give me directives or correct my spiritual convictions; I report directly to God.\" Based on Apostle Adah Victor Adejoh’s teaching on spiritual balance and hearing God, how should senior leadership evaluate Sister Miriam’s stance?",
         "options": [
             "She is demonstrating the ideal, fully matured Spirit-led maturity required of all endtime kingdom agents.",
             "She has adopted a dangerous spiritual imbalance—rejecting God-ordained human oversight while falsely assuming personal immunity from deception.",
@@ -749,7 +749,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "She should be immediately excommunicated for committing an unpardonable sin against the set man."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP II, Apostle Ada highlights two dangerous generational imbalances: (1) those who feel they hear God alone and don't need human leadership, and (2) those who rely solely on human leaders and never seek God personally. While Hebrews 1 states God speaks by His Son, scripture also establishes that \"the less is blessed of the better.\" Rejecting God-ordained human structure and discipling oversight under the guise of direct hearing leads to self-deception and rebellion."
+        "explanation": "In STEWARDSHIP II, Apostle Adah highlights two dangerous generational imbalances: (1) those who feel they hear God alone and don't need human leadership, and (2) those who rely solely on human leaders and never seek God personally. While Hebrews 1 states God speaks by His Son, scripture also establishes that \"the less is blessed of the better.\" Rejecting God-ordained human structure and discipling oversight under the guise of direct hearing leads to self-deception and rebellion."
     },
     {
         "id": "stewardship-03",
@@ -773,11 +773,11 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "He is correct; any minister who sins after ordination can never be restored to active workforce service."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP II, Apostle Ada explains the contrast in Romans 8 between the Spirit of Bondage (which induces fear and guilt) and the Spirit of Adoption (which brings the revelation of Abba Father). When sin is repented of, God makes no record of it (Isaiah 43:25). If guilt is not biblically processed, Satan leverages it to keep believers in perpetual bondage, stripping them of boldness to serve."
+        "explanation": "In STEWARDSHIP II, Apostle Adah explains the contrast in Romans 8 between the Spirit of Bondage (which induces fear and guilt) and the Spirit of Adoption (which brings the revelation of Abba Father). When sin is repented of, God makes no record of it (Isaiah 43:25). If guilt is not biblically processed, Satan leverages it to keep believers in perpetual bondage, stripping them of boldness to serve."
     },
     {
         "id": "stewardship-05",
-        "prompt": "Scenario: An intercessor receives rapid visual signals and atmospheric shifts during territorial prayer meetings but constantly misinterprets them, leading to false alarms and confusion among team members. What root cause does Apostle Ada Victor Adjo assign to a believer’s inability to accurately decode spiritual witnesses?",
+        "prompt": "Scenario: An intercessor receives rapid visual signals and atmospheric shifts during territorial prayer meetings but constantly misinterprets them, leading to false alarms and confusion among team members. What root cause does Apostle Adah Victor Adejoh assign to a believer’s inability to accurately decode spiritual witnesses?",
         "options": [
             "The Holy Spirit is deliberately giving false signals to test the team's patience.",
             "The intercessor's spirit man lacks the necessary spiritual voltage/energy, caused by inconsistent prayer, insufficient Word intake, and lax consecration.",
@@ -857,7 +857,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "As an acceptable life, provided he paid his tithes regularly."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP II & III, Apostle Ada emphasizes that lifetime is a spiritual currency given by God. Believers are placed on earth to discover, steward, and unveil God's specific glory. Spending decades in routine church attendance without fulfilling one's divine blueprint results in being categorized as an unprofitable servant at the eternal audit (Matthew 25)."
+        "explanation": "In STEWARDSHIP II & III, Apostle Adah emphasizes that lifetime is a spiritual currency given by God. Believers are placed on earth to discover, steward, and unveil God's specific glory. Spending decades in routine church attendance without fulfilling one's divine blueprint results in being categorized as an unprofitable servant at the eternal audit (Matthew 25)."
     },
     {
         "id": "stewardship-12",
@@ -869,7 +869,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "Discipling leaders are strictly forbidden from ever marrying anyone within the ministry."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP II, Apostle Ada shares a solemn warning: \"Don't eat a thing God gives you to keep.\" God gives bread to the eater and seed to the sower. Disciples and workforce members placed under a leader's care are seeds to be nurtured and protected for the Kingdom, not bread to be consumed for personal or fleshly gratification."
+        "explanation": "In STEWARDSHIP II, Apostle Adah shares a solemn warning: \"Don't eat a thing God gives you to keep.\" God gives bread to the eater and seed to the sower. Disciples and workforce members placed under a leader's care are seeds to be nurtured and protected for the Kingdom, not bread to be consumed for personal or fleshly gratification."
     },
     {
         "id": "stewardship-13",
@@ -881,11 +881,11 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "The principle of apostolic commercialization and fee-based mentorship."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP III, Apostle Ada dissects the Parable of the Unjust Steward (Luke 16:1–13). The central lesson Jesus commends is using present authority and resources to impact and elevate others. Faithful impact creates a voice and spiritual reservoir (\"making friends of unrighteous mammon\") that speaks for and supports the steward in future seasons."
+        "explanation": "In STEWARDSHIP III, Apostle Adah dissects the Parable of the Unjust Steward (Luke 16:1–13). The central lesson Jesus commends is using present authority and resources to impact and elevate others. Faithful impact creates a voice and spiritual reservoir (\"making friends of unrighteous mammon\") that speaks for and supports the steward in future seasons."
     },
     {
         "id": "stewardship-14",
-        "prompt": "Scenario: An ordained intercessor assigned to watch over a specific campus community abandons her prayer watch to pursue social media influence and entertainment. During her period of prayerlessness, a wave of cult violence and moral collapse sweeps through the campus. According to Apostle Ada Victor Adjo's teaching on stewardship, what is the intercessor’s spiritual standing regarding this tragedy?",
+        "prompt": "Scenario: An ordained intercessor assigned to watch over a specific campus community abandons her prayer watch to pursue social media influence and entertainment. During her period of prayerlessness, a wave of cult violence and moral collapse sweeps through the campus. According to Apostle Adah Victor Adejoh's teaching on stewardship, what is the intercessor’s spiritual standing regarding this tragedy?",
         "options": [
             "She is entirely blameless because humans possess free will to commit crimes.",
             "She is an unprofitable and wicked steward whose negligence at her assigned gate makes her spiritually accountable for the lives lost.",
@@ -905,7 +905,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "Prophetic grace cannot operate unless money physically touches the prophet's hands."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP II, Apostle Ada explicitly condemns placing price tags on spiritual graces, anointing, or prayers (\"freely you have received, freely give\"). Merchandising divine grace turns kingdom resources into commercial trade, bringing divine judgment upon the minister."
+        "explanation": "In STEWARDSHIP II, Apostle Adah explicitly condemns placing price tags on spiritual graces, anointing, or prayers (\"freely you have received, freely give\"). Merchandising divine grace turns kingdom resources into commercial trade, bringing divine judgment upon the minister."
     },
     {
         "id": "stewardship-16",
@@ -929,7 +929,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "Proper execution of territorial exclusivity doctrines."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP II, Apostle Ada notes that all kingdom assets belong to God, not to individual sub-units or local assemblies. Refusing to support another branch of the Body of Christ out of unit selfishness reveals a failure to understand global kingdom advancement."
+        "explanation": "In STEWARDSHIP II, Apostle Adah notes that all kingdom assets belong to God, not to individual sub-units or local assemblies. Refusing to support another branch of the Body of Christ out of unit selfishness reveals a failure to understand global kingdom advancement."
     },
     {
         "id": "stewardship-18",
@@ -953,11 +953,11 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "Organ failure is proof that the fast was accepted by God."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP II & III, Apostle Ada teaches that true spiritual sufferings must be prescribed by God. Self-designed, extreme asceticism born of personal ambition or spiritual pride is fleshly foolishness, not kingdom temperance, and often results in physical or spiritual destruction."
+        "explanation": "In STEWARDSHIP II & III, Apostle Adah teaches that true spiritual sufferings must be prescribed by God. Self-designed, extreme asceticism born of personal ambition or spiritual pride is fleshly foolishness, not kingdom temperance, and often results in physical or spiritual destruction."
     },
     {
         "id": "stewardship-20",
-        "prompt": "Scenario: Apostle Ada Victor Adjo teaches that every believer carries an internal dimension of divine glory (star, moon, or sun glory), but this glory remains trapped and unmanifested at salvation. What is the precise spiritual mechanism (Apocalypto) by which this hidden glory is unveiled?",
+        "prompt": "Scenario: Apostle Adah Victor Adejoh teaches that every believer carries an internal dimension of divine glory (star, moon, or sun glory), but this glory remains trapped and unmanifested at salvation. What is the precise spiritual mechanism (Apocalypto) by which this hidden glory is unveiled?",
         "options": [
             "Through purchasing specialized anointed oil and cloths from ministry stores.",
             "Through enduring God-prescribed sufferings that break and subdue the veil of flesh, allowing the internal divine content to be disclosed.",
@@ -977,7 +977,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "As proof that consecration is irrelevant to divine destiny."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP II, Apostle Ada contrasts corruptible, vain glory (obtained through compromise and self-promotion) with incorruptible kingdom glory. Compromising consecration to gain earthly fame produces a temporary, vain glory that will be burned at the judgment seat of Christ."
+        "explanation": "In STEWARDSHIP II, Apostle Adah contrasts corruptible, vain glory (obtained through compromise and self-promotion) with incorruptible kingdom glory. Compromising consecration to gain earthly fame produces a temporary, vain glory that will be burned at the judgment seat of Christ."
     },
     {
         "id": "stewardship-22",
@@ -1025,7 +1025,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "Campus prayer records automatically exempt a minister from post-graduation altars."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP III, Apostle Ada warns against relying on obsolete spiritual achievements (\"I prayed 10 hours daily five years ago\"). Altars must be maintained daily. Living on past spiritual glory while present altars lie in ruins leaves a worker powerless against current territorial demands."
+        "explanation": "In STEWARDSHIP III, Apostle Adah warns against relying on obsolete spiritual achievements (\"I prayed 10 hours daily five years ago\"). Altars must be maintained daily. Living on past spiritual glory while present altars lie in ruins leaves a worker powerless against current territorial demands."
     },
     {
         "id": "stewardship-26",
@@ -1077,7 +1077,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
     },
     {
         "id": "stewardship-30",
-        "prompt": "Scenario: A believer publicly posts photos of Apostle Ada Victor Adjo on Instagram, captioning him \"My Father, My Mentor!\" However, he never attends discipling classes, refuses accountability for his personal life, and ignores ministerial corrections. How does URPN classify this type of relationship?",
+        "prompt": "Scenario: A believer publicly posts photos of Apostle Adah Victor Adejoh on Instagram, captioning him \"My Father, My Mentor!\" However, he never attends discipling classes, refuses accountability for his personal life, and ignores ministerial corrections. How does URPN classify this type of relationship?",
         "options": [
             "Authentic covenant sonship operating in modern digital space.",
             "Ghost-sonship—a superficial, deceptive title that provides zero spiritual coverage, discipling alignment, or legitimate fatherhood.",
@@ -1085,7 +1085,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "A valid administrative arrangement where distance eliminates the need for obedience."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP III, Apostle Ada exposes \"ghost-sonship\"—claiming senior ministers as spiritual fathers on social media for status while refusing personal contact, discipling, accountability, and correction. Ghost-sonship yields zero spiritual coverage or legitimate impartation."
+        "explanation": "In STEWARDSHIP III, Apostle Adah exposes \"ghost-sonship\"—claiming senior ministers as spiritual fathers on social media for status while refusing personal contact, discipling, accountability, and correction. Ghost-sonship yields zero spiritual coverage or legitimate impartation."
     },
     {
         "id": "stewardship-31",
@@ -1109,7 +1109,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "Advises him to forge his academic transcripts to protect the ministry's image."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP III, Apostle Ada explicitly rebukes students who fail their academic courses and blame church activities. URPN workforce culture demands discipline: true kingdom agents balance spiritual fervor with academic/secular excellence (e.g., studying 2 hours daily and maintaining prayer altars), refusing to allow church to become an excuse for failure."
+        "explanation": "In STEWARDSHIP III, Apostle Adah explicitly rebukes students who fail their academic courses and blame church activities. URPN workforce culture demands discipline: true kingdom agents balance spiritual fervor with academic/secular excellence (e.g., studying 2 hours daily and maintaining prayer altars), refusing to allow church to become an excuse for failure."
     },
     {
         "id": "stewardship-33",
@@ -1145,7 +1145,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
             "Husband and children are demonic distractions designed to destroy all female destinies."
         ],
         "answer": 1,
-        "explanation": "In STEWARDSHIP III, Apostle Ada addresses workforce members transitioning into marriage and parenthood. Altar sustenance requires intentional grace and discipline across all life seasons. Failing to cultivate deep spiritual capacity before major transitions allows domestic cares to extinguish one's altar fire."
+        "explanation": "In STEWARDSHIP III, Apostle Adah addresses workforce members transitioning into marriage and parenthood. Altar sustenance requires intentional grace and discipline across all life seasons. Failing to cultivate deep spiritual capacity before major transitions allows domestic cares to extinguish one's altar fire."
     },
   ] },
   "wt-m7": { questions: [
@@ -1644,7 +1644,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Scripture establishes that the day you agitate against stagnation and refuse to tolerate limitations, the yoke is broken from off your neck. Passive waiting prolongs captivity."
     },
     {
-      "prompt": "A workforce member routinely promises to execute complex media tasks but fails repeatedly. However, they convince themselves that they are the most dedicated worker in the ministry because they \"have good intentions.\" How does Apostle Ada Victor Adjo (quoted in the teaching) define this psychological condition?",
+      "prompt": "A workforce member routinely promises to execute complex media tasks but fails repeatedly. However, they convince themselves that they are the most dedicated worker in the ministry because they \"have good intentions.\" How does Apostle Adah Victor Adejoh (quoted in the teaching) define this psychological condition?",
       "options": [
         "Holy optimism in the face of operational adversity.",
         "The greatest and most dangerous form of deception: self-deception, where a person lies to themselves and actually believes their own lie.",
@@ -1653,7 +1653,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       ],
       "id": "throne-culture-12",
       "answer": 1,
-      "explanation": "Apostle Ada Victor Adjo teaches that the worst form of deception is self-deception—when an individual lies to themselves about their capacity or commitment and actually believes their own lie."
+      "explanation": "Apostle Adah Victor Adejoh teaches that the worst form of deception is self-deception—when an individual lies to themselves about their capacity or commitment and actually believes their own lie."
     },
     {
       "prompt": "During a 21-local government data processing project cited by Pastor Steven, a critical operational collapse occurred. Work meant for 42 trained personnel fell entirely upon a single competent individual, causing them severe physical exhaustion. What was the root cause of this systemic failure?",
@@ -1740,7 +1740,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       "explanation": "Study is the portal of environmental transcendence. By embedding oneself in quality books and scriptures, a person shuts out localized noise and expands their mental capacity beyond their immediate town."
     },
     {
-      "prompt": "Apostle Ada Victor Adjo is quoted as advocating a rigorous reading habit to build spiritual and intellectual capacity. What vivid illustration is used in the teaching to demonstrate the scale of study required for mastery?",
+      "prompt": "Apostle Adah Victor Adejoh is quoted as advocating a rigorous reading habit to build spiritual and intellectual capacity. What vivid illustration is used in the teaching to demonstrate the scale of study required for mastery?",
       "options": [
         "Memorizing one chapter of scripture per day for thirty consecutive years.",
         "Reading a stack of books on a single specific subject that, when piled together, matches the physical height of the reader.",
@@ -1749,7 +1749,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
       ],
       "id": "throne-culture-20",
       "answer": 1,
-      "explanation": "Apostle Ada Victor Adjo’s reading habit is illustrated by a stack of books on a single topic matching his physical height, demonstrating the extreme diligence needed for spiritual mastery."
+      "explanation": "Apostle Adah Victor Adejoh’s reading habit is illustrated by a stack of books on a single topic matching his physical height, demonstrating the extreme diligence needed for spiritual mastery."
     },
     {
       "prompt": "When studying the biographies of past revivalists in books like God's Generals, what critical wisdom must a growing workforce member extract to safeguard their own life and assignment?",
@@ -1983,7 +1983,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
     },
     {
       "id": "believer-warfare-05",
-      "prompt": "Scenario: A believer claims that salvation is merely an insurance policy for heaven and has no relevance to their current daily lifestyle patterns on earth. Question: How does Apostle Ada Victor Adjo define the relationship between redemption in Christ and Adam's lost template (Romans 8:1–4)?",
+      "prompt": "Scenario: A believer claims that salvation is merely an insurance policy for heaven and has no relevance to their current daily lifestyle patterns on earth. Question: How does Apostle Adah Victor Adejoh define the relationship between redemption in Christ and Adam's lost template (Romans 8:1–4)?",
       "options": [
         "Redemption is strictly a future promise that takes effect after physical death.",
         "Redemption is the restoration of Adam’s original template, enabling believers in Christ to walk after the spirit and not after the flesh.",
@@ -2007,7 +2007,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
     },
     {
       "id": "believer-warfare-07",
-      "prompt": "Scenario: Apostle Ada Victor Adjo shared his personal testimony of giving his life to Christ at Remnant Christian Network (RCN), detailing how he eventually deleted all worldly music from his phone without external compulsion. Question: What spiritual principle does this testimony illustrate regarding the Law of the Spirit of Life?",
+      "prompt": "Scenario: Apostle Adah Victor Adejoh shared his personal testimony of giving his life to Christ at Remnant Christian Network (RCN), detailing how he eventually deleted all worldly music from his phone without external compulsion. Question: What spiritual principle does this testimony illustrate regarding the Law of the Spirit of Life?",
       "options": [
         "Believers should be publicly coerced into destroying personal property.",
         "The colonization of God’s law over a believer’s life is a gradual process that brings every area into obedience as they yield.",
@@ -2163,7 +2163,7 @@ export const MODULE_EXAM_BANKS: Record<string, ExamDefinition> = {
     },
     {
       "id": "believer-warfare-20",
-      "prompt": "Scenario: A young zealot wants to travel to major cities to cast out territorial principalities, but habitually succumbs to secret lust and uncontrolled anger. Question: What warning does Apostle Ada Victor Adjo give regarding territorial warfare and personal flesh mastery?",
+      "prompt": "Scenario: A young zealot wants to travel to major cities to cast out territorial principalities, but habitually succumbs to secret lust and uncontrolled anger. Question: What warning does Apostle Adah Victor Adejoh give regarding territorial warfare and personal flesh mastery?",
       "options": [
         "Territorial principalities only respect believers with university degrees.",
         "You cannot take territories or spheres for God if you have not first mastered the basic warfare of subduing your own flesh.",

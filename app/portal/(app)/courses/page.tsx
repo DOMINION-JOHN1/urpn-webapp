@@ -5,6 +5,7 @@ import { requireUser } from '@/lib/server/auth';
 import { getDashboardData } from '@/lib/server/learning';
 import { hasCompleteProfile } from '@/lib/server/profile';
 import { EnrollButton } from '@/components/portal/EnrollButton';
+import { WorkerWelcomeBanner } from '@/components/portal/WorkerWelcomeBanner';
 import { getCourseDurationLabel, getLessonCount } from '@/lib/courses';
 
 export const dynamic = 'force-dynamic';
@@ -18,6 +19,7 @@ export default async function CoursesPage() {
 
   return (
     <div>
+      {isWorkforce && <WorkerWelcomeBanner />}
       <p className="mono-label text-gold-300">
         {isWorkforce ? 'Workforce training' : 'In-House Leadership Training'}
       </p>

@@ -16,6 +16,7 @@ import { requireUser } from '@/lib/server/auth';
 import { getDashboardData } from '@/lib/server/learning';
 import { TrackCard } from '@/components/portal/TrackCard';
 import { InstallAppButton } from '@/components/InstallAppButton';
+import { WorkerWelcomeBanner } from '@/components/portal/WorkerWelcomeBanner';
 import { formatLessonDuration, isModuleExamUnlocked, lessonKindLabel } from '@/lib/courses';
 
 export const dynamic = 'force-dynamic';
@@ -83,6 +84,7 @@ export default async function PortalDashboardPage() {
 
   return (
     <div>
+      {user.role === 'worker' && <WorkerWelcomeBanner />}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="mono-label text-gold-300">Overview</p>
