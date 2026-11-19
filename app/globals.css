@@ -389,6 +389,44 @@ svg {
   }
 }
 
+@keyframes workforceSignPhotoA {
+  0%, 43% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50%, 93% {
+    opacity: 0;
+    transform: scale(1.035);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes workforceSignPhotoB {
+  0%, 43% {
+    opacity: 0;
+    transform: scale(1.035);
+  }
+  50%, 93% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.035);
+  }
+}
+
+.workforce-sign-frame-a {
+  animation: workforceSignPhotoA 16s ease-in-out infinite;
+}
+
+.workforce-sign-frame-b {
+  animation: workforceSignPhotoB 16s ease-in-out infinite;
+}
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

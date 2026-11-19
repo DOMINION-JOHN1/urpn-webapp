@@ -6,8 +6,8 @@ import { ArrowLeft, Award, Headphones, ShieldCheck } from 'lucide-react';
 import { getSessionUser } from '@/lib/server/auth';
 import { UrpnLogo } from '@/components/UrpnLogo';
 import { AuthForm } from '@/components/portal/AuthForm';
+import { WorkforceSignInVisual } from '@/components/portal/WorkforceSignInVisual';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { WORKFORCE_DEPARTMENTS } from '@/lib/courses';
 
 export const metadata: Metadata = {
   title: 'Workforce Sign In · URPN',
@@ -60,6 +60,10 @@ export default async function WorkforceLoginPage({
           </div>
         </div>
 
+        <div className="mb-8 lg:hidden">
+          <WorkforceSignInVisual compact />
+        </div>
+
         <p className="text-[10.5px] text-cream-600">
           © {new Date().getFullYear()} Unique Revival Prayer Network · Workforce Formation
         </p>
@@ -72,47 +76,18 @@ export default async function WorkforceLoginPage({
         />
 
         <div className="relative">
-          <div className="flex items-center gap-3">
-            <span className="h-px w-6 bg-gold-500/70" />
-            <span className="mono-label text-gold-300">Workforce sign in</span>
-          </div>
-          <h2 className="mt-6 max-w-[15ch] text-[38px] font-semibold leading-[1.06] tracking-[-0.04em] text-cream-50">
-            Continue your formation.
-            <span className="block text-cream-500">Pick up where you left off.</span>
-          </h2>
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream-400">
-            Sign in to continue your lessons and module exams, sit the final certification exam, or access your certificates.
-          </p>
-
-          <div className="mt-8 space-y-px overflow-hidden rounded-xl border border-line bg-line">
-            {WORKFORCE_DEPARTMENTS.map((department, index) => (
-              <div
-                key={department.slug}
-                className="flex items-center justify-between gap-4 bg-surface/80 px-4 py-2.5"
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="font-mono text-[9px] text-cream-600">0{index + 1}</span>
-                  <span className="text-[12.5px] font-medium text-cream-100">
-                    {department.shortTitle} Department
-                  </span>
-                </div>
-                <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-cream-500">
-                  {department.conditions.length} conditions
-                </span>
-              </div>
-            ))}
-          </div>
+          <WorkforceSignInVisual />
         </div>
 
         <div className="relative mt-10">
           <ul className="space-y-2.5 text-[12px] text-cream-400">
             <li className="flex items-center gap-2.5">
               <ShieldCheck className="h-4 w-4 text-accent" aria-hidden="true" />
-              Media · Technical · Ushering · Protocol · Choir · Welfare · Children
+              One shared training journey across departments
             </li>
             <li className="flex items-center gap-2.5">
               <Headphones className="h-4 w-4 text-accent" aria-hidden="true" />
-              Stream audio lessons inside your browser
+              Audio lessons and module exams in your browser
             </li>
             <li className="flex items-center gap-2.5">
               <Award className="h-4 w-4 text-gold-400" aria-hidden="true" />
