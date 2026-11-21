@@ -32,7 +32,7 @@ describe('URPN training catalogue', () => {
     expect(WORKFORCE_TRAINING.modules.length).toBeGreaterThan(0);
   });
 
-  it('exposes sixteen lightweight departments that only carry join requirements', () => {
+  it('exposes fifteen lightweight departments that only carry join requirements', () => {
     expect(WORKFORCE_DEPARTMENTS.map((department) => department.slug)).toEqual([
       'aesthetics',
       'pr',
@@ -42,7 +42,6 @@ describe('URPN training catalogue', () => {
       'media',
       'choir',
       'welfare',
-      'prayer',
       'counseling',
       'transport',
       'medical',

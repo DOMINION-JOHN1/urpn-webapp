@@ -86,6 +86,7 @@ export interface Database {
 
 export interface AdminWorkerEnrollment {
   courseSlug: string;
+  departmentSlug?: string;
   courseTitle: string;
   courseCode: string;
   track: string;

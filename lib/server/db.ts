@@ -174,6 +174,18 @@ export function ensureAdminUser(db: Database): boolean {
   return changed;
 }
 
+/** Move existing applicants away from the retired Prayer department. */
+function migratePrayerDepartmentApplications(db: Database): boolean {
+  let changed = false;
+  for (const enrollment of db.enrollments) {
+    if (enrollment.departmentSlug === 'prayer' || enrollment.courseId === 'prayer') {
+      enrollment.departmentSlug = 'ushering';
+      changed = true;
+    }
+  }
+  return changed;
+}
+
 function buildSeed(): Database {
   const now = new Date();
   const iso = now.toISOString();
@@ -325,14 +337,23 @@ async function ensureSeeded(): Promise<void> {
 export async function readDb(): Promise<Database> {
   await ensureSeeded();
   if (isSupabaseStateConfigured()) {
-    const row = await readSupabaseState();
-    if (!row) throw new Error('Persistent database state is missing.');
-    ensureAdminUser(row.state);
-    return row.state;
+    for (let attempt = 0; attempt < 8; attempt += 1) {
+      const row = await readSupabaseState();
+      if (!row) throw new Error('Persistent database state is missing.');
+
+      const adminChanged = ensureAdminUser(row.state);
+      const departmentsChanged = migratePrayerDepartmentApplications(row.state);
+      if (!adminChanged && !departmentsChanged) return row.state;
+      if (await commitSupabaseState(row.state, row.revision)) return row.state;
+    }
+
+    throw new Error('Persistent database update conflicted too many times.');
   }
   const raw = await fs.readFile(getDbPath(), 'utf8');
   const db = JSON.parse(raw) as Database;
-  if (ensureAdminUser(db)) {
+  const adminChanged = ensureAdminUser(db);
+  const departmentsChanged = migratePrayerDepartmentApplications(db);
+  if (adminChanged || departmentsChanged) {
     await writeDb(db);
   }
   return db;

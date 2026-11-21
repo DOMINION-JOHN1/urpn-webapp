@@ -1007,6 +1007,7 @@ export async function getAdminProgressData(): Promise<AdminMonitorData> {
 
     const enrollmentDetails: AdminWorkerEnrollment[] = userEnrollments.map((enr) => {
       const course = ALL_COURSES.find((c) => c.slug === enr.courseId);
+      const department = WORKFORCE_DEPARTMENTS.find((entry) => entry.slug === enr.departmentSlug);
       const allLessons = course ? getAllLessons(course) : [];
       const courseProgress = userProgress.filter((p) => p.courseId === enr.courseId);
       const progressMap = new Map(courseProgress.map((p) => [p.lessonId, p]));
@@ -1044,8 +1045,13 @@ export async function getAdminProgressData(): Promise<AdminMonitorData> {
 
       return {
         courseSlug: enr.courseId,
-        courseTitle: course?.title ?? enr.courseId,
-        courseCode: course?.code ?? '',
+        departmentSlug: department?.slug,
+        courseTitle: department?.title ?? (enr.courseId === WORKFORCE_TRAINING.slug
+          ? 'Department not selected'
+          : course?.title ?? enr.courseId),
+        courseCode: department?.code ?? (enr.courseId === WORKFORCE_TRAINING.slug
+          ? ''
+          : course?.code ?? ''),
         track: course?.track ?? 'workforce',
         enrolledAt: enr.enrolledAt,
         conditionsAcceptedAt: enr.conditionsAcceptedAt,
@@ -1131,7 +1137,9 @@ export async function getAdminWorkforceData(): Promise<AdminWorkforceDashboardDa
         (e) =>
           e.userId === u.id &&
           (e.courseId === WORKFORCE_TRAINING.slug ||
-            WORKFORCE_DEPARTMENTS.some((dept) => dept.slug === e.courseId))
+            WORKFORCE_DEPARTMENTS.some(
+              (dept) => dept.slug === e.departmentSlug || dept.slug === e.courseId
+            ))
       )
   );
 
@@ -1179,14 +1187,13 @@ export async function getAdminWorkforceData(): Promise<AdminWorkforceDashboardDa
         return (
           enr.courseId === WORKFORCE_TRAINING.slug ||
           WORKFORCE_DEPARTMENTS.some((dept) => dept.slug === enr.courseId) ||
+          WORKFORCE_DEPARTMENTS.some((dept) => dept.slug === enr.departmentSlug) ||
           ALL_COURSES.some((c) => c.slug === enr.courseId)
         );
       })
       .map((enr) => {
         const isSharedWorkforceEnrollment = enr.courseId === WORKFORCE_TRAINING.slug;
-        const deptSlug = isSharedWorkforceEnrollment
-          ? enr.departmentSlug
-          : enr.courseId;
+        const deptSlug = enr.departmentSlug ?? (isSharedWorkforceEnrollment ? undefined : enr.courseId);
         const deptMeta = WORKFORCE_DEPARTMENTS.find((d) => d.slug === deptSlug);
         const matchedCourse = ALL_COURSES.find((c) => c.slug === enr.courseId) ?? WORKFORCE_TRAINING;
 

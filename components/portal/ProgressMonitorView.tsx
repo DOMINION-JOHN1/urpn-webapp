@@ -18,6 +18,7 @@ import {
   Sparkles,
   Users,
 } from 'lucide-react';
+import { WORKFORCE_DEPARTMENTS } from '@/lib/courses';
 import type { AdminMonitorData, AdminWorkerProgress } from '@/lib/server/types';
 
 interface Props {
@@ -62,7 +63,7 @@ export function ProgressMonitorView({ data }: Props) {
       // Department filter
       if (departmentFilter !== 'all') {
         const hasDept = worker.enrollments.some(
-          (e) => e.courseSlug === departmentFilter
+          (e) => e.departmentSlug === departmentFilter || e.courseSlug === departmentFilter
         );
         if (!hasDept) return false;
       }
@@ -221,22 +222,11 @@ export function ProgressMonitorView({ data }: Props) {
               className="rounded-xl border border-line bg-canvas/60 px-3 py-2.5 text-xs text-cream-200 focus:border-accent focus:outline-none"
             >
               <option value="all">All Tracks & Departments</option>
-              <option value="aesthetics">Aesthetics</option>
-              <option value="pr">Public Relations</option>
-              <option value="protocol">Protocol</option>
-              <option value="ushering">Ushering</option>
-              <option value="technical">Technical</option>
-              <option value="media">Media</option>
-              <option value="choir">Choir / Worship</option>
-              <option value="welfare">Welfare & Hospitality</option>
-              <option value="prayer">Prayer</option>
-              <option value="counseling">Counseling</option>
-              <option value="transport">Transport</option>
-              <option value="medical">Medical (Medics)</option>
-              <option value="security">Security</option>
-              <option value="children">Children/Teens</option>
-              <option value="publications">Publications & Academic</option>
-              <option value="drama">Drama & Demonstration</option>
+              {WORKFORCE_DEPARTMENTS.map((department) => (
+                <option key={department.slug} value={department.slug}>
+                  {department.shortTitle}
+                </option>
+              ))}
               <option value="ministers">Ministers Training</option>
               <option value="pastors">Pastors Training</option>
             </select>
@@ -326,7 +316,9 @@ export function ProgressMonitorView({ data }: Props) {
                       <div className="text-left sm:text-right min-w-[140px]">
                         <div className="flex items-center justify-between sm:justify-end gap-2">
                           <span className="font-medium text-cream-200 text-xs">
-                            {primaryEnrollment.courseCode} · {primaryEnrollment.courseTitle}
+                            {primaryEnrollment.courseCode
+                              ? `${primaryEnrollment.courseCode} · ${primaryEnrollment.courseTitle}`
+                              : primaryEnrollment.courseTitle}
                           </span>
                           <span className="font-mono text-[10px] text-gold-400 font-semibold">
                             {primaryEnrollment.percent}%
@@ -387,7 +379,9 @@ export function ProgressMonitorView({ data }: Props) {
                             <div>
                               <h4 className="text-sm font-semibold text-cream-100 flex items-center gap-2">
                                 <span>{enr.courseTitle}</span>
-                                <span className="font-mono text-xs text-gold-400">({enr.courseCode})</span>
+                                {enr.courseCode && (
+                                  <span className="font-mono text-xs text-gold-400">({enr.courseCode})</span>
+                                )}
                               </h4>
                               <p className="mt-0.5 text-xs text-cream-500">
                                 Enrolled: {formatDate(enr.enrolledAt)}
