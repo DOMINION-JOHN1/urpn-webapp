@@ -215,8 +215,8 @@ export async function isEnrolled(userId: string, courseSlug: string): Promise<bo
 }
 
 /**
- * Sequential progression: Lesson 0 is always unlocked.
- * Any subsequent lesson is unlocked IF AND ONLY IF all preceding lessons are completed.
+ * Lesson 0 is always unlocked. Later lessons require all preceding lessons and
+ * any exams from earlier modules to be complete.
  */
 export function isLessonUnlocked(
   course: Course,

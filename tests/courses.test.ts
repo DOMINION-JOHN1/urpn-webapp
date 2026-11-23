@@ -147,13 +147,13 @@ describe('URPN training catalogue', () => {
     expect(formatLessonDuration(lesson)).toMatch(/sec|min/);
   });
 
-  it('strictly enforces sequential lesson progression and locking', () => {
+  it('requires earlier lessons and module exams before unlocking later lessons', () => {
     const course = getCourse('workforce-training')!;
-    const lessons = getAllLessons(course);
-    expect(lessons.length).toBeGreaterThan(1);
-
-    const lesson0 = lessons[0].id;
-    const lesson1 = lessons[1].id;
+    const firstModule = course.modules[0];
+    const secondModule = course.modules[1];
+    const lesson0 = firstModule.lessons[0].id;
+    const lesson1 = secondModule.lessons[0].id;
+    expect(course.modules.length).toBeGreaterThan(1);
 
     // Lesson 0 is always unlocked
     expect(isLessonUnlocked(course, [], lesson0)).toBe(true);
@@ -161,13 +161,15 @@ describe('URPN training catalogue', () => {
     // Lesson 1 is locked when lesson 0 is not completed
     expect(isLessonUnlocked(course, [], lesson1)).toBe(false);
 
-    // Lesson 1 unlocks once lesson 0 is marked complete
-    expect(isLessonUnlocked(course, [lesson0], lesson1)).toBe(true);
+    // Lesson 1 stays locked until the previous module exam is passed.
+    expect(isLessonUnlocked(course, [lesson0], lesson1)).toBe(false);
+    expect(isLessonUnlocked(course, [lesson0], lesson1, [firstModule.id])).toBe(true);
 
     // getFirstUnlockedIncompleteLesson returns lesson 0 when no progress
     expect(getFirstUnlockedIncompleteLesson(course, [])?.id).toBe(lesson0);
 
-    // getFirstUnlockedIncompleteLesson returns lesson 1 when lesson 0 is complete
-    expect(getFirstUnlockedIncompleteLesson(course, [lesson0])?.id).toBe(lesson1);
+    // Completing lesson 0 alone keeps lesson 1 locked behind its module exam.
+    expect(getFirstUnlockedIncompleteLesson(course, [lesson0])).toBeNull();
+    expect(getFirstUnlockedIncompleteLesson(course, [lesson0], [firstModule.id])?.id).toBe(lesson1);
   });
 });
