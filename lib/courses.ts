@@ -951,7 +951,7 @@ export const SHARED_WORKFORCE_MODULES: CourseModule[] = [
     'wt-m8',
     'wt-christian-character',
     'Christian Character & Spiritual Formation',
-    'https://t.me/c/1167258724/1902',
+    'https://t.me/AdahVictorAdejoh/1185',
     2,
     {
       summary: 'Formation in Christian character, the new life in Christ, and the Fruit of the Spirit in daily living.',
